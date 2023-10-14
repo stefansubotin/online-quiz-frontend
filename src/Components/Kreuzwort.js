@@ -31,7 +31,7 @@ class Kreuzwort extends Component {
                 console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
                     console.log(1)
-                    line.push(<div style={{ width: '100px', visibility: 'hidden' }}>S</div>);
+                    line.push(<span style={{ width: '100px', visibility: 'hidden' }}>S</span>);
                 }
                 else {
                     console.log(2)
