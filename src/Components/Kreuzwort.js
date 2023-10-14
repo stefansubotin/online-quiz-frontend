@@ -4,6 +4,7 @@ class Kreuzwort extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            init: false,
             room: props.room,
             user: props.user,
             leader: props.leader,
@@ -25,7 +26,7 @@ class Kreuzwort extends Component {
         for (let i = 1; i <= data.count; i++) {
             let line = [];
             let dataLine = data.lines[i];
-            for (let j = 1; j <= dataLine.length; j++) {
+            for (let j = 1; j <= data.size; j++) {
                 if (j < dataLine.start || j >= dataLine.start + dataLine.length) line.push(<div style="width:100px" />);
                 else {
                     let name = i + '_' + j;
@@ -51,6 +52,7 @@ class Kreuzwort extends Component {
         let newLines = this.state.lines;
         newLines[eventIdArray[0]][eventIdArray[1]] = event.target.value;
         this.setState({
+            init: this.state.init,
             room: this.state.room,
             user: this.state.user,
             leader: this.state.leader,
@@ -72,6 +74,7 @@ class Kreuzwort extends Component {
         let newLines = this.state.lines;
         newLines[message.data.i][message.data.j] = message.data.val;
         this.setState({
+            init: this.state.init,
             room: this.state.room,
             user: this.state.user,
             leader: this.state.leader,
@@ -80,11 +83,34 @@ class Kreuzwort extends Component {
         });
     }
 
+    static getDerivedStateFromProps(props, state){
+        if (state.init) return;
+
+        let lines= [];
+        let data = JSON.parse(this.state.data);
+        for (let i = 1; i <= data.count; i++) {
+            let line = [];
+            for (let j = 1; j <= data.size; j++) {
+                line.push('');
+            }
+            lines.push(line);
+        }
+
+        this.setState({
+            init: true,
+            room: state.room,
+            user: state.user,
+            leader: state.leader,
+            data: state.data,
+            lines: lines
+        });
+    }
+
     async componentDidMount() {
         const ably = await this.getAbly();
         const channelId = 'kreuzwort' + this.state.room;
         const channel = ably.channels.get(channelId);
-        await channel.subscribe('start' + this.state.user, (message) => this.onStart(message));
+        await channel.subscribe('update' + this.state.user, (message) => this.onStart(message));
     }
 
     render() {
