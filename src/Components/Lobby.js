@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import fetch from 'node-fetch';
 
 class Lobby extends Component {
-    async onStartKreuzwort() {
-        const body = { 
-            type: 1
-         };
+    // async onStartKreuzwort() {
+    //     const body = { 
+    //         type: 1
+    //      };
 
-        const response = await fetch('https://****/kreuzwort', {
-            method: 'post',
-            body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
+    //     const response = await fetch('https://****/kreuzwort', {
+    //         method: 'post',
+    //         body: JSON.stringify(body),
+    //         headers: { 'Content-Type': 'application/json' }
+    //     });
+    // }
 
     async onTestClick(){
         const Ably = require('ably');
