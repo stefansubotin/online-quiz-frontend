@@ -12,7 +12,7 @@ class Kreuzwort extends Component {
             lines: []
         }
     }
-    
+
     async getAbly() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -20,21 +20,27 @@ class Kreuzwort extends Component {
         return ably;
     }
 
-    getQuiz(){
+    getQuiz() {
         let data = JSON.parse(this.state.data);
         let quiz = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
             console.log(data.lines[i]);
             for (let j = 0; j < data.size; j++) {
-                if (j+1 < data.lines[i].start || j+1 >= data.lines[i].start + data.lines[i].length) line.push(<div style={{width:'100px'}} />);
+                console.log("j+1 < data.lines[i].start || j+1 >= data.lines[i].start + data.lines[i].length:");
+                console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
+                if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
+                    console.log(1)
+                    line.push(<div style={{ width: '100px' }} />);
+                }
                 else {
+                    console.log(2)
                     let name = i + '_' + j;
-                    if (data.user == this.state.user){
-                        line.push(<input type='text' name={name} maxLength={1} style={{width:'100px'}} value={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)}/>);
+                    if (data.lines[i].user == this.state.user) {
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px' }} value={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<input type='text' name={name} maxLength={1} style={{width:'100px'}} value={this.state.lines[i][j]} readOnly={true}/>);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px' }} value={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
@@ -43,7 +49,7 @@ class Kreuzwort extends Component {
         return quiz;
     }
 
-    async onChangeLine(event){
+    async onChangeLine(event) {
         const ably = await this.getAbly();
         const channelId = 'kreuzwort' + this.state.room;
         const channel = ably.channels.get(channelId);
@@ -83,10 +89,10 @@ class Kreuzwort extends Component {
         });
     }
 
-    static getDerivedStateFromProps(props, state){
+    static getDerivedStateFromProps(props, state) {
         if (state.init) return;
 
-        let lines= [];
+        let lines = [];
         let data = JSON.parse(state.data);
         console.log(data);
         for (let i = 1; i <= data.count; i++) {
