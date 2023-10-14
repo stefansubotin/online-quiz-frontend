@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pusher from 'pusher';
 
 class Room extends Component {
     constructor(props) {
@@ -23,7 +24,13 @@ class Room extends Component {
     }
 
     async componentDidMount(){
-        
+        let pusher = new Pusher('cefecd31795a4e419288', {
+            cluster: 'eu'
+        });
+        let channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
     }
 
     render(){
