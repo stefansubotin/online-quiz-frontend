@@ -69,9 +69,9 @@ class Room extends Component {
                 user: this.state.user,
                 leader: this.state.leader,
                 game: this.state.game,
-                users: newUsers,
+                users: this.state.users.concat([message.data.user]),
                 data: this.state.data,
-                currentComponent: this.state.component
+                currentComponent: this.state.currentComponent
             });
             console.log(message.data);
             console.log(this.state);
