@@ -91,7 +91,7 @@ class Room extends Component {
             leader: props.leader,
             game: state.game,
             users: state.users.push(props.user),
-            data: this.state.data,
+            data: state.data,
             currentComponent: state.currentComponent
         }
     }
