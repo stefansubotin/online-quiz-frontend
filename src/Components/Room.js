@@ -7,12 +7,12 @@ class Room extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: '',
-            user: '',
-            leader: false,
+            room: props.room,
+            user: props.user,
+            leader: props.leader,
             game: '',
-            users: "",
-            userCount: 0,
+            users: props.user,
+            userCount: 1,
             data: {},
             currentComponent: 'lobby'
         }
@@ -118,20 +118,6 @@ class Room extends Component {
         return component;
     }
 
-    static getDerivedStateFromProps(props, state) {
-
-        return {
-            room: props.room,
-            user: props.user,
-            leader: props.leader,
-            game: state.game,
-            users: props.user,
-            userCount: 1,
-            data: state.data,
-            currentComponent: state.currentComponent
-        }
-    }
-
     async componentDidMount() {
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
@@ -147,10 +133,6 @@ class Room extends Component {
                 user: this.state.user
             });
         }
-    }
-
-    getSnapshotBeforeUpdate(prevProps, prevState){
-        this.setState(prevState);
     }
 
     render() {
