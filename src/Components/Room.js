@@ -70,16 +70,7 @@ class Room extends Component {
         });
         ably.close();
         
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            leader: this.state.leader,
-            game: this.state.game,
-            users: 'test',
-            userCount: c,
-            data: this.state.data,
-            currentComponent: this.state.currentComponent
-        }, function() { console.log(this.state) });
+        this.setStatus(newUsers);
         console.log(this.state);
     }
     async onJoinRes(message) {
@@ -94,17 +85,21 @@ class Room extends Component {
         channel.unsubscribe('join-res');
         ably.close();
         
+        this.setStatus(newUsers);
+        console.log(this.state);
+    }
+
+    setStatus(test){
         this.setState({
             room: this.state.room,
             user: this.state.user,
             leader: this.state.leader,
             game: this.state.game,
-            users: newUsers,
+            users: test,
             userCount: c,
             data: this.state.data,
             currentComponent: this.state.currentComponent
         });
-        console.log(this.state);
     }
 
     getComponent() {
