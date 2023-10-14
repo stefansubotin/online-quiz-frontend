@@ -135,7 +135,7 @@ class Room extends Component {
             user: props.user,
             leader: props.leader,
             game: state.game,
-            users: [props.user],
+            users: props.user,
             data: state.data,
             currentComponent: state.currentComponent
         }
@@ -149,6 +149,7 @@ class Room extends Component {
         await channel.subscribe('join', (message) => this.onJoin(message));
 
         if (!this.state.leader) {
+            console.log('not leader');
             await channel.subscribe('join-res', (message) => this.onJoinRes(message));
             channel.publish('join', {
                 type: 'join',
