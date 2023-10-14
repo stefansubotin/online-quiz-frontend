@@ -81,8 +81,10 @@ class Room extends Component {
         }
         return component;
     }
+
     getUsers() {
         let users = this.state.users.join(', ');
+        return users;
     }
 
     static getDerivedStateFromProps(props, state) {
