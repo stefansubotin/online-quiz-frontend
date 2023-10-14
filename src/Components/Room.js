@@ -123,11 +123,6 @@ class Room extends Component {
         return component;
     }
 
-    getUsers() {
-        let users = this.state.users;
-        return users;
-    }
-
     static getDerivedStateFromProps(props, state) {
 
         return {
@@ -163,7 +158,7 @@ class Room extends Component {
         return (
             <div>
                 <div>{this.getComponent()}</div><br />
-                <div>{this.getUsers()}</div>
+                <div>{this.state.users}</div>
                 <Chat />
             </div>
         );
