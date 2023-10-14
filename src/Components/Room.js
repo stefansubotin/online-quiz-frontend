@@ -120,7 +120,7 @@ class Room extends Component {
     }
 
     getUsers() {
-        let users = this.state.users.join(', ');
+        let users = this.state.users;
         return users;
     }
 
