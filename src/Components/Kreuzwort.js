@@ -26,6 +26,7 @@ class Kreuzwort extends Component {
         for (let i = 0; i < data.count; i++) {
             let line = [];
             console.log(data.lines[i]);
+            line.push(<span>{i}. Frage:</span>)
             for (let j = 0; j < data.size; j++) {
                 let color = 'white';
                 if (j + 1 == data.msp) color = 'coral';
