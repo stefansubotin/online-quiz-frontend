@@ -63,7 +63,7 @@ class Room extends Component {
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = ably.channels.get(channelId);
-        channel.publish('join-res', JSON.stringify({
+        await channel.publish('join-res', JSON.stringify({
             user: this.state.users,
             userCount: this.state.userCount
         }));
