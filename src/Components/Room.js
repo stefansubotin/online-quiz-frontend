@@ -11,7 +11,8 @@ class Room extends Component {
             user: '',
             leader: false,
             game: '',
-            users: [''],
+            users: '',
+            userCount: 0,
             data: {},
             currentComponent: 'lobby'
         }
@@ -53,29 +54,52 @@ class Room extends Component {
 
     }
 
-    async onJoin(message) {      
-        if (message.data.type == 'join') {
-            console.log(this.state.users)
-            let newState = this.state;
-            let newUsers = newState.users;
-            console.log(newUsers);
-            newUsers.push(message.data.user);
-            console.log(newUsers);
-            console.log(newState);
-            newState.users = newUsers;
-            console.log(newState);
-            this.setState({
-                room: this.state.room,
-                user: this.state.user,
-                leader: this.state.leader,
-                game: this.state.game,
-                users: this.state.users.concat([message.data.user]),
-                data: this.state.data,
-                currentComponent: this.state.currentComponent
-            });
-            console.log(message.data);
-            console.log(this.state);
-        }
+    async onJoin(message) {
+        if (message.data.user == this.state.user) return;
+        
+        let newUsers = this.state.users + ',' + message.data.user;
+        let c = this.state.userCount + 1;
+        
+        const ably = await this.getAbly();
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
+        channel.publish('join-res', {
+            user: this.state.users,
+            userCount: this.state.userCount
+        });
+        ably.close();
+        
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            game: this.state.game,
+            users: newUsers,
+            userCount: c,
+            data: this.state.data,
+            currentComponent: this.state.currentComponent
+        });
+    }
+    async onJoinRes(message) {
+        let newUsers = message.data.user + ',' + this.state.users;
+        let c = this.state.userCount + message.data.userCount;
+        
+        const ably = await this.getAbly();
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
+        channel.unsubscribe('join-res');
+        ably.close();
+        
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            game: this.state.game,
+            users: newUsers,
+            userCount: c,
+            data: this.state.data,
+            currentComponent: this.state.currentComponent
+        });
     }
 
     getComponent() {
@@ -100,7 +124,7 @@ class Room extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        
+
         return {
             room: props.room,
             user: props.user,
@@ -119,7 +143,8 @@ class Room extends Component {
         await channel.subscribe('start', (message) => this.onStart(message));
         await channel.subscribe('join', (message) => this.onJoin(message));
 
-        if (!this.state.leader){
+        if (!this.state.leader) {
+            await channel.subscribe('join-res', (message) => this.onJoinRes(message));
             channel.publish('join', {
                 type: 'join',
                 user: this.state.user
@@ -130,7 +155,7 @@ class Room extends Component {
     render() {
         return (
             <div>
-                <div>{ this.getComponent() }</div><br/>
+                <div>{this.getComponent()}</div><br />
                 <div>{this.getUsers()}</div>
                 <Chat />
             </div>
