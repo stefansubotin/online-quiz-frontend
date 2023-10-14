@@ -53,7 +53,7 @@ class Kreuzwort extends Component {
     }
 
     getQuizTable() {
-        let q = getQuiz();
+        let q = this.getQuiz();
         return (
             <table>
                 <tbody>
