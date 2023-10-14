@@ -89,13 +89,13 @@ class Room extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        let newUsers = [{ user: props.user }];
+        
         return {
             room: props.room,
             user: props.user,
             leader: props.leader,
             game: state.game,
-            users: newUsers,
+            users: [{user: props.user}],
             data: state.data,
             currentComponent: state.currentComponent
         }
