@@ -70,6 +70,7 @@ class Room extends Component {
                 data: this.state.data,
                 currentComponent: this.state.currentComponent
             });
+            console.log(message.data);
         }
     }
 
