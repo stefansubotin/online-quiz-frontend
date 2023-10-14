@@ -40,7 +40,7 @@ class Kreuzwort extends Component {
                         line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px' }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px' }} value={this.state.lines[i][j]} readOnly={true} />);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px' }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
@@ -76,6 +76,7 @@ class Kreuzwort extends Component {
     }
 
     async onUpdate(message) {
+        console.log(message.data)
         if (message.data.user == this.state.user) return;
         let newLines = this.state.lines;
         newLines[message.data.i][message.data.j] = message.data.val;
