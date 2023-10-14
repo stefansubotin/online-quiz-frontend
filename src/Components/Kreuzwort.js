@@ -33,16 +33,16 @@ class Kreuzwort extends Component {
                 console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
                     console.log(1)
-                    line.push(<span style={{ minWidth: '50px', visibility: 'hidden' }}>S</span>);
+                    line.push(<span style={{ width: '10px', visibility: 'hidden' }}>MI</span>);
                 }
                 else {
                     console.log(2)
                     let name = i + '_' + j;
                     if (data.lines[i].user == this.state.user) {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ minWidth: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ minWidth: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
