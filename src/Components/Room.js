@@ -57,7 +57,7 @@ class Room extends Component {
         if (message.data.type == 'join') {
             console.log(this.state.users)
             let newState = this.state;
-            newState['users'].push({user: message.data.user});
+            newState.users.push(message.data.user);
             this.setState(newState);
             console.log(message.data);
             console.log(this.state);
@@ -80,12 +80,7 @@ class Room extends Component {
         return component;
     }
     getUsers() {
-        let users = this.state.users[0];
-        if (this.state.users.length)
-        for (let i = 1; i < this.state.users.length; i++) {
-            users += ', ' + this.state.users[i];
-        }
-        return users;
+        let users = this.state.users.join(', ');
     }
 
     static getDerivedStateFromProps(props, state) {
