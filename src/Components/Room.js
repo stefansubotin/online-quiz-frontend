@@ -11,7 +11,7 @@ class Room extends Component {
             user: props.user,
             leader: props.leader,
             game: '',
-            users: props.user,
+            users: [props.user],
             userCount: 1,
             data: {},
             currentComponent: 'lobby'
@@ -57,7 +57,8 @@ class Room extends Component {
         console.log(message.data);
         if (message.data.user == this.state.user) return;
 
-        const newUsers = this.state.users + ',' + message.data.user;
+        let newUsers = this.state.users;
+        newUsers = newUsers.concat([message.data.user]);
         const c = this.state.userCount + 1;
         
         console.log(newUsers);
@@ -65,7 +66,7 @@ class Room extends Component {
         const channelId = 'room' + this.state.room;
         const channel = ably.channels.get(channelId);
         await channel.publish('join-res', {
-            user: this.state.users,
+            users: this.state.users,
             userCount: this.state.userCount
         });
         ably.close();
@@ -76,7 +77,8 @@ class Room extends Component {
     async onJoinRes(message) {
         console.log(message.data);
         const data = message.data;
-        const newUsers = data.user + ',' + this.state.users;
+        let newUsers = message.data.users
+        newUsers = newUsers.concat([this.state.user]);
         const c = this.state.userCount + data.userCount;
         
         const ably = await this.getAbly();
@@ -118,6 +120,10 @@ class Room extends Component {
         return component;
     }
 
+    getUsers() {
+        return this.state.users.join(', ');
+    }
+
     async componentDidMount() {
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
@@ -129,7 +135,6 @@ class Room extends Component {
             console.log('not leader');
             await channel.subscribe('join-res', (message) => this.onJoinRes(message));
             channel.publish('join', {
-                type: 'join',
                 user: this.state.user
             });
         }
@@ -139,7 +144,7 @@ class Room extends Component {
         return (
             <div>
                 <div>{this.getComponent()}</div><br />
-                <div>{this.state.users}</div>
+                <div>{this.getUsers()}</div>
                 <Chat />
             </div>
         );
