@@ -21,39 +21,10 @@ class Kreuzwort extends Component {
     }
 
     getQuiz() {
-        // let data = JSON.parse(this.state.data);
-        // let quiz = [];
-        // for (let i = 0; i < data.count; i++) {
-        //     let line = [];
-        //     console.log(data.lines[i]);
-        //     for (let j = 0; j < data.size; j++) {
-        //         let color = 'white';
-        //         if (j + 1 == data.msp) color = 'coral';
-        //         console.log("j+1 < data.lines[i].start || j+1 >= data.lines[i].start + data.lines[i].length:");
-        //         console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
-        //         if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
-        //             console.log(1)
-        //             line.push(<span style={{ width: '50px', visibility: 'hidden' }}>S</span>);
-        //         }
-        //         else {
-        //             console.log(2)
-        //             let name = i + '_' + j;
-        //             if (data.lines[i].user == this.state.user) {
-        //                 line.push(<input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
-        //             }
-        //             else {
-        //                 line.push(<input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
-        //             }
-        //         }
-        //     }
-        //     line.push(<br/>)
-        //     quiz.push(line);
-        // }
-        // return quiz;
         let data = JSON.parse(this.state.data);
-        let quiz = <table></table>;
+        let quiz = [];
         for (let i = 0; i < data.count; i++) {
-            let line = <tr></tr>;
+            let line = [];
             console.log(data.lines[i]);
             for (let j = 0; j < data.size; j++) {
                 let color = 'white';
@@ -62,22 +33,47 @@ class Kreuzwort extends Component {
                 console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
                     console.log(1)
-                    line.push(<td></td>);
+                    line.push(<span style={{ width: '50px', visibility: 'hidden' }}>S</span>);
                 }
                 else {
                     console.log(2)
                     let name = i + '_' + j;
                     if (data.lines[i].user == this.state.user) {
-                        line.push(<td><input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} /></td>);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<td><input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} /></td>);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '50px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
+            //line.push(<br/>)
             quiz.push(line);
         }
         return quiz;
+    }
+
+    getQuizTable() {
+        this.setState({
+            init: this.state.init,
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            data: this.state.data,
+            lines: this.getQuiz
+        });
+        return (
+            <table>
+                <tbody>
+                    {this.state.lines.map(ele =>
+                        <tr key={ele}>
+                            <td>
+                                {ele}
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        )
     }
 
     async onChangeLine(event) {
@@ -166,7 +162,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div>
-                {this.getQuiz()}
+                {this.getQuizTable()}
             </div>
         )
     }
