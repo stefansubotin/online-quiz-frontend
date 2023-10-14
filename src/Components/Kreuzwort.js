@@ -46,7 +46,9 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            //line.push(<br/>)
+            if (data.lines[i].user == this.state.user) {
+                line.push(<span>{data.lines[i].question}</span>)
+            }
             quiz.push(line);
         }
         return quiz;
