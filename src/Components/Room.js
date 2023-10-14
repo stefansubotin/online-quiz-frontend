@@ -13,7 +13,7 @@ class Room extends Component {
             game: '',
             users: [props.user],
             userCount: 1,
-            data: {},
+            data: '',
             currentComponent: 'lobby'
         }
     }
@@ -35,6 +35,8 @@ class Room extends Component {
 
     async onStart(message) {
         console.log(message.data)
+        let dat = message.data.data;
+        console.log(dat)
         switch (message.data.game) {
             case 'kreuzwort':
                 this.setState({
@@ -44,7 +46,7 @@ class Room extends Component {
                     game: this.state.game,
                     users: this.state.users,
                     userCount: this.state.userCount,
-                    data: message.data.data,
+                    data: dat,
                     currentComponent: 'kreuzwort'
                 });
                 break;
