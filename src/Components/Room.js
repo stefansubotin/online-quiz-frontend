@@ -11,7 +11,7 @@ class Room extends Component {
             user: '',
             leader: false,
             game: '',
-            users: '',
+            users: "",
             userCount: 0,
             data: {},
             currentComponent: 'lobby'
@@ -48,7 +48,6 @@ class Room extends Component {
                         currentComponent: 'kreuzwort'
                     });
                     break;
-
             }
         }
 
@@ -85,9 +84,9 @@ class Room extends Component {
     }
     async onJoinRes(message) {
         console.log(message.data);
-        let data = message.data;
-        let newUsers = data.user + ',' + this.state.users;
-        let c = this.state.userCount + data.userCount;
+        const data = message.data;
+        const newUsers = data.user + ',' + this.state.users;
+        const c = this.state.userCount + data.userCount;
         
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
@@ -137,6 +136,7 @@ class Room extends Component {
             leader: props.leader,
             game: state.game,
             users: props.user,
+            userCount: 1,
             data: state.data,
             currentComponent: state.currentComponent
         }
