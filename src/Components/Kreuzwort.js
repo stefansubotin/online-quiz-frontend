@@ -45,10 +45,10 @@ class Kreuzwort extends Component {
                         line.push(<input type='text' name={name} maxLength={1} style={{ width: '100px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
-                line.push(<br/>)
             }
             quiz.push(line);
         }
+        line.push(<br/>)
         return quiz;
     }
 
