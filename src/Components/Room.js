@@ -79,7 +79,7 @@ class Room extends Component {
             userCount: c,
             data: this.state.data,
             currentComponent: this.state.currentComponent
-        });
+        }, function() { console.log(this.state) });
         console.log(this.state);
     }
     async onJoinRes(message) {
