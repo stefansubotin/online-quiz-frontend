@@ -75,7 +75,7 @@ class Room extends Component {
             user: this.state.user,
             leader: this.state.leader,
             game: this.state.game,
-            users: newUsers,
+            users: 'test',
             userCount: c,
             data: this.state.data,
             currentComponent: this.state.currentComponent
