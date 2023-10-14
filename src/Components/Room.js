@@ -55,6 +55,7 @@ class Room extends Component {
 
     async onJoin(message) {      
         if (message.data.type == 'join') {
+            console.log(this.state.users)
             let newUsers = [];
             let index = this.state.users.length;
             for (let i = 0; i < index; i++){
@@ -71,6 +72,7 @@ class Room extends Component {
                 currentComponent: this.state.currentComponent
             });
             console.log(message.data);
+            console.log(this.state);
         }
     }
 
