@@ -23,10 +23,10 @@ class Kreuzwort extends Component {
     getQuiz(){
         let data = JSON.parse(this.state.data);
         let quiz = [];
-        for (let i = 1; i <= data.count; i++) {
+        for (let i = 0; i < data.count; i++) {
             let line = [];
-            for (let j = 1; j <= data.size; j++) {
-                if (j < data.lines[i].start || j >= data.lines[i].start + data.lines[i].length) line.push(<div style="width:100px" />);
+            for (let j = 0; j < data.size; j++) {
+                if (j+1 < data.lines[i].start || j+1 >= data.lines[i].start + data.lines[i].length) line.push(<div style="width:100px" />);
                 else {
                     let name = i + '_' + j;
                     if (data.user == this.state.user){
