@@ -19,7 +19,7 @@ class Base extends Component {
                 component = <Home parentCallback={this.handleCallback} />
                 break;
             case 'lobby':
-                component = <div>Placeholder</div>
+                component = <Room room={this.state.room} user={this.state.user} leader={this.state.leader} />
                 break;
             default:
                 component = <div>Error</div>
