@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "ably": "^1.2.45",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
