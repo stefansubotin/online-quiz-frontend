@@ -56,12 +56,8 @@ class Room extends Component {
     async onJoin(message) {      
         if (message.data.type == 'join') {
             console.log(this.state.users)
-            let newUsers = [];
-            let index = this.state.users.length;
-            for (let i = 0; i < index; i++){
-                newUsers[i] = this.state.users[i];
-            }
-            newUsers[index] = message.data.user;
+            let newUsers = this.state.users;
+            newUsers.push({user: message.data.user});
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
@@ -95,18 +91,19 @@ class Room extends Component {
         let users = this.state.users[0];
         if (this.state.users.length)
         for (let i = 1; i < this.state.users.length; i++) {
-            users += ', ' + this.state.users[i];
+            users += ', ' + this.state.users[i].user;
         }
         return users;
     }
 
     static getDerivedStateFromProps(props, state) {
+        let newUsers = [{ user: props.user}];
         return {
             room: props.room,
             user: props.user,
             leader: props.leader,
             game: state.game,
-            users: state.users.push(props.user),
+            users: newUsers,
             data: state.data,
             currentComponent: state.currentComponent
         }
