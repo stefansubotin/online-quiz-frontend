@@ -61,6 +61,7 @@ class Room extends Component {
         let newUsers = this.state.users + ',' + message.data.user;
         let c = this.state.userCount + 1;
         
+        console.log(newUsers);
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = ably.channels.get(channelId);
