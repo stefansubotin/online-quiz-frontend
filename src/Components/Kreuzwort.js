@@ -92,7 +92,14 @@ class Kreuzwort extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (state.init) return;
+        if (state.init) return {
+            init: true,
+            room: state.room,
+            user: state.user,
+            leader: state.leader,
+            data: state.data,
+            lines: state.lines
+        };;
 
         let lines = [];
         let data = JSON.parse(state.data);
