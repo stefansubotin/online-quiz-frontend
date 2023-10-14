@@ -66,12 +66,13 @@ class Kreuzwort extends Component {
             lines: newLines
         });
 
-        channel.publish('update', {
+        await channel.publish('update', {
             user: this.state.user,
             i: eventIdArray[0],
             j: eventIdArray[1],
             val: event.target.value
         });
+        ably.close();
     }
 
     async onUpdate(message) {
