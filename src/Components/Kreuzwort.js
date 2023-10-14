@@ -27,7 +27,7 @@ class Kreuzwort extends Component {
         for (let i = 0; i < data.count; i++) {
             let line = [];
             console.log(data.lines[i]);
-            line.push(<span>{i}. Frage:</span>)
+            line.push(<span>{i+1}. Frage:</span>)
             for (let j = 0; j < data.size; j++) {
                 let color = 'white';
                 if (j + 1 == data.msp) color = 'coral';
@@ -148,7 +148,7 @@ class Kreuzwort extends Component {
             lines.push(line);
 
             if (data.lines[i-1].user == state.user){
-                q.push(data.lines[i].id + '.Frage: ' + data.lines[i].question);
+                q.push(data.lines[i-1].id + '.Frage: ' + data.lines[i].question);
             }
         }
 
