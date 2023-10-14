@@ -53,15 +53,20 @@ class Room extends Component {
 
     }
 
-    async onJoin(message) {
-        
+    async onJoin(message) {      
         if (message.data.type == 'join') {
+            let newUsers = [];
+            let index = this.state.users.count;
+            for (let i = 0; i < index; i++){
+                newUsers[i] = this.state.users[i];
+            }
+            newUsers[index] = message.data.user;
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
                 leader: this.state.leader,
                 game: this.state.game,
-                users: this.state.users.push(message.data.user),
+                users: newUsers,
                 data: this.state.data,
                 currentComponent: this.state.currentComponent
             });
