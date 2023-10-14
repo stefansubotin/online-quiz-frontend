@@ -85,18 +85,18 @@ class Room extends Component {
         channel.unsubscribe('join-res');
         ably.close();
         
-        this.setStatus(newUsers);
+        this.setStatus(newUsers, c);
         console.log(this.state);
     }
 
-    setStatus(test){
+    setStatus(users, c){
         this.setState({
             room: this.state.room,
             user: this.state.user,
             leader: this.state.leader,
             game: this.state.game,
-            users: test,
-            userCount: 1,
+            users: users,
+            userCount: c,
             data: this.state.data,
             currentComponent: this.state.currentComponent
         });
@@ -147,6 +147,10 @@ class Room extends Component {
                 user: this.state.user
             });
         }
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState){
+        this.setState(prevState);
     }
 
     render() {
