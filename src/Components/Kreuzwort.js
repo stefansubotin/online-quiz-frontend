@@ -25,9 +25,8 @@ class Kreuzwort extends Component {
         let quiz = [];
         for (let i = 1; i <= data.count; i++) {
             let line = [];
-            let dataLine = data.lines[i];
             for (let j = 1; j <= data.size; j++) {
-                if (j < dataLine.start || j >= dataLine.start + dataLine.length) line.push(<div style="width:100px" />);
+                if (j < data.lines[i].start || j >= data.lines[i].start + data.lines[i].length) line.push(<div style="width:100px" />);
                 else {
                     let name = i + '_' + j;
                     if (data.user == this.state.user){
