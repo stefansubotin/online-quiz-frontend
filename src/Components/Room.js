@@ -56,7 +56,7 @@ class Room extends Component {
     async onJoin(message) {      
         if (message.data.type == 'join') {
             let newUsers = [];
-            let index = this.state.users.count;
+            let index = this.state.users.length;
             for (let i = 0; i < index; i++){
                 newUsers[i] = this.state.users[i];
             }
@@ -88,6 +88,14 @@ class Room extends Component {
                 break;
         }
         return component;
+    }
+    getUsers() {
+        let users = this.state.users[0];
+        if (this.state.users.length)
+        for (let i = 1; i < this.state.users.length; i++) {
+            users += ', ' + this.state.users[i];
+        }
+        return users;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -121,7 +129,7 @@ class Room extends Component {
         return (
             <div>
                 <div>{ this.getComponent() }</div><br/>
-                <div>{this.state.users}</div>
+                <div>{this.getUsers()}</div>
                 <Chat />
             </div>
         );
