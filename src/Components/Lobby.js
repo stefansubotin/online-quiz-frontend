@@ -19,7 +19,7 @@ class Lobby extends Component {
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
         
-        const channelId = 'room' + this.state.room;
+        const channelId = 'room1';
         const channel = ably.channels.get(channelId);
 
         const message = {

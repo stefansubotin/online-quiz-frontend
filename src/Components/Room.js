@@ -144,8 +144,8 @@ class Room extends Component {
 
     async componentDidMount() {
         const ably = await this.getAbly();
-        console.log('Connected to Ably!');
-        const channel = ably.channels.get('test');
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
         await channel.subscribe('start', (message) => this.onStart(message));
         await channel.subscribe('join', (message) => this.onJoin(message));
 
