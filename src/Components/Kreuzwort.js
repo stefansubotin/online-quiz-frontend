@@ -72,7 +72,6 @@ class Kreuzwort extends Component {
             j: eventIdArray[1],
             val: event.target.value
         });
-        ably.close();
     }
 
     async onUpdate(message) {
