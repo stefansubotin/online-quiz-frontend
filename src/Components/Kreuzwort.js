@@ -53,18 +53,11 @@ class Kreuzwort extends Component {
     }
 
     getQuizTable() {
-        this.setState({
-            init: this.state.init,
-            room: this.state.room,
-            user: this.state.user,
-            leader: this.state.leader,
-            data: this.state.data,
-            lines: this.getQuiz
-        });
+        let q = getQuiz();
         return (
             <table>
                 <tbody>
-                    {this.state.lines.map(ele =>
+                    {q.map(ele =>
                         <tr key={ele}>
                             <td>
                                 {ele}
