@@ -34,7 +34,7 @@ class Room extends Component {
     }
 
     async onStart(message) {
-        console.log('Received message in realtime: ' + message.data)
+        console.log(message.data)
         if (message.data.type == 'start') {
             switch (message.data.game) {
                 case 'kreuzwort':
