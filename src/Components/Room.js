@@ -1,5 +1,5 @@
+import { Pusher, PusherEvent } from '@pusher/pusher-websocket-react-native';
 import React, { Component } from 'react';
-import Pusher from 'pusher';
 
 class Room extends Component {
     constructor(props) {
@@ -23,15 +23,23 @@ class Room extends Component {
         }
     }
 
-    componentDidMount(){
-        var pusher = new Pusher('cefecd31795a4e419288', {
+    async componentDidMount(){
+        const pusher = Pusher.getInstance();
+
+        await pusher.init({
+            apiKey: 'cefecd31795a4e419288',
             cluster: 'eu'
         });
 
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
-        });
+        let channel = await pusher.subscribe({
+            channelName: "my-channel",
+            onEvent: (event) => {
+                this.setState({
+                    room: event.eventName,
+                    user: event.data
+                })
+            }
+        })
     }
 
     render(){
