@@ -64,7 +64,15 @@ class Room extends Component {
             console.log(newState);
             newState.users = newUsers;
             console.log(newState);
-            this.setState(newState);
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                leader: this.state.leader,
+                game: this.state.game,
+                users: newUsers,
+                data: this.state.data,
+                currentComponent: this.state.component
+            });
             console.log(message.data);
             console.log(this.state);
         }
