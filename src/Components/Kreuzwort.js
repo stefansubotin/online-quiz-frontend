@@ -88,6 +88,7 @@ class Kreuzwort extends Component {
             data: this.state.data,
             lines: newLines
         });
+        console.log(this.state)
     }
 
     static getDerivedStateFromProps(props, state) {
