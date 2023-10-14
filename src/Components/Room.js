@@ -57,8 +57,8 @@ class Room extends Component {
         console.log(message.data);
         if (message.data.user == this.state.user) return;
 
-        let newUsers = this.state.users + ',' + message.data.user;
-        let c = this.state.userCount + 1;
+        const newUsers = this.state.users + ',' + message.data.user;
+        const c = this.state.userCount + 1;
         
         console.log(newUsers);
         const ably = await this.getAbly();
