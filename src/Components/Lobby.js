@@ -34,12 +34,6 @@ class Lobby extends Component {
         ably.close();
     }
 
-    onTrigger = (event) => {
-        this.props.parentCallback({
-            start: true
-        });
-    }
-
     render() {
         return (
             <div>
