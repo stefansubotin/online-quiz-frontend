@@ -87,7 +87,8 @@ class Kreuzwort extends Component {
         if (state.init) return;
 
         let lines= [];
-        let data = JSON.parse(this.state.data);
+        let data = JSON.parse(state.data);
+        console.log(data);
         for (let i = 1; i <= data.count; i++) {
             let line = [];
             for (let j = 1; j <= data.size; j++) {
