@@ -14,7 +14,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div>
-                {this.state.data}
+                {JSON.parse(this.state.data)}
             </div>
         )
     }

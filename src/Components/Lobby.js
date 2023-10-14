@@ -29,7 +29,7 @@ class Lobby extends Component {
             if (i == 1) {
                 mes1 = {
                     game: 'kreuzwort',
-                    data: {
+                    data: JSON.stringify({
                         id: -1,
                         size: 10,
                         count: 2,
@@ -49,13 +49,13 @@ class Lobby extends Component {
                                 user: 'Bernd'
                             }
                         ]
-                    }
+                    })
                 }
             };
             if (i == 2) {
                 mes2 = {
                     game: 'kreuzwort',
-                    data: {
+                    data: JSON.stringify({
                         id: -1,
                         size: 10,
                         count: 2,
@@ -75,7 +75,7 @@ class Lobby extends Component {
                                 question: 'Wie heißt der andere User?'
                             }
                         ]
-                    }
+                    })
                 }
             };
         };
