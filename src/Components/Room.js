@@ -12,13 +12,18 @@ class Room extends Component {
         }
     }
 
-    async onTestClick(){
+    async getAbly() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
-        console.log('Connected to Ably!');
+        return ably;
+    }
+
+    async onTestClick(){
+        const ably = await this.getAbly();
         const channel = ably.channels.get('test');
         channel.publish('greeting', 'hello');
+        ably.close();
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -32,9 +37,7 @@ class Room extends Component {
     }
 
     async componentDidMount() {
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
+        const ably = await this.getAbly();
         console.log('Connected to Ably!');
         const channel = ably.channels.get('test');
         await channel.subscribe('greeting', (message) => {
