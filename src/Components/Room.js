@@ -35,35 +35,32 @@ class Room extends Component {
 
     async onStart(message) {
         console.log(message.data)
-        if (message.data.type == 'start') {
-            switch (message.data.game) {
-                case 'kreuzwort':
-                    this.setState({
-                        room: this.state.room,
-                        user: this.state.user,
-                        leader: this.state.leader,
-                        game: this.state.game,
-                        users: this.state.users,
-                        userCount: this.state.userCount,
-                        data: message.data.data,
-                        currentComponent: 'kreuzwort'
-                    });
-                    break;
-                default:
-                    this.setState({
-                        room: this.state.room,
-                        user: this.state.user,
-                        leader: this.state.leader,
-                        game: this.state.game,
-                        users: this.state.users,
-                        userCount: this.state.userCount,
-                        data: message.data.data,
-                        currentComponent: 'kreuzwort'
-                    });
-                    break;
-            }
+        switch (message.data.game) {
+            case 'kreuzwort':
+                this.setState({
+                    room: this.state.room,
+                    user: this.state.user,
+                    leader: this.state.leader,
+                    game: this.state.game,
+                    users: this.state.users,
+                    userCount: this.state.userCount,
+                    data: message.data.data,
+                    currentComponent: 'kreuzwort'
+                });
+                break;
+            default:
+                this.setState({
+                    room: this.state.room,
+                    user: this.state.user,
+                    leader: this.state.leader,
+                    game: this.state.game,
+                    users: this.state.users,
+                    userCount: this.state.userCount,
+                    data: message.data.data,
+                    currentComponent: 'kreuzwort'
+                });
+                break;
         }
-
     }
 
     async onJoin(message) {
@@ -73,7 +70,7 @@ class Room extends Component {
         let newUsers = this.state.users;
         newUsers = newUsers.concat([message.data.user]);
         const c = this.state.userCount + 1;
-        
+
         console.log(newUsers);
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
@@ -83,7 +80,7 @@ class Room extends Component {
             userCount: this.state.userCount
         });
         ably.close();
-        
+
         this.setStatus(newUsers);
         console.log(this.state);
     }
@@ -93,18 +90,18 @@ class Room extends Component {
         let newUsers = message.data.users
         newUsers = newUsers.concat([this.state.user]);
         const c = this.state.userCount + data.userCount;
-        
+
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = ably.channels.get(channelId);
         channel.unsubscribe('join-res');
         ably.close();
-        
+
         this.setStatus(newUsers, c);
         console.log(this.state);
     }
 
-    setStatus(users, c){
+    setStatus(users, c) {
         this.setState({
             room: this.state.room,
             user: this.state.user,
@@ -124,7 +121,7 @@ class Room extends Component {
                 component = <Lobby />
                 break;
             case 'kreuzwort':
-                component = <Kreuzwort room={this.state.room} user={this.state.user} leader={this.state.leader} data={this.state.data}/>
+                component = <Kreuzwort room={this.state.room} user={this.state.user} leader={this.state.leader} data={this.state.data} />
                 break;
             default:
                 component = <div>Error</div>
