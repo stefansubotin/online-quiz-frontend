@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Pusher from 'pusher';
 
 class Room extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ class Room extends Component {
             users: []
         }
     }
-    
+
     static getDerivedStateFromProps(props, state) {
         return {
             room: props.room,
@@ -23,17 +22,23 @@ class Room extends Component {
         }
     }
 
-    async componentDidMount(){
-        let pusher = new Pusher('cefecd31795a4e419288', {
-            cluster: 'eu'
+    async componentDidMount() {
+        const Pusher = require("pusher");
+
+        const pusher = new Pusher({
+            appId: "1679697",
+            key: "cefecd31795a4e419288",
+            secret: "69192cf5d43c8f457530",
+            cluster: "eu",
+            useTLS: true
         });
-        let channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
+
+        pusher.trigger("my-channel", "my-event", {
+            message: "hello world"
         });
     }
 
-    render(){
+    render() {
         return (
             <div>
                 Room: {this.state.room} // User: {this.state.user}
