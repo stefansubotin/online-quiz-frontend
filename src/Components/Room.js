@@ -57,7 +57,9 @@ class Room extends Component {
         if (message.data.type == 'join') {
             console.log(this.state.users)
             let newState = this.state;
-            newState.users.push(message.data.user);
+            let newUsers = newState.users;
+            newUsers.push(message.data.user);
+            newState.users = newUsers;
             this.setState(newState);
             console.log(message.data);
             console.log(this.state);
