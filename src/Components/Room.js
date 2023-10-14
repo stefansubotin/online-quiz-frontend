@@ -59,6 +59,7 @@ class Room extends Component {
             let newState = this.state;
             let newUsers = newState.users;
             newUsers.push(message.data.user);
+            console.log(newUsers);
             newState.users = newUsers;
             this.setState(newState);
             console.log(message.data);
