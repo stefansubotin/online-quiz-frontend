@@ -55,6 +55,7 @@ class Room extends Component {
     }
 
     async onJoin(message) {
+        console.log(message.data);
         if (message.data.user == this.state.user) return;
 
         let newUsers = this.state.users + ',' + message.data.user;
@@ -79,8 +80,10 @@ class Room extends Component {
             data: this.state.data,
             currentComponent: this.state.currentComponent
         });
+        console.log(this.state);
     }
     async onJoinRes(message) {
+        console.log(message.data);
         let data = message.data;
         let newUsers = data.user + ',' + this.state.users;
         let c = this.state.userCount + data.userCount;
@@ -101,6 +104,7 @@ class Room extends Component {
             data: this.state.data,
             currentComponent: this.state.currentComponent
         });
+        console.log(this.state);
     }
 
     getComponent() {
