@@ -97,14 +97,14 @@ class Kreuzwort extends Component {
             lines.push(line);
         }
 
-        this.setState({
+        return {
             init: true,
             room: state.room,
             user: state.user,
             leader: state.leader,
             data: state.data,
             lines: lines
-        });
+        };
     }
 
     async componentDidMount() {
