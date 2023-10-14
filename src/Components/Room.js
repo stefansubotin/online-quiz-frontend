@@ -11,7 +11,7 @@ class Room extends Component {
             user: '',
             leader: false,
             game: '',
-            users: [],
+            users: [''],
             data: {},
             currentComponent: 'lobby'
         }
