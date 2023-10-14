@@ -49,6 +49,9 @@ class Kreuzwort extends Component {
             if (data.lines[i].user == this.state.user) {
                 line.push(<span>{data.lines[i].question}</span>)
             }
+            else {
+                line.push(<span style={{visibility: 'hidden' }}>I walk a lonely road, the only one that i have ever known</span>)
+            }
             quiz.push(line);
         }
         return quiz;
@@ -156,7 +159,7 @@ class Kreuzwort extends Component {
 
     render() {
         return (
-            <div>
+            <div name='kreuzwort'>
                 {this.getQuizTable()}
             </div>
         )

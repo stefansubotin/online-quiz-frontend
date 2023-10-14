@@ -86,7 +86,7 @@ class Lobby extends Component {
 
     render() {
         return (
-            <div>
+            <div name='lobby'>
                 <button onClick={this.onTestClick}>Starte Kreuzwort</button>
             </div>
         );

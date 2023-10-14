@@ -19,7 +19,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div name='home'>
                 <span style={{ display: 'inline' }}>
                     <div>
                         <p>Create Lobby</p>

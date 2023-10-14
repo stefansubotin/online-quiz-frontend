@@ -154,7 +154,7 @@ class Room extends Component {
 
     render() {
         return (
-            <div>
+            <div name='room'>
                 <div>{this.getComponent()}</div><br />
                 <div>{this.getUsers()}</div>
                 <Chat />
