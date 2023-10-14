@@ -83,7 +83,7 @@ class Room extends Component {
         let users = this.state.users[0];
         if (this.state.users.length)
         for (let i = 1; i < this.state.users.length; i++) {
-            users += ', ' + this.state.users[i].user;
+            users += ', ' + this.state.users[i];
         }
         return users;
     }
