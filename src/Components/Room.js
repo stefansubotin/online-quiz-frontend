@@ -44,6 +44,19 @@ class Room extends Component {
                         leader: this.state.leader,
                         game: this.state.game,
                         users: this.state.users,
+                        userCount: this.state.userCount,
+                        data: message.data.data,
+                        currentComponent: 'kreuzwort'
+                    });
+                    break;
+                default:
+                    this.setState({
+                        room: this.state.room,
+                        user: this.state.user,
+                        leader: this.state.leader,
+                        game: this.state.game,
+                        users: this.state.users,
+                        userCount: this.state.userCount,
                         data: message.data.data,
                         currentComponent: 'kreuzwort'
                     });
@@ -111,7 +124,7 @@ class Room extends Component {
                 component = <Lobby />
                 break;
             case 'kreuzwort':
-                component = <Kreuzwort />
+                component = <Kreuzwort room={this.state.room} user={this.state.user} leader={this.state.leader} data={this.state.data}/>
                 break;
             default:
                 component = <div>Error</div>
@@ -128,7 +141,7 @@ class Room extends Component {
         const ably = await this.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = ably.channels.get(channelId);
-        await channel.subscribe('start', (message) => this.onStart(message));
+        await channel.subscribe('start' + this.state.user, (message) => this.onStart(message));
         await channel.subscribe('join', (message) => this.onJoin(message));
 
         if (!this.state.leader) {

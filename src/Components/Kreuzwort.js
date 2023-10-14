@@ -4,18 +4,17 @@ class Kreuzwort extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: '',
-            user: '',
-            leader: false,
-            users: [],
-            data: {}
+            room: props.room,
+            user: props.user,
+            leader: props.leader,
+            data: props.data
         }
     }
 
     render() {
         return (
             <div>
-                Placeholder Kreuzwort
+                {this.state.data}
             </div>
         )
     }
