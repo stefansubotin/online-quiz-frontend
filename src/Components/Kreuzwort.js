@@ -129,7 +129,7 @@ class Kreuzwort extends Component {
         const ably = await this.getAbly();
         const channelId = 'kreuzwort' + this.state.room;
         const channel = ably.channels.get(channelId);
-        await channel.subscribe('update' + this.state.user, (message) => this.onStart(message));
+        await channel.subscribe('update', (message) => this.onStart(message));
     }
 
     render() {
