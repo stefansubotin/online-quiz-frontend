@@ -147,7 +147,7 @@ class Kreuzwort extends Component {
             }
             lines.push(line);
 
-            if (data.lines[i].user == state.user){
+            if (data.lines[i-1].user == state.user){
                 q.push(data.lines[i].id + '.Frage: ' + data.lines[i].question);
             }
         }
