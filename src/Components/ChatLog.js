@@ -36,7 +36,8 @@ class ChatLog extends Component {
         let log = [];
         for (let i = 0; i < this.state.messages.length; i++) {
             let dat = JSON.parse(this.state.messages[i]);
-            log.push(<div><span name='user' color={dat.color}>{dat.user}:&nbsp;</span><span name='message' color={dat.color}>{dat.message}</span></div>);
+            let color = { color: dat.color };
+            log.push(<div><span name='user' style={color}>{dat.user}:&nbsp;</span><span name='message' style={color}>{dat.message}</span></div>);
         }
         return log;
     }
