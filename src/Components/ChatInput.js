@@ -20,7 +20,7 @@ class ChatInput extends Component {
     onMessageSend = (event) => {
         let dat = {
             user: this.state.user,
-            message: this.state,message,
+            message: this.state.message,
             color: this.state.color
         }
         AblyFunctions.sendMessage(this.getChannelId(), 'message', dat);
