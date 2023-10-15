@@ -79,7 +79,7 @@ class WerWirdMillionaer extends Component {
         for (let i = 0; i < this.state.answers; i++){
             if(this.state.moderator) {
                 let ele = JSON.parse(this.state.answers[i]);
-                if (correct){
+                if (ele.correct){
                     answers.push(<div style={{ color: 'green'}}>{ele.text}</div>)
                 }
                 else {
@@ -127,10 +127,10 @@ class WerWirdMillionaer extends Component {
         let displayQuestion = [];
         let question = dat.questions[this.state.currentQuestion];
         displayQuestion.push(<div>{dat.question}</div>);
-        displayQuestion.push(getAnswerTag(question, question.answer1));
-        displayQuestion.push(getAnswerTag(question, question.answer2));
-        displayQuestion.push(getAnswerTag(question, question.answer3));
-        displayQuestion.push(getAnswerTag(question, question.answer4));
+        displayQuestion.push(this.getAnswerTag(question, question.answer1));
+        displayQuestion.push(this.getAnswerTag(question, question.answer2));
+        displayQuestion.push(this.getAnswerTag(question, question.answer3));
+        displayQuestion.push(this.getAnswerTag(question, question.answer4));
 
         return displayQuestion;
     }
