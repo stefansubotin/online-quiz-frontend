@@ -12,12 +12,6 @@ class Chat extends Component {
         }
     }
 
-    
-
-    
-
-    
-
     render() {
         return (
             <div name='chat' style={{ backgroundColor:'lightgray'}}>  

@@ -71,6 +71,7 @@ class ChatInput extends Component {
                     {this.getOption('green')}
                     {this.getOption('red')}
                     {this.getOption('blue')}
+                    {this.getOption('lavender')}
                 </select><br/>
                 <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange}/>
                 <button onClick={this.onMessageSend}>Send Message</button>

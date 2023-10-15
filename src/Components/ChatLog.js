@@ -27,8 +27,7 @@ class ChatLog extends Component {
             room: this.state.room,
             type: this.state.type,
             user: this.state.user,
-            messages: messages,
-            color: this.state.color
+            messages: messages
         });
     }
     

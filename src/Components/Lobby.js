@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import fetch from 'node-fetch';
 
 class Lobby extends Component {
     constructor(props){
@@ -28,8 +27,7 @@ class Lobby extends Component {
             headers: { 'Content-Type': 'application/json' }
         })
     }
-
-    //TODO: Userliste aus InnerRoom nach Lobby verschieben, um für bessere Abkasplung zu sorgen
+    
     async onTestClick() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');

@@ -35,6 +35,9 @@ class InnerRoom extends Component {
                     currentComponent: 'kreuzwort'
                 });
                 break;
+            case 'wwm':
+                //Wer wird Millionär-Status
+                break;
             default:
                 this.setState({
                     room: this.state.room,
@@ -70,7 +73,7 @@ class InnerRoom extends Component {
             ably.close();
         }
 
-        this.setStatus(newUsers);
+        this.setStatus(newUsers, c);
         console.log(this.state);
     }
     
