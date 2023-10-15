@@ -19,8 +19,8 @@ class Home extends Component {
 
     render() {
         return (
-            <div name='home' style={{display: 'flex'}}>
-                <span style={{ display: 'inline' }}>
+            <div name='home'>
+                <span>
                     <p>Create Lobby</p>
                     <form onSubmit={this.onTriggerCreate}>
                         <input type="text" name="user" placeholder='Choose Username' /><br />
@@ -28,7 +28,7 @@ class Home extends Component {
                         <input type="submit" value="Create Lobby" />
                     </form>
                 </span>
-                <span style={{ display: 'inline' }}>
+                <span>
                     <p>Join Lobby</p>
                     <form onSubmit={this.onTriggerJoin}>
                         <input type="text" name="user" placeholder='Choose Username' /><br />
