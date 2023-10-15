@@ -21,8 +21,8 @@ class Chat extends Component {
     render() {
         return (
             <div name='chat' style={{ backgroundColor:'lightgray'}}>  
-                <ChatInput room={this.state.room} type={this.state.type} user={this.state.user} /><br/><br/>
-                <ChatLog room={this.state.room} type={this.state.type} />
+                <div><ChatInput room={this.state.room} type={this.state.type} user={this.state.user} /></div><br/>
+                <div><ChatLog room={this.state.room} type={this.state.type} /></div>
             </div>
         )
     }
