@@ -72,7 +72,7 @@ class ChatInput extends Component {
                     {this.getOption('red')}
                     {this.getOption('blue')}
                 </select>
-                <input type="text" name="message" placeholder='Input Message' defaultValue={this.state.message} onChange={this.onMessageChange}/><br />
+                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange}/><br />
                 <button onClick={this.onMessageSend}>Send Message</button>
             </div>
         )
