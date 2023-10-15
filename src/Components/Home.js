@@ -20,6 +20,7 @@ class Home extends Component {
     render() {
         return (
             <div name='home' style={{display: 'flex'}}>
+                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
                 <span>
                     <p>Create Lobby</p>
                     <form onSubmit={this.onTriggerCreate}>
