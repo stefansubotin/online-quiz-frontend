@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Lobby from './Lobby';
 import Kreuzwort from './Kreuzwort';
+import AblyFunctions from '../Tools/AblyFunctions';
 
 class InnerRoom extends Component {
     constructor(props) {
@@ -15,21 +16,6 @@ class InnerRoom extends Component {
             data: '',
             currentComponent: 'lobby'
         }
-    }
-
-    async getAbly() {
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        return ably;
-    }
-
-    async onTestClick() {
-        const ably = await this.getAbly();
-        const channelId = 'room' + this.state.room;
-        const channel = ably.channels.get(channelId);
-        channel.publish('greeting', 'hello');
-        ably.close();
     }
 
     async onStart(message) {
@@ -73,18 +59,21 @@ class InnerRoom extends Component {
         const c = this.state.userCount + 1;
 
         console.log(newUsers);
-        const ably = await this.getAbly();
-        const channelId = 'room' + this.state.room;
-        const channel = ably.channels.get(channelId);
-        await channel.publish('join-res', {
-            users: this.state.users,
-            userCount: this.state.userCount
-        });
-        ably.close();
+        if (this.state.leader) {
+            const ably = await AblyFunctions.getAbly()
+            const channelId = 'room' + this.state.room;
+            const channel = await AblyFunctions.getChannel(ably, channelId);
+            await channel.publish('join-res', {
+                users: this.state.users,
+                userCount: this.state.userCount
+            });
+            ably.close();
+        }
 
         this.setStatus(newUsers);
         console.log(this.state);
     }
+    
     async onJoinRes(message) {
         console.log(message.data);
         const data = message.data;
@@ -92,9 +81,9 @@ class InnerRoom extends Component {
         newUsers = newUsers.concat([this.state.user]);
         const c = this.state.userCount + data.userCount;
 
-        const ably = await this.getAbly();
+        const ably = await AblyFunctions.getAbly();
         const channelId = 'room' + this.state.room;
-        const channel = ably.channels.get(channelId);
+        const channel = await AblyFunctions.getChannel(ably, channelId);
         channel.unsubscribe('join-res');
         ably.close();
 
@@ -119,7 +108,7 @@ class InnerRoom extends Component {
         let component;
         switch (this.state.currentComponent) {
             case 'lobby':
-                component = <Lobby />
+                component = <Lobby userCount={this.state.userCount} users={this.state.users} leader={this.state.leader} />
                 break;
             case 'kreuzwort':
                 component = <Kreuzwort room={this.state.room} user={this.state.user} leader={this.state.leader} data={this.state.data} />
@@ -136,9 +125,9 @@ class InnerRoom extends Component {
     }
 
     async componentDidMount() {
-        const ably = await this.getAbly();
+        const ably = await AblyFunctions.getAbly();
         const channelId = 'room' + this.state.room;
-        const channel = ably.channels.get(channelId);
+        const channel = await AblyFunctions.getChannel(ably, channelId);
         await channel.subscribe('start' + this.state.user, (message) => this.onStart(message));
         await channel.subscribe('join', (message) => this.onJoin(message));
 
@@ -150,7 +139,7 @@ class InnerRoom extends Component {
             });
         }
     }
-    
+
     render() {
         return (
             <div name='innerRoom'>
