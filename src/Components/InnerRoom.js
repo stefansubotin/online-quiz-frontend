@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Lobby from './Lobby';
 import Kreuzwort from './Kreuzwort';
 import AblyFunctions from '../Tools/AblyFunctions';
-import WerWirdMillionaer from './wwm';
+import WerWirdMillionaer from './WerWirdMillionaer';
 
 class InnerRoom extends Component {
     constructor(props) {
