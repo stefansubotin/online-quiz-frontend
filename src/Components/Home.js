@@ -19,7 +19,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div name='home'>
+            <div name='home' style={{display: 'flex'}}>
                 <span style={{ display: 'inline' }}>
                     <p>Create Lobby</p>
                     <form onSubmit={this.onTriggerCreate}>
