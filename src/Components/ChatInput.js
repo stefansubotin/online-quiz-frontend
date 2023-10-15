@@ -18,12 +18,19 @@ class ChatInput extends Component {
     }
 
     onMessageSend = (event) => {
+        this.sendMessage();
+    }
+
+    async sendMessage(){
         let dat = {
             user: this.state.user,
             message: this.state.message,
             color: this.state.color
         }
-        AblyFunctions.sendMessage(this.getChannelId(), 'message', dat);
+        const ably = await AblyFunctions.getAbly();
+        const channel = await AblyFunctions.getChannel(ably, this.getChannelId());
+        await channel.publish('message', dat);
+        ably.close();
         this.setState({
             room: this.state.room,
             type: this.state.type,

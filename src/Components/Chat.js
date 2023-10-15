@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AblyFunctions from '../Tools/AblyFunctions';
 import ChatInput from './ChatInput';
 import ChatLog from './ChatLog';
 
@@ -21,7 +20,7 @@ class Chat extends Component {
 
     render() {
         return (
-            <div name='chat' style={{ backgroundColor: 'gray'}}>  
+            <div name='chat' style={{ backgroundColor:'lightgray'}}>  
                 <ChatInput room={this.state.room} type={this.state.type} user={this.state.user} />
                 <ChatLog room={this.state.room} type={this.state.type} />
             </div>
