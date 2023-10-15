@@ -2,18 +2,34 @@ import React, { Component } from 'react';
 //import fetch from 'node-fetch';
 
 class Lobby extends Component {
-    // async onStartKreuzwort() {
-    //     const body = { 
-    //         type: 1
-    //      };
+    constructor(props){
+        super(props);
+        this.state = {
+            userCount: props.userCount,
+            users: props.users,
+            leader: props.leader
+        }
+    }
 
-    //     const response = await fetch('https://****/kreuzwort', {
-    //         method: 'post',
-    //         body: JSON.stringify(body),
-    //         headers: { 'Content-Type': 'application/json' }
-    //     });
-    // }
+    async onStartKreuzwort() {
+        let users= [];
+        for(let i = 0; i < this.state.userCount; i++){
+            users.push({ user: this.state.users[i] });
+        }
 
+        const body = {
+            type: 1,
+            userCount: this.state.userCount,
+            users: users
+        };
+        fetch('https://****/kreuzwort', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        })
+    }
+
+    //TODO: Userliste aus InnerRoom nach Lobby verschieben, um für bessere Abkasplung zu sorgen
     async onTestClick() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -87,7 +103,7 @@ class Lobby extends Component {
     render() {
         return (
             <div name='lobby'>
-                <button onClick={this.onTestClick}>Starte Kreuzwort</button>
+                <button onClick={this.onTestClick} disabled={!this.state.leader}>Starte Kreuzwort</button>
             </div>
         );
     }

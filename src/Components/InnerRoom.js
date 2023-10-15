@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Lobby from './Lobby';
 import Kreuzwort from './Kreuzwort';
-import Chat from './Chat';
 
-class Room extends Component {
+class InnerRoom extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -151,16 +150,15 @@ class Room extends Component {
             });
         }
     }
-
+    
     render() {
         return (
-            <div name='room'>
-                <div>{this.getComponent()}</div><br />
-                <div>{this.getUsers()}</div>
-                <Chat />
+            <div name='innerRoom'>
+                <div name='innerRoomComponent'>{this.getComponent()}</div><br />
+                <div name='innerRoomUsers'>{this.getUsers()}</div>
             </div>
         );
     }
 }
 
-export default Room
+export default InnerRoom

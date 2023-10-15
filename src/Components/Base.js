@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Home from './Home';
-import Room from './Room';
+import OuterRoom from './OuterRoom';
 
 class Base extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class Base extends Component {
                 component = <Home parentCallback={this.handleCallback} />
                 break;
             case 'lobby':
-                component = <Room room={this.state.room} user={this.state.user} leader={this.state.leader} />
+                component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
                 break;
             default:
                 component = <div>Error</div>
