@@ -27,7 +27,7 @@ class Kreuzwort extends Component {
         for (let i = 0; i < data.count; i++) {
             let line = [];
             console.log(data.lines[i]);
-            line.push(<span>{i+1}. Frage:</span>)
+            line.push(<span>{i + 1}. Frage:</span>)
             for (let j = 0; j < data.size; j++) {
                 let color = 'white';
                 if (j + 1 == data.msp) color = 'coral';
@@ -41,10 +41,10 @@ class Kreuzwort extends Component {
                     console.log(2)
                     let name = i + '_' + j;
                     if (data.lines[i].user == this.state.user) {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: { color } }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: {color} }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
+                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: { color } }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
@@ -72,7 +72,7 @@ class Kreuzwort extends Component {
 
     getQuestions() {
         let q = [];
-        for (let i = 0; i < this.state.questions.length; i++){
+        for (let i = 0; i < this.state.questions.length; i++) {
             q.push(<div>{this.state.questions[i]}</div>)
         }
         return q;
@@ -127,28 +127,28 @@ class Kreuzwort extends Component {
         if (state.init) {
             console.log('init done');
             return {
-            init: true,
-            room: state.room,
-            user: state.user,
-            leader: state.leader,
-            data: state.data,
-            lines: state.lines,
-            questions: state.questions
-        };
-    }
+                init: true,
+                room: state.room,
+                user: state.user,
+                leader: state.leader,
+                data: state.data,
+                lines: state.lines,
+                questions: state.questions
+            };
+        }
         let lines = [];
         let q = [];
         let data = JSON.parse(state.data);
         console.log(data);
-        for (let i = 1; i <= data.count; i++) {
+        for (let i = 0; i < data.count; i++) {
             let line = [];
             for (let j = 1; j <= data.size; j++) {
                 line.push('');
             }
             lines.push(line);
 
-            if (data.lines[i-1].user == state.user){
-                q.push(data.lines[i-1].id + '.Frage: ' + data.lines[i].question);
+            if (data.lines[i].user == state.user) {
+                q.push(data.lines[i].id + '.Frage: ' + data.lines[i].question);
             }
         }
 
@@ -173,7 +173,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort'>
-                {this.getQuizTable()}<br/>
+                {this.getQuizTable()}<br />
                 {this.getQuestions()}
             </div>
         )

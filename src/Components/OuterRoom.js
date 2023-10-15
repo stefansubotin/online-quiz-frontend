@@ -16,7 +16,7 @@ class OuterRoom extends Component {
         return (
             <div name='outerRoom'>
                 <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
-                <Chat />
+                <Chat room={this.state.room} type='lobby' user={this.state.user}/>
             </div>
         )
     }
