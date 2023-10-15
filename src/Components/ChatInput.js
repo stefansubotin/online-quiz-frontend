@@ -78,6 +78,12 @@ class ChatInput extends Component {
             return <option value={option}>{option}</option>
         }
     }
+
+    render() {
+        return (
+            <div>{this.getChatController()}</div>
+        )
+    }
 }
 
 export default ChatInput
