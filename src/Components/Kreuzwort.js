@@ -7,7 +7,6 @@ class Kreuzwort extends Component {
             init: false,
             room: props.room,
             user: props.user,
-            leader: props.leader,
             data: props.data,
             lines: [],
             questions: []
@@ -90,7 +89,6 @@ class Kreuzwort extends Component {
             init: this.state.init,
             room: this.state.room,
             user: this.state.user,
-            leader: this.state.leader,
             data: this.state.data,
             lines: newLines,
             questions: []
@@ -114,7 +112,6 @@ class Kreuzwort extends Component {
             init: this.state.init,
             room: this.state.room,
             user: this.state.user,
-            leader: this.state.leader,
             data: this.state.data,
             lines: newLines,
             questions: this.state.questions
@@ -130,7 +127,6 @@ class Kreuzwort extends Component {
                 init: true,
                 room: state.room,
                 user: state.user,
-                leader: state.leader,
                 data: state.data,
                 lines: state.lines,
                 questions: state.questions
@@ -156,7 +152,6 @@ class Kreuzwort extends Component {
             init: true,
             room: state.room,
             user: state.user,
-            leader: state.leader,
             data: state.data,
             lines: lines,
             questions: q

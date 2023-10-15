@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Lobby from './Lobby';
 import Kreuzwort from './Kreuzwort';
 import AblyFunctions from '../Tools/AblyFunctions';
+import WerWirdMillionaer from './wwm';
 
 class InnerRoom extends Component {
     constructor(props) {
@@ -36,7 +37,16 @@ class InnerRoom extends Component {
                 });
                 break;
             case 'wwm':
-                //Wer wird Millionär-Status
+                this.setState({
+                    room: this.state.room,
+                    user: this.state.user,
+                    leader: this.state.leader,
+                    game: this.state.game,
+                    users: this.state.users,
+                    userCount: this.state.userCount,
+                    data: dat,
+                    currentComponent: 'wwm'
+                });
                 break;
             default:
                 this.setState({
@@ -67,6 +77,7 @@ class InnerRoom extends Component {
             const channelId = 'room' + this.state.room;
             const channel = await AblyFunctions.getChannel(ably, channelId);
             await channel.publish('join-res', {
+                you: message.data.user,
                 users: this.state.users,
                 userCount: this.state.userCount
             });
@@ -76,7 +87,7 @@ class InnerRoom extends Component {
         this.setStatus(newUsers, c);
         console.log(this.state);
     }
-    
+
     async onJoinRes(message) {
         console.log(message.data);
         const data = message.data;
@@ -114,7 +125,10 @@ class InnerRoom extends Component {
                 component = <Lobby userCount={this.state.userCount} users={this.state.users} leader={this.state.leader} />
                 break;
             case 'kreuzwort':
-                component = <Kreuzwort room={this.state.room} user={this.state.user} leader={this.state.leader} data={this.state.data} />
+                component = <Kreuzwort room={this.state.room} user={this.state.user} data={this.state.data} />
+                break;
+            case 'wwm':
+                component = <WerWirdMillionaer room={this.state.room} user={this.state.user}  data={this.state.data} />
                 break;
             default:
                 component = <div>Error</div>
