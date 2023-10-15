@@ -65,14 +65,14 @@ class ChatInput extends Component {
         return (
             <div name='chatController'>
                 <a>User: {this.state.user}</a><br />
-                <label for='colorchoice'>Color:&nbsp;</label>
+                <label for='colorchoice'>Color:&nbsp;&nbsp;&nbsp;</label>
                 <select id='colorChoice' onChange={this.onColorChanged}>
                     {this.getOption('black')}
                     {this.getOption('green')}
                     {this.getOption('red')}
                     {this.getOption('blue')}
-                </select>
-                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange}/><br />
+                </select><br/>
+                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange}/>
                 <button onClick={this.onMessageSend}>Send Message</button>
             </div>
         )

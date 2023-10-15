@@ -21,24 +21,20 @@ class Home extends Component {
         return (
             <div name='home'>
                 <span style={{ display: 'inline' }}>
-                    <div>
-                        <p>Create Lobby</p>
-                        <form onSubmit={this.onTriggerCreate}>
-                            <input type="text" name="user" placeholder='Choose Username' /><br />
-                            <input type="text" name="room" placeholder='Choose RoomID' /><br /><br />
-                            <input type="submit" value="Create Lobby" />
-                        </form>
-                    </div>
+                    <p>Create Lobby</p>
+                    <form onSubmit={this.onTriggerCreate}>
+                        <input type="text" name="user" placeholder='Choose Username' /><br />
+                        <input type="text" name="room" placeholder='Choose RoomID' /><br /><br />
+                        <input type="submit" value="Create Lobby" />
+                    </form>
                 </span>
                 <span style={{ display: 'inline' }}>
-                    <div>
-                        <p>Join Lobby</p>
-                        <form onSubmit={this.onTriggerJoin}>
-                            <input type="text" name="user" placeholder='Choose Username' /><br />
-                            <input type="text" name="room" placeholder='Enter RoomID' /><br /><br />
-                            <input type="submit" value="Join Lobby" />
-                        </form>
-                    </div>
+                    <p>Join Lobby</p>
+                    <form onSubmit={this.onTriggerJoin}>
+                        <input type="text" name="user" placeholder='Choose Username' /><br />
+                        <input type="text" name="room" placeholder='Enter RoomID' /><br /><br />
+                        <input type="submit" value="Join Lobby" />
+                    </form>
                 </span>
             </div>
         )
