@@ -61,6 +61,7 @@ class ChatInput extends Component {
     }
 
     getChatController() {
+        console.log(this.state)
         return (
             <div name='chatController'>
                 <a>User: {this.state.user}</a><br />
