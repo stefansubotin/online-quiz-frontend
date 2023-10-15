@@ -90,7 +90,7 @@ class Chat extends Component {
 
     render() {
         return (
-            <div>
+            <div name='chat' style={{ backgroundColor: 'gray'}}>  
                 {this.getChatController()}
                 {this.getMessageLog()}
             </div>

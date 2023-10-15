@@ -15,7 +15,7 @@ class OuterRoom extends Component {
     render() {
         return (
             <div name='outerRoom'>
-                <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
+                <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} /><br/><br/><br/>
                 <Chat room={this.state.room} type='lobby' user={this.state.user}/>
             </div>
         )
