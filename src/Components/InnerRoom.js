@@ -58,7 +58,7 @@ class InnerRoom extends Component {
                     users: this.state.users,
                     userCount: this.state.userCount,
                     data: message.data.data,
-                    currentComponent: 'kreuzwort'
+                    currentComponent: 'domino'
                 });
                 break;
         }
