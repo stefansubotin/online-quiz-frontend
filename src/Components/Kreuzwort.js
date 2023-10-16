@@ -117,7 +117,7 @@ class Kreuzwort extends Component {
     async onUpdate(message) {
         console.log(message.data);
         let dat = JSON.parse(this.state.data);
-        dat.lines[i].state = 0;
+        dat.lines[message.data.i].state = 0;
         let newLines = this.state.lines;
         if (message.data.user != this.state.user) {
             newLines[message.data.i][message.data.j] = message.data.val;
