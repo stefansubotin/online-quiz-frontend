@@ -49,7 +49,7 @@ class Kreuzwort extends Component {
                     }
                     let name = i + '_' + j;
                     if (data.lines[i].user == this.state.user) {
-                        line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
+                        line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(i)} />);
                     }
                     else {
                         line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} readOnly={true} />);
@@ -130,8 +130,16 @@ class Kreuzwort extends Component {
     }
 
     async onSubmit(event){
-        let i = event.target.name;
-        console.log(i);
+        // let i = event.target.name;
+        // console.log(i);
+        console.log(event);
+        let result = '';
+        for (let i = 0; i < lines[event].length; i++){
+            if (lines[event][i] != '') {
+                result = result + lines[event][i];
+            }
+        }
+        console.log(result);
     }
 
     async onCorrection(message){
