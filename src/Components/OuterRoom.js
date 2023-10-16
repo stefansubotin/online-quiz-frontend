@@ -15,7 +15,8 @@ class OuterRoom extends Component {
     render() {
         return (
             <div name='outerRoom' style={{display: 'flex'}}>
-                <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} /><br/><br/><br/>
+                <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
+                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
                 <Chat room={this.state.room} type='lobby' user={this.state.user}/>
             </div>
         )

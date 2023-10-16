@@ -52,7 +52,7 @@ class Kreuzwort extends Component {
                         line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: { color } }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
+                        line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
