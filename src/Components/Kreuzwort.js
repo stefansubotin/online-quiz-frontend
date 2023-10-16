@@ -57,7 +57,7 @@ class Kreuzwort extends Component {
                 }
             }
             if (data.lines[i].user == this.state.user) {
-                line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(e)}>Submit</button>);
+                line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
                 line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
                 line.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
             }
