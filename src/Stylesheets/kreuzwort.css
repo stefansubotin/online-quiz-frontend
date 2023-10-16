@@ -1,8 +1,8 @@
-.cellBase{
+.cellEmptySmall{
     width: 18px;
 }
-.cellInvisible{
-    visibility: hidden;
+.cellInput{
+    width: 10px;
 }
 .cellBig{
     width: 100px;
