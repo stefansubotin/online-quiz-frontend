@@ -193,9 +193,9 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
-                <span>{this.getQuizTable()}</span>
+                <span name='quizTable'>{this.getQuizTable()}</span>
                 <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
-                <span>{this.getQuestions()}</span>
+                <span name='quizQuestions'>{this.getQuestions()}</span>
             </div>
         )
     }
