@@ -139,38 +139,38 @@ class Kreuzwort extends Component {
     }
 //#endregion
 //#region React-Component-Lifetime-Functions
-    // static getDerivedStateFromProps(props, state) {
-    //     console.log(state)
-    //     if (state.init) {
-    //         console.log('init done');
-    //         return {
-    //             init: true,
-    //             room: state.room,
-    //             user: state.user,
-    //             data: state.data,
-    //             lines: state.lines,
-    //             questions: state.questions
-    //         };
-    //     }
-    //     let lines = [];
-    //     let data = JSON.parse(state.data);
-    //     console.log(data);
-    //     for (let i = 0; i < data.count; i++) {
-    //         let line = [];
-    //         for (let j = 1; j <= data.size; j++) {
-    //             line.push('');
-    //         }
-    //         lines.push(line);
-    //     }
+    static getDerivedStateFromProps(props, state) {
+        console.log(state)
+        if (state.init) {
+            console.log('init done');
+            return {
+                init: true,
+                room: state.room,
+                user: state.user,
+                data: state.data,
+                lines: state.lines,
+                questions: state.questions
+            };
+        }
+        let lines = [];
+        let data = JSON.parse(state.data);
+        console.log(data);
+        for (let i = 0; i < data.count; i++) {
+            let line = [];
+            for (let j = 1; j <= data.size; j++) {
+                line.push('');
+            }
+            lines.push(line);
+        }
 
-    //     return {
-    //         init: true,
-    //         room: state.room,
-    //         user: state.user,
-    //         data: state.data,
-    //         lines: lines
-    //     };
-    // }
+        return {
+            init: true,
+            room: state.room,
+            user: state.user,
+            data: state.data,
+            lines: lines
+        };
+    }
 
     async componentDidMount() {
         const ably = await this.getAbly();
