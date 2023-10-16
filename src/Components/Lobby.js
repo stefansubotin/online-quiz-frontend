@@ -9,7 +9,23 @@ class Lobby extends Component {
             leader: props.leader
         }
     }
+    async onStartDomino() {
+        let users= [];
+        for(let i = 0; i < this.state.userCount; i++){
+            users.push({ user: this.state.users[i] });
+        }
 
+        const body = {
+            type: 1,
+            userCount: this.state.userCount,
+            users: users
+        };
+        fetch('https://****/Domino/domino', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        })
+    }
     async onStartKreuzwort() {
         let users= [];
         for(let i = 0; i < this.state.userCount; i++){
@@ -106,6 +122,7 @@ class Lobby extends Component {
         return (
             <div name='lobby'>
                 <button onClick={this.onTestClick} disabled={!this.state.leader}>Starte Kreuzwort</button>
+                <button onClick={this.onStartDomino} >Start Domino</button>
             </div>
         );
     }
