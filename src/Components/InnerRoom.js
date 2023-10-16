@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Domino from './Domino/Domino'
 import Lobby from './Lobby';
 import Kreuzwort from './Kreuzwort';
 import AblyFunctions from '../Tools/AblyFunctions';
@@ -131,7 +132,7 @@ class InnerRoom extends Component {
                 component = <WerWirdMillionaer room={this.state.room} user={this.state.user}  data={this.state.data} />
                 break;
             case 'domino':
-                component = <div></div>
+                component = <Domino></Domino>
                 break;
             default:
                 component = <div>Error</div>
