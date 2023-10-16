@@ -56,8 +56,8 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            if (data.lines[i].user == this.state.user) line.push(<button name={i}>Submit</button>);
-            else line.push(<span>{data.lines[i].user}</span>)
+            if (data.lines[i].user == this.state.user) line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(e)}>Submit</button>);
+            else line.push(<span className='cellBig'>{data.lines[i].user}</span>)
             quiz.push(line);
         }
         return quiz;
@@ -88,6 +88,8 @@ class Kreuzwort extends Component {
         return q;
     }
 
+
+//#region OnEvent-Functions
     async onChangeLine(event) {
         const ably = await this.getAbly();
         const channelId = 'kreuzwort' + this.state.room;
@@ -130,6 +132,16 @@ class Kreuzwort extends Component {
         console.log(this.state)
     }
 
+    async onSubmit(event){
+        let i = event.target.name;
+        console.log(i);
+    }
+
+    async onCorrection(message){
+
+    }
+//#endregion
+//#region React-Component-Lifetime-Functions
     static getDerivedStateFromProps(props, state) {
         console.log(state)
         if (state.init) {
@@ -174,7 +186,9 @@ class Kreuzwort extends Component {
         const channelId = 'kreuzwort' + this.state.room;
         const channel = ably.channels.get(channelId);
         await channel.subscribe('update', (message) => this.onUpdate(message));
+        await channel.subscribe('correction', (message) => this.onCorrection(message));
     }
+//#endregion
 
     render() {
         return (

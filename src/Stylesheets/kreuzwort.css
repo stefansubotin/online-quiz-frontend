@@ -1,9 +1,12 @@
 .cellBase{
     width: 10px;
 }
-
 .cellInvisible{
     visibility: hidden;
+}
+
+.cellBig{
+    width: 100px;
 }
 
 input.inputMsp, textarea {
