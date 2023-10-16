@@ -56,7 +56,8 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            line.push(<button name={i}>Submit</button>)
+            if (data.lines[i].user == this.state.user) line.push(<button name={i}>Submit</button>);
+            else line.push(<span>{data.lines[i].user}</span>)
             quiz.push(line);
         }
         return quiz;
