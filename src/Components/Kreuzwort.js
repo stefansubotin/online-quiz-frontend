@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../Stylesheets/kreuzwort.css'
+import '../Stylesheets/spacer.css'
 
 class Kreuzwort extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class Kreuzwort extends Component {
                 }
             }
             if (data.lines[i].user == this.state.user) line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(e)}>Submit</button>);
-            else line.push(<span className='cellBig'>{data.lines[i].user}</span>)
+            else line.push(<span className='cellBig spacer'>{data.lines[i].user}</span>)
             quiz.push(line);
         }
         return quiz;

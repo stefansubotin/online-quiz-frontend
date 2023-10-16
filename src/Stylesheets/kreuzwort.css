@@ -4,9 +4,8 @@
 .cellInvisible{
     visibility: hidden;
 }
-
 .cellBig{
-    min-width: 100px;
+    width: 100px;
 }
 
 input.inputMsp, textarea {
