@@ -115,15 +115,18 @@ class Kreuzwort extends Component {
     }
 
     async onUpdate(message) {
-        console.log(message.data)
-        if (message.data.user == this.state.user) return;
+        console.log(message.data);
+        let dat = JSON.parse(this.state.data);
+        dat.lines[i].state = 0;
         let newLines = this.state.lines;
-        newLines[message.data.i][message.data.j] = message.data.val;
+        if (message.data.user != this.state.user) {
+            newLines[message.data.i][message.data.j] = message.data.val;
+        }
         this.setState({
             init: this.state.init,
             room: this.state.room,
             user: this.state.user,
-            data: this.state.data,
+            data: JSON.stringify(dat),
             lines: newLines
         });
         console.log(this.state)
@@ -143,7 +146,16 @@ class Kreuzwort extends Component {
     }
 
     async onCorrection(message){
-
+        console.log(message.data);
+        let dat = JSON.parse(this.state.data);
+        dat.lines[message.data.i].state = message.data.state;
+        this.setState({
+            init: this.state.init,
+            room: this.state.room,
+            user: this.state.user,
+            data: JSON.stringify(dat),
+            lines: this.state.lines
+        });
     }
 //#endregion
 //#region React-Component-Lifetime-Functions
