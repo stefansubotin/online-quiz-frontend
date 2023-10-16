@@ -137,9 +137,9 @@ class Kreuzwort extends Component {
         // console.log(i);
         console.log(event);
         let result = '';
-        for (let i = 0; i < lines[event].length; i++){
-            if (lines[event][i] != '') {
-                result = result + lines[event][i];
+        for (let i = 0; i < this.state.lines[event].length; i++){
+            if (this.state.lines[event][i] != '') {
+                result = result + this.state.lines[event][i];
             }
         }
         console.log(result);
