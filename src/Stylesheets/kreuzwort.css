@@ -1,0 +1,25 @@
+.cellBase{
+    width: 10px;
+}
+
+.cellInvisible{
+    visibility: hidden;
+}
+
+input.inputMsp, textarea {
+    background: lightslategray;
+}
+input.inputNormal, textarea {
+    background: white;
+}
+
+input.uncorrected {
+    color: black
+}
+input.right {
+    color: darkgreen
+}
+input.wrong {
+    color: darkred
+}
+

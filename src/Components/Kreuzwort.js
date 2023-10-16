@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../Stylesheets/kreuzwort.css'
 
 class Kreuzwort extends Component {
     constructor(props) {
@@ -28,25 +29,34 @@ class Kreuzwort extends Component {
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
             for (let j = 0; j < data.size; j++) {
-                let color = 'white';
-                if (j + 1 == data.msp) color = 'coral';
-                console.log("j+1 < data.lines[i].start || j+1 >= data.lines[i].start + data.lines[i].length:");
-                console.log(j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length);
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
-                    console.log(1)
-                    line.push(<span style={{ width: '10px', visibility: 'hidden' }}>MI</span>);
+                    line.push(<span className='cellBase cellInvisible'>MI</span>);
                 }
                 else {
-                    console.log(2)
+                    let styleClass = 'cellBase';
+                    if (j + 1 == data.msp) styleClass = styleClass + ' inputMsp';
+                    else styleClass = styleClass + ' inputNormal';
+                    switch (data.lines[i].state) {
+                        case 0:
+                            styleClass = styleClass + ' uncorrected';
+                            break;
+                        case 1:
+                            styleClass = styleClass + ' right';
+                            break;
+                        case 2:
+                            styleClass = styleClass + ' wrong';
+                            break;
+                    }
                     let name = i + '_' + j;
                     if (data.lines[i].user == this.state.user) {
-                        line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: { color } }} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
+                        line.push(<input type='text' name={name} maxLength={1} className={styleClass} defaultValue={this.state.lines[i][j]} onChange={e => this.onChangeLine(e)} />);
                     }
                     else {
                         line.push(<input type='text' name={name} maxLength={1} style={{ width: '10px', backgroundColor: { color } }} defaultValue={this.state.lines[i][j]} readOnly={true} />);
                     }
                 }
             }
+            line.push(<button name={i}>Submit</button>)
             quiz.push(line);
         }
         return quiz;

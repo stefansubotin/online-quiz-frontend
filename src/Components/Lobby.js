@@ -54,13 +54,15 @@ class Lobby extends Component {
                                 start: 3,
                                 length: 5,
                                 user: 'Anna',
+                                state: 0,
                                 question: 'Wie heißt der andere User?'
                             },
                             {
                                 id: 2,
                                 start: 4,
                                 length: 4,
-                                user: 'Bernd'
+                                user: 'Bernd',
+                                state: 0
                             }
                         ]
                     })
@@ -79,13 +81,15 @@ class Lobby extends Component {
                                 id: 1,
                                 start: 3,
                                 length: 5,
-                                user: 'Anna'
+                                user: 'Anna',
+                                state: 0
                             },
                             {
                                 id: 2,
                                 start: 4,
                                 length: 4,
                                 user: 'Bernd',
+                                state: 0,
                                 question: 'Wie heißt der andere User?'
                             }
                         ]
