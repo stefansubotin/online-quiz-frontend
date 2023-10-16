@@ -132,7 +132,7 @@ class InnerRoom extends Component {
                 component = <WerWirdMillionaer room={this.state.room} user={this.state.user}  data={this.state.data} />
                 break;
             case 'domino':
-                component = <Domino></Domino>
+                component = <Domino room={this.state.room} user={this.state.user}  data={this.state.data}></Domino>
                 break;
             default:
                 component = <div>Error</div>
