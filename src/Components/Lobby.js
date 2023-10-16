@@ -20,7 +20,7 @@ class Lobby extends Component {
             userCount: this.state.userCount,
             users: users
         };
-        fetch('https://****/Domino/domino', {
+        fetch('https://****/domino', {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }
@@ -122,7 +122,7 @@ class Lobby extends Component {
         return (
             <div name='lobby'>
                 <button onClick={this.onTestClick} disabled={!this.state.leader}>Starte Kreuzwort</button>
-                <button onClick={this.onStartDomino} >Start Domino</button>
+                <button onClick={this.onStartDomino} disabled={!this.state.leader}>Start Domino</button>
             </div>
         );
     }
