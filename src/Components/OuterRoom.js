@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InnerRoom from './InnerRoom';
 import Chat from './Chat';
+import '../Stylesheets/span.css'
 
 class OuterRoom extends Component {
     constructor(props){
@@ -16,7 +17,7 @@ class OuterRoom extends Component {
         return (
             <div name='outerRoom' style={{display: 'flex'}}>
                 <InnerRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
-                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
+                <span className='fixedSize invis size25'>&nbsp;</span>
                 <Chat room={this.state.room} type='lobby' user={this.state.user}/>
             </div>
         )

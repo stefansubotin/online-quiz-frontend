@@ -1,0 +1,11 @@
+span.fixedSize {
+    display: inline-block;
+}
+
+span.invis{
+    visibility: hidden;
+}
+
+span.size25{
+    width: 25px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../Stylesheets/span.css';
 
 class Home extends Component {
 
@@ -20,7 +21,7 @@ class Home extends Component {
     render() {
         return (
             <div name='home' style={{display: 'flex'}}>
-                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
+                <span className='fixedSize invis size25'>&nbsp;</span>
                 <span>
                     <p>Create Lobby</p>
                     <form onSubmit={this.onTriggerCreate}>
@@ -29,7 +30,7 @@ class Home extends Component {
                         <input type="submit" value="Create Lobby" />
                     </form>
                 </span>
-                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
+                <span className='fixedSize invis size25'>&nbsp;</span>
                 <span>
                     <p>Join Lobby</p>
                     <form onSubmit={this.onTriggerJoin}>

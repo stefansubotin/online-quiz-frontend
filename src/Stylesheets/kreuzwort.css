@@ -7,6 +7,9 @@
 .cellBig{
     width: 100px;
 }
+.cellQuestion{
+    width: 250px;
+}
 
 input.inputMsp, textarea {
     background: lightslategray;

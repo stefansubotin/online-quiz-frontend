@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Stylesheets/kreuzwort.css'
-import '../Stylesheets/spacer.css'
+import '../Stylesheets/span.css'
 
 class Kreuzwort extends Component {
     constructor(props) {
@@ -10,8 +10,7 @@ class Kreuzwort extends Component {
             room: props.room,
             user: props.user,
             data: props.data,
-            lines: [],
-            questions: []
+            lines: []
         }
     }
 
@@ -31,7 +30,7 @@ class Kreuzwort extends Component {
             line.push(<span>{i + 1}. Frage:</span>)
             for (let j = 0; j < data.size; j++) {
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
-                    line.push(<span className='cellBase cellInvisible'>MI</span>);
+                    line.push(<span className='cellBase fixedSize invis'>&nbsp;</span>);
                 }
                 else {
                     let styleClass = 'cellBase';
@@ -57,8 +56,16 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            if (data.lines[i].user == this.state.user) line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(e)}>Submit</button>);
-            else line.push(<span className='cellBig spacer'>{data.lines[i].user}</span>)
+            if (data.lines[i].user == this.state.user) {
+                line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(e)}>Submit</button>);
+                line.push(<span className='cellBase fixedSize invis'>&nbsp;</span>);
+                line.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
+            }
+            else {
+                line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
+                line.push(<span className='cellBase fixedSize invis'>&nbsp;</span>);
+                line.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
+            }
             quiz.push(line);
         }
         return quiz;
@@ -81,15 +88,6 @@ class Kreuzwort extends Component {
         )
     }
 
-    getQuestions() {
-        let q = [];
-        for (let i = 0; i < this.state.questions.length; i++) {
-            q.push(<div>{this.state.questions[i]}</div>)
-        }
-        return q;
-    }
-
-
 //#region OnEvent-Functions
     async onChangeLine(event) {
         const ably = await this.getAbly();
@@ -104,8 +102,7 @@ class Kreuzwort extends Component {
             room: this.state.room,
             user: this.state.user,
             data: this.state.data,
-            lines: newLines,
-            questions: []
+            lines: newLines
         });
 
         await channel.publish('update', {
@@ -127,8 +124,7 @@ class Kreuzwort extends Component {
             room: this.state.room,
             user: this.state.user,
             data: this.state.data,
-            lines: newLines,
-            questions: this.state.questions
+            lines: newLines
         });
         console.log(this.state)
     }
@@ -143,44 +139,38 @@ class Kreuzwort extends Component {
     }
 //#endregion
 //#region React-Component-Lifetime-Functions
-    static getDerivedStateFromProps(props, state) {
-        console.log(state)
-        if (state.init) {
-            console.log('init done');
-            return {
-                init: true,
-                room: state.room,
-                user: state.user,
-                data: state.data,
-                lines: state.lines,
-                questions: state.questions
-            };
-        }
-        let lines = [];
-        let q = [];
-        let data = JSON.parse(state.data);
-        console.log(data);
-        for (let i = 0; i < data.count; i++) {
-            let line = [];
-            for (let j = 1; j <= data.size; j++) {
-                line.push('');
-            }
-            lines.push(line);
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log(state)
+    //     if (state.init) {
+    //         console.log('init done');
+    //         return {
+    //             init: true,
+    //             room: state.room,
+    //             user: state.user,
+    //             data: state.data,
+    //             lines: state.lines,
+    //             questions: state.questions
+    //         };
+    //     }
+    //     let lines = [];
+    //     let data = JSON.parse(state.data);
+    //     console.log(data);
+    //     for (let i = 0; i < data.count; i++) {
+    //         let line = [];
+    //         for (let j = 1; j <= data.size; j++) {
+    //             line.push('');
+    //         }
+    //         lines.push(line);
+    //     }
 
-            if (data.lines[i].user == state.user) {
-                q.push(data.lines[i].id + '.Frage: ' + data.lines[i].question);
-            }
-        }
-
-        return {
-            init: true,
-            room: state.room,
-            user: state.user,
-            data: state.data,
-            lines: lines,
-            questions: q
-        };
-    }
+    //     return {
+    //         init: true,
+    //         room: state.room,
+    //         user: state.user,
+    //         data: state.data,
+    //         lines: lines
+    //     };
+    // }
 
     async componentDidMount() {
         const ably = await this.getAbly();
@@ -195,8 +185,6 @@ class Kreuzwort extends Component {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
                 <span name='quizTable'>{this.getQuizTable()}</span>
-                <span style={{ width: '25px', visibility: 'hidden' }}>MIMIMI</span>
-                <span name='quizQuestions'>{this.getQuestions()}</span>
             </div>
         )
     }
