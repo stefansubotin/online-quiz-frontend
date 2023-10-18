@@ -10,7 +10,7 @@ class Domino extends Component {
     };
   }
   initFeld() {
-    return <div style="color:blue">Hallo Feld</div>;
+    return <div style={{color:'blue'}}>Hallo Feld</div>;
   }
   render() {
     return <div>{this.initFeld()}</div>;
