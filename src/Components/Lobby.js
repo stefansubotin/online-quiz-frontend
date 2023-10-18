@@ -30,7 +30,9 @@ class Lobby extends Component {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
-        })
+        }).then(response => response.json)
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
     }
 
     async onStartDomino() {
