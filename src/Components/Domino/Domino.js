@@ -18,14 +18,27 @@ class Domino extends Component {
     return (
       <div className="card stein">
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">A second item</li>
-          <li className="list-group-item">A third item</li>
+          <li className="list-group-item">{frage}</li>
+          <li className="list-group-item">{antwort}</li>
         </ul>
       </div>
     );
   }
   initFeld() {
-    return <div className="feld">{this.getFirstCard()}</div>;
+    var felder = [];
+    for (let i = 0; i < 36; ++i) {
+      felder.push(
+        <div className="zelle" id={i}>
+          {i}
+        </div>
+      );
+    }
+    this.setState({
+      feld: felder,
+    });
+    return this.state.feld.map({
+      zelle,
+    });
   }
   render() {
     return (
