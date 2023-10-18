@@ -57,7 +57,7 @@ class InnerRoom extends Component {
         let component;
         switch (this.state.currentComponent) {
             case 'lobby':
-                component = <Lobby user={this.state.user} leader={this.state.leader} />
+                component = <Lobby user={this.state.user} leader={this.state.leader} room={this.state.room}/>
                 break;
             case 'kreuzwort':
                 component = <Kreuzwort room={this.state.room} user={this.state.user} data={this.state.data} />

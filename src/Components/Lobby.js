@@ -6,6 +6,7 @@ class Lobby extends Component {
     constructor(props){
         super(props);
         this.state = {
+            room: props.room,
             userCount: 1,
             user: props.user,
             users: [props.user],
@@ -82,6 +83,7 @@ class Lobby extends Component {
         const c = this.state.userCount + 1;
 
         this.setState({
+            room: this.state.room,
             userCount: c,
             user: this.state.user,
             users: newUsers,
