@@ -33,7 +33,7 @@ class Kreuzwort extends Component {
                     line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
                 }
                 else {
-                    let styleClass = 'cellInput';
+                    let styleClass = 'cellSmall';
                     if (j + 1 == data.msp) styleClass = styleClass + ' inputMsp';
                     else styleClass = styleClass + ' inputNormal';
                     switch (data.lines[i].state) {
