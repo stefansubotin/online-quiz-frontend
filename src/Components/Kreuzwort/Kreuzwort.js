@@ -152,7 +152,7 @@ class Kreuzwort extends Component {
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'POST',
-            body: body,
+            body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }
         })
     }

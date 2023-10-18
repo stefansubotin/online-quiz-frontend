@@ -79,6 +79,7 @@ class Lobby extends Component {
             userCount: c,
             leader: this.state.leader
         });
+        console.log('Lobbystate: ');
         console.log(this.state);
     }
 
