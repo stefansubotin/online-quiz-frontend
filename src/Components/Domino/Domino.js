@@ -16,7 +16,7 @@ class Domino extends Component {
   render() {
     return (
       <div>
-        <Stein></Stein>
+        {this.initFeld()}
       </div>
     );
   }
