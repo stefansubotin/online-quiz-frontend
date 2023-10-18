@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../../Stylesheets/domino.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 class Domino extends Component {
   constructor(props) {
     super(props);
