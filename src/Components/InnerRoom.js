@@ -111,7 +111,7 @@ class InnerRoom extends Component {
 
   render() {
     return (
-      <div name="innerRoom" className="innnerRoom">
+      <div name="innerRoom" className="innerRoom">
         <div name="innerRoomComponent">{this.getComponent()}</div>
         <br />
         <UserList
