@@ -17,7 +17,7 @@ class Lobby extends Component {
         let users = [];
         console.log(this.state);
         for(let i = 0; i < this.state.userCount; i++){
-            users.push({ user: this.state.users[i] });
+            users.push(this.state.users[i]);
         }
 
         const body = {
