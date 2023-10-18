@@ -4,6 +4,16 @@
 }.stein{
     width: 80px;
 }
-.game{
+.innerRoom{
     width: 60%;
+    background-color: pink;
+    display: flex;
+}
+.innerRoomComponent{
+    width: 80%;
+    background-color: blue;
+}
+.userList{
+    width: 20%;
+    background-color: green;
 }
