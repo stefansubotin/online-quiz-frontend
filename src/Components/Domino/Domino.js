@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
-class Domino extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentComponent: 'domino',
-            room: '', 
-            user: '',
-            leader: false
-        };
-    }
-    render() {return (<div>Hallo domino</div>)}
-} export default Domino;
+import React, { Component } from "react";
+class Domino extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      room: props.room,
+      user: props.user,
+      data: data,
+      leader: false,
+    };
+  }
+  initFeld() {
+    return <div style="color:blue">Hallo Feld</div>;
+  }
+  render() {
+    return <div>{this.initFeld}</div>;
+  }
+}
+export default Domino;
