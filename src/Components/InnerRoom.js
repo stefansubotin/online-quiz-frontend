@@ -112,9 +112,12 @@ class InnerRoom extends Component {
   render() {
     return (
       <div name="innerRoom" className="innerRoom">
-        <div name="innerRoomComponent">{this.getComponent()}</div>
+        <div name="innerRoomComponent" className="innerRoomComponent">
+          {this.getComponent()}
+        </div>
         <br />
         <UserList
+          className="userList"
           room={this.state.room}
           user={this.state.user}
           leader={this.state.leader}
