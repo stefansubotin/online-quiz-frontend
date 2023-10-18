@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../Stylesheets/domino.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 class Domino extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class Domino extends Component {
   }
   getFirstCard() {
     return (
-      <div className="card" style="width: 18rem;">
+      <div className="card">
         <ul className="list-group list-group-flush">
           <li className="list-group-item">An item</li>
           <li className="list-group-item">A second item</li>
