@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../Stylesheets/kreuzwort.css'
-import '../Stylesheets/span.css'
+import '../../Stylesheets/kreuzwort.css'
+import '../../Stylesheets/span.css'
 
 class Kreuzwort extends Component {
     constructor(props) {
