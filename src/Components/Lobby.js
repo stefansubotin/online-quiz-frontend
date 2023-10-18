@@ -18,15 +18,18 @@ class Lobby extends Component {
 
         const body = {
             type: 1,
+            room: this.state.room,
             userCount: this.state.userCount,
             users: users
         };
-        fetch('https://****/kreuzwort', {
+        let url = BackendAccess.getUrl() + 'kreuzwort';
+        fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }
         })
     }
+
     async onStartDomino() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -55,84 +58,33 @@ class Lobby extends Component {
         ably.close();
     }
     
-    async onTestClick() {
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
+    async onJoin(message) {
+        console.log(message.data);
+        if (message.data.user == this.state.user) return;
 
-        const channelId = 'room1';
-        const channel = ably.channels.get(channelId);
+        let newUsers = this.state.users;
+        newUsers = newUsers.concat([message.data.user]);
+        const c = this.state.userCount + 1;
 
-        let mes1;
-        let mes2;
+        this.setState({
+            userCount: c,
+            users: newUsers,
+            leader: this.state.leader
+        });
+        console.log(this.state);
+    }
 
-        for (let i = 1; i <= 2; i++) {
-            if (i == 1) {
-                mes1 = {
-                    game: 'kreuzwort',
-                    data: JSON.stringify({
-                        id: -1,
-                        size: 10,
-                        count: 2,
-                        msp: 5,
-                        lines: [
-                            {
-                                id: 1,
-                                start: 3,
-                                length: 5,
-                                user: 'Anna',
-                                state: 0,
-                                question: 'Wie heißt der andere User?'
-                            },
-                            {
-                                id: 2,
-                                start: 4,
-                                length: 4,
-                                user: 'Bernd',
-                                state: 0
-                            }
-                        ]
-                    })
-                }
-            };
-            if (i == 2) {
-                mes2 = {
-                    game: 'kreuzwort',
-                    data: JSON.stringify({
-                        id: -1,
-                        size: 10,
-                        count: 2,
-                        msp: 5,
-                        lines: [
-                            {
-                                id: 1,
-                                start: 3,
-                                length: 5,
-                                user: 'Anna',
-                                state: 0
-                            },
-                            {
-                                id: 2,
-                                start: 4,
-                                length: 4,
-                                user: 'Bernd',
-                                state: 0,
-                                question: 'Wie heißt der andere User?'
-                            }
-                        ]
-                    })
-                }
-            };
-        };
-        await channel.publish('startBernd', mes2);
-        await channel.publish('startAnna', mes1);
-        ably.close();
+    async componentDidMount(){
+        const ably = await AblyFunctions.getAbly();
+        const channelId = 'room' + this.state.room;
+        const channel = await AblyFunctions.getChannel(ably, channelId);
+        await channel.subscribe('join', (message) => this.onJoin(message));
     }
 
     render() {
         return (
             <div name='lobby'>
-                <button onClick={this.onTestClick} disabled={!this.state.leader}>Starte Kreuzwort</button>
+                <button onClick={this.onStartKreuzwort} disabled={!this.state.leader}>Starte Kreuzwort</button>
                 <button onClick={this.onStartDomino} disabled={!this.state.leader}>Starte Domino</button>
             </div>
         );

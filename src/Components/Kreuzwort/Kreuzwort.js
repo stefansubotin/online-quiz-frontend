@@ -43,7 +43,7 @@ class Kreuzwort extends Component {
                         case 1:
                             styleClass = styleClass + ' right';
                             break;
-                        case 2:
+                        case -1:
                             styleClass = styleClass + ' wrong';
                             break;
                     }
@@ -133,8 +133,6 @@ class Kreuzwort extends Component {
     }
 
     async onSubmit(event){
-        // let i = event.target.name;
-        // console.log(i);
         console.log(event);
         let result = '';
         for (let i = 0; i < this.state.lines[event].length; i++){
@@ -143,6 +141,13 @@ class Kreuzwort extends Component {
             }
         }
         console.log(result);
+        let dat = JSON.parse(this.state.data)
+        let body = {
+            type: 0,
+            id: dat.id,
+            line: event,
+            answer: result
+        }
     }
 
     async onCorrection(message){

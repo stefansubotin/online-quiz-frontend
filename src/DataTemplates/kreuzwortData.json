@@ -1,0 +1,73 @@
+{
+    "db-to-client-start": {
+        "game": "kreuzwort",
+        "data": {
+            "id": "1",
+            "size": 10,
+            "count": 2,
+            "msp": 5,
+            "lines": [
+                {
+                    "id": 1,
+                    "start": 3,
+                    "length": 5,
+                    "user": "Anna",
+                    "state": 0,
+                    "question": "Wie heißt der andere User?"
+                },
+                {
+                    "id": 2,
+                    "start": 4,
+                    "length": 4,
+                    "user": "Bernd",
+                    "state": 0
+                }
+            ]
+        }
+    },
+    "client-to-db-start": {
+        "type": 1,
+        "room": "1",
+        "userCount": 4,
+        "users": [
+            "A",
+            "B",
+            "etc"
+        ]
+    },
+    "db-to-client-correction": {
+        "i": 1,
+        "state": 1
+    },
+    "client-to-db-correction": {
+        "type": 0,
+        "room": "1",
+        "id": "1",
+        "line": 1,
+        "answer": "result"
+    },
+    "db": {
+        "collection": "wwm",
+        "key": "1",
+        "props": {
+            "updated": "2022-03-23T13:02:12.702Z",
+            "created": "2022-03-23T12:32:02.526Z",
+            "size": 5,
+            "msp": 3,
+            "lines": [
+                {
+                    "id": 1,
+                    "start": 1,
+                    "question": "Wie hieß der Testlobbycreator?",
+                    "answer": "Anna"
+                },
+                {
+                    "id": 2,
+                    "start": 2,
+                    "question": "Wie heißt der Testlobbyjoiner?",
+                    "answer": "Anna"
+                }
+            ]
+        }
+    }
+}

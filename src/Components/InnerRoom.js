@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Domino from './Domino/Domino'
 import Lobby from './Lobby';
-import Kreuzwort from './Kreuzwort';
+import Kreuzwort from './Kreuzwort/Kreuzwort';
 import AblyFunctions from '../Tools/AblyFunctions';
-import WerWirdMillionaer from './WerWirdMillionaer';
+import WerWirdMillionaer from './WerWirdMillionaer/WerWirdMillionaer';
+import UserList from './UserList';
 
 class InnerRoom extends Component {
     constructor(props) {
@@ -12,9 +13,6 @@ class InnerRoom extends Component {
             room: props.room,
             user: props.user,
             leader: props.leader,
-            game: '',
-            users: [props.user],
-            userCount: 1,
             data: '',
             currentComponent: 'lobby'
         }
@@ -22,7 +20,7 @@ class InnerRoom extends Component {
 
     async onStart(message) {
         console.log(message.data)
-        let dat = message.data.data;
+        let dat = JSON.stringify(message.data.data);
         console.log(dat)
         switch (message.data.game) {
             case 'kreuzwort':
@@ -30,9 +28,6 @@ class InnerRoom extends Component {
                     room: this.state.room,
                     user: this.state.user,
                     leader: this.state.leader,
-                    game: this.state.game,
-                    users: this.state.users,
-                    userCount: this.state.userCount,
                     data: dat,
                     currentComponent: 'kreuzwort'
                 });
@@ -42,9 +37,6 @@ class InnerRoom extends Component {
                     room: this.state.room,
                     user: this.state.user,
                     leader: this.state.leader,
-                    game: this.state.game,
-                    users: this.state.users,
-                    userCount: this.state.userCount,
                     data: dat,
                     currentComponent: 'wwm'
                 });
@@ -54,69 +46,11 @@ class InnerRoom extends Component {
                     room: this.state.room,
                     user: this.state.user,
                     leader: this.state.leader,
-                    game: this.state.game,
-                    users: this.state.users,
-                    userCount: this.state.userCount,
                     data: message.data.data,
                     currentComponent: 'domino'
                 });
                 break;
         }
-    }
-
-    async onJoin(message) {
-        console.log(message.data);
-        if (message.data.user == this.state.user) return;
-
-        let newUsers = this.state.users;
-        newUsers = newUsers.concat([message.data.user]);
-        const c = this.state.userCount + 1;
-
-        console.log(newUsers);
-        if (this.state.leader) {
-            const ably = await AblyFunctions.getAbly()
-            const channelId = 'room' + this.state.room;
-            const channel = await AblyFunctions.getChannel(ably, channelId);
-            await channel.publish('join-res', {
-                you: message.data.user,
-                users: this.state.users,
-                userCount: this.state.userCount
-            });
-            ably.close();
-        }
-
-        this.setStatus(newUsers, c);
-        console.log(this.state);
-    }
-
-    async onJoinRes(message) {
-        console.log(message.data);
-        const data = message.data;
-        let newUsers = message.data.users
-        newUsers = newUsers.concat([this.state.user]);
-        const c = this.state.userCount + data.userCount;
-
-        const ably = await AblyFunctions.getAbly();
-        const channelId = 'room' + this.state.room;
-        const channel = await AblyFunctions.getChannel(ably, channelId);
-        channel.unsubscribe('join-res');
-        ably.close();
-
-        this.setStatus(newUsers, c);
-        console.log(this.state);
-    }
-
-    setStatus(users, c) {
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            leader: this.state.leader,
-            game: this.state.game,
-            users: users,
-            userCount: c,
-            data: this.state.data,
-            currentComponent: this.state.currentComponent
-        });
     }
 
     getComponent() {
@@ -141,31 +75,18 @@ class InnerRoom extends Component {
         return component;
     }
 
-    getUsers() {
-        return this.state.users.join(', ');
-    }
-
     async componentDidMount() {
         const ably = await AblyFunctions.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = await AblyFunctions.getChannel(ably, channelId);
         await channel.subscribe('start' + this.state.user, (message) => this.onStart(message));
-        await channel.subscribe('join', (message) => this.onJoin(message));
-
-        if (!this.state.leader) {
-            console.log('not leader');
-            await channel.subscribe('join-res', (message) => this.onJoinRes(message));
-            channel.publish('join', {
-                user: this.state.user
-            });
-        }
     }
 
     render() {
         return (
             <div name='innerRoom'>
                 <div name='innerRoomComponent'>{this.getComponent()}</div><br />
-                <div name='innerRoomUsers'>{this.getUsers()}</div>
+                <UserList room={this.state.room} user={this.state.user} leader={this.state.leader} />
             </div>
         );
     }
