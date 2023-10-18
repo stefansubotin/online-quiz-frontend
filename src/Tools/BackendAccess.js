@@ -3,3 +3,5 @@ class BackendAccess {
         return 'https://gifted-shawl-fox.cyclic.app/';
     }
 }
+
+export default BackendAccess;
