@@ -28,7 +28,7 @@ class Domino extends Component {
   }
   render() {
     return (
-      <div className="game">
+      <div>
         {this.initFeld()}
         <div className="Pool card">{this.getFirstCard()}</div>
       </div>

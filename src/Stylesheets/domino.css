@@ -1,6 +1,9 @@
 .feld{
     background-color: gray;
-    width: 100%;
+    width: 50%;
 }.stein{
     width: 80px;
+}
+.game{
+    width: 60%;
 }
