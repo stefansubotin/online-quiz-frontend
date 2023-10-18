@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../Stylesheets/kreuzwort.css';
 import '../../Stylesheets/span.css';
-import 'ably';
 import AblyFunctions from '../../Tools/AblyFunctions';
 import BackendAccess from '../../Tools/BackendAccess';
 
@@ -205,9 +204,11 @@ class Kreuzwort extends Component {
     }
 
     async componentDidMount() {
-        const ably = await AblyFunctions.getAbly();
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
         const channelId = this.getChannelId();
-        const channel = AblyFunctions.getChannel(ably, channelId);
+        const channel = ably.channels.get(channelId);
         await channel.subscribe('update', (message) => this.onUpdate(message));
         await channel.subscribe('correction', (message) => this.onCorrection(message));
     }
