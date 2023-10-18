@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../Stylesheets/domino.css";
-
 class Domino extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +8,8 @@ class Domino extends Component {
       user: props.user,
       data: props.data,
       leader: false,
+      pool: [],
+      feld: [],
     };
   }
   getFirstCard() {

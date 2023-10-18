@@ -4,6 +4,7 @@
 }.stein{
     width: 80px;
 }
-.game{
+.innerRoom{
     width: 60%;
+    background-color: pink;
 }
