@@ -27,10 +27,10 @@ class Kreuzwort extends Component {
             let line = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
-            line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
+            line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
             for (let j = 0; j < data.size; j++) {
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
-                    line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
+                    line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
                 }
                 else {
                     let styleClass = 'cellInput';
@@ -56,15 +56,15 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
+            line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
             if (data.lines[i].user == this.state.user) {
                 line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
-                line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
+                line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
                 line.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
             }
             else {
                 line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
-                line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
+                line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
                 line.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
             }
             quiz.push(line);
