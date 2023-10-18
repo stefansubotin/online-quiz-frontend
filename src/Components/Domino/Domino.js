@@ -13,7 +13,7 @@ class Domino extends Component {
     return <div style="color:blue">Hallo Feld</div>;
   }
   render() {
-    return <div>{this.initFeld}</div>;
+    return <div>{this.initFeld()}</div>;
   }
 }
 export default Domino;
