@@ -6,6 +6,10 @@ class BackendAccess {
     static getUrlKreuzwort(){
         return this.getUrl() + 'kreuzwort';
     }
+
+    static getUrlWwm() {
+        return this.getUrl() + 'wwm';
+    }
 }
 
 export default BackendAccess;

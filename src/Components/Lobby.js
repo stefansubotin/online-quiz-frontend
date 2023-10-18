@@ -27,7 +27,7 @@ class Lobby extends Component {
             "userCount": this.state.userCount,
             "users": users
         };
-        
+
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'POST',
@@ -76,7 +76,6 @@ class Lobby extends Component {
 
         this.setState({
             room: this.state.room,
-            userCount: c,
             user: this.state.user,
             users: newUsers,
             userCount: c,

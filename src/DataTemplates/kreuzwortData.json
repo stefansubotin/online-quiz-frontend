@@ -1,5 +1,5 @@
 {
-    "db-to-client-start": {
+    "server-to-client-start": {
         "game": "kreuzwort",
         "data": {
             "id": "1",
@@ -25,7 +25,7 @@
             ]
         }
     },
-    "client-to-db-start": {
+    "client-to-server-start": {
         "type": 1,
         "room": "1",
         "userCount": 4,
@@ -35,11 +35,11 @@
             "etc"
         ]
     },
-    "db-to-client-correction": {
+    "server-to-client-correction": {
         "i": 1,
         "state": 1
     },
-    "client-to-db-correction": {
+    "client-to-server-correction": {
         "type": 0,
         "room": "1",
         "id": "1",
