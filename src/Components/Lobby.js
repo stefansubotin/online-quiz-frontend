@@ -21,15 +21,15 @@ class Lobby extends Component {
         }
 
         const body = {
-            type: 1,
-            room: this.state.room,
-            userCount: this.state.userCount,
-            users: users
+            "type": 1,
+            "room": this.state.room,
+            "userCount": this.state.userCount,
+            "users": users
         };
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'POST',
-            body: body,
+            body: JSon.stringify(body),
             headers: { 'Content-Type': 'application/json' }
         }).then(response => response.json)
         .then(data => console.log(data))
