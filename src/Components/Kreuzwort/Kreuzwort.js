@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../../Stylesheets/kreuzwort.css'
-import '../../Stylesheets/span.css'
+import '../../Stylesheets/kreuzwort.css';
+import '../../Stylesheets/span.css';
+import 'ably';
 import AblyFunctions from '../../Tools/AblyFunctions';
 import BackendAccess from '../../Tools/BackendAccess';
 
