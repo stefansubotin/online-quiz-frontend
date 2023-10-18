@@ -1,8 +1,19 @@
 .feld{
     background-color: gray;
+
     width: 100%;
-}.stein{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+}
+.zelle{
+    border-style: solid;
+    border-color:black;
+}
+.stein{
     width: 80px;
+}
+.pool{
+    background-color: lightgray ;
 }
 .innerRoom{
     width: 60%;
