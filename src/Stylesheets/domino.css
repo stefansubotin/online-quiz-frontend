@@ -10,7 +10,7 @@
     display: flex;
 }
 .innerRoomComponent{
-    width: 40%;
+    width: 80%;
     background-color: blue;
 }
 .userList{
