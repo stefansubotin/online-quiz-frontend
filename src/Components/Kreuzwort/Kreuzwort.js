@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../Stylesheets/kreuzwort.css';
 import '../../Stylesheets/span.css';
-import AblyFunctions from '../../Tools/AblyFunctions';
 import BackendAccess from '../../Tools/BackendAccess';
 
 class Kreuzwort extends Component {
