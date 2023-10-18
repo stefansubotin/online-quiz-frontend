@@ -29,10 +29,10 @@ class Lobby extends Component {
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'PUT',
+            mode: 'no-cors',
             body: body,
             headers: { 
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
             }
         })
     }
