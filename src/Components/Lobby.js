@@ -13,7 +13,7 @@ class Lobby extends Component {
         }
     }
 
-    async onStartKreuzwort() {
+    async onStartKreuzwort(event) {
         let users = [];
         console.log(this.state);
         for(let i = 0; i < this.state.userCount; i++){
@@ -91,7 +91,7 @@ class Lobby extends Component {
     render() {
         return (
             <div name='lobby'>
-                <button onClick={this.onStartKreuzwort} disabled={!this.state.leader}>Starte Kreuzwort</button>
+                <button onClick={e => this.onStartKreuzwort(e)} disabled={!this.state.leader}>Starte Kreuzwort</button>
                 <button onClick={this.onStartDomino} disabled={!this.state.leader}>Starte Domino</button>
             </div>
         );
