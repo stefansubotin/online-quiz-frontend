@@ -71,6 +71,7 @@ class Lobby extends Component {
         this.setState({
             userCount: c,
             users: newUsers,
+            userCount: c,
             leader: this.state.leader
         });
         console.log(this.state);
