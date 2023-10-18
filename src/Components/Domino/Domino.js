@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../Stylesheets/domino.css";
 class Domino extends Component {
   constructor(props) {
     super(props);
@@ -9,11 +10,22 @@ class Domino extends Component {
       leader: false,
     };
   }
+  getFirstCard() {
+    return (
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+        </ul>
+      </div>
+    );
+  }
   initFeld() {
-    return <div>Hallo Feld</div>;
+    return <div className="feld">Hallo Feld</div>;
   }
   render() {
-    return <div>{this.initFeld()}</div>;
+    return <div>{this.getFirstCard()}</div>;
   }
 }
 export default Domino;
