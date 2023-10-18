@@ -1,8 +1,5 @@
-.cellEmptySmall{
+.cellSmall{
     width: 18px;
-}
-.cellInput{
-    width: 10px;
 }
 .cellBig{
     width: 100px;
