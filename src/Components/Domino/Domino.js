@@ -5,7 +5,7 @@ class Domino extends Component {
     this.state = {
       room: props.room,
       user: props.user,
-      data: propsdata,
+      data: props.data,
       leader: false,
     };
   }
