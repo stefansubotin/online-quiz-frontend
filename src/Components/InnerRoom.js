@@ -113,7 +113,6 @@ class InnerRoom extends Component {
     return (
       <div name="innerRoom" className="innerRoom">
         <UserList
-          className="userList"
           room={this.state.room}
           user={this.state.user}
           leader={this.state.leader}
