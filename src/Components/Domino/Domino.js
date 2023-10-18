@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import Stein from "./Stein";
 class Domino extends Component {
   constructor(props) {
     super(props);
     this.state = {
       room: props.room,
       user: props.user,
-      data: props.data,
+      data: propsdata,
       leader: false,
     };
   }
@@ -13,7 +14,11 @@ class Domino extends Component {
     return <div style={{color:'blue'}}>Hallo Feld</div>;
   }
   render() {
-    return <div>{this.initFeld()}</div>;
+    return (
+      <div>
+        <Stein></Stein>
+      </div>
+    );
   }
 }
 export default Domino;
