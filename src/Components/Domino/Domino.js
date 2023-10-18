@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Stein from "./Stein";
 class Domino extends Component {
   constructor(props) {
     super(props);
