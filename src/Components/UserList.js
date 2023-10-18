@@ -77,6 +77,9 @@ class UserList extends Component {
             channel.publish('join', {
                 user: this.state.user
             });
+            channel.publish('join-lobby', {
+                user: this.state.user
+            });
         }
     }
 

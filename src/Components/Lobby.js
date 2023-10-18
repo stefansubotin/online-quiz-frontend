@@ -88,7 +88,7 @@ class Lobby extends Component {
         const ably = await AblyFunctions.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = await AblyFunctions.getChannel(ably, channelId);
-        await channel.subscribe('join', (message) => this.onJoin(message));
+        await channel.subscribe('join-lobby', (message) => this.onJoin(message));
     }
 
     render() {
