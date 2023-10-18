@@ -14,7 +14,8 @@ class Lobby extends Component {
     }
 
     async onStartKreuzwort() {
-        let users= [];
+        let users = [];
+        console.log(this.state);
         for(let i = 0; i < this.state.userCount; i++){
             users.push({ user: this.state.users[i] });
         }
