@@ -80,6 +80,7 @@ class Lobby extends Component {
     }
 
     async componentDidMount(){
+        console.log(this.state);
         const ably = await AblyFunctions.getAbly();
         const channelId = 'room' + this.state.room;
         const channel = await AblyFunctions.getChannel(ably, channelId);
