@@ -21,21 +21,21 @@ class Lobby extends Component {
             users.push(this.state.users[i]);
         }
 
-        // const body = {
-        //     "type": 1,
-        //     "room": this.state.room,
-        //     "userCount": this.state.userCount,
-        //     "users": users
-        // };
         let body = {
             "type": 1,
-            "room": "test1",
-            "userCount": 2,
-            "users": [
-                "Stefan",
-                "Stefan2"
-            ]
+            "room": this.state.room,
+            "userCount": this.state.userCount,
+            "users": users
         };
+        // let body = {
+        //     "type": 1,
+        //     "room": "test1",
+        //     "userCount": 2,
+        //     "users": [
+        //         "Stefan",
+        //         "Stefan2"
+        //     ]
+        // };
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'POST',
