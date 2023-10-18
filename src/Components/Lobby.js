@@ -28,7 +28,7 @@ class Lobby extends Component {
         };
         let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             body: body,
             headers: { 
                 'Content-Type': 'application/json',
