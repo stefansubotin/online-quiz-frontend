@@ -27,6 +27,7 @@ class Kreuzwort extends Component {
             let line = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
+            line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
             for (let j = 0; j < data.size; j++) {
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
                     line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
@@ -55,6 +56,7 @@ class Kreuzwort extends Component {
                     }
                 }
             }
+            line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
             if (data.lines[i].user == this.state.user) {
                 line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
                 line.push(<span className='cellEmptySmall fixedSize invis'>&nbsp;</span>);
