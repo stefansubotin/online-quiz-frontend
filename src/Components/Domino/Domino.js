@@ -12,11 +12,11 @@ class Domino extends Component {
   }
   getFirstCard() {
     return (
-      <div class="card" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
+      <div className="card" style="width: 18rem;">
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">An item</li>
+          <li className="list-group-item">A second item</li>
+          <li className="list-group-item">A third item</li>
         </ul>
       </div>
     );
