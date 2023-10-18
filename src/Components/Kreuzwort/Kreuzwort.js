@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../../Stylesheets/kreuzwort.css'
 import '../../Stylesheets/span.css'
+import AblyFunctions from '../../Tools/AblyFunctions';
+import BackendAccess from '../../Tools/BackendAccess';
 
 class Kreuzwort extends Component {
     constructor(props) {
@@ -14,11 +16,8 @@ class Kreuzwort extends Component {
         }
     }
 
-    async getAbly() {
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        return ably;
+    getChannelId(){
+        return 'kreuzwort' + this.state.room;
     }
 
     getQuiz() {
@@ -144,10 +143,17 @@ class Kreuzwort extends Component {
         let dat = JSON.parse(this.state.data)
         let body = {
             type: 0,
+            room: this.state.room,
             id: dat.id,
             line: event,
             answer: result
         }
+        let url = BackendAccess.getUrlKreuzwort();
+        fetch(url, {
+            method: 'POST',
+            body: body,
+            headers: { 'Content-Type': 'application/json' }
+        })
     }
 
     async onCorrection(message){
@@ -198,9 +204,9 @@ class Kreuzwort extends Component {
     }
 
     async componentDidMount() {
-        const ably = await this.getAbly();
-        const channelId = 'kreuzwort' + this.state.room;
-        const channel = ably.channels.get(channelId);
+        const ably = await AblyFunctions.getAbly();
+        const channelId = this.getChannelId();
+        const channel = AblyFunctions.getChannel(ably, channelId);
         await channel.subscribe('update', (message) => this.onUpdate(message));
         await channel.subscribe('correction', (message) => this.onCorrection(message));
     }

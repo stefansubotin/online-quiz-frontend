@@ -24,10 +24,10 @@ class Lobby extends Component {
             userCount: this.state.userCount,
             users: users
         };
-        let url = BackendAccess.getUrl() + 'kreuzwort';
+        let url = BackendAccess.getUrlKreuzwort();
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(body),
+            body: body,
             headers: { 'Content-Type': 'application/json' }
         })
     }
