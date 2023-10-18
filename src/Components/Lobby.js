@@ -6,8 +6,9 @@ class Lobby extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userCount: props.userCount,
-            users: props.users,
+            userCount: 1,
+            user: props.user,
+            users: [props.user],
             leader: props.leader
         }
     }
@@ -70,6 +71,7 @@ class Lobby extends Component {
 
         this.setState({
             userCount: c,
+            user: this.state.user,
             users: newUsers,
             userCount: c,
             leader: this.state.leader
