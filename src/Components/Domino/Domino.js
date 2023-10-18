@@ -5,19 +5,15 @@ class Domino extends Component {
     this.state = {
       room: props.room,
       user: props.user,
-      data: propsdata,
+      data: props.data,
       leader: false,
     };
   }
   initFeld() {
-    return <div style={{color:'blue'}}>Hallo Feld</div>;
+    return <div>Hallo Feld</div>;
   }
   render() {
-    return (
-      <div>
-        {this.initFeld()}
-      </div>
-    );
+    return <div>{this.initFeld()}</div>;
   }
 }
 export default Domino;
