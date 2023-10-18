@@ -1,4 +1,6 @@
 .feld{
     background-color: gray;
     width: 100%;
+}.stein{
+    width: 80px;
 }

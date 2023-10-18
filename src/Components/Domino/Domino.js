@@ -12,10 +12,11 @@ class Domino extends Component {
     };
   }
   getFirstCard() {
+    let frage = "Frage 1";
+    let antwort = "Antwort 1";
     return (
-      <div className="card">
+      <div className="card stein">
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">An item</li>
           <li className="list-group-item">A second item</li>
           <li className="list-group-item">A third item</li>
         </ul>
@@ -23,10 +24,15 @@ class Domino extends Component {
     );
   }
   initFeld() {
-    return <div className="feld">Hallo Feld</div>;
+    return <div className="feld">{this.getFirstCard()}</div>;
   }
   render() {
-    return <div>{this.getFirstCard()}</div>;
+    return (
+      <div className="game">
+        {this.initFeld()}
+        <div className="Pool card">{this.getFirstCard()}</div>
+      </div>
+    );
   }
 }
 export default Domino;
