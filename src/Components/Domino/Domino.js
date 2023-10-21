@@ -11,14 +11,17 @@ class Domino extends Component {
       pool: [],
       feld: [],
     };
-    return (
-      <div className="card stein">
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Frage 2</li>
-          <li className="list-group-item">Frage 1</li>
-        </ul>
-      </div>
-    );
+  }
+
+  getFirstCard(){
+    let frage = "Hallo ne Frage";
+    return(
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{frage}</li>
+        <li class="list-group-item">A second item</li>
+      </ul>
+    </div>);
   }
 
   initFeld() {
@@ -45,7 +48,6 @@ class Domino extends Component {
     return (
       <div>
         <div name="domino" className="dominoFeld">
-          Hallo
         </div>
         <div className="Pool card">{this.getFirstCard()}</div>
       </div>

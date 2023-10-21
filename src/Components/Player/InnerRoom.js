@@ -56,6 +56,7 @@ class InnerRoom extends Component {
         });
         break;
       case "domino":
+        console("domino gewahlt");
         this.setState({
           room: this.state.room,
           user: this.state.user,
