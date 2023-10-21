@@ -39,7 +39,7 @@ class Lobby extends Component {
       .catch((error) => console.log(error));
   }
 
-  async onStartDomino() {
+  async onStartDomino(event) {
     let url = BackendAccess.getUrlDomino();
     let body = {
       type: 0,
@@ -94,7 +94,10 @@ class Lobby extends Component {
         >
           Starte Kreuzwort
         </button>
-        <button onClick={this.onStartDomino} disabled={!this.state.leader}>
+        <button
+          onClick={(e) => this.onStartDomino(e)}
+          disabled={!this.state.leader}
+        >
           Starte Domino
         </button>
       </div>
