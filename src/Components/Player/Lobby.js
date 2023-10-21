@@ -40,6 +40,11 @@ class Lobby extends Component {
   }
 
   async onStartDomino(event) {
+    let users = [];
+    console.log(this.state);
+    for (let i = 0; i < this.state.userCount; i++) {
+      users.push(this.state.users[i]);
+    }
     let body = {
       state: -1,
       room: this.state.room,
@@ -56,7 +61,7 @@ class Lobby extends Component {
     })
       .then((response) => response.json)
       .then((data) => console.log(data))
-      .catch((error) => console.log("Error" + error));
+      .catch((error) => console.log(error));
   }
 
   async onJoin(message) {
