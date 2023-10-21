@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AblyFunctions from '../../Tools/AblyFunctions';
 
 class WerWirdMillionaer extends Component {
-    constructor(prop) {
+    constructor(props) {
         super(props);
         this.state = {
             init: false,
