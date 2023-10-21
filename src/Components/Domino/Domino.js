@@ -48,7 +48,7 @@ class Domino extends Component {
         <div name="domino" className="dominoFeld">
           
           {this.state.feld.map((zelle)=>{
-            <div id={id} className="zelle">{id}</div>
+            <div id={zelle.id} className="zelle">{zelle.id}</div>
           })}
         </div>
         <div className="Pool card">{this.getOneCard()}</div>
