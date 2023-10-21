@@ -24,7 +24,7 @@ class Domino extends Component {
   }
   getOneCard(){
     let dat = JSON.parse(this.state.data)
-    console.log("FRAge"+ dat.fragen[0].props);
+    console.log("FRAge"+ dat.fragen[0].props.frage);
     let antwort="Antwort"
     let frage="Antwort"
     return(
@@ -54,12 +54,9 @@ class Domino extends Component {
 
   render() {
     return (
-      <div>{this.initFeld()}
+      <div>
         <div name="domino" className="dominoFeld">
-          
-          {JSON.parse(this.state.feld).map((zelle)=>{
-            <div id={zelle.id} className="zelle">{zelle.id}</div>
-          })}
+        
         </div>
         <div className="Pool card">{this.getOneCard()}</div>
       </div>
