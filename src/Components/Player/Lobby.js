@@ -40,13 +40,14 @@ class Lobby extends Component {
   }
 
   async onStartDomino(event) {
-    let url = BackendAccess.getUrlDomino();
     let body = {
-      type: 0,
+      type: -1,
       room: this.state.room,
       userCount: this.state.userCount,
       users: this.state.user,
     };
+
+    let url = BackendAccess.getUrlKreuzwort();
     //https://rapidapi.com/guides/fetch-api-react
     fetch(url, {
       method: "POST",
