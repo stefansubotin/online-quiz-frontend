@@ -20,11 +20,14 @@ class InnerRoom extends Component {
 
   async onTest(e) {
     console.log('Hi')
+    let dat = JSON.stringify({
+
+    })
     this.setState({
       room: this.state.room,
       user: this.state.user,
       leader: this.state.leader,
-      data: '',
+      data: dat,
       currentComponent: "wwm",
     });
   }
