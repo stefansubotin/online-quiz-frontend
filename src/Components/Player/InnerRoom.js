@@ -19,6 +19,7 @@ class InnerRoom extends Component {
   }
 
   async onTest(e) {
+    console.log('Hi')
     this.setState({
       room: this.state.room,
       user: this.state.user,
