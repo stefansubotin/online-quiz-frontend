@@ -41,7 +41,7 @@ class Lobby extends Component {
 
   async onStartDomino(event) {
     let body = {
-      type: -1,
+      state: -1,
       room: this.state.room,
       userCount: this.state.userCount,
       users: this.state.user,
