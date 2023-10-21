@@ -18,6 +18,20 @@ class InnerRoom extends Component {
     };
   }
 
+  async onTest(e) {
+    console.log('Hi')
+    let dat = JSON.stringify({
+
+    })
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      leader: this.state.leader,
+      data: dat,
+      currentComponent: "wwm",
+    });
+  }
+
   async onStart(message) {
     console.log(message.data);
     let dat = JSON.stringify(message.data.data);
@@ -41,13 +55,22 @@ class InnerRoom extends Component {
           currentComponent: "wwm",
         });
         break;
-      default:
+      case "domino":
         this.setState({
           room: this.state.room,
           user: this.state.user,
           leader: this.state.leader,
           data: dat,
           currentComponent: "domino",
+        });
+        break;
+      default:
+        this.setState({
+          room: this.state.room,
+          user: this.state.user,
+          leader: this.state.leader,
+          data: dat,
+          currentComponent: "error",
         });
         break;
     }
@@ -79,7 +102,6 @@ class InnerRoom extends Component {
           <WerWirdMillionaer
             room={this.state.room}
             user={this.state.user}
-            data={this.state.data}
           />
         );
         break;
@@ -116,7 +138,8 @@ class InnerRoom extends Component {
           room={this.state.room}
           user={this.state.user}
           leader={this.state.leader}
-        />
+        /><br/>
+        <button onClick={(e) => this.onTest(e)}>Test Wwm</button>
         <div name="innerRoomComponent" className="innerRoomComponent">
           {this.getComponent()}
         </div>
