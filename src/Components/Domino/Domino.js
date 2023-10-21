@@ -26,10 +26,10 @@ class Domino extends Component {
   }
   initFeld() {
     var felder = [];
-    for (let i = 0; i < 36; ++i) {
+    for (let i = 0; i < 9; ++i) {
       felder.push(
         <div className="zelle" id={i}>
-          {i}
+          Hallo
         </div>
       );
     }
