@@ -47,14 +47,7 @@ class Domino extends Component {
       pool: this.state.pool,
       feld: felder,
     });
-    return (
-      <>
-        {this.state.feld.map((zelle) => {
-          zelle;
-        })}
-        ;
-      </>
-    );
+    return Hallo;
   }
 
   render() {
