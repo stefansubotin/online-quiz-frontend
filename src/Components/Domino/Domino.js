@@ -16,6 +16,7 @@ class Domino extends Component {
   getFirstCard(){
     console.log(this.state.data.fragen[0].props.frage);
     let antwort="Antwort"
+    let frage="Antwort"
     return(
     <div className="card">
       <ul className="list-group list-group-flush">
