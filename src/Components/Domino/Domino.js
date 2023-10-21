@@ -44,10 +44,10 @@ class Domino extends Component {
 
   render() {
     return (
-      <div>
+      <div>{this.initFeld()}
         <div name="domino" className="dominoFeld">
-          {this.initFeld()}
-          {feld.map((zelle)=>{
+          
+          {this.state.feld.map((zelle)=>{
             <div id={id} className="zelle">{id}</div>
           })}
         </div>
