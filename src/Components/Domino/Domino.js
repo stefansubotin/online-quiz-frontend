@@ -19,8 +19,8 @@ class Domino extends Component {
     let frage = "Hallo ne Frage";
     let antwort="Antwort"
     return(
-    <div class="card">
-      <ul class="list-group list-group-flush">
+    <div className="card">
+      <ul className="list-group list-group-flush">
         <li class="list-group-item">{frage}</li>
         <li class="list-group-item">{antwort}</li>
       </ul>
