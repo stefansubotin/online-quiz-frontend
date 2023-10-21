@@ -11,14 +11,6 @@ class Domino extends Component {
       pool: [],
       feld: [],
     };
-  }
-
-  getFirstCard() {
-    this.setState({
-      frage: "Frage1",
-      antwort: "frage2",
-    });
-
     return (
       <div className="card stein">
         <ul className="list-group list-group-flush">
@@ -53,7 +45,7 @@ class Domino extends Component {
     return (
       <div>
         <div name="domino" className="dominoFeld">
-          {this.initFeld()}
+          Hallo
         </div>
         <div className="Pool card">{this.getFirstCard()}</div>
       </div>
