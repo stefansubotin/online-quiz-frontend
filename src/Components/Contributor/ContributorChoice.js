@@ -32,8 +32,8 @@ class ContributorChoice extends Component {
         switch (this.state.component){
             case 'choice':
                 return <div>
-                    <button onClick={e => this.onPlayer(e)}>Play Quiz</button><br/>
-                    <button onClick={e => this.onContributor(e)}>Curate Questions</button>
+                    <button onClick={e => this.onPlayer(e)}>New Question</button><br/>
+                    <button onClick={e => this.onContributor(e)}>List of Questions</button>
                 </div>
             case 'new':
                 return <></>
@@ -46,7 +46,7 @@ class ContributorChoice extends Component {
 
     render() {
         return (
-            <div name='homepage'>
+            <div name='contrHomepage'>
                 {this.getComponent()}
             </div> 
         )
