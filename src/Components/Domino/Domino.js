@@ -10,8 +10,6 @@ class Domino extends Component {
       leader: false,
       pool: [],
       feld: [],
-      frage: "",
-      antwort: "",
     };
   }
   getFirstCard() {
@@ -39,6 +37,11 @@ class Domino extends Component {
       );
     }
     this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.pool,
       feld: felder,
     });
     return (
