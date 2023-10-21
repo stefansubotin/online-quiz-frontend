@@ -135,7 +135,7 @@ class InnerRoom extends Component {
           user={this.state.user}
           leader={this.state.leader}
         /><br/>
-        <button onCLick={e => this.OnTest(e)}>Test Wwm</button>
+        <button onCLick={(e) => this.OnTest(e)}>Test Wwm</button>
         <div name="innerRoomComponent" className="innerRoomComponent">
           {this.getComponent()}
         </div>
