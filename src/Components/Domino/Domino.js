@@ -13,8 +13,11 @@ class Domino extends Component {
     };
   }
   getFirstCard() {
-    let frage = "Frage 1";
-    let antwort = "Antwort 1";
+    this.setState({
+      frage: "Frage1",
+      antwort: "frage2",
+    });
+
     return (
       <div className="card stein">
         <ul className="list-group list-group-flush">
@@ -26,24 +29,36 @@ class Domino extends Component {
   }
   initFeld() {
     var felder = [];
-    for (let i = 0; i < 36; ++i) {
+    for (let i = 0; i < 9; ++i) {
       felder.push(
         <div className="zelle" id={i}>
-          {i}
+          Hallo
         </div>
       );
     }
     this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.pool,
       feld: felder,
     });
-    return this.state.feld.map({
-      zelle,
-    });
+    return (
+      <>
+        {this.state.feld.map((zelle) => {
+          zelle;
+        })}
+        ;
+      </>
+    );
   }
   render() {
     return (
       <div>
-        {this.initFeld()}
+        <div name="domino" className="dominoFeld">
+          {this.initFeld()}
+        </div>
         <div className="Pool card">{this.getFirstCard()}</div>
       </div>
     );

@@ -46,7 +46,7 @@ class InnerRoom extends Component {
           room: this.state.room,
           user: this.state.user,
           leader: this.state.leader,
-          data: message.data.data,
+          data: dat,
           currentComponent: "domino",
         });
         break;
@@ -90,7 +90,7 @@ class InnerRoom extends Component {
             room={this.state.room}
             user={this.state.user}
             data={this.state.data}
-          ></Domino>
+          />
         );
         break;
       default:
