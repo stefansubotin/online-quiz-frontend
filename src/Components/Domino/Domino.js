@@ -12,17 +12,26 @@ class Domino extends Component {
       feld: [],
     };
   }
+  handleDragStart(e, id) {
 
+  }
+  //HandleDragOver, Sammeln über was gehalten wird + erlauben
+  handleDragOver(e, id) {
+    e.preventDefault();
+  }
+  //HandleDrop, setzen des Steins + löschen der vorherigen Position
+  handleDrop(e, zielID) {
+  }
   getOneCard(){
     let dat = JSON.parse(this.state.data)
-    console.log("FRAge"+ dat.fragen[0]);
+    console.log("FRAge"+ dat.fragen[0].props);
     let antwort="Antwort"
     let frage="Antwort"
     return(
     <div className="card">
       <ul className="list-group list-group-flush">
-        <li class="list-group-item">{frage}</li>
-        <li class="list-group-item">{antwort}</li>
+        <li className="list-group-item">{frage}</li>
+        <li className="list-group-item">{antwort}</li>
       </ul>
     </div>);
   }
@@ -32,13 +41,14 @@ class Domino extends Component {
     for(let i= 0;i<9;++i){
       newFeld.push({"id":i,"stein":null})
     }
+    let snFeld = JSON.stringify(newFeld);
     this.state = {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
       leader: false,
       pool: [],
-      feld: newFeld,
+      feld: snFeld,
     };
   }
 
@@ -47,7 +57,7 @@ class Domino extends Component {
       <div>{this.initFeld()}
         <div name="domino" className="dominoFeld">
           
-          {this.state.feld.map((zelle)=>{
+          {JSON.parse(this.state.feld).map((zelle)=>{
             <div id={zelle.id} className="zelle">{zelle.id}</div>
           })}
         </div>
