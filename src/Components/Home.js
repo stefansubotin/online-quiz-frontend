@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Base from './Player/Base';
+import PlayerBase from './Player/Base';
 import ContributorChoice from './Contributor/ContributorChoice';
 
 class Homepage extends Component {
@@ -30,7 +30,7 @@ class Homepage extends Component {
                     <button onClick={e => this.onContributor(e)}>Curate Questions</button>
                 </div>
             case 'player':
-                return <Base />;
+                return <PlayerBase />;
             case 'contributor':
                 return <ContributorChoice />
             default:
