@@ -1,6 +1,6 @@
 {
     "db": {
-        "collection": "wwm",
+        "collection": "taboo",
         "key": "1",
         "props": {
             "updated": "2022-03-23T13:02:12.702Z",
@@ -16,10 +16,24 @@
     },
     "db-to-client": {
         "team": 1,
+        "teams": 2,
         "explainingTurn": 3,
+        "maxTurns": 5,
         "explainingInfo": {
             "answer": "",
             "forbiddenWords": ["", ""]
-        }
+        },
+        "enemyTurns": [
+            {
+                "turn": 2,
+                "answer": "",
+                "forbiddenWords": ["", ""]
+            },
+            {
+                "turn": 4,
+                "answer": "",
+                "forbiddenWords": ["", ""]
+            }
+        ]
     }
 }

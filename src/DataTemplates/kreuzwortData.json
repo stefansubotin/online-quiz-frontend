@@ -47,7 +47,7 @@
         "answer": "result"
     },
     "db": {
-        "collection": "wwm",
+        "collection": "kreuzwort",
         "key": "1",
         "props": {
             "updated": "2022-03-23T13:02:12.702Z",
