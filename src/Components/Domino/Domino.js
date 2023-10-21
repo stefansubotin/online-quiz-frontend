@@ -11,14 +11,6 @@ class Domino extends Component {
       pool: [],
       feld: [],
     };
-  }
-
-  getFirstCard() {
-    this.setState({
-      frage: "Frage1",
-      antwort: "frage2",
-    });
-
     return (
       <div className="card stein">
         <ul className="list-group list-group-flush">
