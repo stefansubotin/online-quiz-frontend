@@ -22,8 +22,8 @@ class Domino extends Component {
     return (
       <div className="card stein">
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">{frage}</li>
-          <li className="list-group-item">{antwort}</li>
+          <li className="list-group-item">Frage 2</li>
+          <li className="list-group-item">Frage 1</li>
         </ul>
       </div>
     );
@@ -46,7 +46,7 @@ class Domino extends Component {
       pool: this.state.pool,
       feld: felder,
     });
-    return Hallo;
+    return <span>Hallo</span>;
   }
 
   render() {

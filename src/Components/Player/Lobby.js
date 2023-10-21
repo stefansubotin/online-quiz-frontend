@@ -39,14 +39,15 @@ class Lobby extends Component {
       .catch((error) => console.log(error));
   }
 
-  async onStartDomino() {
-    let url = BackendAccess.getUrlDomino();
+  async onStartDomino(event) {
     let body = {
-      type: 0,
+      type: -1,
       room: this.state.room,
       userCount: this.state.userCount,
       users: this.state.user,
     };
+
+    let url = BackendAccess.getUrlKreuzwort();
     //https://rapidapi.com/guides/fetch-api-react
     fetch(url, {
       method: "POST",
@@ -55,7 +56,7 @@ class Lobby extends Component {
     })
       .then((response) => response.json)
       .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("Error" + error));
   }
 
   async onJoin(message) {
@@ -94,7 +95,10 @@ class Lobby extends Component {
         >
           Starte Kreuzwort
         </button>
-        <button onClick={this.onStartDomino} disabled={!this.state.leader}>
+        <button
+          onClick={(e) => this.onStartDomino(e)}
+          disabled={!this.state.leader}
+        >
           Starte Domino
         </button>
       </div>
