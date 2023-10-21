@@ -14,7 +14,6 @@ class Domino extends Component {
   }
 
   getFirstCard() {
-    //Warum überschreibst Du den gesamten State der Komponente?
     this.setState({
       frage: "Frage1",
       antwort: "frage2",
