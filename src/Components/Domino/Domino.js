@@ -14,34 +14,21 @@ class Domino extends Component {
   }
 
   getFirstCard(){
+    console.log(this.state.data[0].props.frage);
+    console.log(this.state.data[0].data[0].props.frage);
     let frage = "Hallo ne Frage";
+    let antwort="Antwort"
     return(
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{frage}</li>
-        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">{antwort}</li>
       </ul>
     </div>);
   }
 
   initFeld() {
-    var felder = [];
-    for (let i = 0; i < 9; ++i) {
-      felder.push(
-        <div className="zelle" id={i}>
-          Hallo
-        </div>
-      );
-    }
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: this.state.pool,
-      feld: felder,
-    });
-    return (<span>Hallo</span>);
+
   }
 
   render() {
