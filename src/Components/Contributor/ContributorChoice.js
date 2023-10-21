@@ -10,13 +10,19 @@ class ContributorChoice extends Component {
 
     onNew(event){
         this.setState({
-            component: 'player'
+            component: 'new'
         })
     }
 
     onList(event){
         this.setState({
-            component: 'contributor'
+            component: 'list'
+        })
+    }
+
+    onKey(event){
+        this.setState({
+            component: 'key'
         })
     }
 
@@ -29,10 +35,10 @@ class ContributorChoice extends Component {
                     <button onClick={e => this.onPlayer(e)}>Play Quiz</button><br/>
                     <button onClick={e => this.onContributor(e)}>Curate Questions</button>
                 </div>
-            case 'player':
-                return <Base />;
-            case 'contributor':
-                return <ContributorChoice />
+            case 'new':
+                return <></>
+            case 'list':
+                return <></>
             default:
                 return <div>Error Homepage</div>
         }

@@ -12,7 +12,9 @@ class Domino extends Component {
       feld: [],
     };
   }
+
   getFirstCard() {
+    //Warum überschreibst Du den gesamten State der Komponente?
     this.setState({
       frage: "Frage1",
       antwort: "frage2",
@@ -27,6 +29,7 @@ class Domino extends Component {
       </div>
     );
   }
+
   initFeld() {
     var felder = [];
     for (let i = 0; i < 9; ++i) {
@@ -53,6 +56,7 @@ class Domino extends Component {
       </>
     );
   }
+
   render() {
     return (
       <div>
@@ -64,4 +68,5 @@ class Domino extends Component {
     );
   }
 }
+
 export default Domino;
