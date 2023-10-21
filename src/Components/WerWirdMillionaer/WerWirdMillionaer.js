@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AblyFunctions from '../../Tools/AblyFunctions';
+import BackendAccess from '../../Tools/BackendAccess';
 
 class WerWirdMillionaer extends Component {
     constructor(props) {
@@ -101,7 +102,8 @@ class WerWirdMillionaer extends Component {
             id: dat.id,
             answers: this.state.answers
         });
-        fetch('https://****/wwm', {
+        let url = BackendAccess.getUrlWwm();
+        fetch(url, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { 'Content-Type': 'application/json' }
@@ -149,6 +151,7 @@ class WerWirdMillionaer extends Component {
         }
     }
 
+    //#region React-Component-Lifetime-Functions
     static getDerivedStateFromProps(props, state) {
         if (state.init) {
             return {
@@ -181,6 +184,7 @@ class WerWirdMillionaer extends Component {
         const channel = ably.channels.get(this.getChannelId());
         await channel.subscribe('update', (message) => this.onUpdate(message));
     }
+//#endregion
 
     render() {
         return (
