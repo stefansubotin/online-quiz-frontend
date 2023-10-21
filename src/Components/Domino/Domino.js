@@ -13,9 +13,9 @@ class Domino extends Component {
     };
   }
 
-  getFirstCard(){
+  getOneCard(){
     let dat = JSON.parse(this.state.data)
-    console.log(dat.fragen[0].props.frage);
+    console.log("FRAge"+ dat.fragen[0]);
     let antwort="Antwort"
     let frage="Antwort"
     return(
@@ -28,15 +28,30 @@ class Domino extends Component {
   }
 
   initFeld() {
-
+    let newFeld=[];
+    for(let i= 0;i<9;++i){
+      newFeld.push({"id":i,"stein":null})
+    }
+    this.state = {
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: [],
+      feld: newFeld,
+    };
   }
 
   render() {
     return (
       <div>
         <div name="domino" className="dominoFeld">
+          {this.initFeld()}
+          {feld.map((zelle)=>{
+            <div id={id} className="zelle">{id}</div>
+          })}
         </div>
-        <div className="Pool card">{this.getFirstCard()}</div>
+        <div className="Pool card">{this.getOneCard()}</div>
       </div>
     );
   }
