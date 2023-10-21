@@ -36,8 +36,8 @@ class Domino extends Component {
     this.setState({
       feld: felder,
     });
-    return this.state.feld.map({
-      zelle,
+    return this.state.feld.map((zelle) => {
+      <div className="feld">{zelle}</div>;
     });
   }
   render() {
