@@ -70,7 +70,7 @@ class InnerRoom extends Component {
           room: this.state.room,
           user: this.state.user,
           leader: this.state.leader,
-          data: dat,
+          data: JSON.parse(dat),
           currentComponent: "error",
         });
         break;
