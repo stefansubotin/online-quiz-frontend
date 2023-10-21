@@ -47,7 +47,7 @@ class Lobby extends Component {
       users: this.state.user,
     };
 
-    let url = BackendAccess.getUrlKreuzwort();
+    let url = BackendAccess.getUrlDomino();
     //https://rapidapi.com/guides/fetch-api-react
     fetch(url, {
       method: "POST",
