@@ -14,8 +14,8 @@ class Domino extends Component {
   }
 
   getFirstCard(){
-    console.log(this.state.data['fragen'].props.frage);
-    let frage = "Hallo ne Frage";
+    console.log(this.state.data);
+    console.log(this.state.data[0]);0
     let antwort="Antwort"
     return(
     <div className="card">
