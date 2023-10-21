@@ -40,14 +40,19 @@ class Lobby extends Component {
   }
 
   async onStartDomino(event) {
+    let users = [];
+    console.log(this.state);
+    for (let i = 0; i < this.state.userCount; i++) {
+      users.push(this.state.users[i]);
+    }
     let body = {
-      type: -1,
+      state: -1,
       room: this.state.room,
       userCount: this.state.userCount,
-      users: this.state.user,
+      users: this.state.users,
     };
 
-    let url = BackendAccess.getUrlKreuzwort();
+    let url = BackendAccess.getUrlDomino();
     //https://rapidapi.com/guides/fetch-api-react
     fetch(url, {
       method: "POST",
@@ -56,7 +61,7 @@ class Lobby extends Component {
     })
       .then((response) => response.json)
       .then((data) => console.log(data))
-      .catch((error) => console.log("Error" + error));
+      .catch((error) => console.log(error));
   }
 
   async onJoin(message) {
