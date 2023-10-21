@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Home from './Home';
+import Player from './Player';
 import OuterRoom from './OuterRoom';
 
 class Base extends Component {
@@ -17,7 +17,7 @@ class Base extends Component {
         let component;
         switch (this.state.currentComponent) {
             case 'home':
-                component = <Home parentCallback={this.handleCallback} />
+                component = <Player parentCallback={this.handleCallback} />
                 break;
             case 'lobby':
                 component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />

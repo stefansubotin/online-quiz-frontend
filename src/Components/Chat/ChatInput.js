@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AblyFunctions from '../Tools/AblyFunctions';
+import AblyFunctions from '../../Tools/AblyFunctions';
 
 class ChatInput extends Component {
     constructor(props){

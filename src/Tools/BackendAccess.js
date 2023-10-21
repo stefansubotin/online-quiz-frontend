@@ -10,6 +10,10 @@ class BackendAccess {
     static getUrlWwm() {
         return this.getUrl() + 'wwm';
     }
+
+    static getUrlContributor() {
+        return this.getUrl() + 'contributor';
+    }
 }
 
 export default BackendAccess;

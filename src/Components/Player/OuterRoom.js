@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import InnerRoom from "./InnerRoom";
-import Chat from "./Chat";
-import "../Stylesheets/span.css";
+import Chat from "../Chat/Chat";
+import "../../Stylesheets/span.css";
 
 class OuterRoom extends Component {
   constructor(props) {

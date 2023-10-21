@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../Stylesheets/span.css';
+import '../../Stylesheets/span.css';
 
-class Home extends Component {
+class Player extends Component {
 
     onTriggerCreate = (event) => {
         this.props.parentCallback({
@@ -44,4 +44,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Player;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import AblyFunctions from '../Tools/AblyFunctions';
-import BackendAccess from '../Tools/BackendAccess';
+import AblyFunctions from '../../Tools/AblyFunctions';
+import BackendAccess from '../../Tools/BackendAccess';
 
 class Lobby extends Component {
     constructor(props){

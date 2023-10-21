@@ -1,0 +1,25 @@
+{
+    "db": {
+        "collection": "wwm",
+        "key": "1",
+        "props": {
+            "updated": "2022-03-23T13:02:12.702Z",
+            "created": "2022-03-23T12:32:02.526Z",
+            "answer": "",
+            "forbiddenWords": ["1", "2", "3", "4", "5"]
+        }
+    },
+    "client-to-server": {
+        "room": "1",
+        "userCount": 4,
+        "users": ["1", "2", "3", "4"]
+    },
+    "db-to-client": {
+        "team": 1,
+        "explainingTurn": 3,
+        "explainingInfo": {
+            "answer": "",
+            "forbiddenWords": ["", ""]
+        }
+    }
+}

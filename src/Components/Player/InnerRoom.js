@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Domino from "./Domino/Domino";
+import Domino from "../Domino/Domino";
 import Lobby from "./Lobby";
-import Kreuzwort from "./Kreuzwort/Kreuzwort";
-import AblyFunctions from "../Tools/AblyFunctions";
-import WerWirdMillionaer from "./WerWirdMillionaer/WerWirdMillionaer";
+import Kreuzwort from "../Kreuzwort/Kreuzwort";
+import AblyFunctions from "../../Tools/AblyFunctions";
+import WerWirdMillionaer from "../WerWirdMillionaer/WerWirdMillionaer";
 import UserList from "./UserList";
 
 class InnerRoom extends Component {
