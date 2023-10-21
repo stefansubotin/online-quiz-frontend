@@ -18,18 +18,5 @@
             "answer3": "",
             "answer4": ""
         }
-    ],
-    "db": {
-        "collection": "wwm",
-        "key": 1,
-        "props": {
-            "updated": "2022-03-23T13:02:12.702Z",
-            "created": "2022-03-23T12:32:02.526Z",
-            "question": "",
-            "correctAnswer": "",
-            "falseAnswer1": "",
-            "falseAnswer2": "",
-            "falseAnswer3": ""
-        }
-    }
+    ]
 }
