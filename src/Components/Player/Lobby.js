@@ -49,7 +49,7 @@ class Lobby extends Component {
       state: -1,
       room: this.state.room,
       userCount: this.state.userCount,
-      users: this.state.user,
+      users: this.state.users,
     };
 
     let url = BackendAccess.getUrlDomino();
