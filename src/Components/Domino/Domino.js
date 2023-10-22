@@ -27,7 +27,7 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen;
     let cards;
-    for(let i=0;i<data.fragen.length;i++){
+    for(let i=0;i<dat.fragen.length;i++){
       let card = this.getOneCard(fragen.props.antwort, fragen.props.frage, fragen.props.key)
       cards.push(card);
     }
