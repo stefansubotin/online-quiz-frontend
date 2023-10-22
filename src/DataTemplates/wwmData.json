@@ -1,6 +1,5 @@
 {
     "client-to-server-start": {
-        "type": 1,
         "room": "1",
         "moderator": "",
         "player": ""
