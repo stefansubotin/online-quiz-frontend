@@ -84,11 +84,14 @@ class Domino extends Component {
   //GENERIERE FELD
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    let feld = this.initFeld();
+    let objFeld = this.initFeld();
+    let jsxFeld;
+  
+    for(feld of objFeld){
+      jsxFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={feld.id}>Zelle</div>);
+    }
     console.log(feld)
-    return (feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
-    )));
+    return (jsxFeld.map((zelle)))
       
   }
   initFeld() {
