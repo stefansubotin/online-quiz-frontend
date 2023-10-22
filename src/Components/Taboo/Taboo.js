@@ -194,7 +194,7 @@ class Taboo extends Component {
     async onMessage(message) {
         console.log(message.data);
         let date = new Date();
-        let dateString = date.getHours + ':' + date.getMinutes;
+        let dateString = date.getHours() + ':' + date.getMinutes();
         let messages = this.state.messages;
         messages.push(JSON.stringify({
             time: dateString,
