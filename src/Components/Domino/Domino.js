@@ -84,20 +84,25 @@ class Domino extends Component {
   //GENERIERE FELD
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    let feld = this.initFeld();
-    console.log(feld)
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: this.state.data,
-      feldState: this.feldState++,
-      feld: this.feld,
-    });
-    return (feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
-    )));
+    if(this.state.feld.length==0){
+        let feld = this.initFeld();
+        console.log(feld)
+        this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        leader: false,
+        pool: this.state.data,
+        feld: this.feld,
+        feldState: this.feldState++,
+      });
+      return (feld.map((zelle)=>(
+        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
+      )));
+    }else{
+      console.log(this.state.feld.length)
+    }
+
       
   }
 
