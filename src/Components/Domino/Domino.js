@@ -51,7 +51,7 @@ class Domino extends Component {
     if(this.state.feldState<0){
       
       return this.initCards();
-    }else if(this.state.feldState>0){
+    }else if(this.state.feldState>1){
       let fragen = this.state.pool;
       let cards=[];
       for(let i=0;i<this.state.data.fragen.length;i++){
@@ -73,7 +73,7 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: fragen,
-      feldState: -1,
+      feldState: 0,
       feld:this.state.feld,
     });
     console.log(this.state.pool+'ander s'+dat.fragen)
@@ -101,7 +101,7 @@ class Domino extends Component {
   }
   //GENERIERE FELD
   getFeld(){
-    if(this.state.feldState<0){
+    if(this.state.feldState==0){
       return this.initFeld();
     }else{
       console.log("noch keine Möglichkeit")
@@ -118,7 +118,7 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: this.state.pool,
-      feldState: 0,
+      feldState: 1,
       feld:newFeld,
     });
 
