@@ -97,7 +97,7 @@ class Taboo extends Component {
 
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
-        console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.answer);
+        console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
         if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
         for (let i = 0; i < dat.explainingInfo.length; i++) {
             console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
