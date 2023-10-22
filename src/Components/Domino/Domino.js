@@ -18,7 +18,7 @@ class Domino extends Component {
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
     let id = e.currentTarget.id;
-    let pid = e.target.id;
+    let pid = e.target.parent.id;
     console.log("DragStart: "+id)
     e.dataTransfer.setData("id", id);
     e.dataTransfer.setData("parent", pid)
@@ -28,18 +28,28 @@ class Domino extends Component {
     console.log("drag over ")
     e.preventDefault();
   }
+
   async handleDrop(e) {
+    let room =this.state.room;
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
+    let ustones = this.state.pool
+    let ufeld = this.state.feld;
+
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     console.log("Ziel ID: "+e.currentTarget.id)
-    if(true)
+    if(originParent=="pool")
     {
+      console.log("aus dem Pool "+ufeld[ziel].stone.id)
+      if(ufeld[ziel].stone.id==""){
+        console.log("ist leer")
+      }
+      ufeld[ziel].stone.id
       const Ably = require('ably');
       const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
       await ably.connection.once('connected');
-      const channelId = 'domino' + this.state.room;
+      const channelId = 'domino' + room;
       const channel = ably.channels.get(channelId);
       console.log("dropped")
       
@@ -47,13 +57,21 @@ class Domino extends Component {
         console.log("empty");
       }
 
-      let ufeld = this.state.feld;
+      this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        leader: false,
+        pool: ustones,
+        feld: ufeld,
+        feldState: this.feldState,
+    });
       
       await channel.publish('UpdateSteine', {
         user: this.state.user,
-
-    });
-    ably.close();
+        feld: ufeld
+      });
+      ably.close();
     }
     
   }
@@ -147,7 +165,7 @@ class Domino extends Component {
   
   
   UpdateSteine(message){
-    
+    console.log("got Message")
   }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
@@ -165,10 +183,10 @@ class Domino extends Component {
   render() {
     return (
       <div name = "domino">
-        <div name="dominoFeld" className="dominoFeld rounded">
+        <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"className="pool rounded">{this.getSteine()}</div>
+        <div name="dominoPool"id="pool"className="pool rounded">{this.getSteine()}</div>
       </div>
     );
   }
