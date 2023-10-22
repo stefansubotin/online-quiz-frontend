@@ -9,45 +9,77 @@ class Domino extends Component {
       data: props.data,
       leader: false,
       pool: [],
-      feld: [],
+      feldState: -1,
     };
-    return (
-      <div className="card stein">
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Frage 2</li>
-          <li className="list-group-item">Frage 1</li>
-        </ul>
-      </div>
-    );
   }
+  handleDragStart(e, id) {
+    console.log("drag startet")
 
-  initFeld() {
-    var felder = [];
-    for (let i = 0; i < 9; ++i) {
-      felder.push(
-        <div className="zelle" id={i}>
-          Hallo
-        </div>
-      );
+  }
+  //HandleDragOver, Sammeln über was gehalten wird + erlauben
+  handleDragOver(e, id) {
+    e.preventDefault();
+  }
+  //HandleDrop, setzen des Steins + löschen der vorherigen Position
+  handleDrop(e, zielID) {
+  }
+  getCards(){
+    let dat = JSON.parse(this.state.data)
+    let fragen = dat.fragen;
+    let cards;
+    for(let i=0;i<data.fragen.length;i++){
+      let card = this.getOneCard(fragen.props.antwort, fragen.props.frage, fragen.props.key)
+      cards.push(card);
     }
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: this.state.pool,
-      feld: felder,
-    });
-    return <span>Hallo</span>;
+    console("Karten gefüllt");
+    return cards;
+    
+
+  }
+  getOneCard(antwort, frage, id){
+
+    return(
+    <div className="card" id={id} draggable="true">
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">{frage}</li>
+        <li className="list-group-item">{antwort}</li>
+      </ul>
+    </div>);
+  }
+  getFeld(){
+    if(this.state.feldState<0){
+      return this.initFeld();
+    }else{
+      console.log("noch keine Möglichkeit")
+    }
+  }
+  initFeld() {
+    let newFeld;
+    for(let i= 0;i<9;++i){
+      newFeld.push(<div id={i}>Feld {i}</div>)
+    }
+
+    return newFeld;
+  }
+  async componentDidMount(){
+    //Connection Ably to transfer and update Data
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'domino'+this.state.room;
+    const channel = ably.channels.get(channelId);
+    console.log("Channel aktiv");
+
+
   }
 
   render() {
     return (
       <div>
         <div name="domino" className="dominoFeld">
-          Hallo
+            {this.getFeld()}
         </div>
-        <div className="Pool card">{this.getFirstCard()}</div>
+        <div className="Pool card">{this.getCards()}</div>
       </div>
     );
   }
