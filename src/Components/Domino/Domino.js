@@ -19,7 +19,7 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
-    console.log("DragStart: "+id)
+    console.log("DragStart: "+id+"parent: "+pid)
     e.dataTransfer.setData("id", id);
     e.dataTransfer.setData("parent", pid)
 
@@ -29,7 +29,7 @@ class Domino extends Component {
     e.preventDefault();
   }
 
-  async handleDrop(e) {
+  handleDrop(e) {
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
@@ -44,34 +44,6 @@ class Domino extends Component {
     if(ufeld[ziel].stone.id==""){
         console.log("ist leer")
       }
-      /*
-      ufeld[ziel].stone.id
-      const Ably = require('ably');
-      const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-      await ably.connection.once('connected');
-      const channelId = 'domino' + room;
-      const channel = ably.channels.get(channelId);
-      console.log("dropped")
-      
-      if(this.state.feld[ziel].stone!= {}){
-        console.log("empty");
-      }
-
-      this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        leader: false,
-        pool: ustones,
-        feld: ufeld,
-        feldState: this.feldState,
-    });
-      
-      await channel.publish('UpdateSteine', {
-        user: this.state.user,
-        feld: ufeld
-      });
-      ably.close();*/
     }
     
   }
