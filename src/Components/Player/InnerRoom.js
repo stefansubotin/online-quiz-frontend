@@ -90,6 +90,7 @@ class InnerRoom extends Component {
     }
 
     async onEnd(message){
+        console.log('end');
         this.setState({
             room: this.state.room,
             user: this.state.user,
