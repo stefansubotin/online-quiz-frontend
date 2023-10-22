@@ -27,9 +27,9 @@ class Domino extends Component {
   handleDrop(e) {
     console.log("elementdropped")
     this.setState({
-      room: props.room,
-      user: props.user,
-      data: props.data,
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
       leader: false,
       pool: [],
       feldState: this.feldState++,
