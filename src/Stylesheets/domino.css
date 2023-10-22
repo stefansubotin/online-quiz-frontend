@@ -1,6 +1,8 @@
 .zelle {
     border-style: solid;
     border-color: black;
+    min-height: 10px;
+
 }
 
 .stein {

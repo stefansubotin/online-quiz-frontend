@@ -46,20 +46,34 @@ class Domino extends Component {
 
 
   //GENERIERE STEINE
-  getCards(){
-    console.log("Feld State: Cards "+this.state.feldState)
-    if(this.state.feldState<1){
-      let stones = this.initStones()
+  getSteine(){
+    let fs = this.state.feldState
+    let stones =[];
+    console.log("FeldState Steine "+fs)
+    
+    if(fs==1){
+      stones = this.initStones()
       console.log("initSteine "+stones);
-      return(stones.map((stone)=>(
-        <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">{stone.frage}</li>
-            <li className="list-group-item">{stone.antwort}</li>
-          </ul>
-        </div>)));;
+        fs++;
+        feld = this.initFeld();
+        console.log(feld)
+        this.setState({
+          room: this.state.room,
+          user: this.state.user,
+          data: this.state.data,
+          leader: false,
+          pool: stones,
+          feld: this.state.feld,
+          feldState: fs,
+      });
     }
-      return null;
+    return(this.state.pool.map((stone)=>(
+      <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">{stone.frage}</li>
+          <li className="list-group-item">{stone.antwort}</li>
+        </ul>
+      </div>)));
   }
 
   initStones(){
@@ -74,39 +88,27 @@ class Domino extends Component {
     return stones;
 
   }
-  getOneCard(antwort, frage, id){
-    //https://react.dev/learn/responding-to-events#adding-event-handlers
-    console.log("id"+id);
-    let stones = this.initCards();
-    return(stones.map((stone)=>(
-    <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-      <ul className="list-group list-group-flush">
-        <li className="list-group-item">{stone.frage}</li>
-        <li className="list-group-item">{stone.antwort}</li>
-      </ul>
-    </div>)));
-  }
+
   //GENERIERE FELD
   getFeld(){
-    console.log("Feld Feld State "+this.state.feldState)
     let fs = this.state.feldState
     let feld= []
+    console.log("FeldState Feld: "+fs)
+  
     if(fs<1){
         fs++;
         feld = this.initFeld();
-        console.log(feld)
+        console.log("initFeld: "+feld)
         this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        leader: false,
-        pool: this.state.pool,
-        feld: feld,
-        feldState: fs,
+          room: this.state.room,
+          user: this.state.user,
+          data: this.state.data,
+          leader: false,
+          pool: this.state.pool,
+          feld: feld,
+          feldState: fs,
       });
 
-    }else{
-      console.log(this.state.feld.length)
     }
     return (this.state.feld.map((zelle)=>(
       <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
@@ -146,7 +148,7 @@ class Domino extends Component {
         <div name="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"className="pool rounded"></div>
+        <div name="dominoPool"className="pool rounded">{this.getSteine()}</div>
       </div>
     );
   }
