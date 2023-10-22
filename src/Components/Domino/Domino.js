@@ -52,9 +52,9 @@ class Domino extends Component {
     }
   }
   initFeld() {
-    let newFeld=[{}];
+    let newFeld;
     for(let i= 0;i<9;++i){
-      newFeld.push({"id":i,"stein":null, 'text': "hallo"})
+      newFeld.push(<div id={i}>Feld {i}</div>)
     }
 
     return newFeld;
