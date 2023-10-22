@@ -81,7 +81,7 @@ class Domino extends Component {
   //GENERIERE FELD
   getFeld(){
     let fs = this.state.feldState
-    let feld= []
+    let feld= [];
     console.log("FeldState Feld: "+fs)
   
     if(fs<1){
@@ -97,7 +97,7 @@ class Domino extends Component {
           feld: feld,
           feldState: fs,
       });
-      return(this.feld.map((f)=>(
+      return(feld.map((f)=>(
         <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
         Zelle
       </div>)));      
