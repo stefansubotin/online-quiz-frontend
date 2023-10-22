@@ -48,6 +48,7 @@ class Taboo extends Component {
     getDisplay(){
         let dat = JSON.parse(this.state.data);
         if ((this.state.turn + dat.team % dat.teams == 0)) {
+            if (this.state)
             return <>
                 {this.getInput()}<br/>
                 {this.getMessages()}
@@ -179,8 +180,8 @@ class Taboo extends Component {
         await ably.connection.once('connected');
         const channelId = this.getChannelId();
         const channel = ably.channels.get(channelId);
-        await channel.subscribe('message', (message) => this.onUpdate(message));
-        await channel.subscribe('system', (message) => this.onUpdate(message));
+        await channel.subscribe('message', (message) => this.onMessage(message));
+        await channel.subscribe('system', (message) => this.onSystem(message));
     }
 
     render() {

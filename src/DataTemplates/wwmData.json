@@ -1,25 +1,57 @@
 {
-    "moderator": false,
-    "questions": [
-        {
-            "id": 1,
-            "question": "",
-            "answer1": "",
-            "answer2": "",
-            "answer3": "",
-            "answer4": "",
-            "correctAnswer": ""
+    "client-to-server-start": {
+        "type": 0,
+        "room": "1",
+        "moderator": "",
+        "player": ""
+    },
+    "db-to-client-start": {
+        "player-solo": {
+            "game": "wwm",
+            "data": {
+                "moderator": "",
+                "list": [
+                    {
+                        "question": "",
+                        "answer1": "",
+                        "answer2": "",
+                        "answer3": "",
+                        "answer4": "",
+                        "correct": 1
+                    }
+                ]
+            }
         },
-        
-        {
-            "id": 1,
-            "question": "",
-            "answer1": "",
-            "answer2": "",
-            "answer3": "",
-            "answer4": ""
+        "player": {
+            "game": "wwm",
+            "data": {
+                "moderator": "moderatorUser",
+                "list": [
+                    {
+                        "question": "",
+                        "answer1": "",
+                        "answer2": "",
+                        "answer3": "",
+                        "answer4": ""
+                    }
+                ]
+            }
+        },
+        "moderator": {
+            "game": "wwm",
+            "data": {
+                "moderator": "yourUser",
+                "list": [
+                    {
+                        "question": "",
+                        "answer1": "",
+                        "answer2": "",
+                        "answer3": "",
+                        "answer4": "",
+                        "correct": 1
+                    }
+                ]
+            }
         }
-    ]
-
-    
+    }
 }
