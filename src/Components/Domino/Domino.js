@@ -82,30 +82,23 @@ class Domino extends Component {
     </div>);
   }
   //GENERIERE FELD
-  getZelle(id, stein){
-    return (<div onDrop={this.handleDrop} 
-    onDragOver={this.handleDragOver}
-    className="zelle" 
-    id={id}></div>);
-  }
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
     let feld = this.initFeld();
     console.log(feld)
-    return (feld.map((zelle)=>{
+    return (feld.map((zelle)=>(
       <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
-    }));
+    )));
       
   }
   initFeld() {
+    //DominoData.json feld
     let feld=[];
     for(let i= 0;i<9;++i){
       feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
       console.log("ZellenID"+i+" "+feld[i].id)
     }
     return feld;
-
-
   }
 
   //KOMMUNIKATION
