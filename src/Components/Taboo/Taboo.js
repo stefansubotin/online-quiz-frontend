@@ -215,6 +215,7 @@ class Taboo extends Component {
     }
 
     async onSystem(message) {
+        console.log(message.data);
         switch (message.data.type) {
             case 'forbidden':
                 this.setState({
@@ -247,7 +248,8 @@ class Taboo extends Component {
                     state: 0,
                     message: '',
                     messages: []
-                })
+                });
+                console.log(this.state);
                 break;
         }
     }
