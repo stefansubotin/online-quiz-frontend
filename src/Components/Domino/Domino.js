@@ -84,30 +84,25 @@ class Domino extends Component {
   //GENERIERE FELD
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    if(this.state.feld.length==0){
-      console.log("inititierung")
-      let objFeld = this.initFeld();
-      let jsxFeld;
-    
-      for(const feld of objFeld){
-        jsxFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={feld.id}>Zelle</div>);
-      }
-
-      this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        leader: false,
-        pool: this.state.pool,
-        feldState:0,
-        feld: this.objFeld,
-      });
-
-      return (jsxFeld.map((zelle)=>{zelle}))
-    }
-
+    let feld = this.initFeld();
+    console.log(feld)
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.data,
+      feldState: this.feldState++,
+      feld: this.feld,
+    });
+    return (feld.map((zelle)=>(
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
+    )));
       
   }
+
+
+    
   initFeld() {
     //DominoData.json feld
     let feld=[];
