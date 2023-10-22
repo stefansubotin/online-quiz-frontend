@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../Stylesheets/span.css';
 import '../../Stylesheets/taboo.css';
-import BackendAccess from '../../Tools/BackendAccess';
 
 class Taboo extends Component {
     constructor(props) {
@@ -32,6 +31,7 @@ class Taboo extends Component {
                 lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
             }
         }
+        return lst;
     }
 
     getInput() {
@@ -99,8 +99,12 @@ class Taboo extends Component {
         let dat = JSON.parse(this.state.data);
         console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
         console.log(toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase());
-        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
+        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()){
+            console.log('1');
+            return true;
+        } 
         for (let i = 0; i < dat.explainingInfo.length; i++) {
+            console.log('2 ' + i);
             console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
         }
