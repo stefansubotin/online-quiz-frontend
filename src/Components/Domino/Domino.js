@@ -27,7 +27,7 @@ class Domino extends Component {
   handleDrop(e) {
     if(dropAllowed(e.target.id, e.dataTransfer.getData("id")))
     {
-      
+      console.log("dropped")
     }
     
   }
@@ -72,7 +72,8 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
     let stones =[];
-    for(let i =0; i<dat.length;i){
+    console.log("laenge "+dat.fragen.length)
+    for(let i =0; i<4;i){
       stones.push({"id" : fragen[i].props.id,"frage":fragen[i].props.frage, "antwort": fragen[i].props.antwort})
       console.log(stones);
     }
