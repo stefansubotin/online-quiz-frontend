@@ -49,13 +49,20 @@ class Domino extends Component {
   getCards(){
     console.log("Feld State: Cards "+this.state.feldState)
     if(this.state.feldState<1){
-      
-      return this.initCards();
+      let stones = this.initStones()
+      console.log("initSteine "+stones);
+      return(stones.map((stone)=>(
+        <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">{stone.frage}</li>
+            <li className="list-group-item">{stone.antwort}</li>
+          </ul>
+        </div>)));;
     }
       return null;
   }
 
-  initCards(){
+  initStones(){
     //Object 
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
@@ -106,8 +113,6 @@ class Domino extends Component {
       
   }
 
-
-    
   initFeld() {
     //DominoData.json feld
     let feld=[];
