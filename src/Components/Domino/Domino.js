@@ -17,15 +17,18 @@ class Domino extends Component {
   //https://react.dev/reference/react-dom/components/common#dragevent-handler
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
-    e.dataTransfer.setData("id", e.target.id);
-
+    let id = e.target.id;
+    console.log("DragStart: "+e.target.id)
+    e.dataTransfer.setData("id", id)
   }
   handleDragOver(e) {
     console.log("drag over ")
     e.preventDefault();
   }
   handleDrop(e) {
-    if(this.dropAllowed(e.target.id, e.dataTransfer.getData("id")))
+    console.log("Bewegter: "+e.dataTransfer.getData("id"))
+    console.log("Ziel ID: "+e.target.id)
+    if(trues)
     {
       console.log("dropped")
     }
