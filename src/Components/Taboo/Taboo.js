@@ -123,8 +123,17 @@ class Taboo extends Component {
         let message = {
             user: this.state.user,
             explainer: explainer,
-            text: event.target.text.value
+            text: this.state.message
         }
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            turn: this.state.turn,
+            state: this.state.state,
+            message: '',
+            messages: this.state.messages
+        });
         await channel.publish('message', message);
         if (explainer) {
             if (!this.checkForForbiddenWords(message.text)) {
