@@ -68,24 +68,6 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
 
-    
-    let cards=[];
-    for(let i=0;i<fragen.length;i++){
-      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
-      cards.push(card)
-    }
-    console.log("Karten gefüllt");
-    
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: fragen,
-      feldState: 0,
-      feld:this.state.feld,
-    });
-    return cards;
 
   }
   getOneCard(antwort, frage, id){
@@ -108,7 +90,11 @@ class Domino extends Component {
   }
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    return this.initFeld();
+    let feld = this.initFeld();
+    console.log(feld)
+    return (feld.map((zelle)=>{
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
+    }));
       
   }
   initFeld() {
@@ -117,10 +103,9 @@ class Domino extends Component {
       feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
       console.log("ZellenID"+i+" "+feld[i].id)
     }
+    return feld;
 
-    return (feld.map((zelle)=>{
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
-    }));
+
   }
 
   //KOMMUNIKATION
