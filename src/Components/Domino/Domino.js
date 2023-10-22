@@ -28,7 +28,7 @@ class Domino extends Component {
     let fragen = dat.fragen;
     let cards;
     for(let i=0;i<dat.fragen.length;i++){
-      let card = this.getOneCard(fragen.props.antwort, fragen.props.frage, fragen.props.key)
+      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
       cards.push(card);
     }
     console("Karten gefüllt");
@@ -54,7 +54,7 @@ class Domino extends Component {
     }
   }
   initFeld() {
-    let newFeld;
+    let newFeld=[];
     for(let i= 0;i<9;++i){
       newFeld.push(<div id={i}>Feld {i}</div>)
     }
