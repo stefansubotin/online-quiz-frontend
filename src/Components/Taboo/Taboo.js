@@ -202,7 +202,8 @@ class Taboo extends Component {
             state: this.state.state,
             message: '',
             messages: messages
-        })
+        });
+        console.log(this.state);
     }
 
     async onSystem(message) {
