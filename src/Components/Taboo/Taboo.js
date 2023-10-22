@@ -85,8 +85,9 @@ class Taboo extends Component {
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
-                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={this.state.state == 0}>Richtige Antwort!</button>);
-                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={!this.state.state == 0}>Next Turn</button>);
+                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={!this.state.state == 0}>Richtige Antwort!</button>);
+                if ((turn + 1) == dat.maxTurns) display.push(<button disabled={this.state.state == 0}>End</button>)
+                else display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
@@ -190,6 +191,18 @@ class Taboo extends Component {
 
         await channel.publish('system', {
             type: 'correct'
+        })
+    }
+
+    async sendEnd(){
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('end', {
+            content: 'empty'
         })
     }
 
