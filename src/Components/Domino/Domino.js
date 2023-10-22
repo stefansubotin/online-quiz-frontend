@@ -48,21 +48,13 @@ class Domino extends Component {
   //GENERIERE STEINE
   getCards(){
     console.log("Feld State: Cards "+this.state.feldState)
-    if(this.state.feldState<0){
+    if(this.state.feldState<1){
       
       return this.initCards();
-    }else if(this.state.feldState>1){
-      let fragen = this.state.pool;
-      let cards=[];
-      for(let i=0;i<this.state.data.fragen.length;i++){
-        let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
-        cards.push(card)
-      }
-      console.log("Karten gefüllt");
-      return cards;
-      
     }
+      return null;
   }
+
   initCards(){
     //Object 
     let dat = JSON.parse(this.state.data)
@@ -80,17 +72,19 @@ class Domino extends Component {
     console.log("id"+id);
     let stones = this.initCards();
     return(stones.map((stone)=>(
-    <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+    <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">{frage}</li>
-        <li className="list-group-item">{antwort}</li>
+        <li className="list-group-item">{stone.frage}</li>
+        <li className="list-group-item">{stone.antwort}</li>
       </ul>
     </div>)));
   }
   //GENERIERE FELD
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    if(!this.state.feld[0]){
+    let fs = this.state.feldState
+    if(fs<1){
+        fs++;
         let feld = this.initFeld();
         console.log(feld)
         this.setState({
@@ -99,8 +93,8 @@ class Domino extends Component {
         data: this.state.data,
         leader: false,
         pool: this.state.pool,
-        feld: this.feld,
-        feldState: this.state.feldState,
+        feld: feld,
+        feldState: fs,
       });
       return (feld.map((zelle)=>(
         <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
