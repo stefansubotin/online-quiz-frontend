@@ -100,31 +100,31 @@ class Domino extends Component {
     </div>);
   }
   //GENERIERE FELD
+  getZelle(id, stein){
+    return (<div onDrop={this.handleDrop} 
+    onDragOver={this.handleDragOver}
+    className="zelle" 
+    id={id}></div>);
+  }
   getFeld(){
-    console.log("Feld State "+this.state.feldState)
+    console.log("Feld Feld State "+this.state.feldState)
     if(this.state.feldState==0){
       return this.initFeld();
     }
     let newFeld = JSON.parse(this.state.feld);
-    return newFeld.map(feld);
+    return newFeld.map((feld));
       
   }
   initFeld() {
-    let newFeld=[];
+    let feld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={i}></div>)
+      feld.push({"id":i, "stein":null})
+      console.log("ZellenID"+i+" "+feld[i].id)
     }
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: this.state.pool,
-      feldState: 1,
-      feld:newFeld,
-    });
 
-    return newFeld;
+    return (feld.map((zelle)=>{
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}></div>
+    }));
   }
 
   //KOMMUNIKATION
@@ -150,7 +150,7 @@ class Domino extends Component {
         <div name="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"className="pool rounded">{this.getCards()}</div>
+        <div name="dominoPool"className="pool rounded"></div>
       </div>
     );
   }
