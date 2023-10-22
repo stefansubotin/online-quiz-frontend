@@ -84,6 +84,7 @@ class Taboo extends Component {
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
+                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={this.state.state == 0}>Richtige Antwort!</button>);
                 display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
@@ -148,7 +149,7 @@ class Taboo extends Component {
         });
         await channel.publish('message', message);
         if (explainer) {
-            if (!this.checkForForbiddenWords(message.text)) {
+            if (this.checkForForbiddenWords(message.text)) {
                 await this.sendUsedForbiddenWord();
             }
         }
@@ -176,6 +177,18 @@ class Taboo extends Component {
 
         await channel.publish('system', {
             type: 'continue'
+        })
+    }
+
+    async sendCorrect() {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('system', {
+            type: 'correct'
         })
     }
 
@@ -215,6 +228,7 @@ class Taboo extends Component {
     }
 
     async onSystem(message) {
+        console.log(message.data);
         switch (message.data.type) {
             case 'forbidden':
                 this.setState({
@@ -247,7 +261,8 @@ class Taboo extends Component {
                     state: 0,
                     message: '',
                     messages: []
-                })
+                });
+                console.log(this.state);
                 break;
         }
     }
