@@ -183,7 +183,7 @@ class WerWirdMillionaer extends Component {
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');  
         const channelId = this.getChannelId();
-        const channel = ably.channels.get(getChannelId);
+        const channel = ably.channels.get(ChannelId);
         await channel.subscribe('update', (message) => this.onUpdate(message));
     }
 //#endregion
