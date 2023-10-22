@@ -9,10 +9,11 @@ class Domino extends Component {
       data: props.data,
       leader: false,
       pool: [],
-      feld: [{}],
+      feldState: -1,
     };
   }
   handleDragStart(e, id) {
+    console.log("drag startet")
 
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
@@ -22,38 +23,41 @@ class Domino extends Component {
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e, zielID) {
   }
-  getOneCard(){
+  getCards(){
     let dat = JSON.parse(this.state.data)
-    console.log(dat);
-    let fragen = dat.fragen[0]
-    console.log(fragen)
-    let frage = dat.fragen[0].props.frage
-    console.log("FRAge"+ frage );
-    let antwort="Antwort"
-    let frages="frage"
+    let fragen = dat.fragen;
+    let cards;
+    for(let i=0;i<data.fragen.length;i++){
+      let card = this.getOneCard(fragen.props.antwort, fragen.props.frage, fragen.props.key)
+      cards.push(card);
+    }
+    console("Karten gefüllt");
+    return cards;
+    
+
+  }
+  getOneCard(antwort, frage, id){
+
     return(
-    <div className="card" draggable="true">
+    <div className="card" id={id} draggable="true">
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
       </ul>
     </div>);
   }
-
+  getFeld(){
+    if(this.state.feldState<0){
+      return this.initFeld();
+    }
+  }
   initFeld() {
     let newFeld=[{}];
     for(let i= 0;i<9;++i){
       newFeld.push({"id":i,"stein":null, 'text': "hallo"})
     }
 
-    this.state = {
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: [],
-      feld: newFeld,
-    };
+    return newFeld;
   }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
@@ -62,6 +66,7 @@ class Domino extends Component {
     await ably.connection.once('connected');
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
+    console.log("Channel aktiv");
     this.initFeld();
 
 
@@ -71,11 +76,9 @@ class Domino extends Component {
     return (
       <div>
         <div name="domino" className="dominoFeld">
-          {this.state.feld.map((zelle, index)=>{
-            <div >Hallo</div>
-          })}
+            {this.getFeld()}
         </div>
-        <div className="Pool card">{this.getOneCard()}</div>
+        <div className="Pool card">{this.getCards()}</div>
       </div>
     );
   }
