@@ -70,11 +70,11 @@ class Domino extends Component {
   initStones(){
     //Object 
     let dat = JSON.parse(this.state.data)
-    let fragen = dat.fragen
+    let frage = dat.fragen
     let stones =[];
-    console.log("laenge "+dat.fragen.length)
+    console.log("laenge "+dat.frage.length)
     for(let i =0; i<4;i++){
-      stones.push({"id" : fragen[i].props.id,"frage":fragen[i].props.frage, "antwort": fragen[i].props.antwort})
+      stones.push({"id" : frage[i].props.id,"frage":frage[i].props.frage, "antwort": frage[i].props.antwort})
       console.log(stones);
     }
     return stones;
@@ -118,32 +118,7 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
-  async changePosition(event) {
-    const Ably = require('ably');
-    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-    await ably.connection.once('connected');
-    const channelId = 'kreuzwort' + this.state.room;
-    const channel = ably.channels.get(channelId);
-    let eventIdArray = event.target.name.split('_');
-
-    let newLines = this.state.lines;
-    newLines[eventIdArray[0]][eventIdArray[1]] = event.target.value;
-    this.setState({
-        init: this.state.init,
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        lines: newLines
-    });
-
-    await channel.publish('update', {
-        user: this.state.user,
-        i: eventIdArray[0],
-        j: eventIdArray[1],
-        val: event.target.value
-    });
-    ably.close();
-}
+  
   
   UpdateSteine(message){
     
