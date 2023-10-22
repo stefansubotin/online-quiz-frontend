@@ -114,12 +114,12 @@ class Domino extends Component {
   initFeld() {
     let feld=[];
     for(let i= 0;i<9;++i){
-      feld.push({"id":i, "stein":null})
+      feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
       console.log("ZellenID"+i+" "+feld[i].id)
     }
 
     return (feld.map((zelle)=>{
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}></div>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
     }));
   }
 
