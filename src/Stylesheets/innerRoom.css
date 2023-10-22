@@ -1,0 +1,14 @@
+.innerRoom {
+    width: 60%;
+
+    display: flex;
+}
+
+.innerRoomComponent {
+    width: 80%;
+}
+
+.userList {
+    width: 20%;
+
+}

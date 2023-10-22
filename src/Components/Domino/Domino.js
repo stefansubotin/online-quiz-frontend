@@ -31,7 +31,7 @@ class Domino extends Component {
       let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
       cards.push(card)
     }
-    console("Karten gefüllt");
+    console.log("Karten gefüllt");
     return cards;
     
 
