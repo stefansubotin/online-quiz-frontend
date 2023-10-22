@@ -24,6 +24,9 @@ class Domino extends Component {
   }
   getOneCard(){
     let dat = JSON.parse(this.state.data)
+    console.log(dat);
+    let fragen = dat.fragen[0]
+    console.log(fragen)
     let frage = JSON.stringify(dat.fragen[0].props.frage)
     console.log("FRAge"+ frage );
     let antwort="Antwort"
