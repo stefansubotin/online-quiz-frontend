@@ -24,13 +24,14 @@ class Domino extends Component {
   }
   getOneCard(){
     let dat = JSON.parse(this.state.data)
-    console.log("FRAge"+ dat.fragen[0].props.frage);
+    let frage = JSON.stringify(dat.fragen[0].props.frage)
+    console.log("FRAge"+ frage );
     let antwort="Antwort"
-    let frage="Antwort"
+    let frages="Antwort"
     return(
-    <div className="card">
+    <div className="card" draggable="true">
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">{frage}</li>
+        <li className="list-group-item">{frages}</li>
         <li className="list-group-item">{antwort}</li>
       </ul>
     </div>);
