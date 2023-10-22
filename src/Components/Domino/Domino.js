@@ -13,16 +13,17 @@ class Domino extends Component {
       feldState: -1,
     };
   }
+  //DRAG AND DROP
+  //https://react.dev/reference/react-dom/components/common#dragevent-handler
+  //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
     e.dataTransfer.setData("id", e.target.id);
 
   }
-  //HandleDragOver, Sammeln über was gehalten wird + erlauben
   handleDragOver(e) {
     console.log("drag over ")
     e.preventDefault();
   }
-  //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e) {
     let draggedElement = e.dataTransfer.getData("id");
     console.log("elementdropped"+e.target.name+" "+e.target.children)
@@ -41,6 +42,10 @@ class Domino extends Component {
     console.log(this.state.feldState)
     
   }
+
+
+
+  //GENERIERE STEINE
   getCards(){
     console.log("Feld State: Cards "+this.state.feldState)
     if(this.state.feldState<0){
@@ -94,6 +99,7 @@ class Domino extends Component {
       </ul>
     </div>);
   }
+  //GENERIERE FELD
   getFeld(){
     if(this.state.feldState<0){
       return this.initFeld();
@@ -112,12 +118,14 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: this.state.pool,
-      feldState: -1,
+      feldState: 0,
       feld:newFeld,
     });
 
     return newFeld;
   }
+
+  //KOMMUNIKATION
   UpdateSteine(message){
     
   }
