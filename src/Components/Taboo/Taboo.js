@@ -50,6 +50,8 @@ class Taboo extends Component {
         for (let i = 0; i < dat.enemyTurns; i++) {
             if (this.state.turn == dat.enemyTurns[i].turn) enemyTurn = dat.enemyTurns[i];
         }
+        console.log("enemyTurn");
+        console.log(enemyTurn);
         let words = [enemyTurn.answer];
         words = words.concat(enemyTurn.forbiddenWords);
         return (
@@ -209,6 +211,7 @@ class Taboo extends Component {
     }
 
     async componentDidMount() {
+        console.log(JSON.parse(this.state.data));
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
