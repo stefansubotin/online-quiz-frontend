@@ -25,7 +25,7 @@ class Domino extends Component {
     e.preventDefault();
   }
   handleDrop(e) {
-    if(dropAllowed(e.target.id, e.dataTransfer.getData("id")))
+    if(this.dropAllowed(e.target.id, e.dataTransfer.getData("id")))
     {
       console.log("dropped")
     }
