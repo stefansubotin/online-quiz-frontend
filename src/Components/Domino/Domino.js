@@ -103,7 +103,14 @@ class Domino extends Component {
 
     }
     return (this.state.feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>empty</div>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>
+        <div className="card" id={zelle.stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">{zelle.stone.frage}</li>
+            <li className="list-group-item">{zelle.stone.antwort}</li>
+          </ul>
+        </div>
+      </div>
     )));
       
   }
@@ -112,7 +119,7 @@ class Domino extends Component {
     //DominoData.json feld
     let feld=[];
     for(let i= 0;i<9;++i){
-      feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
+      feld.push({id:i, stone:{id: "",frage: "   ", antwort: "   "}})
     }
     return feld;
   }
