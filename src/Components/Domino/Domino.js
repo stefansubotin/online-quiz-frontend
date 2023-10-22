@@ -12,16 +12,31 @@ class Domino extends Component {
       feldState: -1,
     };
   }
-  handleDragStart(e, id) {
+  handleDragStart(e) {
+    console.log("id "+e.target.name)
     console.log("drag startet")
-
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
-  handleDragOver(e, id) {
+  handleDragOver(e) {
+    console.log("drag over ")
     e.preventDefault();
   }
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
-  handleDrop(e, zielID) {
+  handleDrop(e) {
+    console.log("elementdropped"+e.target.children)
+    if(false){
+      
+    }
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: [],
+      feldState: this.feldState++,
+    });
+    console.log(this.state.feldState)
+    
   }
   getCards(){
     let dat = JSON.parse(this.state.data)
@@ -31,15 +46,16 @@ class Domino extends Component {
       let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
       cards.push(card)
     }
-    console("Karten gefüllt");
+    console.log("Karten gefüllt");
     return cards;
     
 
   }
   getOneCard(antwort, frage, id){
-
+    //https://react.dev/learn/responding-to-events#adding-event-handlers
+//Functions passed to event handlers must be passed, not called. 
     return(
-    <div className="card" id={id} draggable="true">
+    <div className="card" name={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
@@ -56,7 +72,7 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div id={i}>Feld {i}</div>)
+      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle"id={i}>Feld {i}</div>)
     }
 
     return newFeld;
@@ -76,10 +92,10 @@ class Domino extends Component {
   render() {
     return (
       <div>
-        <div name="domino" className="dominoFeld">
+        <div name="domino" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div className="Pool card">{this.getCards()}</div>
+        <div className="pool rounded">{this.getCards()}</div>
       </div>
     );
   }

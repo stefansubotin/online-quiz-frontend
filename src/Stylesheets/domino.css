@@ -1,29 +1,19 @@
-.feld{
-    background-color: gray;
-
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
-}
-.zelle{
+.zelle {
     border-style: solid;
-    border-color:black;
+    border-color: black;
 }
-.stein{
-    width: 80px;
-}
-.pool{
-    background-color: lightgray ;
-}
-.innerRoom{
-    width: 60%;
 
-    display: flex;
+.stein {}
+
+.pool {
+    background-color: lightgray;
+    display: grid;
+    grid-template-columns: auto auto auto;
 }
-.innerRoomComponent{
-    width: 80%;
-}
-.userList{
-    width: 20%;
+
+.dominoFeld {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: grey;
 
 }

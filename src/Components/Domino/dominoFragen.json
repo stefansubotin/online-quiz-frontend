@@ -1,0 +1,35 @@
+{
+    "fragen":[{
+        "id": 0,
+        "frage": "Für was steht das Akronym http?",
+        "antwort": "Hypertext Transfer Protocol"
+    },{
+        "id":1,
+        "frage": "Für was steht das Akronym HTML?",
+        "antwort": "Hypertext Markup Language"
+    },{
+        "id":2,
+        "frage": "Für was steht das Akronym USB?",
+        "antwort": "Universal serial bus"
+    },{
+        "id":3,
+        "frage":"Womit unterstützt JSF die Entwicklung von Web-Anwendungen?",
+        "antwort":"Einfache Verknüpfung von View und Model."
+    },{
+        "id":4,
+        "frage":"Welche der nachfolgenden Aussagen trifft auf JSF-Elemente (JSF-Komponenten) zu?",
+        "antwort":"Zu fast jedem HTML-Element gibt es eine Entsprechung in JSF, die zusätzliche Funktionalität bietet."
+    },{
+        "id":5,
+        "frage":"Weshalb gibt es in JSF das Konzept „Beans“?",
+        "antwort":"Zur einfachen Integration bestehender Datenmodelle aus Java-Klassen."
+    },{
+        "id":6,
+        "frage":"Wie können Abweichungen von der Konvention konfiguriert werden?",
+        "antwort":"Mit der Annotation @Named(„bezeichner“) kann ein eigener Bezeichner für die Bean-Instanz festgelegt werden."
+    },{
+        "id":7,
+        "frage":"Was versteht man unter einer Pflichtfeldvalidierung?",
+        "antwort":"Die Überprüfung, ob der Benutzer ein zwingend erforderliches Formularfeld ausgefüllt hat."
+    }]
+}
