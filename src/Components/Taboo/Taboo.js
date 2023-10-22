@@ -220,7 +220,7 @@ class Taboo extends Component {
 
     render() {
         return (
-            <div></div>
+            <div name='taboo'>{this.getDisplay()}</div>
         )
     }
 }
