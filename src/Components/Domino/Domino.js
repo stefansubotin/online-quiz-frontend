@@ -108,11 +108,7 @@ class Domino extends Component {
   }
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    if(this.state.feldState==0){
-      return this.initFeld();
-    }
-    let newFeld = JSON.parse(this.state.feld);
-    return newFeld.map((feld));
+    return this.initFeld();
       
   }
   initFeld() {
