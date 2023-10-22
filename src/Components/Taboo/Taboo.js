@@ -48,12 +48,12 @@ class Taboo extends Component {
         let dat = JSON.parse(this.state.data);
         let enemyTurn;
         for (let i = 0; i < dat.enemyTurns; i++) {
-            if (this.state.turn == dat.enemyTurns[i].turn) enemyTurn = dat.enemyTurns[i];
+            if (this.state.turn == dat.enemyTurns[i].turn) enemyTurn = i;
         }
         console.log("enemyTurn");
         console.log(enemyTurn);
-        let words = [enemyTurn.answer];
-        words = words.concat(enemyTurn.forbiddenWords);
+        let words = [dat.enemyTurns[enemyTurn].answer];
+        words = words.concat(dat.enemyTurns[enemyTurn].forbiddenWords);
         return (
             <div>{words.join(', ')}</div>
         )
@@ -82,6 +82,7 @@ class Taboo extends Component {
             display.push(this.getMessages());
             display.push(<div><button onClick={(e) => this.sendUsedForbiddenWord(e)} disabled={this.state.state == -1}>Forbidden Word Used!!</button></div>);
         }
+        return display;
     }
 
     checkWord(toCheck) {
