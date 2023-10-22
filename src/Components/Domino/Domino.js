@@ -49,7 +49,7 @@ class Domino extends Component {
     }else if(this.state.feldState>0){
       let fragen = this.state.pool;
       let cards=[];
-      for(let i=0;i<this.state.dat.fragen.length;i++){
+      for(let i=0;i<this.state.data.fragen.length;i++){
         let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
         cards.push(card)
       }
@@ -71,7 +71,7 @@ class Domino extends Component {
       feldState: 1,
       feld:this.state.feld,
     });
-    console.log(this.state.pool)
+    console.log(this.state.pool+'ander s'+dat.fragen)
     
     let cards=[];
     for(let i=0;i<this.state.pool.length;i++){
