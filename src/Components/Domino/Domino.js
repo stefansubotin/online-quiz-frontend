@@ -56,7 +56,7 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div id={i}>Feld {i}</div>)
+      newFeld.push(<div className="zelle"id={i}>Feld {i}</div>)
     }
 
     return newFeld;
@@ -79,7 +79,7 @@ class Domino extends Component {
         <div name="domino" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div className="Pool card">{this.getCards()}</div>
+        <div className="Pool rounded">{this.getCards()}</div>
       </div>
     );
   }
