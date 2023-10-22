@@ -33,8 +33,8 @@ class Domino extends Component {
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
-    let ustones = Domino.state.pool
-    let ufeld = Domino.state.feld;
+    let ustones = this.state.pool
+    let ufeld = this.state.feld;
 
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     console.log("Ziel ID: "+e.currentTarget.id)
@@ -114,7 +114,7 @@ class Domino extends Component {
           feldState: fs,
       });
       return(feld.map((f)=>(
-        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+        <div onDrop={(e)=>this.handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
         Zelle
       </div>)));      
     }      
