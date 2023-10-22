@@ -14,8 +14,8 @@ class Domino extends Component {
     };
   }
   handleDragStart(e) {
-    console.log("id "+e.target.name)
-    console.log("drag startet")
+    e.dataTransfer.setData("id", e.target.id);
+
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
   handleDragOver(e) {
@@ -24,6 +24,7 @@ class Domino extends Component {
   }
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e) {
+    let draggedElement = e.dataTransfer.getData("id");
     console.log("elementdropped"+e.target.name+" "+e.target.children)
     if(false){
 
@@ -33,18 +34,46 @@ class Domino extends Component {
       user: this.state.user,
       data: this.state.data,
       leader: false,
-      pool: [],
+      pool: this.state.data,
       feldState: this.feldState++,
+      feld: this.state.data,
     });
     console.log(this.state.feldState)
     
   }
   getCards(){
-    let dat = JSON.parse(this.state.data)
-    let fragen = dat.fragen;
+    console.log("Feld State: Cards "+this.state.feldState)
+    if(this.state.feldState<0){
+      
+      return this.initCards();
+    }else if(this.state.feldState>0){
+      let fragen = this.state.pool;
+      let cards=[];
+      for(let i=0;i<dat.fragen.length;i++){
+        let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
+        cards.push(card)
+      }
+      console.log("Karten gefüllt");
+      return cards;
+      
+    }
+  }
+  initCards(){
+    //Object 
+    let dat = JSON.parse(this.state.data.fragen)
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool:dat,
+      feldState: 1,
+      feld:this.state.feld,
+    });
+    
     let cards=[];
-    for(let i=0;i<dat.fragen.length;i++){
-      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].key)
+    for(let i=0;i<pool.length;i++){
+      let card = this.getOneCard(this.state.pool[i].props.antwort, this.state.pool[i].props.frage, this.state.pool[i].props.id)
       cards.push(card)
     }
     console.log("Karten gefüllt");
