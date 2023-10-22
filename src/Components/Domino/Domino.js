@@ -67,6 +67,15 @@ class Domino extends Component {
     //Object 
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
+
+    
+    let cards=[];
+    for(let i=0;i<fragen.length;i++){
+      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
+      cards.push(card)
+    }
+    console.log("Karten gefüllt");
+    
     this.setState({
       room: this.state.room,
       user: this.state.user,
@@ -76,16 +85,7 @@ class Domino extends Component {
       feldState: 0,
       feld:this.state.feld,
     });
-    console.log(this.state.pool+'ander s'+dat.fragen)
-    
-    let cards=[];
-    for(let i=0;i<this.state.pool.length;i++){
-      let card = this.getOneCard(this.state.pool[i].props.antwort, this.state.pool[i].props.frage, this.state.pool[i].props.id)
-      cards.push(card)
-    }
-    console.log("Karten gefüllt");
     return cards;
-    
 
   }
   getOneCard(antwort, frage, id){
@@ -104,9 +104,10 @@ class Domino extends Component {
     console.log("Feld State "+this.state.feldState)
     if(this.state.feldState==0){
       return this.initFeld();
-    }else{
-      console.log("noch keine Möglichkeit")
     }
+    let newFeld = JSON.parse(this.state.feld);
+    return newFeld.map(feld);
+      
   }
   initFeld() {
     let newFeld=[];
