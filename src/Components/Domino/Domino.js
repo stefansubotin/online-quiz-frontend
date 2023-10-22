@@ -75,7 +75,7 @@ class Domino extends Component {
     console.log(dat.fragen[0].props.antwort)
     let stones =[];
     for(let i = 0; i<amount;i++){
-      stones.push({frage:fragen[i].props.frage , antwort: fragen[i].props.antwort})
+      stones.push({frage:dat.fragen[i].props.frage , antwort: dat.fragen[i].props.antwort})
       console.log(stones);
     }
     return stones;
