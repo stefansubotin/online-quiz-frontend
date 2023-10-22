@@ -68,7 +68,7 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: fragen,
-      feldState: 1,
+      feldState: -1,
       feld:this.state.feld,
     });
     console.log(this.state.pool+'ander s'+dat.fragen)
@@ -104,10 +104,22 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={i}>Feld {i}</div>)
+      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={i}></div>)
     }
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.pool,
+      feldState: -1,
+      feld:newFeld,
+    });
 
     return newFeld;
+  }
+  UpdateSteine(message){
+    
   }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
@@ -117,6 +129,7 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
+    channel.subscribe('UpdateSteine', (message)=>this.UpdateSteine(message))
 
 
   }
