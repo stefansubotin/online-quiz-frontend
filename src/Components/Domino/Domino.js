@@ -18,8 +18,10 @@ class Domino extends Component {
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
     let id = e.currentTarget.id;
+    let pid = e.target.id;
     console.log("DragStart: "+id)
     e.dataTransfer.setData("id", id);
+    e.dataTransfer.setData("parent", pid)
 
   }
   handleDragOver(e) {
@@ -27,8 +29,10 @@ class Domino extends Component {
     e.preventDefault();
   }
   async handleDrop(e) {
-    console.log("Bewegter: "+e.dataTransfer.getData("id"))
     let ziel = e.currentTarget.id;
+    let origin = e.dataTransfer.getData("id")
+    let originParent = e.dataTransfer.getData("parent")
+    console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     console.log("Ziel ID: "+e.currentTarget.id)
     if(true)
     {
