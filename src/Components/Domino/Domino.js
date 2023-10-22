@@ -136,7 +136,7 @@ class Domino extends Component {
     return (
       <div name = "domino">
         <div name="dominoFeld" className="dominoFeld rounded">
-            {this.getFeld()}
+            {this.getSteine()}
         </div>
         <div name="dominoPool"className="pool rounded"></div>
       </div>
