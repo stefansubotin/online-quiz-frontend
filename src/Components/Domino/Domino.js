@@ -43,7 +43,6 @@ class Domino extends Component {
     console.log("FeldState Steine "+fs)
     
     if(fs<1){
-      stones = this.initStones()
       console.log("initSteine "+stones);
         fs++;
         stones = this.initStones();
@@ -104,7 +103,7 @@ class Domino extends Component {
 
     }
     return (this.state.feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>empty</div>
     )));
       
   }
