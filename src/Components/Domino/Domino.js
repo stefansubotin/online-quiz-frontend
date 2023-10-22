@@ -12,9 +12,10 @@ class Domino extends Component {
       feldState: -1,
     };
   }
-  handleDragStart(e) {
-    let target = e.target.id;
-    console.log("target id "+ target)
+  handleDragStart(e, key) {
+
+    console.log("target id "+ key)
+    console.log("id "+e.target.key)
     console.log("drag startet")
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
@@ -43,7 +44,7 @@ class Domino extends Component {
     //https://react.dev/learn/responding-to-events#adding-event-handlers
 //Functions passed to event handlers must be passed, not called. 
     return(
-    <div className="card" id={id} draggable="true" onDragStart={this.handleDragStart}>
+    <div className="card" key={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e, this.key)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
