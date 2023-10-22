@@ -211,7 +211,7 @@ class Taboo extends Component {
     }
 
     async componentDidMount() {
-        console.log(JSON.parse(data));
+        console.log(JSON.parse(this.state.data));
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
