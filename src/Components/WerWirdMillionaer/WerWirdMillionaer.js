@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import AblyFunctions from '../../Tools/AblyFunctions';
-import BackendAccess from '../../Tools/BackendAccess';
+import '../../Stylesheets/wwm.csss';
 
 class WerWirdMillionaer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            init: false,
             room: props.room,
             user: props.user,
             data: props.data,
-            moderator: false, 
             currentQuestion: 0,
-            answers: []
+            correctAnswer: -1,
+            chosenAnswer: -1,
         }
     }
 
@@ -20,181 +18,189 @@ class WerWirdMillionaer extends Component {
         return 'wwm' + this.state.room;
     }
 
-    async onUpdate(message) {
-        let newAnswers = this.state.answers;
+    getCurrentAnswers() {
         let dat = JSON.parse(this.state.data);
-        let correct = dat.questions[this.state.currentQuestion].correctAnswer == message.data.answer;
-        let index = this.state.currentQuestion + 1;
+        let disabled = dat.moderator != this.state.user && this.state.chosenAnswer != -1;
 
-        newAnswers.push(JSON.stringify({
-            text: index + '. Antwort: ' + message.data.answer,
-            correct: correct
-        }));
-        this.setState({
-            init: this.state.init,
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            moderator: this.state.moderator,
-            currentQuestion: index,
-            answers: newAnswers
-        });
-    }
-
-    onAnswer = (event) => {
-        this.sendAnswer(event.target.value);
-    }
-
-    async sendAnswer(answer) {
-        const ably = AblyFunctions.getAbly();
-        const channel = AblyFunctions.getChannel(ably,this.getChannelId());
-        await channel.publish('update', {
-            answer: answer,
-            currentQuestion: this.state.currentQuestion
-        });
-        let newAnswers = this.state.answers;
-        let index = this.state.currentQuestion + 1;
-        newAnswers.push(index + '. Antwort: ' + answer);
-        this.setState({
-            init: this.state.init,
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            moderator: this.state.moderator,
-            currentQuestion: index,
-            answers: newAnswers
-        })
-    }
-
-    getDisplay() {
-        let dat = JSON.parse(this.state.data);
-        if (this.state.currentQuestion >= dat.questions.length) {
-            return this.getCurrentQuestion(dat);
-        }
-        else {
-            return this.getResults(dat);
-        };
-    }
-
-    getAnswerList() {
         let answers = [];
-        for (let i = 0; i < this.state.answers; i++){
-            if(this.state.moderator) {
-                let ele = JSON.parse(this.state.answers[i]);
-                if (ele.correct){
-                    answers.push(<div style={{ color: 'green'}}>{ele.text}</div>)
-                }
-                else {
-                    answers.push(<div style={{ color: 'red'}}>{ele.text}</div>)
-                }
+        for (let i = 0; i < dat.list.answers.length; i++) {
+            let style = '';
+            let letter = 'X) ';
+            switch (i) {
+                case 0:
+                    letter = 'A) ';
+                    break;
+                case 1:
+                    letter = 'B) ';
+                    break;
+                case 2:
+                    letter = 'C) ';
+                    break;
+                case 3:
+                    letter = 'D) ';
+                    break;
             }
-            else {
-                answers.push(<div>{this.state.answers[i]}</div>)
-            }
+            if (i == this.state.correctAnswer) style = 'correct';
+            else if (i == this.state.chosenAnswer) style = 'chosen';
+            answers.push(<button onClick={(e) => this.onAnswer(i)} disabled={disabled}>{letter + dat.list[this.state.currentQuestion].answers[i]}</button>);
+            if (i % 2 == 1) answers.push(<br />);
         }
         return answers;
     }
 
-    getResults(dat) {
-        if (this.state.moderator) {
-            return <div>All Questions Done!</div>;
+    getDisplay() {
+        let dat = JSON.parse(this.state.data);
+        let display = [];
+        display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
+        display.push(this.getCurrentAnswers());
+        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={this.state.correctAnswer != -1}>End</button>);
+        else display.push(<button onClick={(e) => this.onContinue()} disabled={this.state.correctAnswer != -1}>Next Question</button>);
+        return display;
+    }
+
+    async onContinue(){
+        let dat = JSON.parse(this.state.data);
+        if (dat.moderator != "") {
+            const Ably = require('ably');
+            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+            await ably.connection.once('connected');
+            const channelId = this.getChannelId();
+            const channel = ably.channels.get(channelId);
+
+            let body = {
+                type: 1
+            }
+            await channel.publish('guesser', body);
+            ably.close();
         }
-        const body = JSON.stringify({
-            id: dat.id,
-            answers: this.state.answers
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            currentQuestion: this.state.currentQuestion + 1,
+            correctAnswer: -1,
+            chosenAnswer: -1
         });
-        let url = BackendAccess.getUrlWwm();
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
-        }).then(response => response.json())
-            .then(data => {
-                let answers = [];
-                for (let i = 0; i < this.state.answers; i++) {
-                    if (data.correct[i] == 1) {
-                        answers.push(<div style={{ color:'green'}}>Question:{dat.questions[i].question}, Your Answer:{this.state.answers[i]}</div>);
-                    }
-                    else{
-                        answers.push(<div>Question:{dat.questions[i].question}, Your Answer:{this.state.answers[i]}, Correct Answer:{data.answers[i]}</div>);
-                    }
-                }
-                return answers;
-            })
-            .catch(error => console.log(error));
-
-        return <div>Error</div>
     }
 
-    getCurrentQuestion(dat) {
-        let displayQuestion = [];
-        let question = dat.questions[this.state.currentQuestion];
-        displayQuestion.push(<div>{dat.question}</div>);
-        displayQuestion.push(this.getAnswerTag(question, question.answer1));
-        displayQuestion.push(this.getAnswerTag(question, question.answer2));
-        displayQuestion.push(this.getAnswerTag(question, question.answer3));
-        displayQuestion.push(this.getAnswerTag(question, question.answer4));
+    async onEnd(){
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
 
-        return displayQuestion;
+        await channel.publish('end', {
+            content: 'empty'
+        })
     }
 
-    getAnswerTag(answer, question) {
-        if (!this.state.moderator) {
-            return <button onClick={this.onAnswer} value={answer}>{answer}</button>
+    async onGuess(message) {
+        if (message.data.type == 1) {
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion + 1,
+                correctAnswer: dat.list[this.state.currentQuestion + 1].correct - 1,
+                chosenAnswer: -1
+            });
+        }
+        let dat = JSON.parse(this.state.data);
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        let body = {
+            correct: dat.list[this.state.currentQuestion].correct
+        }
+        await channel.publish('moderator', body);
+        ably.close();
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            currentQuestion: this.state.currentQuestion,
+            correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+            chosenAnswer: message.data.answer
+        });
+    }
+
+    async onModerator(message) {
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            currentQuestion: this.state.currentQuestion,
+            correctAnswer: message.data.correct - 1,
+            chosenAnswer: this.state.chosenAnswer
+        });
+    }
+
+    async onAnswer(i) {
+        let dat = JSON.parse(this.state.data);
+        if (dat.moderator == "") {
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion,
+                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+                chosenAnswer: i
+            });
         }
         else {
-            if (question.correctAnswer == answer) {
-                return <button disabled='true' style={{ color: 'green' }}>{answer}</button>
-            }
-            else {
-                return <button disabled='true' style={{ color: 'red' }}>{answer}</button>
-            }
-        }
-    }
+            const Ably = require('ably');
+            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+            await ably.connection.once('connected');
+            const channelId = this.getChannelId();
+            const channel = ably.channels.get(channelId);
 
-    //#region React-Component-Lifetime-Functions
-    static getDerivedStateFromProps(props, state) {
-        if (state.init) {
-            return {
-                init: state.init,
-                room: state.room,
-                user: state.user,
-                data: state.data,
-                moderator: state.moderator,
-                currentQuestion: state.currentQuestion,
-                answers: state.answers
+            let body = {
+                answer: i
             }
-        };
-
-        let dat = JSON.parse(props.data);
-        return {
-            init: true,
-            room: state.room,
-            user: state.user,
-            data: state.data,
-            moderator: dat.moderator,
-            currentQuestion: state.currentQuestion,
-            answers: state.answers
+            await channel.publish('guesser', body);
+            ably.close();
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion,
+                correctAnswer: -1,
+                chosenAnswer: i
+            });
         }
     }
 
     async componentDidMount() {
-        if (!this.state.moderator) return; 
+        let dat = JSON.parse(this.state.data);
+        if (dat.moderator == "") return;
+
+        console.log('Moderator present')
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');  
+        await ably.connection.once('connected');
         const channelId = this.getChannelId();
         const channel = ably.channels.get(channelId);
-        await channel.subscribe('update', (message) => this.onUpdate(message));
+        if (dat.moderator == this.state.user) {
+            await channel.subscribe('guesser', (message) => this.onGuess(message));
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion,
+                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+                chosenAnswer: -1
+            });
+        }
+        else await channel.subscribe('moderator', (message) => this.onModerator(message));
     }
-//#endregion
 
     render() {
         return (
-            <div>
-                {this.getDisplay()}<br/>
-                {this.getAnswerList()} 
-            </div>
+            <div></div>
         )
     }
 }
