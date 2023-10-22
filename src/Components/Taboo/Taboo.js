@@ -50,6 +50,9 @@ class Taboo extends Component {
             if (this.state.turn == dat.enemyTurns[i].turn) {
                 let words = [dat.enemyTurns[i].answer];
                 words = words.concat(dat.enemyTurns[i].forbiddenWords);
+                console.log(dat.enemyTurns[i]);
+                console.log(dat.enemyTurns[i].forbiddenWords);
+                console.log(words);
                 return (
                     <div>{words.join(', ')}</div>
                 )
@@ -72,6 +75,9 @@ class Taboo extends Component {
             if (this.state.turn == dat.explainingTurn) {
                 let words = [dat.explainingTurn.answer];
                 words = words.concat(dat.explainingTurn.forbiddenWords);
+                console.log(dat.explainingTurn);
+                console.log(dat.explainingTurn.forbiddenWords);
+                console.log(words);
                 display.push(<div>{words.join(', ')}</div>);
             }
             display.push(this.getInput());
