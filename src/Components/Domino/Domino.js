@@ -42,7 +42,7 @@ class Domino extends Component {
     let stones =[];
     console.log("FeldState Steine "+fs)
     
-    if(fs<1){
+    if(fs==1){
       console.log("initSteine "+stones);
         fs++;
         stones = this.initStones();
@@ -138,7 +138,7 @@ class Domino extends Component {
         <div name="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"className="pool rounded">{this.getSteine()}</div>
+        <div name="dominoPool"className="pool rounded"></div>
       </div>
     );
   }
