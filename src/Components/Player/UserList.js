@@ -41,6 +41,7 @@ class UserList extends Component {
   async onJoinRes(message) {
     console.log(message.data);
     const data = message.data;
+    if (data.you != this.state.user) return;
     let newUsers = message.data.users;
     newUsers = newUsers.concat([this.state.user]);
     const c = this.state.userCount + data.userCount;
