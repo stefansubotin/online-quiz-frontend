@@ -70,11 +70,11 @@ class Domino extends Component {
   initStones(){
     //Object 
     let dat = JSON.parse(this.state.data)
-    console.log(dat)
+    console.log(dat.fragen.length)
     console.log(dat.fragen[0].props.antwort)
     let stones =[];
     for(const frage in dat.fragen){
-      stones.push({"id" : frage.props.id,"frage":frage.props.frage, "antwort": frage.props.antwort})
+      stones.push({id: frage.props.id ,frage:frage.props.frage , antwort: frage.props.antwort})
       console.log(stones);
     }
     return stones;
