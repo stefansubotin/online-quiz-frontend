@@ -19,18 +19,34 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.target.id;
     console.log("DragStart: "+e.target.id)
-    e.dataTransfer.setData("id", id)
+    e.dataTransfer.setData("id", id);
+
   }
   handleDragOver(e) {
     console.log("drag over ")
     e.preventDefault();
   }
-  handleDrop(e) {
+  async handleDrop(e) {
     console.log("Bewegter: "+e.dataTransfer.getData("id"))
-    console.log("Ziel ID: "+e.target.id)
-    if(trues)
+    console.log("Ziel ID: "+e.currentTarget.id)
+    if(true)
     {
+      const Ably = require('ably');
+      const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+      await ably.connection.once('connected');
+      const channelId = 'domino' + this.state.room;
+      const channel = ably.channels.get(channelId);
       console.log("dropped")
+      
+
+
+      let ufeld = this.state.feld;
+      
+      await channel.publish('UpdateSteine', {
+        user: this.state.user,
+
+    });
+    ably.close();
     }
     
   }
