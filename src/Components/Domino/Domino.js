@@ -60,16 +60,18 @@ class Domino extends Component {
   }
   initCards(){
     //Object 
-    let dat = JSON.parse(this.state.data.fragen)
+    let dat = JSON.parse(this.state.data)
+    let fragen = dat.fragen
     this.setState({
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
       leader: false,
-      pool:dat,
+      pool: fragen,
       feldState: 1,
       feld:this.state.feld,
     });
+    console.log(this.state.pool)
     
     let cards=[];
     for(let i=0;i<this.state.pool.length;i++){
