@@ -9,6 +9,7 @@ class Domino extends Component {
       data: props.data,
       leader: false,
       pool: [],
+      feld:[],
       feldState: -1,
     };
   }
@@ -23,9 +24,9 @@ class Domino extends Component {
   }
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e) {
-    console.log("elementdropped"+e.target.children)
+    console.log("elementdropped"+e.target.name+" "+e.target.children)
     if(false){
-      
+
     }
     this.setState({
       room: this.state.room,
@@ -53,7 +54,7 @@ class Domino extends Component {
   }
   getOneCard(antwort, frage, id){
     //https://react.dev/learn/responding-to-events#adding-event-handlers
-//Functions passed to event handlers must be passed, not called. 
+
     return(
     <div className="card" name={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
