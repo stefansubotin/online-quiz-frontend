@@ -30,7 +30,6 @@ class Domino extends Component {
   }
 
   async handleDrop(e) {
-    let room =await this.state.room;
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
@@ -42,9 +41,10 @@ class Domino extends Component {
     if(originParent=="pool")
     {
       console.log("aus dem Pool "+ufeld[ziel].stone.id)
-      /*if(ufeld[ziel].stone.id==""){
+    if(ufeld[ziel].stone.id==""){
         console.log("ist leer")
       }
+      /*
       ufeld[ziel].stone.id
       const Ably = require('ably');
       const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
