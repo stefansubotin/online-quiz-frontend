@@ -97,11 +97,15 @@ class Domino extends Component {
           feld: feld,
           feldState: fs,
       });
-      return(this.state.feld.map((f)=>(
+      return(this.feld.map((f)=>(
         <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
         Zelle
       </div>)));      
-    }
+    }      
+    return(this.state.feld.map((f)=>(
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+      Zelle
+    </div>)));  
   }
 
   initFeld() {
@@ -110,7 +114,7 @@ class Domino extends Component {
     for(let i= 0;i<9;++i){
       feld.push({id:i, stone:{id: "",frage: "frage", antwort: "   "}})
     }
-    return JSON.parse(feld);
+    return feld
   }
 
   //KOMMUNIKATION
