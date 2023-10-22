@@ -51,7 +51,7 @@ class Domino extends Component {
     let stones =[];
     console.log("FeldState Steine "+fs)
     
-    if(fs==1){
+    if(fs<1){
       stones = this.initStones()
       console.log("initSteine "+stones);
         fs++;
@@ -81,8 +81,8 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
     let stones =[];
-    for(const frage of fragen){
-      stones.push({"id" : frage.props.key,"frage":frage.props.frage, "antwort": frage.props.antwort})
+    for(let i =0; i<fragen.length;i++){
+      stones.push({"id" : fragen.props.id,"frage":fragen.props.frage, "antwort": fragen.props.antwort})
       console.log(stones);
     }
     return stones;
