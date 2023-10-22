@@ -10,7 +10,7 @@ class WerWirdMillionaer extends Component {
             room: props.room,
             user: props.user,
             data: props.data,
-            moderator: false,
+            moderator: false, 
             currentQuestion: 0,
             answers: []
         }
@@ -24,7 +24,8 @@ class WerWirdMillionaer extends Component {
         let newAnswers = this.state.answers;
         let dat = JSON.parse(this.state.data);
         let correct = dat.questions[this.state.currentQuestion].correctAnswer == message.data.answer;
-        let index = this.state.currentQuestion + 1
+        let index = this.state.currentQuestion + 1;
+
         newAnswers.push(JSON.stringify({
             text: index + '. Antwort: ' + message.data.answer,
             correct: correct
@@ -52,7 +53,7 @@ class WerWirdMillionaer extends Component {
             currentQuestion: this.state.currentQuestion
         });
         let newAnswers = this.state.answers;
-        let index = this.state.currentQuestion + 1
+        let index = this.state.currentQuestion + 1;
         newAnswers.push(index + '. Antwort: ' + answer);
         this.setState({
             init: this.state.init,
@@ -115,7 +116,7 @@ class WerWirdMillionaer extends Component {
                         answers.push(<div style={{ color:'green'}}>Question:{dat.questions[i].question}, Your Answer:{this.state.answers[i]}</div>);
                     }
                     else{
-                        answers.push(<div style={{ color:'red'}}>Question:{dat.questions[i].question}, Your Answer:{this.state.answers[i]}, Correct Answer:{data.answers[i]}</div>);
+                        answers.push(<div>Question:{dat.questions[i].question}, Your Answer:{this.state.answers[i]}, Correct Answer:{data.answers[i]}</div>);
                     }
                 }
                 return answers;
