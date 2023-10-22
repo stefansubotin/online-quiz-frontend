@@ -100,6 +100,7 @@ class Domino extends Component {
           feld: feld,
           feldState: fs,
       });
+      console.log(this.state.feld[0].stone.frage)
 
     }
     return (this.state.feld.map((zelle)=>(
@@ -119,7 +120,7 @@ class Domino extends Component {
     //DominoData.json feld
     let feld=[];
     for(let i= 0;i<9;++i){
-      feld.push({id:i, stone:{id: "",frage: "   ", antwort: "   "}})
+      feld.push({id:i, stone:{id: "",frage: "frage", antwort: "   "}})
     }
     return feld;
   }
