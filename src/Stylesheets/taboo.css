@@ -5,3 +5,13 @@
 .guesser {
     color: black
 }
+
+.forbidden {
+    background-color: grey;
+    color: red
+}
+
+.correct {
+    background-color: darkgray;
+    color: greenyellow;
+}
