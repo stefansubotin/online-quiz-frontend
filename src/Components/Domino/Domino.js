@@ -119,7 +119,7 @@ class Domino extends Component {
     }
 
     return (feld.map((zelle)=>{
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle</div>
     }));
   }
 
