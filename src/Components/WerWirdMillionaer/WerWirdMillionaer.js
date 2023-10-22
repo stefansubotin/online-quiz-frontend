@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../Stylesheets/wwm.csss';
+import '../../Stylesheets/wwm.css';
 
 class WerWirdMillionaer extends Component {
     constructor(props) {
