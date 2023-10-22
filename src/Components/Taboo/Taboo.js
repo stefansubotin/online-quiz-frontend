@@ -103,7 +103,7 @@ class Taboo extends Component {
             console.log('1');
             return true;
         } 
-        for (let i = 0; i < dat.explainingInfo.length; i++) {
+        for (let i = 0; i < dat.explainingInfo.forbiddenWords.length; i++) {
             console.log('2 ' + i);
             console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
@@ -115,7 +115,10 @@ class Taboo extends Component {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
             console.log('ToCheck: ' + lst[i]);
-            if (this.checkWord(lst[i])) return true;
+            if (this.checkWord(lst[i])) {
+                console.log(3);
+                return true;
+            }
         }
         return false;
     }
@@ -191,7 +194,7 @@ class Taboo extends Component {
     async onMessage(message) {
         console.log(message.data);
         let date = new Date();
-        let dateString = date.getHours + ':' + date.getMinutes;
+        let dateString = date.getHours() + ':' + date.getMinutes();
         let messages = this.state.messages;
         messages.push(JSON.stringify({
             time: dateString,
