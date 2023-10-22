@@ -26,6 +26,16 @@ class Domino extends Component {
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e) {
     console.log("elementdropped")
+    this.setState({
+      room: props.room,
+      user: props.user,
+      data: props.data,
+      leader: false,
+      pool: [],
+      feldState: this.feldState++,
+    });
+    console.log(this.state.feldState)
+    
   }
   getCards(){
     let dat = JSON.parse(this.state.data)
