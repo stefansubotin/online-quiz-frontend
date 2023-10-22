@@ -110,7 +110,7 @@ class Domino extends Component {
     for(let i= 0;i<9;++i){
       feld.push({id:i, stone:{id: "",frage: "frage", antwort: "   "}})
     }
-    return feld;
+    return JSON.parse(feld);
   }
 
   //KOMMUNIKATION
