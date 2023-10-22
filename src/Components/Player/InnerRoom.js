@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import '../../Stylesheets/innerRoom.css'
 import Domino from "../Domino/Domino";
 import Lobby from "./Lobby";
 import Kreuzwort from "../Kreuzwort/Kreuzwort";
