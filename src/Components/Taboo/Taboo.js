@@ -84,7 +84,7 @@ class Taboo extends Component {
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
-                display.push(<button onClick={(e) => this.continue(e)} disabled={this.state.state == 0}>Next Turn</button>);
+                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
@@ -98,6 +98,7 @@ class Taboo extends Component {
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
         console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
+        console.log(toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase());
         if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
         for (let i = 0; i < dat.explainingInfo.length; i++) {
             console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
@@ -159,6 +160,18 @@ class Taboo extends Component {
         })
     }
 
+    async sendContinue() {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('system', {
+            type: 'continue'
+        })
+    }
+
     onMessageChange(event) {
         this.setState({
             room: this.state.room,
@@ -168,18 +181,6 @@ class Taboo extends Component {
             state: this.state.state,
             message: event.target.value,
             messages: this.state.messages
-        })
-    }
-
-    continue(event) {
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            turn: this.state.turn + 1,
-            state: 0,
-            message: '',
-            messages: []
         })
     }
 
