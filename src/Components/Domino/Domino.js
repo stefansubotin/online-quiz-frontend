@@ -69,13 +69,10 @@ class Domino extends Component {
   initStones(){
     //Object 
     let dat = JSON.parse(this.state.data)
-    console.log(dat.fragen.length)
     let amount = dat.fragen.length;
-    console.log(dat.fragen[0].props.antwort)
     let stones =[];
     for(let i = 0; i<amount;i++){
       stones.push({frage:dat.fragen[i].props.frage , antwort: dat.fragen[i].props.antwort})
-      console.log(stones);
     }
     return stones;
 
@@ -88,10 +85,10 @@ class Domino extends Component {
     console.log("FeldState Feld: "+fs)
   
     if(fs<1){
-        fs++;
-        feld = this.initFeld();
-        console.log(feld)
-        this.setState({
+      fs++;
+      feld = this.initFeld();
+      console.log(feld)
+      this.setState({
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
@@ -100,18 +97,11 @@ class Domino extends Component {
           feld: feld,
           feldState: fs,
       });
-      return (feld.map((zelle)=>{
-        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>
-          Zelle
-        </div>
-    }));
-      
+      return(this.state.feld.map((f)=>(
+        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+        Zelle
+      </div>)));      
     }
-    return (this.state.feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle
-      </div>
-    )));
-      
   }
 
   initFeld() {
