@@ -90,7 +90,7 @@ class Domino extends Component {
     if(fs<1){
         fs++;
         feld = this.initFeld();
-        console.log("initFeld: "+feld)
+        console.log(feld)
         this.setState({
           room: this.state.room,
           user: this.state.user,
@@ -100,21 +100,15 @@ class Domino extends Component {
           feld: feld,
           feldState: fs,
       });
-      return (feld.map((zelle)=>(
+      return (feld.map((zelle)=>{
         <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>
           Zelle
         </div>
-      )));
+    }));
       
     }
     return (this.state.feld.map((zelle)=>(
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>
-        <div className="card" id={zelle.stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">{zelle.stone.frage}</li>
-            <li className="list-group-item">{zelle.stone.antwort}</li>
-          </ul>
-        </div>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>Zelle
       </div>
     )));
       
