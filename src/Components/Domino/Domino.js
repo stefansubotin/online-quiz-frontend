@@ -30,7 +30,7 @@ class Domino extends Component {
   }
 
   async handleDrop(e) {
-    let room =this.state.room;
+    let room =await this.state.room;
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
