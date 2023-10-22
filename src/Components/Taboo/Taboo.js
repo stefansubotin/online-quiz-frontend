@@ -148,7 +148,7 @@ class Taboo extends Component {
         });
         await channel.publish('message', message);
         if (explainer) {
-            if (!this.checkForForbiddenWords(message.text)) {
+            if (this.checkForForbiddenWords(message.text)) {
                 await this.sendUsedForbiddenWord();
             }
         }
