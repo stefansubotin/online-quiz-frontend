@@ -67,24 +67,30 @@ class Domino extends Component {
     //Object 
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
-
+    let stones =[];
+    for(const frage of fragen){
+      stones.push({"id" : frage.props.key,"frage":frage.props.frage, "antwort": frage.props.antwort})
+      console.log(stones);
+    }
+    return stones;
 
   }
   getOneCard(antwort, frage, id){
     //https://react.dev/learn/responding-to-events#adding-event-handlers
     console.log("id"+id);
-    return(
+    let stones = this.initCards();
+    return(stones.map((stone)=>(
     <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
       </ul>
-    </div>);
+    </div>)));
   }
   //GENERIERE FELD
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    if(this.state.feld.length==0){
+    if(!this.state.feld[0]){
         let feld = this.initFeld();
         console.log(feld)
         this.setState({
@@ -92,9 +98,9 @@ class Domino extends Component {
         user: this.state.user,
         data: this.state.data,
         leader: false,
-        pool: this.state.data,
+        pool: this.state.pool,
         feld: this.feld,
-        feldState: this.feldState++,
+        feldState: this.state.feldState,
       });
       return (feld.map((zelle)=>(
         <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
