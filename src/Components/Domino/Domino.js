@@ -67,60 +67,61 @@ class Domino extends Component {
     //Object 
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen
-
-    
-    let cards=[];
-    for(let i=0;i<fragen.length;i++){
-      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
-      cards.push(card)
+    let stones =[];
+    for(const frage of fragen){
+      stones.push({"id" : frage.props.key,"frage":frage.props.frage, "antwort": frage.props.antwort})
+      console.log(stones);
     }
-    console.log("Karten gefüllt");
-    
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: fragen,
-      feldState: 0,
-      feld:this.state.feld,
-    });
-    return cards;
+    return stones;
 
   }
   getOneCard(antwort, frage, id){
     //https://react.dev/learn/responding-to-events#adding-event-handlers
     console.log("id"+id);
-    return(
+    let stones = this.initCards();
+    return(stones.map((stone)=>(
     <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
       </ul>
-    </div>);
+    </div>)));
   }
   //GENERIERE FELD
-  getZelle(id, stein){
-    return (<div onDrop={this.handleDrop} 
-    onDragOver={this.handleDragOver}
-    className="zelle" 
-    id={id}></div>);
-  }
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
-    return this.initFeld();
-      
-  }
-  initFeld() {
-    let feld=[];
-    for(let i= 0;i<9;++i){
-      feld.push({"id":i, "stein":null})
-      console.log("ZellenID"+i+" "+feld[i].id)
+    if(!this.state.feld[0]){
+        let feld = this.initFeld();
+        console.log(feld)
+        this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        leader: false,
+        pool: this.state.pool,
+        feld: this.feld,
+        feldState: this.state.feldState,
+      });
+      return (feld.map((zelle)=>(
+        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
+      )));
+    }else{
+      console.log(this.state.feld.length)
     }
 
-    return (feld.map((zelle)=>{
-      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}></div>
-    }));
+      
+  }
+
+
+    
+  initFeld() {
+    //DominoData.json feld
+    let feld=[];
+    for(let i= 0;i<9;++i){
+      feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
+      console.log("ZellenID"+i+" "+feld[i].id)
+    }
+    return feld;
   }
 
   //KOMMUNIKATION
