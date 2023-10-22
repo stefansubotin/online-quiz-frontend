@@ -101,6 +101,7 @@ class Domino extends Component {
   }
   //GENERIERE FELD
   getFeld(){
+    console.log("Feld State "+this.state.feldState)
     if(this.state.feldState==0){
       return this.initFeld();
     }else{
@@ -144,11 +145,11 @@ class Domino extends Component {
 
   render() {
     return (
-      <div>
-        <div name="domino" className="dominoFeld rounded">
+      <div name = "domino">
+        <div name="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div className="pool rounded">{this.getCards()}</div>
+        <div name="dominoPool"className="pool rounded">{this.getCards()}</div>
       </div>
     );
   }

@@ -3,17 +3,21 @@
     border-color: black;
 }
 
-.stein {}
+.stein {
+    max-width: max-content;
+}
 
 .pool {
     background-color: lightgray;
     display: grid;
     grid-template-columns: auto auto auto;
+    height: 20%;
 }
 
 .dominoFeld {
     display: grid;
     grid-template-columns: auto auto auto;
     background-color: grey;
+    height: 80%;
 
 }
