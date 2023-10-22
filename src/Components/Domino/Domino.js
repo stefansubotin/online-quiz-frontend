@@ -76,7 +76,7 @@ class Domino extends Component {
   render() {
     return (
       <div>
-        <div name="domino" className="dominoFeld">
+        <div name="domino" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
         <div className="Pool card">{this.getCards()}</div>

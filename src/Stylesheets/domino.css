@@ -11,9 +11,7 @@
     border-color: black;
 }
 
-.stein {
-    width: 80px;
-}
+.stein {}
 
 .pool {
     background-color: lightgray;
@@ -21,6 +19,7 @@
 
 .dominoFeld {
     display: grid;
-    grid-template-columns: auto auto;
-    background-color: blue;
+    grid-template-columns: auto auto auto;
+    background-color: grey;
+
 }
