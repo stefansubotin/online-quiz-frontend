@@ -55,7 +55,7 @@ class Domino extends Component {
       stones = this.initStones()
       console.log("initSteine "+stones);
         fs++;
-        stones = this.initFeld();
+        stones = this.initStones();
         console.log(stones)
         this.setState({
           room: this.state.room,
