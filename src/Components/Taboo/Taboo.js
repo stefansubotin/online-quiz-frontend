@@ -86,7 +86,7 @@ class Taboo extends Component {
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
                 display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={!this.state.state == 0}>Richtige Antwort!</button>);
-                if ((turn + 1) == dat.maxTurns) display.push(<button disabled={this.state.state == 0}>End</button>)
+                if ((this.state.turn + 1) == dat.maxTurns) display.push(<button disabled={this.state.state == 0}>End</button>)
                 else display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
