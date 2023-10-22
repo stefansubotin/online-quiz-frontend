@@ -1,6 +1,6 @@
 {
     "client-to-server-start": {
-        "type": 0,
+        "type": 1,
         "room": "1",
         "moderator": "",
         "player": ""
@@ -13,10 +13,7 @@
                 "list": [
                     {
                         "question": "",
-                        "answer1": "",
-                        "answer2": "",
-                        "answer3": "",
-                        "answer4": "",
+                        "answers": ["", "", "", ""],
                         "correct": 1
                     }
                 ]
@@ -29,10 +26,7 @@
                 "list": [
                     {
                         "question": "",
-                        "answer1": "",
-                        "answer2": "",
-                        "answer3": "",
-                        "answer4": ""
+                        "answers": ["", "", "", ""]
                     }
                 ]
             }
@@ -44,10 +38,7 @@
                 "list": [
                     {
                         "question": "",
-                        "answer1": "",
-                        "answer2": "",
-                        "answer3": "",
-                        "answer4": "",
+                        "answers": ["", "", "", ""],
                         "correct": 1
                     }
                 ]
