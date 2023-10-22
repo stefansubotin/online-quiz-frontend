@@ -100,7 +100,7 @@ class Taboo extends Component {
         console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.answer);
         if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
         for (let i = 0; i < dat.explainingInfo.length; i++) {
-            console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.forbiddenWords[i]);
+            console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
         }
         return false;
@@ -194,6 +194,15 @@ class Taboo extends Component {
             explainer: message.data.explainer,
             text: message.data.text
         }));
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            turn: this.state.turn,
+            state: this.state.state,
+            message: '',
+            messages: messages
+        })
     }
 
     async onSystem(message) {
