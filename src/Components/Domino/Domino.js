@@ -12,16 +12,17 @@ class Domino extends Component {
       feldState: -1,
     };
   }
-  handleDragStart(e, id) {
+  handleDragStart(e) {
     console.log("drag startet")
-
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
-  handleDragOver(e, id) {
+  handleDragOver(e) {
+    console.log("drag over ")
     e.preventDefault();
   }
   //HandleDrop, setzen des Steins + löschen der vorherigen Position
-  handleDrop(e, zielID) {
+  handleDrop(e) {
+    console.log("elementdropped")
   }
   getCards(){
     let dat = JSON.parse(this.state.data)
@@ -37,9 +38,10 @@ class Domino extends Component {
 
   }
   getOneCard(antwort, frage, id){
-
+    //https://react.dev/learn/responding-to-events#adding-event-handlers
+//Functions passed to event handlers must be passed, not called. 
     return(
-    <div className="card" id={id} draggable="true">
+    <div className="card" id={id} draggable="true" onDragStart={this.handleDragStart}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
@@ -56,7 +58,7 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div className="zelle"id={i}>Feld {i}</div>)
+      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle"id={i}>Feld {i}</div>)
     }
 
     return newFeld;
@@ -79,7 +81,7 @@ class Domino extends Component {
         <div name="domino" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div className="Pool rounded">{this.getCards()}</div>
+        <div className="pool rounded">{this.getCards()}</div>
       </div>
     );
   }
