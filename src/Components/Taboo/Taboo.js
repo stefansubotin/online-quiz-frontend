@@ -48,7 +48,7 @@ class Taboo extends Component {
         let dat = JSON.parse(this.state.data);
         console.log('FW Test');
         console.log(dat);
-        for (let i = 0; i < dat.enemyTurns; i++) {
+        for (let i = 0; i < dat.enemyTurns.length; i++) {
             console.log(dat.enemyTurns[i].turn);
             if (this.state.turn == dat.enemyTurns[i].turn) {
                 let words = [dat.enemyTurns[i].answer];
@@ -184,6 +184,7 @@ class Taboo extends Component {
     }
 
     async onMessage(message) {
+        console.log(message.data);
         let date = new Date();
         let dateString = date.getHours + ':' + date.getMinutes;
         let messages = this.state.messages;
