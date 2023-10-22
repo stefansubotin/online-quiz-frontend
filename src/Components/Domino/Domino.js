@@ -49,6 +49,8 @@ class Domino extends Component {
   getFeld(){
     if(this.state.feldState<0){
       return this.initFeld();
+    }else{
+      console.log("noch keine Möglichkeit")
     }
   }
   initFeld() {
@@ -67,7 +69,6 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    this.initFeld();
 
 
   }
