@@ -75,7 +75,7 @@ class Taboo extends Component {
         }
         console.log(this.state.turn + '+' + dat.team + '%' + dat.teams)
         console.log(this.state.turn + dat.team % dat.teams);
-        if ((this.state.turn + dat.team % dat.teams == 0)) {
+        if ((this.state.turn + dat.team) % dat.teams == 0) {
             if (this.state.turn == dat.explainingTurn) {
                 let words = [dat.explainingInfo.answer];
                 words = words.concat(dat.explainingInfo.forbiddenWords);
@@ -86,7 +86,7 @@ class Taboo extends Component {
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
                 display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={this.state.state == 0}>Richtige Antwort!</button>);
-                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
+                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={!this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
