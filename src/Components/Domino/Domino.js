@@ -25,25 +25,16 @@ class Domino extends Component {
     e.preventDefault();
   }
   handleDrop(e) {
-    let draggedElement = e.dataTransfer.getData("id");
-    console.log("elementdropped"+e.target.name+" "+e.target.children)
-    if(false){
-
+    if(dropAllowed(e.target.id, e.dataTransfer.getData("id")))
+    {
+      
     }
-    this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      leader: false,
-      pool: this.state.data,
-      feldState: this.feldState++,
-      feld: this.state.data,
-    });
-    console.log(this.state.feldState)
     
   }
 
-
+  dropAllowed(zielid, id){
+    return true;
+  }
 
   //GENERIERE STEINE
   getSteine(){
@@ -126,6 +117,33 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
+  async changePosition(event) {
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'kreuzwort' + this.state.room;
+    const channel = ably.channels.get(channelId);
+    let eventIdArray = event.target.name.split('_');
+
+    let newLines = this.state.lines;
+    newLines[eventIdArray[0]][eventIdArray[1]] = event.target.value;
+    this.setState({
+        init: this.state.init,
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        lines: newLines
+    });
+
+    await channel.publish('update', {
+        user: this.state.user,
+        i: eventIdArray[0],
+        j: eventIdArray[1],
+        val: event.target.value
+    });
+    ably.close();
+}
+  
   UpdateSteine(message){
     
   }
