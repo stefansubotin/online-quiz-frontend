@@ -18,7 +18,7 @@ class Domino extends Component {
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
     let id = e.currentTarget.id;
-    let pid = e.target.parent.id;
+    let pid = e.target.parentNode.id;
     console.log("DragStart: "+id)
     e.dataTransfer.setData("id", id);
     e.dataTransfer.setData("parent", pid)
