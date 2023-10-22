@@ -25,10 +25,10 @@ class Taboo extends Component {
         for (let i = 0; i < this.state.messages.length; i++) {
             let m = JSON.parse(this.state.messages[i]);
             if (m.explainer) {
-                lst.push(<div className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</div>);
+                lst.push(<div className='explainer'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</div>);
             }
             else {
-                lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
+                lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='guesser'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
             }
         }
         return lst;
@@ -73,8 +73,9 @@ class Taboo extends Component {
         else if (this.state.state == 1) {
             display.push(<div><h2 className='correct'>Begriff erraten</h2></div>);
         }
-
-        if ((this.state.turn + dat.team % dat.teams == 0)) {
+        console.log(this.state.turn + '+' + dat.team + '%' + dat.teams)
+        console.log(this.state.turn + dat.team % dat.teams);
+        if ((this.state.turn + dat.team) % dat.teams == 0) {
             if (this.state.turn == dat.explainingTurn) {
                 let words = [dat.explainingInfo.answer];
                 words = words.concat(dat.explainingInfo.forbiddenWords);
@@ -84,8 +85,9 @@ class Taboo extends Component {
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
-                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={this.state.state == 0}>Richtige Antwort!</button>);
-                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
+                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={!this.state.state == 0}>Richtige Antwort!</button>);
+                if ((this.state.turn + 1) == dat.maxTurns) display.push(<button onClick={(e) => this.sendEnd(e)} disabled={this.state.state == 0}>End</button>)
+                else display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
@@ -189,6 +191,18 @@ class Taboo extends Component {
 
         await channel.publish('system', {
             type: 'correct'
+        })
+    }
+
+    async sendEnd(){
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'room' + this.state.room;
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('end', {
+            content: 'empty'
         })
     }
 

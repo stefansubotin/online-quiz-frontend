@@ -89,6 +89,17 @@ class InnerRoom extends Component {
         }
     }
 
+    async onEnd(message){
+        console.log('end');
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            data: this.state.data,
+            currentComponent: "lobby",
+        });
+    }
+
     getComponent() {
         let component;
         switch (this.state.currentComponent) {
@@ -151,6 +162,9 @@ class InnerRoom extends Component {
         const channel = await AblyFunctions.getChannel(ably, channelId);
         await channel.subscribe("start" + this.state.user, (message) =>
             this.onStart(message)
+        );
+        await channel.subscribe("end", (message) =>
+            this.onEnd(message)
         );
     }
 
