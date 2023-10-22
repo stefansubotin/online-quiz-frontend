@@ -26,10 +26,10 @@ class Domino extends Component {
   getCards(){
     let dat = JSON.parse(this.state.data)
     let fragen = dat.fragen;
-    let cards;
+    let cards=[];
     for(let i=0;i<dat.fragen.length;i++){
       let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
-      cards.push(card);
+      cards.push(card)
     }
     console("Karten gefüllt");
     return cards;
