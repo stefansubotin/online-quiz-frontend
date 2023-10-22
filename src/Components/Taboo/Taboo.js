@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../Stylesheets/span.css';
 import '../../Stylesheets/taboo.css';
-import BackendAccess from '../../Tools/BackendAccess';
 
 class Taboo extends Component {
     constructor(props) {
@@ -32,6 +31,7 @@ class Taboo extends Component {
                 lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
             }
         }
+        return lst;
     }
 
     getInput() {
@@ -46,17 +46,21 @@ class Taboo extends Component {
 
     getForbiddenWords() {
         let dat = JSON.parse(this.state.data);
-        let enemyTurn;
-        for (let i = 0; i < dat.enemyTurns; i++) {
-            if (this.state.turn == dat.enemyTurns[i].turn) enemyTurn = dat.enemyTurns[i];
+        console.log('FW Test');
+        console.log(dat);
+        for (let i = 0; i < dat.enemyTurns.length; i++) {
+            console.log(dat.enemyTurns[i].turn);
+            if (this.state.turn == dat.enemyTurns[i].turn) {
+                let words = [dat.enemyTurns[i].answer];
+                words = words.concat(dat.enemyTurns[i].forbiddenWords);
+                console.log(dat.enemyTurns[i]);
+                console.log(dat.enemyTurns[i].forbiddenWords);
+                console.log(words);
+                return (
+                    <div>{words.join(', ')}</div>
+                )
+            }
         }
-        console.log("enemyTurn");
-        console.log(enemyTurn);
-        let words = [enemyTurn.answer];
-        words = words.concat(enemyTurn.forbiddenWords);
-        return (
-            <div>{words.join(', ')}</div>
-        )
     }
 
     getDisplay() {
@@ -71,10 +75,17 @@ class Taboo extends Component {
         }
 
         if ((this.state.turn + dat.team % dat.teams == 0)) {
+            if (this.state.turn == dat.explainingTurn) {
+                let words = [dat.explainingInfo.answer];
+                words = words.concat(dat.explainingInfo.forbiddenWords);
+                console.log(words);
+                display.push(<div>{words.join(', ')}</div>);
+            }
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
-                display.push(<button onClick={(e) => this.continue(e)} disabled={this.state.state == 0}>Next Turn</button>);
+                display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={this.state.state == 0}>Richtige Antwort!</button>);
+                display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
@@ -82,12 +93,20 @@ class Taboo extends Component {
             display.push(this.getMessages());
             display.push(<div><button onClick={(e) => this.sendUsedForbiddenWord(e)} disabled={this.state.state == -1}>Forbidden Word Used!!</button></div>);
         }
+        return display;
     }
 
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
-        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
-        for (let i = 0; i < dat.explainingInfo.length; i++) {
+        console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
+        console.log(toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase());
+        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()){
+            console.log('1');
+            return true;
+        } 
+        for (let i = 0; i < dat.explainingInfo.forbiddenWords.length; i++) {
+            console.log('2 ' + i);
+            console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
         }
         return false;
@@ -96,7 +115,11 @@ class Taboo extends Component {
     checkForForbiddenWords(toCheck) {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
-            if (this.checkWord(lst[i])) return true;
+            console.log('ToCheck: ' + lst[i]);
+            if (this.checkWord(lst[i])) {
+                console.log(3);
+                return true;
+            }
         }
         return false;
     }
@@ -113,11 +136,20 @@ class Taboo extends Component {
         let message = {
             user: this.state.user,
             explainer: explainer,
-            text: event.target.text.value
+            text: this.state.message
         }
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            turn: this.state.turn,
+            state: this.state.state,
+            message: '',
+            messages: this.state.messages
+        });
         await channel.publish('message', message);
         if (explainer) {
-            if (!this.checkForForbiddenWords(message.text)) {
+            if (this.checkForForbiddenWords(message.text)) {
                 await this.sendUsedForbiddenWord();
             }
         }
@@ -136,6 +168,30 @@ class Taboo extends Component {
         })
     }
 
+    async sendContinue() {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('system', {
+            type: 'continue'
+        })
+    }
+
+    async sendCorrect() {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        await channel.publish('system', {
+            type: 'correct'
+        })
+    }
+
     onMessageChange(event) {
         this.setState({
             room: this.state.room,
@@ -148,21 +204,10 @@ class Taboo extends Component {
         })
     }
 
-    continue(event) {
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            turn: this.state.turn + 1,
-            state: 0,
-            message: '',
-            messages: []
-        })
-    }
-
     async onMessage(message) {
+        console.log(message.data);
         let date = new Date();
-        let dateString = date.getHours + ':' + date.getMinutes;
+        let dateString = date.getHours() + ':' + date.getMinutes();
         let messages = this.state.messages;
         messages.push(JSON.stringify({
             time: dateString,
@@ -170,9 +215,20 @@ class Taboo extends Component {
             explainer: message.data.explainer,
             text: message.data.text
         }));
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            turn: this.state.turn,
+            state: this.state.state,
+            message: '',
+            messages: messages
+        });
+        console.log(this.state);
     }
 
     async onSystem(message) {
+        console.log(message.data);
         switch (message.data.type) {
             case 'forbidden':
                 this.setState({
@@ -205,7 +261,8 @@ class Taboo extends Component {
                     state: 0,
                     message: '',
                     messages: []
-                })
+                });
+                console.log(this.state);
                 break;
         }
     }

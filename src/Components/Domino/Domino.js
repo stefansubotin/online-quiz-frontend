@@ -9,41 +9,78 @@ class Domino extends Component {
       data: props.data,
       leader: false,
       pool: [],
+      feld:[],
       feldState: -1,
     };
   }
+  //DRAG AND DROP
+  //https://react.dev/reference/react-dom/components/common#dragevent-handler
+  //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
-    console.log("id "+e.target.name)
-    console.log("drag startet")
+    e.dataTransfer.setData("id", e.target.id);
+
   }
-  //HandleDragOver, Sammeln über was gehalten wird + erlauben
   handleDragOver(e) {
     console.log("drag over ")
     e.preventDefault();
   }
-  //HandleDrop, setzen des Steins + löschen der vorherigen Position
   handleDrop(e) {
-    console.log("elementdropped"+e.target.children)
+    let draggedElement = e.dataTransfer.getData("id");
+    console.log("elementdropped"+e.target.name+" "+e.target.children)
     if(false){
-      
+
     }
     this.setState({
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
       leader: false,
-      pool: [],
+      pool: this.state.data,
       feldState: this.feldState++,
+      feld: this.state.data,
     });
     console.log(this.state.feldState)
     
   }
+
+
+
+  //GENERIERE STEINE
   getCards(){
+    console.log("Feld State: Cards "+this.state.feldState)
+    if(this.state.feldState<0){
+      
+      return this.initCards();
+    }else if(this.state.feldState>0){
+      let fragen = this.state.pool;
+      let cards=[];
+      for(let i=0;i<this.state.data.fragen.length;i++){
+        let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.id)
+        cards.push(card)
+      }
+      console.log("Karten gefüllt");
+      return cards;
+      
+    }
+  }
+  initCards(){
+    //Object 
     let dat = JSON.parse(this.state.data)
-    let fragen = dat.fragen;
+    let fragen = dat.fragen
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: fragen,
+      feldState: -1,
+      feld:this.state.feld,
+    });
+    console.log(this.state.pool+'ander s'+dat.fragen)
+    
     let cards=[];
-    for(let i=0;i<dat.fragen.length;i++){
-      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
+    for(let i=0;i<this.state.pool.length;i++){
+      let card = this.getOneCard(this.state.pool[i].props.antwort, this.state.pool[i].props.frage, this.state.pool[i].props.id)
       cards.push(card)
     }
     console.log("Karten gefüllt");
@@ -53,15 +90,16 @@ class Domino extends Component {
   }
   getOneCard(antwort, frage, id){
     //https://react.dev/learn/responding-to-events#adding-event-handlers
-//Functions passed to event handlers must be passed, not called. 
+    console.log("id"+id);
     return(
-    <div className="card" name={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+    <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
       </ul>
     </div>);
   }
+  //GENERIERE FELD
   getFeld(){
     if(this.state.feldState<0){
       return this.initFeld();
@@ -72,10 +110,24 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle"id={i}>Feld {i}</div>)
+      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={i}></div>)
     }
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.pool,
+      feldState: 0,
+      feld:newFeld,
+    });
 
     return newFeld;
+  }
+
+  //KOMMUNIKATION
+  UpdateSteine(message){
+    
   }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
@@ -85,6 +137,7 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
+    channel.subscribe('UpdateSteine', (message)=>this.UpdateSteine(message))
 
 
   }
