@@ -46,6 +46,8 @@ class Taboo extends Component {
 
     getForbiddenWords() {
         let dat = JSON.parse(this.state.data);
+        console.log('FW Test');
+        console.log(dat);
         for (let i = 0; i < dat.enemyTurns; i++) {
             console.log(dat.enemyTurns[i].turn);
             if (this.state.turn == dat.enemyTurns[i].turn) {
@@ -95,8 +97,10 @@ class Taboo extends Component {
 
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
+        console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.answer);
         if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
         for (let i = 0; i < dat.explainingInfo.length; i++) {
+            console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.forbiddenWords[i]);
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
         }
         return false;
@@ -105,6 +109,7 @@ class Taboo extends Component {
     checkForForbiddenWords(toCheck) {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
+            console.log('ToCheck: ' + lst[i]);
             if (this.checkWord(lst[i])) return true;
         }
         return false;
