@@ -46,10 +46,16 @@ class Taboo extends Component {
 
     getForbiddenWords() {
         let dat = JSON.parse(this.state.data);
-        for (let i = 0; i < dat.enemyTurns; i++) {
+        console.log('FW Test');
+        console.log(dat);
+        for (let i = 0; i < dat.enemyTurns.length; i++) {
+            console.log(dat.enemyTurns[i].turn);
             if (this.state.turn == dat.enemyTurns[i].turn) {
                 let words = [dat.enemyTurns[i].answer];
                 words = words.concat(dat.enemyTurns[i].forbiddenWords);
+                console.log(dat.enemyTurns[i]);
+                console.log(dat.enemyTurns[i].forbiddenWords);
+                console.log(words);
                 return (
                     <div>{words.join(', ')}</div>
                 )
@@ -70,8 +76,9 @@ class Taboo extends Component {
 
         if ((this.state.turn + dat.team % dat.teams == 0)) {
             if (this.state.turn == dat.explainingTurn) {
-                let words = [dat.explainingTurn.answer];
-                words = words.concat(dat.explainingTurn.forbiddenWords);
+                let words = [dat.explainingInfo.answer];
+                words = words.concat(dat.explainingInfo.forbiddenWords);
+                console.log(words);
                 display.push(<div>{words.join(', ')}</div>);
             }
             display.push(this.getInput());
@@ -90,8 +97,10 @@ class Taboo extends Component {
 
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
+        console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.answer);
         if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) return true;
         for (let i = 0; i < dat.explainingInfo.length; i++) {
+            console.log('Check: ' + toCheck + ', ' + dat.explainingInfo.forbiddenWords[i]);
             if (toCheck.toLowerCase() == dat.explainingInfo.forbiddenWords[i].toLowerCase()) return true;
         }
         return false;
@@ -100,6 +109,7 @@ class Taboo extends Component {
     checkForForbiddenWords(toCheck) {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
+            console.log('ToCheck: ' + lst[i]);
             if (this.checkWord(lst[i])) return true;
         }
         return false;
@@ -117,8 +127,17 @@ class Taboo extends Component {
         let message = {
             user: this.state.user,
             explainer: explainer,
-            text: event.target.text.value
+            text: this.state.message
         }
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            turn: this.state.turn,
+            state: this.state.state,
+            message: '',
+            messages: this.state.messages
+        });
         await channel.publish('message', message);
         if (explainer) {
             if (!this.checkForForbiddenWords(message.text)) {
@@ -165,6 +184,7 @@ class Taboo extends Component {
     }
 
     async onMessage(message) {
+        console.log(message.data);
         let date = new Date();
         let dateString = date.getHours + ':' + date.getMinutes;
         let messages = this.state.messages;
