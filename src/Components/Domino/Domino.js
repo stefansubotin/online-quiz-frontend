@@ -14,6 +14,7 @@ class Domino extends Component {
   }
   handleDragStart(e) {
     let target = e.target.id;
+    console.log("target id "+ target)
     console.log("drag startet")
   }
   //HandleDragOver, Sammeln über was gehalten wird + erlauben
