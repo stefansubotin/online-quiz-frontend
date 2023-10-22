@@ -10,7 +10,7 @@ class Domino extends Component {
       leader: false,
       pool: [],
       feld:[],
-      feldState: -1,
+      feldState: 0,
     };
   }
   //DRAG AND DROP
@@ -90,9 +90,10 @@ class Domino extends Component {
   getFeld(){
     console.log("Feld Feld State "+this.state.feldState)
     let fs = this.state.feldState
+    let feld= []
     if(fs<1){
         fs++;
-        let feld = this.initFeld();
+        feld = this.initFeld();
         console.log(feld)
         this.setState({
         room: this.state.room,
@@ -103,13 +104,13 @@ class Domino extends Component {
         feld: feld,
         feldState: fs,
       });
-      return (feld.map((zelle)=>(
-        <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
-      )));
+
     }else{
       console.log(this.state.feld.length)
     }
-
+    return (this.state.feld.map((zelle)=>(
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={zelle.id}>{zelle.stein.antwort}</div>
+    )));
       
   }
 
@@ -118,7 +119,6 @@ class Domino extends Component {
     let feld=[];
     for(let i= 0;i<9;++i){
       feld.push({"id":i, "stein":{"id": "","frage": "   ", "antwort": "   "}})
-      console.log("ZellenID"+i+" "+feld[i].id)
     }
     return feld;
   }
