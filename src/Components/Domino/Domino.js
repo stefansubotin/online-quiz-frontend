@@ -44,7 +44,7 @@ class Domino extends Component {
     let fragen = dat.fragen;
     let cards=[];
     for(let i=0;i<dat.fragen.length;i++){
-      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].props.key)
+      let card = this.getOneCard(fragen[i].props.antwort, fragen[i].props.frage, fragen[i].key)
       cards.push(card)
     }
     console.log("Karten gefüllt");
@@ -54,9 +54,9 @@ class Domino extends Component {
   }
   getOneCard(antwort, frage, id){
     //https://react.dev/learn/responding-to-events#adding-event-handlers
-
+    console.log("id"+id);
     return(
-    <div className="card" name={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+    <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{frage}</li>
         <li className="list-group-item">{antwort}</li>
@@ -73,7 +73,7 @@ class Domino extends Component {
   initFeld() {
     let newFeld=[];
     for(let i= 0;i<9;++i){
-      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle"id={i}>Feld {i}</div>)
+      newFeld.push(<div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={i}>Feld {i}</div>)
     }
 
     return newFeld;
