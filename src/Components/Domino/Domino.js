@@ -42,7 +42,7 @@ class Domino extends Component {
     if(originParent=="pool")
     {
       console.log("aus dem Pool "+ufeld[ziel].stone.id)
-      if(ufeld[ziel].stone.id==""){
+      /*if(ufeld[ziel].stone.id==""){
         console.log("ist leer")
       }
       ufeld[ziel].stone.id
@@ -71,7 +71,7 @@ class Domino extends Component {
         user: this.state.user,
         feld: ufeld
       });
-      ably.close();
+      ably.close();*/
     }
     
   }
