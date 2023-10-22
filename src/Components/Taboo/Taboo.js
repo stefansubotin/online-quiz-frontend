@@ -25,10 +25,10 @@ class Taboo extends Component {
         for (let i = 0; i < this.state.messages.length; i++) {
             let m = JSON.parse(this.state.messages[i]);
             if (m.explainer) {
-                lst.push(<div className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</div>);
+                lst.push(<div className='explainer'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</div>);
             }
             else {
-                lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='explainer'>&#091;{m.time}&#091;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
+                lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='guesser'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
             }
         }
         return lst;
@@ -73,7 +73,8 @@ class Taboo extends Component {
         else if (this.state.state == 1) {
             display.push(<div><h2 className='correct'>Begriff erraten</h2></div>);
         }
-
+        console.log(this.state.turn + '+' + dat.team + '%' + dat.teams)
+        console.log(this.state.turn + dat.team % dat.teams);
         if ((this.state.turn + dat.team % dat.teams == 0)) {
             if (this.state.turn == dat.explainingTurn) {
                 let words = [dat.explainingInfo.answer];
