@@ -38,7 +38,7 @@ class Domino extends Component {
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
     if(originParent=="pool"){
-      console.log("aus dem Pool "+ufeld[ziel].stone.id)
+      console.log("aus dem Pool "+feld1[ziel].stone.id)
       /*
       if(feld1[ziel].stone.id==""){
           console.log("ist leer")
