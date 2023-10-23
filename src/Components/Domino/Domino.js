@@ -151,13 +151,7 @@ class Domino extends Component {
           feldState: fs,
       });
     }
-    return(this.state.pool.map((stone)=>(
-      <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={true ? "list-group list-group-flush": "list-group list-group-horizontal"}>
-          <li className="list-group-item">{stone.frage}</li>
-          <li className="list-group-item">{stone.antwort}</li>
-        </ul>
-      </div>)));
+    return(this.state.pool.map((stone)=>this.getOneStone(stone)));
   }
 
   initStones(){
@@ -166,7 +160,13 @@ class Domino extends Component {
     let amount = dat.fragen.length;
     let stones =[];
     for(let i = 0; i<amount;i++){
-      stones.push({id:dat.fragen[i].props.id,frage:dat.fragen[i].props.frage , antwort: dat.fragen[i].props.antwort,h:false})
+      stones.push({
+        id:dat.fragen[i].props.id,
+        frage:dat.fragen[i].props.frage , 
+        antwort: dat.fragen[i].props.antwort,
+        h:false,
+        fO:true
+      })
     }
     return stones;
 
@@ -177,11 +177,12 @@ class Domino extends Component {
     let frage = stone.frage
     let antwort = stone.antwort
     let horizontal = stone.h
+    let fOben = stone.fO
     return (
       <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={horizontal ? "list-group list-group-flush": "list-group list-group-horizontal"}>
-          <li className="list-group-item">{frage}</li>
-          <li className="list-group-item">{antwort}</li>
+        <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
+          <li className="list-group-item">{fOben?frage:antwort}</li>
+          <li className="list-group-item">{fOben?antwort:frage}</li>
         </ul>
       </div>);
   }
