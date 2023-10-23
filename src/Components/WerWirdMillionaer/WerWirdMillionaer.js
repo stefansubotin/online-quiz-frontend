@@ -19,6 +19,7 @@ class WerWirdMillionaer extends Component {
     }
 
     getCurrentAnswers() {
+        crossOriginIsolated.log(this.state);
         let dat = JSON.parse(this.state.data);
         let disabled = dat.moderator != this.state.user && this.state.chosenAnswer != -1;
 
@@ -104,7 +105,7 @@ class WerWirdMillionaer extends Component {
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion + 1,
-                correctAnswer: dat.list[this.state.currentQuestion + 1].correct - 1,
+                correctAnswer: dat.list[this.state.currentQuestion + 1].correct,
                 chosenAnswer: -1
             });
         }
@@ -125,7 +126,7 @@ class WerWirdMillionaer extends Component {
             user: this.state.user,
             data: this.state.data,
             currentQuestion: this.state.currentQuestion,
-            correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+            correctAnswer: dat.list[this.state.currentQuestion].correct,
             chosenAnswer: message.data.answer
         });
     }
@@ -147,7 +148,7 @@ class WerWirdMillionaer extends Component {
         let chosen = i;
         console.log(chosen);
         if (dat.moderator == "") {
-            let correct = dat.list[this.state.currentQuestion].correct - 1;
+            let correct = dat.list[this.state.currentQuestion].correct;
             console.log(correct);
             this.setState({
                 room: this.state.room,
@@ -157,7 +158,6 @@ class WerWirdMillionaer extends Component {
                 correctAnswer: correct,
                 chosenAnswer: chosen
             });
-            console.log(this.state);
         }
         else {
             const Ably = require('ably');
