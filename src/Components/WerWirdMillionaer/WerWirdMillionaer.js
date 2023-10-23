@@ -200,7 +200,7 @@ class WerWirdMillionaer extends Component {
 
     render() {
         return (
-            <div></div>
+            <div nmae='wwm'>{this.getDisplay()}</div>
         )
     }
 }
