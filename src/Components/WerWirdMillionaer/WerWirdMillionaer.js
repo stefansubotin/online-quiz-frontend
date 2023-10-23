@@ -54,7 +54,7 @@ class WerWirdMillionaer extends Component {
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
         if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={this.state.correctAnswer != -1}>End</button>);
-        else display.push(<button onClick={(e) => this.onContinue()} disabled={this.state.correctAnswer != -1}>Next Question</button>);
+        else display.push(<button onClick={(e) => this.onContinue()} disabled={this.state.correctAnswer == -1}>Next Question</button>);
         return display;
     }
 
@@ -72,6 +72,7 @@ class WerWirdMillionaer extends Component {
             }
             await channel.publish('player', body);
             ably.close();
+            
         }
         this.setState({
             room: this.state.room,
@@ -81,6 +82,7 @@ class WerWirdMillionaer extends Component {
             correctAnswer: -1,
             chosenAnswer: -1
         });
+    
     }
 
     async onEnd(){
@@ -150,6 +152,7 @@ class WerWirdMillionaer extends Component {
                 correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
                 chosenAnswer: i
             });
+            console.log(this.state);
         }
         else {
             const Ably = require('ably');
