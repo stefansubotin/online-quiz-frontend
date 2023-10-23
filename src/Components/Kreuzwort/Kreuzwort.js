@@ -117,10 +117,11 @@ class Kreuzwort extends Component {
     }
 
     async sendEnd(){
+        let tmp = this.state.room.split('_');
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
-        const channelId = 'room' + this.state.room;
+        const channelId = 'room' + tmp[0];
         const channel = ably.channels.get(channelId);
 
         await channel.publish('end', {
@@ -245,7 +246,7 @@ class Kreuzwort extends Component {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
                 <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
-                <button onClick={this.sendEnd()}>End Kreuzwort</button>
+                <button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button>
             </div>
         )
     }
