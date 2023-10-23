@@ -115,7 +115,7 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });  
-
+    //Send the Message to all user
     await channel.publish('updateSteine', {
       user: this.state.user,
       feld: feld1,
@@ -218,7 +218,7 @@ class Domino extends Component {
   //KOMMUNIKATION
 
   async handleUpdateSteine(message) {
-    console.log("Got this: "+message.data);
+    console.log("Got this: "+message.data.user+" "+message.data.feld);
     let dat = JSON.parse(this.state.data);
     
 
@@ -228,7 +228,7 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: this.state.pool,
-      feld: this.state.feld,
+      feld: message.data.feld,
       feldState: this.state.feldState,
     });
     console.log(this.state)
