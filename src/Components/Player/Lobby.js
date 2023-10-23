@@ -7,9 +7,9 @@ class Lobby extends Component {
         super(props);
         this.state = {
             room: props.room,
-            userCount: 1,
+            userCount: props.users.length,
             user: props.user,
-            users: [props.user],
+            users: props.users,
             leader: props.leader,
         };
     }
@@ -111,7 +111,8 @@ class Lobby extends Component {
             room: this.state.room,
             userCount: this.state.userCount,
             moderator: moderator,
-            player: player
+            player: player,
+            users: this.state.users
         };
 
         let url = BackendAccess.getUrl() + 'wwm';

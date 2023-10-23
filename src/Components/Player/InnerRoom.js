@@ -17,21 +17,8 @@ class InnerRoom extends Component {
             leader: props.leader,
             data: "",
             currentComponent: "lobby",
+            users: [props.user]
         };
-    }
-
-    async onTest(e) {
-        console.log('Hi')
-        let dat = JSON.stringify({
-
-        })
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            leader: this.state.leader,
-            data: dat,
-            currentComponent: "wwm",
-        });
     }
 
     async onStart(message) {
@@ -46,6 +33,7 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "kreuzwort",
+                    users: message.data.users
                 });
                 break;
             case "wwm":
@@ -55,6 +43,7 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "wwm",
+                    users: message.data.users
                 });
                 break;
             case "domino":
@@ -65,6 +54,7 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "domino",
+                    users: message.data.users
                 });
                 break;
             case "taboo":
@@ -75,6 +65,7 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "taboo",
+                    users: message.data.users
                 });
                 break;
             default:
@@ -84,6 +75,7 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "error",
+                    users: message.data.users
                 });
                 break;
         }
@@ -97,6 +89,7 @@ class InnerRoom extends Component {
             leader: this.state.leader,
             data: this.state.data,
             currentComponent: "lobby",
+            users: this.state.users
         });
     }
 
@@ -109,6 +102,7 @@ class InnerRoom extends Component {
                         user={this.state.user}
                         leader={this.state.leader}
                         room={this.state.room}
+                        users={this.state.users}
                     />
                 );
                 break;
