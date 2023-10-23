@@ -166,16 +166,20 @@ class Domino extends Component {
     let amount = dat.fragen.length;
     let stones =[];
     for(let i = 0; i<amount;i++){
-      stones.push({id:dat.fragen[i].props.id,frage:dat.fragen[i].props.frage , antwort: dat.fragen[i].props.antwort})
+      stones.push({id:dat.fragen[i].props.id,frage:dat.fragen[i].props.frage , antwort: dat.fragen[i].props.antwort,h:false})
     }
     return stones;
 
   }
   
-  getOneStone(id,frage,antwort){
+  getOneStone(stone){
+    let id = stone.id
+    let frage = stone.frage
+    let antwort = stone.antwort
+    let horizontal = stone.h
     return (
       <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={false ? "list-group list-group-flush": "list-group list-group-horizontal"}>
+        <ul className={horizontal ? "list-group list-group-flush": "list-group list-group-horizontal"}>
           <li className="list-group-item">{frage}</li>
           <li className="list-group-item">{antwort}</li>
         </ul>
