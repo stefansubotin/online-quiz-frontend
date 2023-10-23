@@ -118,9 +118,10 @@ class WerWirdMillionaer extends Component {
             await ably.connection.once('connected');
             const channelId = this.getChannelId();
             const channel = ably.channels.get(channelId);
-
+            let correct = dat.list[this.state.currentQuestion].correct;
+            console.log(correct);
             let body = {
-                correct: dat.list[this.state.currentQuestion].correct
+                correct: correct
             }
             await channel.publish('moderator', body);
             ably.close();
@@ -129,7 +130,7 @@ class WerWirdMillionaer extends Component {
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion,
-                correctAnswer: dat.list[this.state.currentQuestion].correct,
+                correctAnswer: correct,
                 chosenAnswer: message.data.answer
             });
         }
@@ -205,7 +206,7 @@ class WerWirdMillionaer extends Component {
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion,
-                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+                correctAnswer: dat.list[this.state.currentQuestion].correct,
                 chosenAnswer: -1
             });
         }
