@@ -42,7 +42,7 @@ class WerWirdMillionaer extends Component {
             }
             if (i == this.state.correctAnswer) style = 'correct';
             else if (i == this.state.chosenAnswer) style = 'chosen';
-            answers.push(<button onClick={(e) => this.onAnswer(i)} disabled={disabled}>{letter + dat.list[this.state.currentQuestion].answers[i]}</button>);
+            answers.push(<button name={i} onClick={(e) => this.onAnswer(e)} disabled={disabled}>{letter + dat.list[this.state.currentQuestion].answers[i]}</button>);
             if (i % 2 == 1) answers.push(<br />);
         }
         return answers;
@@ -141,16 +141,21 @@ class WerWirdMillionaer extends Component {
         });
     }
 
-    async onAnswer(i) {
+    async onAnswer(e) {
+        let i = e.target.name;
         let dat = JSON.parse(this.state.data);
+        let chosen = i;
+        console.log(chosen);
         if (dat.moderator == "") {
+            let correct = dat.list[this.state.currentQuestion].correct - 1;
+            console.log(correct);
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion,
-                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
-                chosenAnswer: i
+                correctAnswer: correct,
+                chosenAnswer: chosen
             });
             console.log(this.state);
         }
