@@ -98,6 +98,16 @@ class Domino extends Component {
     return stones;
 
   }
+  
+  getOneStone(id,frage,antwort){
+    return (
+      <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">{frage}</li>
+          <li className="list-group-item">{antwort}</li>
+        </ul>
+      </div>);
+  }
 
   //GENERIERE FELD
   getFeld(){
@@ -121,19 +131,10 @@ class Domino extends Component {
     }      
     return(this.state.feld.map((f)=>(
     <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
-      {this.getOneStone(f.stone.id,f.stone.frage,f.stone.antwort)}  
+      {f.stone.frage}  
     </div>)));  
   }
 
-  getOneStone(id,frage,antwort){
-    return (
-      <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">{frage}</li>
-          <li className="list-group-item">{antwort}</li>
-        </ul>
-      </div>);
-  }
   initFeld() {
     //DominoData.json feld
     let feld=[];
