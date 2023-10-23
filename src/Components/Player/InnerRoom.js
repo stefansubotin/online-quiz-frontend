@@ -17,7 +17,8 @@ class InnerRoom extends Component {
             leader: props.leader,
             data: "",
             currentComponent: "lobby",
-            users: [props.user]
+            users: [props.user],
+            message: ""
         };
     }
 
@@ -33,7 +34,8 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "kreuzwort",
-                    users: message.data.users
+                    users: message.data.users,
+                    message: JSON.stringify(message)
                 });
                 break;
             case "wwm":
@@ -43,7 +45,8 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "wwm",
-                    users: message.data.users
+                    users: message.data.users,
+                    message: JSON.stringify(message)
                 });
                 break;
             case "domino":
@@ -54,7 +57,8 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "domino",
-                    users: message.data.users
+                    users: message.data.users,
+                    message: JSON.stringify(message)
                 });
                 break;
             case "taboo":
@@ -65,7 +69,8 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "taboo",
-                    users: message.data.users
+                    users: message.data.users,
+                    message: JSON.stringify(message)
                 });
                 break;
             default:
@@ -75,13 +80,44 @@ class InnerRoom extends Component {
                     leader: this.state.leader,
                     data: dat,
                     currentComponent: "error",
-                    users: message.data.users
+                    users: message.data.users,
+                    message: JSON.stringify(message)
                 });
                 break;
         }
     }
 
-    async onEnd(message){
+    async onEnd(message) {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+
+        let start = JSON.parse(this.state.message);
+        const channelId = start.game + this.state.room;
+        const channel = ably.channels.get(channelId);
+        switch (start.game) {
+            case 'wwm':
+                let dat = message.data.data;
+                if (dat.moderator == this.state.user) {
+                    await channel.unsubscribe('player');
+                }
+                else if (dat.moderator != "") {
+                    await channel.unsubscribe('moderator');
+                }
+                break;
+            case 'kreuzwort':
+                await channel.unsubscribe('update');
+                await channel.unsubscribe('correction');
+                break;
+            case 'taboo':
+                await channel.unsubscribe('message');
+                await channel.unsubscribe('system');
+                break;
+            case 'domino':
+                //TODO Lena: hier für domino ergänzen
+                break;
+        }
+        ably.close();
         console.log('end');
         this.setState({
             room: this.state.room,
@@ -89,7 +125,8 @@ class InnerRoom extends Component {
             leader: this.state.leader,
             data: this.state.data,
             currentComponent: "lobby",
-            users: this.state.users
+            users: this.state.users,
+            message: this.state.message
         });
     }
 
