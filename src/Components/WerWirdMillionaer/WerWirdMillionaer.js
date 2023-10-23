@@ -60,7 +60,7 @@ class WerWirdMillionaer extends Component {
         return display;
     }
 
-    async onContinue(){
+    async onContinue() {
         let dat = JSON.parse(this.state.data);
         if (dat.moderator != "") {
             const Ably = require('ably');
@@ -74,7 +74,7 @@ class WerWirdMillionaer extends Component {
             }
             await channel.publish('player', body);
             ably.close();
-            
+
         }
         this.setState({
             room: this.state.room,
@@ -84,10 +84,10 @@ class WerWirdMillionaer extends Component {
             correctAnswer: -1,
             chosenAnswer: -1
         });
-    
+
     }
 
-    async onEnd(){
+    async onEnd() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
@@ -112,25 +112,27 @@ class WerWirdMillionaer extends Component {
                 chosenAnswer: -1
             });
         }
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        const channelId = this.getChannelId();
-        const channel = ably.channels.get(channelId);
+        else {
+            const Ably = require('ably');
+            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+            await ably.connection.once('connected');
+            const channelId = this.getChannelId();
+            const channel = ably.channels.get(channelId);
 
-        let body = {
-            correct: dat.list[this.state.currentQuestion].correct
+            let body = {
+                correct: dat.list[this.state.currentQuestion].correct
+            }
+            await channel.publish('moderator', body);
+            ably.close();
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion,
+                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+                chosenAnswer: message.data.answer
+            });
         }
-        await channel.publish('moderator', body);
-        ably.close();
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            currentQuestion: this.state.currentQuestion,
-            correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
-            chosenAnswer: message.data.answer
-        });
     }
 
     async onModerator(message) {
