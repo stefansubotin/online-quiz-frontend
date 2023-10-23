@@ -98,7 +98,7 @@ class InnerRoom extends Component {
         const channel = ably.channels.get(channelId);
         switch (start.data.game) {
             case 'wwm':
-                let dat = message.data.data;
+                let dat = start.data.data;
                 if (dat.moderator == this.state.user) {
                     await channel.detach();
                 }
