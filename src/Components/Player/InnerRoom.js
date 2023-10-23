@@ -126,6 +126,7 @@ class InnerRoom extends Component {
                     <WerWirdMillionaer
                         room={this.state.room}
                         user={this.state.user}
+                        data={this.state.data}
                     />
                 );
                 break;
