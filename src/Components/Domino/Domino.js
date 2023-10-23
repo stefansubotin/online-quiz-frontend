@@ -35,6 +35,7 @@ class Domino extends Component {
     let originParent = e.dataTransfer.getData("parent")
     let pool1 = this.state.pool;
     let feld1 = this.state.feld;
+    let stone;
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
     if(originParent=="pool"){
@@ -43,12 +44,20 @@ class Domino extends Component {
       if(feld1[ziel].stone.id==""){
           console.log("ist leer")
           feld1[ziel].stone.id = origin;
-          //Stein finden im Pool
+          //stone finden im Pool
           for(let i = 0 ; i<pool1.length;++i){
             if(pool1[i].id==origin){
-              console.log("Stein gefunden "+origin)
+              console.log("stone gefunden "+origin)
+              stone= pool1[i];
             }
           }
+
+          //setzen des stones
+          feld1[ziel].stone.id=stone.id;
+          feld1[ziel].stone.antwort= stone.antwort;
+          feld1[ziel].stone.frage= stone.frage;
+
+          
         }
         else{
           console.log("besetzt")
