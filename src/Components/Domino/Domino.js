@@ -15,7 +15,7 @@ class Domino extends Component {
   }
   //Stein drehen
   handleOnClick(e){
-    let id = e.target.id
+    let id = e.currentTarget.id
     let pid = e.currentTarget.parentNode.id;
     let stone;
     let h;
