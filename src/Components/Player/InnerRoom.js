@@ -26,70 +26,16 @@ class InnerRoom extends Component {
         console.log(message.data);
         let dat = JSON.stringify(message.data.data);
         console.log(dat);
-        switch (message.data.game) {
-            case "kreuzwort":
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "kreuzwort",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "wwm":
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "wwm",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "domino":
-                console.log("domino gewahlt");
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "domino",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "taboo":
-                console.log("taboo gewahlt");
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "taboo",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            default:
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "error",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-        }
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            data: dat,
+            currentComponent: message.data.game,
+            users: this.state.users,
+            message: JSON.stringify(message),
+            game: this.state.game
+        });
     }
 
     async onJoin(message) {
@@ -259,11 +205,14 @@ class InnerRoom extends Component {
     }
 
     getUserList(){
-        let users = [];
-        for (let i = 0; i < this.state.users; i++){
-            users.push(<div>{this.state.users[i]}</div>)
-        }
-        return users;
+        // let users = [];
+        // for (let i = 0; i < this.state.users.length; i++){
+        //     console.log(this.state.users[i]);
+        //     users.push(<div>{this.state.users[i]}</div>)
+        //     users.push(<br/>);
+        // }
+        // return users;
+        return this.state.users.join(', ');
     }
 
     async componentDidMount() {
@@ -293,9 +242,7 @@ class InnerRoom extends Component {
     render() {
         return (
             <div name="innerRoom" className="innerRoom">
-                <div>
-                    {this.getUserList()}
-                </div>
+                <div>{this.getUserList()}</div>
                 <br />
                 <div name="innerRoomComponent" className="innerRoomComponent">
                     {this.getComponent()}

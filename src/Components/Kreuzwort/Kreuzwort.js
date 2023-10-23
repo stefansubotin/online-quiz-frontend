@@ -238,7 +238,6 @@ class Kreuzwort extends Component {
         channel.unsubscribe('update');
         channel.unsubscribe('correction');
         ably.close();
-        alert('done unmounting');
     }
 //#endregion
 
@@ -246,7 +245,7 @@ class Kreuzwort extends Component {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
                 <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
-                <button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button>
+                <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
         )
     }
