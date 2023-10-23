@@ -23,12 +23,13 @@ class Domino extends Component {
     let pool1 = this.state.pool;
     
     if(pid == "pool"){
+      console.log("clicked in Pool")
       
       let index;
-      for(index =0 ; index<pool1.length;++index){
+      for(index = 0 ; index<pool1.length;++index){
         //Finde Stein im Pool
-        if(pool1[index].id==origin){
-          console.log("stone "+origin+"gefunden: "+pool1[index].id)
+        if(pool1[index].id==id){
+          console.log("stone "+id+"gefunden: "+pool1[index].id)
           stone= pool1[index];
         }
       }
@@ -37,17 +38,21 @@ class Domino extends Component {
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
+        console("Von Zustand 1 nach 2")
         h = false;
         fO =false;
         //A/F
       }else if (!h && !fO){
+        console("Von Zustand 2 nach 3")
         h = true;
         //A|F
       }else if (h && !fO){
+        console("Von Zustand 3 nach 4")
         h = false;
         fO = true;
         //F/A
       }else if(!h && fO){
+        console("Von Zustand 4 nach 1")
         h = true;
       }else {
         console.log("nichts passiert ");
@@ -133,9 +138,8 @@ class Domino extends Component {
         }
       }
       console.log(poolNeu)
-
-
     }
+
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
     else if((!isNaN(originParent))&&feld1[ziel].stone.id==""){
       console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
