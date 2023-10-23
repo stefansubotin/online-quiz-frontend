@@ -105,47 +105,43 @@ class WerWirdMillionaer extends Component {
         let dat = JSON.parse(this.state.data);
         console.log(dat.moderator);
         console.log(this.state.user);
-        if (dat.moderator != this.state.user) return;
-        else {
-            console.log(message);
-            if (message.data.type == 1) {
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    data: this.state.data,
-                    currentQuestion: this.state.currentQuestion + 1,
-                    correctAnswer: dat.list[this.state.currentQuestion + 1].correct,
-                    chosenAnswer: -1
-                });
-            }
-            else {
-                const Ably = require('ably');
-                const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-                await ably.connection.once('connected');
-                const channelId = this.getChannelId();
-                const channel = ably.channels.get(channelId);
-                let correct = dat.list[this.state.currentQuestion].correct;
-                console.log(correct);
-                let body = {
-                    correct: correct
-                }
-                await channel.publish('moderator', body);
-                ably.close();
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    data: this.state.data,
-                    currentQuestion: this.state.currentQuestion,
-                    correctAnswer: correct,
-                    chosenAnswer: message.data.answer
-                });
-            }
+        console.log(message);
+        if (message.data.type == 1) {
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion + 1,
+                correctAnswer: dat.list[this.state.currentQuestion + 1].correct,
+                chosenAnswer: -1
+            });
         }
+        else {
+            const Ably = require('ably');
+            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+            await ably.connection.once('connected');
+            const channelId = this.getChannelId();
+            const channel = ably.channels.get(channelId);
+            let correct = dat.list[this.state.currentQuestion].correct;
+            console.log(correct);
+            let body = {
+                correct: correct
+            }
+            await channel.publish('moderator', body);
+            ably.close();
+            this.setState({
+                room: this.state.room,
+                user: this.state.user,
+                data: this.state.data,
+                currentQuestion: this.state.currentQuestion,
+                correctAnswer: correct,
+                chosenAnswer: message.data.answer
+            });
+        }
+
     }
 
     async onModerator(message) {
-        let dat = JSON.parse(this.state.data);
-        if (dat.moderator == this.state.user) return;
         console.log(message);
         this.setState({
             room: this.state.room,
@@ -212,7 +208,7 @@ class WerWirdMillionaer extends Component {
         let correct = dat.list[0].correct;
         console.log(correct);
         if (dat.moderator == this.state.user) {
-            await channel.subscribe('player' + dat.player, (message) => this.onGuess(message));
+            await channel.subscribe('player', (message) => this.onGuess(message));
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
@@ -222,10 +218,10 @@ class WerWirdMillionaer extends Component {
                 chosenAnswer: -1
             });
         }
-        else await channel.subscribe('moderator' + dat.moderator, (message) => this.onModerator(message));
+        else await channel.subscribe('moderator', (message) => this.onModerator(message));
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         ably.connection.once('connected');
