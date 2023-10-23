@@ -70,25 +70,39 @@ class Domino extends Component {
       }
       console.log(poolNeu)
 
-      this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        leader: false,
-        pool: poolNeu,
-        feld: feld1,
-        feldState: this.state.feldState,
-      });    
+
     }
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
     else if((!isNaN(originParent))&&feld1[ziel].stone.id==""){
       console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
       console.log("und ist leer")
+      //setzen des Steins
+      feld1[ziel].stone.id=feld1[originParent].stone.id;
+      feld1[ziel].stone.antwort= feld1[originParent].stone.antwort;
+      feld1[ziel].stone.frage= stone.frage;
+
+      //löschen des Steins aus dem vorherigen Feld
+      feld1[originParent].stone.id = "";
+      feld1[originParent].stone.antwort="";
+      feld1[originParent].stone.frage="";
+
+
     }
     else{
       console.log("besetzt")
-      return 
+      //es soll sich nichts ändern
+      poolNeu=this.state.pool
     }       
+
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: poolNeu,
+      feld: feld1,
+      feldState: this.state.feldState,
+    });    
     
   }
 
