@@ -175,7 +175,7 @@ class WerWirdMillionaer extends Component {
     }
 
     async componentDidMount() {
-        let dat = JSON.parse(this.state.data);
+        let dat = JSON.parse(this.props.data);
         if (dat.moderator == "") return;
 
         console.log('Moderator present')
