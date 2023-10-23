@@ -34,6 +34,7 @@ class Domino extends Component {
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     let pool1 = this.state.pool;
+    let poolNeu = [];
     let feld1 = this.state.feld;
     let stone;
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
@@ -44,20 +45,45 @@ class Domino extends Component {
       if(feld1[ziel].stone.id==""){
           console.log("ist leer")
           feld1[ziel].stone.id = origin;
+
           //stone finden im Pool
+          //eventuell getIndexAtKey(id)?
           for(let i = 0 ; i<pool1.length;++i){
             if(pool1[i].id==origin){
-              console.log("stone gefunden "+origin)
+              console.log("stone "+origin+"gefunden: "+pool1[i].id)
               stone= pool1[i];
             }
           }
 
-          //setzen des stones
+          //setzen des Steins
           feld1[ziel].stone.id=stone.id;
           feld1[ziel].stone.antwort= stone.antwort;
           feld1[ziel].stone.frage= stone.frage;
-
           
+          console.log("stein gesetzt")
+          //löschen des Steins
+          //eventuell getIndexAtKey(id)?
+          for(let i = 0 ; i<pool1.length;++i){
+            if(pool1[i].id==origin){
+              console.log(pool1[i].id+" wird übersprungen. ")
+            }else{
+              poolNeu.push(pool1[i]);
+            }
+          }
+          console.log(poolNeu)
+
+          this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            data: this.state.data,
+            leader: false,
+            pool: poolNeu,
+            feld: feld1,
+            feldState: this.state.feldState,
+          });    
+
+
+
         }
         else{
           console.log("besetzt")
