@@ -7,7 +7,7 @@ class Domino extends Component {
       room: props.room,
       user: props.user,
       data: props.data,
-      leader: false,
+      activUser: "aktiv",
       pool: [],
       feld:[],
       feldState: 0,
@@ -105,7 +105,7 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      leader: false,
+      activUser: "aktiv",
       pool: pool1,
       feld: feld1,
       feldState: this.state.feldState,
@@ -218,7 +218,7 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      leader: false,
+      activUser: "aktiv",
       pool: poolNeu,
       feld: feld1,
       feldState: this.state.feldState,
@@ -249,7 +249,7 @@ class Domino extends Component {
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          leader: false,
+          activUser: "aktiv",
           pool: stones,
           feld: this.state.feld,
           feldState: fs,
@@ -305,7 +305,7 @@ class Domino extends Component {
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          leader: false,
+          activUser: "aktiv",
           pool: this.state.pool,
           feld: feld,
           feldState: 1,
@@ -334,12 +334,12 @@ class Domino extends Component {
     
     //nur bei den anderen rerender
     if(message.user != this.state.user){
-      console("Set State von anderen")
+      console.log("Set State von anderen")
      this.setState({
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      leader: false,
+      activUser: "aktiv",
       pool: message.data.pool,
       feld: message.data.feld,
       feldState: this.state.feldState,
@@ -362,6 +362,8 @@ class Domino extends Component {
   render() {
     return (
       <div name = "domino">
+        <h1>Domino</h1>
+        <p>Spieler {this.state.activUsers} ist am Zug</p>
         <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
