@@ -103,6 +103,7 @@ class WerWirdMillionaer extends Component {
 
     async onGuess(message) {
         let dat = JSON.parse(this.state.data);
+        if (dat.moderator != this.state.user) return;
         console.log(message);
         if (message.data.type == 1) {
             this.setState({
@@ -139,6 +140,8 @@ class WerWirdMillionaer extends Component {
     }
 
     async onModerator(message) {
+        let dat = JSON.parse(this.state.data);
+        if (dat.moderator == this.state.user) return;
         console.log(message);
         this.setState({
             room: this.state.room,
