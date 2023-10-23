@@ -263,6 +263,7 @@ class InnerRoom extends Component {
         for (let i = 0; i < this.state.users.length; i++){
             console.log(this.state.users[i]);
             users.push(<div>{this.state.users[i]}</div>)
+            users.push(<br/>);
         }
         return users;
     }
