@@ -103,17 +103,19 @@ class InnerRoom extends Component {
             case 'wwm':
                 let dat = start.data.data;
                 if (dat.moderator == this.state.user) {
-                    await channel.detach();
+                    await channel.unsubscribe('player');
                 }
                 else if (dat.moderator != "") {
-                    await channel.detach();
+                    await channel.unsubscribe('moderator');
                 }
                 break;
             case 'kreuzwort':
-                await channel.detach();
+                await channel.unsubscribe('update');
+                await channel.unsubscribe('correction');
                 break;
             case 'taboo':
-                await channel.detach();
+                await channel.unsubscribe('message');
+                await channel.unsubscribe('system');
                 break;
             case 'domino':
                 //TODO Lena: hier für domino ergänzen
