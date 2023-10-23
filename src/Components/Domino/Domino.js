@@ -208,7 +208,7 @@ class Domino extends Component {
     }      
     return(this.state.feld.map((f)=>(
     <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
-      {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone.id,f.stone.frage,f.stone.antwort)}
+      {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone)}
     </div>)));  
   }
 
