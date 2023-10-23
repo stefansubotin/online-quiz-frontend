@@ -53,6 +53,8 @@ class WerWirdMillionaer extends Component {
         let dat = JSON.parse(this.state.data);
         let display = [];
         let disabled = dat.moderator == this.state.user || this.state.chosenAnswer == -1;
+        display.push(<div>{this.state.currentQuestion + 1}/10:</div>);
+        disnplay.push(<br/>);
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
         if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={disabled}>End</button>);
@@ -214,6 +216,23 @@ class WerWirdMillionaer extends Component {
             });
         }
         else await channel.subscribe('moderator', (message) => this.onModerator(message));
+    }
+
+    async componentWillUnmount() {
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+
+        let dat = JSON.parse(this.state.data);
+        if (dat.moderator == this.state.user) {
+            await channel.unsubscribe('player');
+        }
+        else if (dat.moderator != "") {
+            await channel.unsubscribe('moderator');
+        }
+        ably.close();
     }
 
     render() {
