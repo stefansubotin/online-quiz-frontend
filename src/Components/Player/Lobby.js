@@ -27,7 +27,7 @@ class Lobby extends Component {
                 //TODO Lena: Bedingungen für Domino implementieren
                 return true;
             case 'wwm1':
-                if (this.state.users.length != 1) return false;
+                if (this.state.users.length <= 2) return false;
                 return true;
             case 'wwm2':
                 if (this.state.users.length != 2) return false;
@@ -96,9 +96,11 @@ class Lobby extends Component {
         let player = this.state.user;
         if (this.state.users > 1) {
             if (mod) {
+                console.log(2);
                 moderator = this.state.users[1];
             }
             else {
+                console.log(1);
                 moderator = this.state.users[0];
                 player = this.state.users[1];
             }
