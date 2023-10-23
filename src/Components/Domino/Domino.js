@@ -21,7 +21,7 @@ class Domino extends Component {
     let h;
     let fO;
     let pool1 = this.state.pool;
-    
+    console.log("Got clicked " +pid)
     if(pid == "pool"){
       console.log("clicked in Pool")
       
