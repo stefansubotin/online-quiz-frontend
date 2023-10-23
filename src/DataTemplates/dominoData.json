@@ -11,7 +11,7 @@
         }]}
 ],
 "feld":[{
-        "id":"id", 
+        "id":"index", 
         "stone":{
             "id":"id",
             "frage":"Für was steht das Akronym USB?",

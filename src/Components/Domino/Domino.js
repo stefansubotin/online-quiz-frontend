@@ -34,16 +34,22 @@ class Domino extends Component {
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     let pool1 = this.state.pool;
-    console.log(pool1[0].id)
+    let feld1 = this.state.feld;
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
-    /*if(originParent=="pool")
-    {
+    if(originParent=="pool"){
       console.log("aus dem Pool "+ufeld[ziel].stone.id)
-    if(ufeld[ziel].stone.id==""){
-        console.log("ist leer")
-      }
-    }*/
+      if(feld1[ziel].stone.id==""){
+          console.log("ist leer")
+        }
+        else{
+          console.log("besetzt")
+          return 
+        }
+      
+    }else{
+      console.log("noch nicht abgefangen")
+    }
     
   }
 
@@ -52,7 +58,7 @@ class Domino extends Component {
   }
 
   //GENERIERE STEINE
-  getSteine(){
+  getStones(){
     let fs = this.state.feldState
     let stones =[];
     console.log("FeldState Steine "+fs)
@@ -114,11 +120,20 @@ class Domino extends Component {
       });     
     }      
     return(this.state.feld.map((f)=>(
-      <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
-      Zelle
+    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+      {this.getOneStone(f.stone.id,f.stone.frage,f.stone.antwort)}  
     </div>)));  
   }
 
+  getOneStone(id,frage,antwort){
+    return (
+      <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">{frage}</li>
+          <li className="list-group-item">{antwort}</li>
+        </ul>
+      </div>);
+  }
   initFeld() {
     //DominoData.json feld
     let feld=[];
@@ -153,7 +168,7 @@ class Domino extends Component {
         <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"id="pool"className="pool rounded">{this.getSteine()}</div>
+        <div name="dominoPool"id="pool"className="pool rounded">{this.getStones()}</div>
       </div>
     );
   }
