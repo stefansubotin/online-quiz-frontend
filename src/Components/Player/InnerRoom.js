@@ -260,7 +260,8 @@ class InnerRoom extends Component {
 
     getUserList(){
         let users = [];
-        for (let i = 0; i < this.state.users; i++){
+        for (let i = 0; i < this.state.users.length; i++){
+            console.log(this.state.users[i]);
             users.push(<div>{this.state.users[i]}</div>)
         }
         return users;
@@ -293,9 +294,7 @@ class InnerRoom extends Component {
     render() {
         return (
             <div name="innerRoom" className="innerRoom">
-                <div>
-                    {this.getUserList()}
-                </div>
+                {this.getUserList()}
                 <br />
                 <div name="innerRoomComponent" className="innerRoomComponent">
                     {this.getComponent()}
