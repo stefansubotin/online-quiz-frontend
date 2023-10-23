@@ -15,13 +15,13 @@ class Domino extends Component {
   }
   //Stein drehen
   handleOnClick(e){
-    let id = e.target.id
-    let pid = e.target.parentNode.id;
-    let stone;
+    let id = e.currentTarget.id
+    let pid = e.currentTarget.parentNode.id;
     let h;
     let fO;
     let pool1 = this.state.pool;
-    
+    let feld1 = this.state.feld;
+    console.log("Got clicked " +id +"  "+pid)
     if(pid == "pool"){
       console.log("clicked in Pool")
       
@@ -30,36 +30,66 @@ class Domino extends Component {
         //Finde Stein im Pool
         if(pool1[index].id==id){
           console.log("stone "+id+"gefunden: "+pool1[index].id)
-          stone= pool1[index];
         }
       }
-      h = stone.h;
-      fO = stone.fO
+      console.log(pool1[index])
+      h = pool1[index].h;
+      fO = pool1[index].fO
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
-        console("Von Zustand 1 nach 2")
+        console.log("Von Zustand 1 nach 2")
         h = false;
         fO =false;
         //A/F
       }else if (!h && !fO){
-        console("Von Zustand 2 nach 3")
+        console.log("Von Zustand 2 nach 3")
         h = true;
         //A|F
       }else if (h && !fO){
-        console("Von Zustand 3 nach 4")
+        console.log("Von Zustand 3 nach 4")
         h = false;
         fO = true;
         //F/A
       }else if(!h && fO){
-        console("Von Zustand 4 nach 1")
+        console.log("Von Zustand 4 nach 1")
         h = true;
       }else {
         console.log("nichts passiert ");
       }
-      pool1[index].stone.h = h;
-      pool1[index].stone.fO= fO;
+      pool1[index].h = h;
+      pool1[index].fO= fO;
 
+    }
+    else {
+      console.log("im feld")
+      h = feld1[pid].stone.h;
+      fO = feld1[pid].stone.fO
+
+      // Varianten wie der Stein liegt: F|A A/F A|F F/A
+      if(h && fO){
+        console.log("Von Zustand 1 nach 2")
+        h = false;
+        fO =false;
+        //A/F
+      }else if (!h && !fO){
+        console.log("Von Zustand 2 nach 3")
+        h = true;
+        //A|F
+      }else if (h && !fO){
+        console.log("Von Zustand 3 nach 4")
+        h = false;
+        fO = true;
+        //F/A
+      }else if(!h && fO){
+        console.log("Von Zustand 4 nach 1")
+        h = true;
+      }else {
+        console.log("nichts passiert ");
+      }
+      feld1[pid].stone.h = h;
+      feld1[pid].stone.fO= fO;
+    
     }
     this.setState({
       room: this.state.room,
@@ -67,7 +97,7 @@ class Domino extends Component {
       data: this.state.data,
       leader: false,
       pool: pool1,
-      feld: this.state.feld,
+      feld: feld1,
       feldState: this.state.feldState,
     });
   }
