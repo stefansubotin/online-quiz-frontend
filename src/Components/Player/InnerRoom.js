@@ -96,6 +96,9 @@ class InnerRoom extends Component {
         const channelId = start.data.game + this.state.room;
         console.log(channelId);
         const channel = ably.channels.get(channelId);
+        channel.on('detached', function(stateChange) {
+            console.log('detached from the channel ' + channel.name);
+          });
         switch (start.data.game) {
             case 'wwm':
                 let dat = start.data.data;
