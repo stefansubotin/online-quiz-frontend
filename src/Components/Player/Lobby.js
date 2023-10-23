@@ -12,7 +12,7 @@ class Lobby extends Component {
             users: props.users,
             leader: props.leader,
         };
-    }
+    } 
 
     getDisabled(game) {
         if (!this.state.leader) return true;
@@ -24,7 +24,7 @@ class Lobby extends Component {
                 if (this.state.users.length <= 10) return false;
                 return true;
             case 'domino':
-                //TODO Lena: Bedingungen für Domino implementieren
+                if(this.state.users.length <= 4 ) return false;
                 return true;
             case 'wwmPlayerMe':
                 if (this.state.users.length <= 2) return false;
