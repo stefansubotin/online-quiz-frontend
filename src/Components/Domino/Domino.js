@@ -39,60 +39,56 @@ class Domino extends Component {
     let stone;
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
-    if(originParent=="pool"){
-      console.log("aus dem Pool "+feld1[ziel].stone.id)
-      
-      if(feld1[ziel].stone.id==""){
-          console.log("ist leer")
-          feld1[ziel].stone.id = origin;
+    //Stein kommt aus dem Pool
+    if(originParent=="pool"&&feld1[ziel].stone.id==""){
+      console.log("Stein kommt aus dem Pool "+feld1[ziel].stone.id)
+      console.log("und ist leer")
 
-          //stone finden im Pool
-          //eventuell getIndexAtKey(id)?
-          for(let i = 0 ; i<pool1.length;++i){
-            if(pool1[i].id==origin){
-              console.log("stone "+origin+"gefunden: "+pool1[i].id)
-              stone= pool1[i];
-            }
-          }
-
-          //setzen des Steins
-          feld1[ziel].stone.id=stone.id;
-          feld1[ziel].stone.antwort= stone.antwort;
-          feld1[ziel].stone.frage= stone.frage;
-          
-          console.log("stein gesetzt")
-          //löschen des Steins
-          //eventuell getIndexAtKey(id)?
-          for(let i = 0 ; i<pool1.length;++i){
-            if(pool1[i].id==origin){
-              console.log(pool1[i].id+" wird übersprungen. ")
-            }else{
-              poolNeu.push(pool1[i]);
-            }
-          }
-          console.log(poolNeu)
-
-          this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            data: this.state.data,
-            leader: false,
-            pool: poolNeu,
-            feld: feld1,
-            feldState: this.state.feldState,
-          });    
-
-
-
+      //stone finden im Pool
+      //eventuell getIndexAtKey(id)?
+      for(let i = 0 ; i<pool1.length;++i){
+        if(pool1[i].id==origin){
+          console.log("stone "+origin+"gefunden: "+pool1[i].id)
+          stone= pool1[i];
         }
-        else{
-          console.log("besetzt")
-          return 
-        }
+      }
+
+      //setzen des Steins
+      feld1[ziel].stone.id=stone.id;
+      feld1[ziel].stone.antwort= stone.antwort;
+      feld1[ziel].stone.frage= stone.frage;
       
-    }else{
-      console.log("noch nicht abgefangen")
+      console.log("stein gesetzt")
+      //löschen des Steins
+      //eventuell getIndexAtKey(id)?
+      for(let i = 0 ; i<pool1.length;++i){
+        if(pool1[i].id==origin){
+          console.log(pool1[i].id+" wird übersprungen. ")
+        }else{
+          poolNeu.push(pool1[i]);
+        }
+      }
+      console.log(poolNeu)
+
+      this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        leader: false,
+        pool: poolNeu,
+        feld: feld1,
+        feldState: this.state.feldState,
+      });    
     }
+    //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
+    else if((!isNaN(originParent))&&feld1[ziel].stone.id==""){
+      console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
+      console.log("und ist leer")
+    }
+    else{
+      console.log("besetzt")
+      return 
+    }       
     
   }
 
