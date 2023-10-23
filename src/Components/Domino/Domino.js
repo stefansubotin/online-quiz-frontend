@@ -13,6 +13,60 @@ class Domino extends Component {
       feldState: 0,
     };
   }
+  //Stein drehen
+  handleOnClick(e){
+    let id = e.target.id
+    let pid = e.target.parentNode.id;
+    let stone;
+    let h;
+    let fO;
+    let pool1 = this.state.pool;
+    
+    if(pid == "pool"){
+      
+      let index;
+      for(index =0 ; index<pool1.length;++index){
+        //Finde Stein im Pool
+        if(pool1[index].id==origin){
+          console.log("stone "+origin+"gefunden: "+pool1[index].id)
+          stone= pool1[index];
+        }
+      }
+      h = stone.h;
+      fO = stone.fO
+
+      // Varianten wie der Stein liegt: F|A A/F A|F F/A
+      if(h && fO){
+        h = false;
+        fO =false;
+        //A/F
+      }else if (!h && !fO){
+        h = true;
+        //A|F
+      }else if (h && !fO){
+        h = false;
+        fO = true;
+        //F/A
+      }else if(!h && fO){
+        h = true;
+      }else {
+        console.log("nichts passiert ");
+      }
+      pool1[index].stone.h = h;
+      pool1[index].stone.fO= fO;
+
+    }
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: pool1,
+      feld: this.state.feld,
+      feldState: this.state.feldState,
+    });
+  }
+
   //DRAG AND DROP
   //https://react.dev/reference/react-dom/components/common#dragevent-handler
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
@@ -54,7 +108,7 @@ class Domino extends Component {
       console.log("Stein kommt aus dem Pool "+feld1[ziel].stone.id)
       console.log("und ist leer")
 
-      //stone finden im Pool
+      //Finde Stein im Pool
       //eventuell getIndexAtKey(id)?
       for(let i = 0 ; i<pool1.length;++i){
         if(pool1[i].id==origin){
@@ -126,10 +180,6 @@ class Domino extends Component {
     
   }
 
-  dropAllowed(zielid, id){
-    return true;
-  }
-
   //GENERIERE STEINE
   getStones(){
     let fs = this.state.feldState
@@ -179,7 +229,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card" id={id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card" id={id} draggable="true" onClick={(e)=>this.handleOnClick(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className="list-group-item">{fOben?frage:antwort}</li>
           <li className="list-group-item">{fOben?antwort:frage}</li>
