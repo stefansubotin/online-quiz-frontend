@@ -93,10 +93,10 @@ class InnerRoom extends Component {
         await ably.connection.once('connected');
 
         let start = JSON.parse(this.state.message);
-        const channelId = start.game + this.state.room;
+        const channelId = start.data.game + this.state.room;
         console.log(channelId);
         const channel = ably.channels.get(channelId);
-        switch (start.game) {
+        switch (start.data.game) {
             case 'wwm':
                 let dat = message.data.data;
                 if (dat.moderator == this.state.user) {
