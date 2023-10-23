@@ -292,6 +292,18 @@ class Taboo extends Component {
         await channel.subscribe('system', (message) => this.onSystem(message));
     }
 
+    componentWillUnmount(){
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+        channel.unsubscribe('message');
+        channel.unsubscribe('system');
+        ably.close();
+        alert('done unmounting');
+    }
+
     render() {
         return (
             <div name='taboo'>{this.getDisplay()}</div>

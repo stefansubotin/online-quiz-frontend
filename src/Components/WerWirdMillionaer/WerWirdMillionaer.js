@@ -225,6 +225,18 @@ class WerWirdMillionaer extends Component {
         else await channel.subscribe('moderator', (message) => this.onModerator(message));
     }
 
+    componentWillUnmount(){
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        ably.connection.once('connected');
+        const channelId = this.getChannelId();
+        const channel = ably.channels.get(channelId);
+        channel.unsubscribe('moderator');
+        channel.unsubscribe('player');
+        ably.close();
+        alert('done unmounting');
+    }
+
     render() {
         return (
             <div nmae='wwm'>{this.getDisplay()}</div>
