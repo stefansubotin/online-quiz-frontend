@@ -94,24 +94,23 @@ class InnerRoom extends Component {
 
         let start = JSON.parse(this.state.message);
         const channelId = start.game + this.state.room;
+        console.log(channelId);
         const channel = ably.channels.get(channelId);
         switch (start.game) {
             case 'wwm':
                 let dat = message.data.data;
                 if (dat.moderator == this.state.user) {
-                    await channel.unsubscribe('player');
+                    await channel.detach();
                 }
                 else if (dat.moderator != "") {
-                    await channel.unsubscribe('moderator');
+                    await channel.detach();
                 }
                 break;
             case 'kreuzwort':
-                await channel.unsubscribe('update');
-                await channel.unsubscribe('correction');
+                await channel.detach();
                 break;
             case 'taboo':
-                await channel.unsubscribe('message');
-                await channel.unsubscribe('system');
+                await channel.detach();
                 break;
             case 'domino':
                 //TODO Lena: hier für domino ergänzen
