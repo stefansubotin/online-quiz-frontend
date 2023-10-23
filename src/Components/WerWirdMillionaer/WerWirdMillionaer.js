@@ -54,7 +54,7 @@ class WerWirdMillionaer extends Component {
         let display = [];
         let disabled = dat.moderator == this.state.user || this.state.chosenAnswer == -1;
         display.push(<div>{this.state.currentQuestion + 1}/10:</div>);
-        display.push(<br/>);
+        display.push(<br />);
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
         if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={disabled}>End</button>);
@@ -103,39 +103,43 @@ class WerWirdMillionaer extends Component {
 
     async onGuess(message) {
         let dat = JSON.parse(this.state.data);
+        console.log(dat.moderator);
+        console.log(this.state.user);
         if (dat.moderator != this.state.user) return;
-        console.log(message);
-        if (message.data.type == 1) {
-            this.setState({
-                room: this.state.room,
-                user: this.state.user,
-                data: this.state.data,
-                currentQuestion: this.state.currentQuestion + 1,
-                correctAnswer: dat.list[this.state.currentQuestion + 1].correct,
-                chosenAnswer: -1
-            });
-        }
         else {
-            const Ably = require('ably');
-            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-            await ably.connection.once('connected');
-            const channelId = this.getChannelId();
-            const channel = ably.channels.get(channelId);
-            let correct = dat.list[this.state.currentQuestion].correct;
-            console.log(correct);
-            let body = {
-                correct: correct
+            console.log(message);
+            if (message.data.type == 1) {
+                this.setState({
+                    room: this.state.room,
+                    user: this.state.user,
+                    data: this.state.data,
+                    currentQuestion: this.state.currentQuestion + 1,
+                    correctAnswer: dat.list[this.state.currentQuestion + 1].correct,
+                    chosenAnswer: -1
+                });
             }
-            await channel.publish('moderator', body);
-            ably.close();
-            this.setState({
-                room: this.state.room,
-                user: this.state.user,
-                data: this.state.data,
-                currentQuestion: this.state.currentQuestion,
-                correctAnswer: correct,
-                chosenAnswer: message.data.answer
-            });
+            else {
+                const Ably = require('ably');
+                const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+                await ably.connection.once('connected');
+                const channelId = this.getChannelId();
+                const channel = ably.channels.get(channelId);
+                let correct = dat.list[this.state.currentQuestion].correct;
+                console.log(correct);
+                let body = {
+                    correct: correct
+                }
+                await channel.publish('moderator', body);
+                ably.close();
+                this.setState({
+                    room: this.state.room,
+                    user: this.state.user,
+                    data: this.state.data,
+                    currentQuestion: this.state.currentQuestion,
+                    correctAnswer: correct,
+                    chosenAnswer: message.data.answer
+                });
+            }
         }
     }
 
