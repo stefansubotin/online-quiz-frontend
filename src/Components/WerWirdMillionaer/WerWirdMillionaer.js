@@ -54,7 +54,7 @@ class WerWirdMillionaer extends Component {
         let display = [];
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
-        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={this.state.correctAnswer != -1}>End</button>);
+        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={this.state.correctAnswer == -1}>End</button>);
         else display.push(<button onClick={(e) => this.onContinue()} disabled={this.state.correctAnswer == -1}>Next Question</button>);
         return display;
     }
