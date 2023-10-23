@@ -26,11 +26,11 @@ class Lobby extends Component {
             case 'domino':
                 //TODO Lena: Bedingungen für Domino implementieren
                 return true;
-            case 'wwm1':
+            case 'wwmPlayerMe':
                 if (this.state.users.length <= 2) return false;
                 return true;
-            case 'wwm2':
-                if (this.state.users.length != 2) return false;
+            case 'wwmPlayerOther':
+                if (this.state.users.length == 2) return false;
                 return true;
             default:
                 return false;
@@ -182,8 +182,8 @@ class Lobby extends Component {
             <div name="lobby">
                 <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button>
                 <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button>
-                <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwm1')}>Starte Wwm mit mir als Moderator</button>
-                <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwm2')}>Starte Wwm mit anderem User als Moderator</button>
+                <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button>
+                <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button>
                 <button onClick={(e) => this.onStartTaboo()} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
