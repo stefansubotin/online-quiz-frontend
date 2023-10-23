@@ -212,7 +212,7 @@ class WerWirdMillionaer extends Component {
         let correct = dat.list[0].correct;
         console.log(correct);
         if (dat.moderator == this.state.user) {
-            await channel.subscribe('player', (message) => this.onGuess(message));
+            await channel.subscribe('player' + dat.player, (message) => this.onGuess(message));
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
@@ -222,7 +222,7 @@ class WerWirdMillionaer extends Component {
                 chosenAnswer: -1
             });
         }
-        else await channel.subscribe('moderator', (message) => this.onModerator(message));
+        else await channel.subscribe('moderator' + dat.moderator, (message) => this.onModerator(message));
     }
 
     componentWillUnmount(){
