@@ -26,70 +26,16 @@ class InnerRoom extends Component {
         console.log(message.data);
         let dat = JSON.stringify(message.data.data);
         console.log(dat);
-        switch (message.data.game) {
-            case "kreuzwort":
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "kreuzwort",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "wwm":
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "wwm",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "domino":
-                console.log("domino gewahlt");
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "domino",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            case "taboo":
-                console.log("taboo gewahlt");
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "taboo",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-            default:
-                this.setState({
-                    room: this.state.room,
-                    user: this.state.user,
-                    leader: this.state.leader,
-                    data: dat,
-                    currentComponent: "error",
-                    users: this.state.users,
-                    message: JSON.stringify(message),
-                    game: this.state.game
-                });
-                break;
-        }
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: this.state.leader,
+            data: dat,
+            currentComponent: message.data.game,
+            users: this.state.users,
+            message: JSON.stringify(message),
+            game: this.state.game
+        });
     }
 
     async onJoin(message) {
