@@ -18,7 +18,8 @@ class InnerRoom extends Component {
             data: "",
             currentComponent: "lobby",
             users: [props.user],
-            message: ""
+            message: "",
+            game: 0
         };
     }
 
@@ -35,7 +36,8 @@ class InnerRoom extends Component {
                     data: dat,
                     currentComponent: "kreuzwort",
                     users: message.data.users,
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message),
+                    game: this.state.game
                 });
                 break;
             case "wwm":
@@ -46,7 +48,8 @@ class InnerRoom extends Component {
                     data: dat,
                     currentComponent: "wwm",
                     users: message.data.users,
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message),
+                    game: this.state.game
                 });
                 break;
             case "domino":
@@ -58,7 +61,8 @@ class InnerRoom extends Component {
                     data: dat,
                     currentComponent: "domino",
                     users: message.data.users,
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message),
+                    game: this.state.game
                 });
                 break;
             case "taboo":
@@ -70,7 +74,8 @@ class InnerRoom extends Component {
                     data: dat,
                     currentComponent: "taboo",
                     users: message.data.users,
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message),
+                    game: this.state.game
                 });
                 break;
             default:
@@ -81,7 +86,8 @@ class InnerRoom extends Component {
                     data: dat,
                     currentComponent: "error",
                     users: message.data.users,
-                    message: JSON.stringify(message)
+                    message: JSON.stringify(message),
+                    game: this.state.game
                 });
                 break;
         }
@@ -130,7 +136,8 @@ class InnerRoom extends Component {
             data: this.state.data,
             currentComponent: "lobby",
             users: this.state.users,
-            message: this.state.message
+            message: this.state.message,
+            game: this.state.game + 1
         });
     }
 
@@ -144,6 +151,7 @@ class InnerRoom extends Component {
                         leader={this.state.leader}
                         room={this.state.room}
                         users={this.state.users}
+                        game={this.state.game}
                     />
                 );
                 break;
@@ -211,6 +219,8 @@ class InnerRoom extends Component {
                     room={this.state.room}
                     user={this.state.user}
                     leader={this.state.leader}
+                    users={this.state.users}
+                    game={this.state.game}
                 /><br />
                 <div name="innerRoomComponent" className="innerRoomComponent">
                     {this.getComponent()}
