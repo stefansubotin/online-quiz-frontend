@@ -54,7 +54,7 @@ class WerWirdMillionaer extends Component {
         let display = [];
         let disabled = dat.moderator == this.state.user || this.state.chosenAnswer == -1;
         display.push(<div>{this.state.currentQuestion + 1}/10:</div>);
-        disnplay.push(<br/>);
+        display.push(<br/>);
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
         if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={disabled}>End</button>);
