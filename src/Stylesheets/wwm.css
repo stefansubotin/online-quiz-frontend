@@ -1,7 +1,7 @@
 button.correct {
-    background-color: greenyellow;
+    color: greenyellow;
 }
 
 button.chosen {
-    background-color: lightcoral;
+    color: lightcoral;
 }
