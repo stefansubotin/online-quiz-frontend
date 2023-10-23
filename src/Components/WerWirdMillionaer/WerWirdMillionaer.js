@@ -202,7 +202,7 @@ class WerWirdMillionaer extends Component {
         const channelId = this.getChannelId();
         const channel = ably.channels.get(channelId);
 
-        let correct = dat.list[this.state.currentQuestion].correct;
+        let correct = dat.list[0].correct;
         console.log(correct);
         if (dat.moderator == this.state.user) {
             await channel.subscribe('player', (message) => this.onGuess(message));
