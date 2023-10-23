@@ -70,7 +70,7 @@ class WerWirdMillionaer extends Component {
             let body = {
                 type: 1
             }
-            await channel.publish('guesser', body);
+            await channel.publish('player', body);
             ably.close();
         }
         this.setState({
@@ -161,7 +161,7 @@ class WerWirdMillionaer extends Component {
             let body = {
                 answer: i
             }
-            await channel.publish('guesser', body);
+            await channel.publish('player', body);
             ably.close();
             this.setState({
                 room: this.state.room,
@@ -185,7 +185,7 @@ class WerWirdMillionaer extends Component {
         const channelId = this.getChannelId();
         const channel = ably.channels.get(channelId);
         if (dat.moderator == this.state.user) {
-            await channel.subscribe('guesser', (message) => this.onGuess(message));
+            await channel.subscribe('player', (message) => this.onGuess(message));
             this.setState({
                 room: this.state.room,
                 user: this.state.user,
