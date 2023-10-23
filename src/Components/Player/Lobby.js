@@ -94,7 +94,7 @@ class Lobby extends Component {
         }
         let moderator = "";
         let player = this.state.user;
-        if (this.state.users > 1) {
+        if (this.state.users.length > 1) {
             if (mod) {
                 console.log(2);
                 moderator = this.state.users[1];
