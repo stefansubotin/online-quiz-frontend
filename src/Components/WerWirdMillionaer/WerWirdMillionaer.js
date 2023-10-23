@@ -21,7 +21,7 @@ class WerWirdMillionaer extends Component {
     getCurrentAnswers() {
         console.log(this.state);
         let dat = JSON.parse(this.state.data);
-        let disabled = dat.moderator != this.state.user && this.state.chosenAnswer != -1;
+        let disabled = dat.moderator == this.state.user || this.state.chosenAnswer != -1;
 
         let answers = [];
         for (let i = 0; i < dat.list[this.state.currentQuestion].answers.length; i++) {
@@ -52,10 +52,11 @@ class WerWirdMillionaer extends Component {
     getDisplay() {
         let dat = JSON.parse(this.state.data);
         let display = [];
+        let disabled = dat.moderator == this.state.user || this.state.chosenAnswer == -1;
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
-        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={this.state.correctAnswer == -1}>End</button>);
-        else display.push(<button onClick={(e) => this.onContinue()} disabled={this.state.correctAnswer == -1}>Next Question</button>);
+        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={disabled}>End</button>);
+        else display.push(<button onClick={(e) => this.onContinue()} disabled={disabled}>Next Question</button>);
         return display;
     }
 
@@ -99,6 +100,7 @@ class WerWirdMillionaer extends Component {
     }
 
     async onGuess(message) {
+        console.log(message);
         if (message.data.type == 1) {
             this.setState({
                 room: this.state.room,
@@ -132,6 +134,7 @@ class WerWirdMillionaer extends Component {
     }
 
     async onModerator(message) {
+        console.log(message);
         this.setState({
             room: this.state.room,
             user: this.state.user,
