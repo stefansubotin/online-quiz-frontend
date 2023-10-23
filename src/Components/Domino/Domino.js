@@ -113,7 +113,7 @@ class Domino extends Component {
     await channel.publish('updateSteine', {
       user: this.state.user,
       feld: feld1,
-      pool: poolNeu,
+      pool: pool1,
     });
     ably.close();  
   }
@@ -308,7 +308,7 @@ class Domino extends Component {
           leader: false,
           pool: this.state.pool,
           feld: feld,
-          feldState: fs,
+          feldState: 1,
       });     
     }      
     return(this.state.feld.map((f)=>(
