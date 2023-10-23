@@ -129,7 +129,7 @@ class WerWirdMillionaer extends Component {
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion,
-                correctAnswer: dat.list[this.state.currentQuestion].correct - 1,
+                correctAnswer: dat.list[this.state.currentQuestion].correct,
                 chosenAnswer: message.data.answer
             });
         }
@@ -142,7 +142,7 @@ class WerWirdMillionaer extends Component {
             user: this.state.user,
             data: this.state.data,
             currentQuestion: this.state.currentQuestion,
-            correctAnswer: message.data.correct - 1,
+            correctAnswer: message.data.correct,
             chosenAnswer: this.state.chosenAnswer
         });
     }
