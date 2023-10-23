@@ -19,7 +19,7 @@ class WerWirdMillionaer extends Component {
     }
 
     getCurrentAnswers() {
-        crossOriginIsolated.log(this.state);
+        console.log(this.state);
         let dat = JSON.parse(this.state.data);
         let disabled = dat.moderator != this.state.user && this.state.chosenAnswer != -1;
 
