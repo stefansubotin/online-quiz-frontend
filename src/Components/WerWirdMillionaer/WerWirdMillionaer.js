@@ -100,6 +100,7 @@ class WerWirdMillionaer extends Component {
     }
 
     async onGuess(message) {
+        let dat = JSON.parse(this.state.data);
         console.log(message);
         if (message.data.type == 1) {
             this.setState({
@@ -111,7 +112,6 @@ class WerWirdMillionaer extends Component {
                 chosenAnswer: -1
             });
         }
-        let dat = JSON.parse(this.state.data);
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
