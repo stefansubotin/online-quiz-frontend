@@ -44,9 +44,9 @@ class Domino extends Component {
           console.log("ist leer")
           feld1[ziel].stone.id = origin;
           //Stein finden im Pool
-          for(stein in pool1){
-            if(stein.id==origin){
-              console.log("Stein gefunden "+8-origin)
+          for(let i = 0 ; i<pool1.length;++i){
+            if(pool1[i].id==origin){
+              console.log("Stein gefunden "+origin)
             }
           }
         }

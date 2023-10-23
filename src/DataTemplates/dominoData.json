@@ -21,13 +21,9 @@
         }
 ],
 "pool":[{
-    "id":"id", 
-    "steine":[{
         "id":"id",
         "frage":"Für was steht das Akronym USB?",
-        "antwort":"universal serial bus"
-    }]
-      
+        "antwort":"universal serial bus"      
 }]
         
 }
