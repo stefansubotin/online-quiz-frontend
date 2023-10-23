@@ -95,6 +95,8 @@ class Domino extends Component {
       feld1[originParent].stone.id = "";
       feld1[originParent].stone.antwort="";
       feld1[originParent].stone.frage="";
+      //Pool soll unverändert bleiben
+      poolNeu=this.state.pool
 
 
     }
@@ -114,7 +116,7 @@ class Domino extends Component {
       feldState: this.state.feldState,
     });  
 
-    await channel.publish('update', {
+    await channel.publish('updateSteine', {
       user: this.state.user,
       feld: feld1,
     });
@@ -239,7 +241,7 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    channel.subscribe('UpdateSteine', (message)=>this.handleUpdateSteine(message))
+    channel.subscribe('updateSteine', (message)=>this.handleUpdateSteine(message))
 
 
   }
