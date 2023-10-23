@@ -47,7 +47,7 @@ class Lobby extends Component {
 
         let body = {
             type: 1,
-            room: this.state.room + '_' + this.state.game,
+            room: this.state.room,
             userCount: this.state.userCount,
             users: users,
         };
@@ -71,7 +71,7 @@ class Lobby extends Component {
         }
 
         let body = {
-            room: this.state.room + '_' + this.state.game,
+            room: this.state.room,
             userCount: this.state.userCount,
             users: users,
         };
@@ -109,7 +109,7 @@ class Lobby extends Component {
 
 
         let body = {
-            room: this.state.room + '_' + this.state.game,
+            room: this.state.room,
             userCount: this.state.userCount,
             moderator: moderator,
             player: player,
@@ -135,7 +135,7 @@ class Lobby extends Component {
         }
         let body = {
             state: -1,
-            room: this.state.room + '_' + this.state.game,
+            room: this.state.room,
             userCount: this.state.userCount,
             users: this.state.users,
         };
@@ -161,7 +161,7 @@ class Lobby extends Component {
         const c = this.state.userCount + 1;
 
         this.setState({
-            room: this.state.room + '_' + this.state.game,
+            room: this.state.room,
             user: this.state.user,
             users: newUsers,
             userCount: c,

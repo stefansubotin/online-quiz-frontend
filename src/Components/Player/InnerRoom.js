@@ -158,7 +158,7 @@ class InnerRoom extends Component {
             case "kreuzwort":
                 component = (
                     <Kreuzwort
-                        room={this.state.room}
+                        room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
                         data={this.state.data}
                     />
@@ -167,7 +167,7 @@ class InnerRoom extends Component {
             case "wwm":
                 component = (
                     <WerWirdMillionaer
-                        room={this.state.room}
+                        room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
                         data={this.state.data}
                     />
@@ -187,7 +187,7 @@ class InnerRoom extends Component {
                 component = (
                     <Taboo
                         className="game"
-                        room={this.state.room}
+                        room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
                         data={this.state.data}
                     />
