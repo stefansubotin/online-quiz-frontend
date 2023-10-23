@@ -35,14 +35,14 @@ class Domino extends Component {
     let originParent = e.dataTransfer.getData("parent")
 
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
-    console.log("Ziel ID: "+e.currentTarget.id)
-    if(originParent=="pool")
+    
+    /*if(originParent=="pool")
     {
       console.log("aus dem Pool "+ufeld[ziel].stone.id)
     if(ufeld[ziel].stone.id==""){
         console.log("ist leer")
       }
-    }
+    }*/
     
   }
 
