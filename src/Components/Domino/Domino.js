@@ -32,7 +32,7 @@ class Domino extends Component {
           console.log("stone "+id+"gefunden: "+pool1[index].id)
         }
       }
-      console.log(pool1[index])
+      console.log(JSON.stringify(pool1[index]));
       h = pool1[index].h;
       fO = pool1[index].fO
 
