@@ -23,7 +23,7 @@ class WerWirdMillionaer extends Component {
         let disabled = dat.moderator != this.state.user && this.state.chosenAnswer != -1;
 
         let answers = [];
-        for (let i = 0; i < dat.list.answers.length; i++) {
+        for (let i = 0; i < dat.list[currentQuestion].answers.length; i++) {
             let style = '';
             let letter = 'X) ';
             switch (i) {
