@@ -38,21 +38,21 @@ class Domino extends Component {
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
-        console("Von Zustand 1 nach 2")
+        console.log("Von Zustand 1 nach 2")
         h = false;
         fO =false;
         //A/F
       }else if (!h && !fO){
-        console("Von Zustand 2 nach 3")
+        console.log("Von Zustand 2 nach 3")
         h = true;
         //A|F
       }else if (h && !fO){
-        console("Von Zustand 3 nach 4")
+        console.log("Von Zustand 3 nach 4")
         h = false;
         fO = true;
         //F/A
       }else if(!h && fO){
-        console("Von Zustand 4 nach 1")
+        console.log("Von Zustand 4 nach 1")
         h = true;
       }else {
         console.log("nichts passiert ");
