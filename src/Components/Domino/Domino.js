@@ -114,12 +114,12 @@ class Domino extends Component {
           feldState: fs,
       });
       return(feld.map((f)=>(
-        <div onDrop={(e)=>handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+        <div onDrop={(e)=>this.handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
         Zelle
       </div>)));      
     }      
     return(this.state.feld.map((f)=>(
-      <div onDrop={(e)=>handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+      <div onDrop={(e)=>this.handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
       Zelle
     </div>)));  
   }
