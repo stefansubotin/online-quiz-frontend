@@ -199,6 +199,9 @@ class WerWirdMillionaer extends Component {
         await ably.connection.once('connected');
         const channelId = this.getChannelId();
         const channel = ably.channels.get(channelId);
+
+        let correct = dat.list[this.state.currentQuestion].correct;
+        console.log(correct);
         if (dat.moderator == this.state.user) {
             await channel.subscribe('player', (message) => this.onGuess(message));
             this.setState({
@@ -206,7 +209,7 @@ class WerWirdMillionaer extends Component {
                 user: this.state.user,
                 data: this.state.data,
                 currentQuestion: this.state.currentQuestion,
-                correctAnswer: dat.list[this.state.currentQuestion].correct,
+                correctAnswer: correct,
                 chosenAnswer: -1
             });
         }
