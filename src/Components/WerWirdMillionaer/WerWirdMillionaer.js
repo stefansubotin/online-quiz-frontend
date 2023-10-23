@@ -43,7 +43,7 @@ class WerWirdMillionaer extends Component {
             }
             if (i == this.state.correctAnswer) style = 'correct';
             else if (i == this.state.chosenAnswer) style = 'chosen';
-            answers.push(<button name={i} onClick={(e) => this.onAnswer(e)} disabled={disabled}>{letter + dat.list[this.state.currentQuestion].answers[i] + style}</button>);
+            answers.push(<button name={i} onClick={(e) => this.onAnswer(e)} className={style} disabled={disabled}>{letter + dat.list[this.state.currentQuestion].answers[i]}</button>);
             if (i % 2 == 1) answers.push(<br />);
         }
         return answers;
