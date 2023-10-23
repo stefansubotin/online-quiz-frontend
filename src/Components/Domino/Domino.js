@@ -17,7 +17,6 @@ class Domino extends Component {
   //https://react.dev/reference/react-dom/components/common#dragevent-handler
   //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   handleDragStart(e) {
-    console.log("test "+ this.state.feldState)
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
     console.log("DragStart: "+id+"parent: "+pid)
@@ -34,8 +33,7 @@ class Domino extends Component {
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
-    
-    console.log("test2 "+ this.state.feldState)
+
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     console.log("Ziel ID: "+e.currentTarget.id)
     if(originParent=="pool")
@@ -119,7 +117,7 @@ class Domino extends Component {
       </div>)));      
     }      
     return(this.state.feld.map((f)=>(
-      <div onDrop={(e)=>this.handleDrop(e)} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
+      <div onDrop={this.handleDrop} onDragOver={this.handleDragOver} className="zelle" id={f.id}>
       Zelle
     </div>)));  
   }
