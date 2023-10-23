@@ -14,17 +14,27 @@ class Domino extends Component {
     };
   }
   //Stein drehen
-  handleOnClick(e){
+  async handleOnClick(e){
+    // Daten aus Event
     let id = e.currentTarget.id
     let pid = e.currentTarget.parentNode.id;
+    //Zur einfacheren Handhabung
     let h;
     let fO;
     let pool1 = this.state.pool;
     let feld1 = this.state.feld;
+    //Kommunikation 
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'domino' + this.state.room;
+    const channel = ably.channels.get(channelId);
+
     console.log("Got clicked " +id +"  "+pid)
     if(pid == "pool"){
-      console.log("clicked in Pool")
-      
+
+      console.log("clicked in Pool momentan nicht möglich")
+      /*
       let index;
       for(index = 0 ; index<pool1.length;++index){
         //Finde Stein im Pool
@@ -59,7 +69,7 @@ class Domino extends Component {
       }
       pool1[index].h = h;
       pool1[index].fO= fO;
-
+*/
     }
     else {
       console.log("im feld")
@@ -100,6 +110,12 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });
+    await channel.publish('updateSteine', {
+      user: this.state.user,
+      feld: feld1,
+      pool: poolNeu,
+    });
+    ably.close();  
   }
 
   //DRAG AND DROP
@@ -156,6 +172,8 @@ class Domino extends Component {
       feld1[ziel].stone.id=stone.id;
       feld1[ziel].stone.antwort= stone.antwort;
       feld1[ziel].stone.frage= stone.frage;
+      feld1[ziel].stone.h  = stone.h;
+      feld1[ziel].stone.fO = stone.fO
       
       console.log("stein gesetzt")
       //löschen des Steins
@@ -178,7 +196,9 @@ class Domino extends Component {
       feld1[ziel].stone.id=feld1[originParent].stone.id;
       feld1[ziel].stone.antwort= feld1[originParent].stone.antwort;
       feld1[ziel].stone.frage= feld1[originParent].stone.frage;
-
+      feld1[ziel].stone.h= feld1[originParent].stone.h;
+      feld1[ziel].stone.fO= feld1[originParent].stone.fO;
+      
       //löschen des Steins aus dem vorherigen Feld
       feld1[originParent].stone.id = "";
       feld1[originParent].stone.antwort="";
@@ -312,8 +332,10 @@ class Domino extends Component {
     console.log("Got this: "+message.data.user+" "+message.data.feld);
     let dat = JSON.parse(this.state.data);
     
-
-    this.setState({
+    //nur bei den anderen rerender
+    if(message.user != this.state.user){
+      console("Set State von anderen")
+     this.setState({
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
@@ -321,8 +343,8 @@ class Domino extends Component {
       pool: message.data.pool,
       feld: message.data.feld,
       feldState: this.state.feldState,
-    });
-    console.log(this.state)
+      });
+    }
 }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
