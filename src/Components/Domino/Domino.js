@@ -20,7 +20,7 @@ class Domino extends Component {
     let h;
     let fO;
     let pool1 = this.state.pool;
-    let feld1 = this.state.pool;
+    let feld1 = this.state.feld;
     console.log("Got clicked " +id +"  "+pid)
     if(pid == "pool"){
       console.log("clicked in Pool")
@@ -32,6 +32,7 @@ class Domino extends Component {
           console.log("stone "+id+"gefunden: "+pool1[index].id)
         }
       }
+      console.log(pool1[index])
       h = pool1[index].h;
       fO = pool1[index].fO
 
@@ -62,8 +63,8 @@ class Domino extends Component {
     }
     else {
       console.log("im feld")
-      h = feld1[pid].h;
-      fO = feld1[pid].fO
+      h = feld1[pid].stone.h;
+      fO = feld1[pid].stone.fO
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
