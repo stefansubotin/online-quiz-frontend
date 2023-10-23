@@ -116,9 +116,11 @@ class Domino extends Component {
       feldState: this.state.feldState,
     });  
     //Send the Message to all user
+    //Pool wird noch mit gesendet, kommt weg sobald Steine aufgeteilt werden
     await channel.publish('updateSteine', {
       user: this.state.user,
       feld: feld1,
+      pool: poolNeu,
     });
     ably.close();  
     
@@ -151,7 +153,7 @@ class Domino extends Component {
     }
     return(this.state.pool.map((stone)=>(
       <div className="card" id={stone.id} draggable="true" onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className="list-group list-group-flush">
+        <ul className="list-group list-group-flush list-group-horizontal">
           <li className="list-group-item">{stone.frage}</li>
           <li className="list-group-item">{stone.antwort}</li>
         </ul>
@@ -227,7 +229,7 @@ class Domino extends Component {
       user: this.state.user,
       data: this.state.data,
       leader: false,
-      pool: this.state.pool,
+      pool: message.data.pool,
       feld: message.data.feld,
       feldState: this.state.feldState,
     });
