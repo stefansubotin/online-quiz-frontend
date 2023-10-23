@@ -29,14 +29,24 @@ class Domino extends Component {
     e.preventDefault();
   }
 
-  handleDrop(e) {
+  async handleDrop(e) {
+    // Daten über Stein und Parent vom Stein
     let ziel = e.currentTarget.id;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
+    // Feld und Pool kopie zur einfacheren Handhabung
     let pool1 = this.state.pool;
     let poolNeu = [];
     let feld1 = this.state.feld;
     let stone;
+    // Kommunikation für Update Feld
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'domino' + this.state.room;
+    const channel = ably.channels.get(channelId);
+
+
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
     //Stein kommt aus dem Pool
@@ -79,7 +89,7 @@ class Domino extends Component {
       //setzen des Steins
       feld1[ziel].stone.id=feld1[originParent].stone.id;
       feld1[ziel].stone.antwort= feld1[originParent].stone.antwort;
-      feld1[ziel].stone.frage= stone.frage;
+      feld1[ziel].stone.frage= feld1[originParent].stone.frage;
 
       //löschen des Steins aus dem vorherigen Feld
       feld1[originParent].stone.id = "";
@@ -102,7 +112,13 @@ class Domino extends Component {
       pool: poolNeu,
       feld: feld1,
       feldState: this.state.feldState,
-    });    
+    });  
+
+    await channel.publish('update', {
+      user: this.state.user,
+      feld: feld1,
+    });
+    ably.close();  
     
   }
 
@@ -198,11 +214,23 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
-  
-  
-  UpdateSteine(message){
-    console.log("got Message")
-  }
+
+  async handleUpdateSteine(message) {
+    console.log("Got this: "+message.data);
+    let dat = JSON.parse(this.state.data);
+    
+
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      leader: false,
+      pool: this.state.pool,
+      feld: this.state.feld,
+      feldState: this.state.feldState,
+    });
+    console.log(this.state)
+}
   async componentDidMount(){
     //Connection Ably to transfer and update Data
     const Ably = require('ably');
@@ -211,7 +239,7 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    channel.subscribe('UpdateSteine', (message)=>this.UpdateSteine(message))
+    channel.subscribe('UpdateSteine', (message)=>this.handleUpdateSteine(message))
 
 
   }
