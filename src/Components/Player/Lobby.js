@@ -152,33 +152,6 @@ class Lobby extends Component {
             .catch((error) => console.log(error));
     }
 
-    async onJoin(message) {
-        console.log(message.data);
-        if (message.data.user == this.state.user) return;
-
-        let newUsers = this.state.users;
-        newUsers = newUsers.concat([message.data.user]);
-        const c = this.state.userCount + 1;
-
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            users: newUsers,
-            userCount: c,
-            leader: this.state.leader,
-        });
-        console.log("Lobbystate: ");
-        console.log(this.state);
-    }
-
-    async componentDidMount() {
-        console.log(this.state);
-        const ably = await AblyFunctions.getAbly();
-        const channelId = "room" + this.state.room;
-        const channel = await AblyFunctions.getChannel(ably, channelId);
-        await channel.subscribe("join-lobby", (message) => this.onJoin(message));
-    }
-
     render() {
         return (
             <div name="lobby">
