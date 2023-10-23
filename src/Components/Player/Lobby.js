@@ -18,10 +18,10 @@ class Lobby extends Component {
         if (!this.state.leader) return true;
         switch (game) {
             case 'kreuzwort':
-                if (this.state.users.length > 6) return false;
+                if (this.state.users.length <= 6) return false;
                 return true;
             case 'taboo':
-                if (this.state.users.length > 10) return false;
+                if (this.state.users.length <= 10) return false;
                 return true;
             case 'domino':
                 //TODO Lena: Bedingungen für Domino implementieren
