@@ -16,12 +16,12 @@ class Domino extends Component {
   //Stein drehen
   handleOnClick(e){
     let id = e.target.id
-    let pid = e.target.parentNode.id;
+    let pid = e.currentTarget.parentNode.id;
     let stone;
     let h;
     let fO;
     let pool1 = this.state.pool;
-    console.log("Got clicked " +pid)
+    console.log("Got clicked " +id +"  "+pid)
     if(pid == "pool"){
       console.log("clicked in Pool")
       
