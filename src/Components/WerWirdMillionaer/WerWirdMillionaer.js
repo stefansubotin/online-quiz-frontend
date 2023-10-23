@@ -57,7 +57,7 @@ class WerWirdMillionaer extends Component {
         display.push(<br />);
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
-        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.onEnd()} disabled={disabled}>End</button>);
+        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.sendEnd()} disabled={disabled}>End</button>);
         else display.push(<button onClick={(e) => this.onContinue()} disabled={disabled}>Next Question</button>);
         return display;
     }
@@ -89,11 +89,12 @@ class WerWirdMillionaer extends Component {
 
     }
 
-    async onEnd() {
+    async sendEnd(){
+        let tmp = this.state.room.split('_');
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
-        const channelId = 'room' + this.state.room;
+        const channelId = 'room' + tmp[0];
         const channel = ably.channels.get(channelId);
 
         await channel.publish('end', {
