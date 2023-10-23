@@ -231,7 +231,6 @@ class WerWirdMillionaer extends Component {
         channel.unsubscribe('moderator');
         channel.unsubscribe('player');
         ably.close();
-        alert('done unmounting');
     }
 
     render() {

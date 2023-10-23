@@ -302,7 +302,6 @@ class Taboo extends Component {
         channel.unsubscribe('message');
         channel.unsubscribe('system');
         ably.close();
-        alert('done unmounting');
     }
 
     render() {
