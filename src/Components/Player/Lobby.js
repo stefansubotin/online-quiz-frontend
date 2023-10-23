@@ -14,6 +14,29 @@ class Lobby extends Component {
         };
     }
 
+    getDisabled(game) {
+        if (!this.state.leader) return false;
+        switch (game) {
+            case 'kreuzwort':
+                if (this.state.users.length > 6) return false;
+                return true;
+            case 'taboo':
+                if (this.state.users.length > 10) return false;
+                return true;
+            case 'domino':
+                //TODO Lena: Bedingungen für Domino implementieren
+                return true;
+            case 'wwm1':
+                if (this.state.users.length != 1) return false;
+                return true;
+            case 'wwm2':
+                if (this.state.users.length != 2) return false;
+                return true;
+            default:
+                return false;
+        }
+    }
+
     async onStartKreuzwort(event) {
         let users = [];
         console.log(this.state);
@@ -39,7 +62,7 @@ class Lobby extends Component {
             .catch((error) => console.log(error));
     }
 
-    async onStartWwmOrTaboo(game) {
+    async onStartTaboo() {
         let users = [];
         console.log(this.state);
         for (let i = 0; i < this.state.userCount; i++) {
@@ -52,7 +75,44 @@ class Lobby extends Component {
             users: users,
         };
 
-        let url = BackendAccess.getUrl() + game;
+        let url = BackendAccess.getUrl() + 'taboo';
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { "Content-Type": "application/json" },
+        })
+            .then((response) => response.json)
+            .then((data) => console.log(data))
+            .catch((error) => console.log(error));
+    }
+
+    async onStartWwm(mod) {
+        let users = [];
+        console.log(this.state);
+        for (let i = 0; i < this.state.userCount; i++) {
+            users.push(this.state.users[i]);
+        }
+        let moderator = "";
+        let player = this.state.user;
+        if (this.state.users > 1) {
+            if (mod) {
+                moderator = this.state.users[1];
+            }
+            else {
+                moderator = this.state.users[0];
+                player = this.state.users[1];
+            }
+        }
+
+
+        let body = {
+            room: this.state.room,
+            userCount: this.state.userCount,
+            moderator: moderator,
+            player: player
+        };
+
+        let url = BackendAccess.getUrl() + 'wwm';
         fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
@@ -118,10 +178,11 @@ class Lobby extends Component {
     render() {
         return (
             <div name="lobby">
-                <button onClick={(e) => this.onStartKreuzwort(e)} disabled={!this.state.leader}>Starte Kreuzwort</button>
-                <button onClick={(e) => this.onStartDomino(e)} disabled={!this.state.leader}>Starte Domino</button>
-                <button onClick={(e) => this.onStartWwmOrTaboo('wwm')} disabled={!this.state.leader}>Starte Wwm</button>
-                <button onClick={(e) => this.onStartWwmOrTaboo('taboo')} disabled={!this.state.leader}>Starte Taboo</button>
+                <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button>
+                <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button>
+                <button onClick={(e) => this.onStartWwmOrTaboo(false)} disabled={this.getDisabled('wwm1')}>Starte Wwm mit mir als Moderator</button>
+                <button onClick={(e) => this.onStartWwmOrTaboo(true)} disabled={this.getDisabled('wwm2')}>Starte Wwm mit anderem User als Moderator</button>
+                <button onClick={(e) => this.onStartWwmOrTaboo('taboo', 0)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
     }
