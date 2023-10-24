@@ -31,7 +31,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
 
     console.log("Got clicked " +id +"  "+pid)
-    if(pid!="pool"){
+    if(!isNaN(pid)){
       console.log("im feld")
       h = feld1[pid].stone.h;
       fO = feld1[pid].stone.fO
@@ -204,7 +204,8 @@ class Domino extends Component {
     let stones =[];
     console.log("FeldState Steine "+fs)
     
-    if(fs<1){
+    if(fs==1){
+      fs++;
       console.log("initSteine "+stones);
         stones = this.initStones();
         console.log(stones)
@@ -215,7 +216,7 @@ class Domino extends Component {
           activeUser: this.state.activeUser,
           pool: stones,
           feld: this.state.feld,
-          feldState: 1,
+          feldState: fs,
       });
     }
     return(this.state.pool.map((stone)=>this.getOneStone(stone)));
@@ -265,6 +266,7 @@ class Domino extends Component {
     console.log("FeldState Feld: "+fs)
   
     if(fs<1){
+      fs++
       feld = this.initFeld();
       console.log(feld)
       this.setState({
@@ -274,7 +276,7 @@ class Domino extends Component {
           activeUser: this.state.activeUser,
           pool: this.state.pool,
           feld: feld,
-          feldState: 1,
+          feldState: fs,
       });     
     }      
     return(this.state.feld.map((f)=>(
