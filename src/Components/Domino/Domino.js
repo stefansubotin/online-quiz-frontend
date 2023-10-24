@@ -125,7 +125,7 @@ class Domino extends Component {
     //Zellen id 
     let originParent = e.dataTransfer.getData("parent")
     let originRow = e.dataTransfer.getData("grandparent")
-    let originZelle = (originParent-(originRow*laenge));
+    let originZelle;
 
     // Feld und Pool kopie zur einfacheren Handhabung
     let pool1 = this.state.pool;
@@ -178,8 +178,8 @@ class Domino extends Component {
 
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
     else if((!isNaN(originParent))&&feld1[zielRow].zellen[zielZelle].stone.id==""){
-      let originZelle = (originParent-(originRow*laenge));
-      console.log(" origin "+origin+" originRow "+originParent+" originZelle"+originZelle)
+      originZelle = (originParent-(originRow*laenge));
+      console.log(" originCard "+origin+" originId"+originParent+" originRow "+originRow+" originZelle"+originZelle)
       //setzen des Steins
       feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].zellen[originZelle].stone.id;
       feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].zellen[originZelle].stone.antwort;
