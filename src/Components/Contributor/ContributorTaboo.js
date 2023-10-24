@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import BackendAccess from "../../Tools/BackendAccess";
 
 class ContributorTaboo extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             collection: props.collection,
@@ -12,29 +12,100 @@ class ContributorTaboo extends Component {
         }
     }
 
-    async componentDidMount(){
+    onAnswer(e) {
+        this.setState({
+            collection: this.state.collection,
+            key: this.state.key,
+            answer: e.target.value,
+            forbiddenWords: this.state.forbiddenWords
+        });
+    }
+
+    onFw(e, i){
+        let fw = this.state.forbiddenWords;
+        fw[i] = e.target.value;
+        this.setState({
+            collection: this.state.collection,
+            key: this.state.key,
+            answer: this.state.answer,
+            forbiddenWords: fw
+        });
+    }
+    
+    onSubmit(e) {
+        this.sendQuestion();
+        this.props.parentCallback({
+            content: 'end'
+        })
+    }
+
+    onCancel(e) {
+        this.props.parentCallback({
+            content: 'end'
+        })
+    }
+
+    async sendQuestion() {
+        console.log(this.state);
+        let type = 'new';
+        if (this.state.key != 'NO_KEY') type = 'change';
+
+        const response = await fetch(BackendAccess.getUrlContributor(), {
+            method: "POST",
+            body: JSON.stringify({
+                type: type,
+                collection: this.props.collection,
+                key: this.props.item,
+                body: {
+                    answer: this.state.answer,
+                    forbiddenWords: this.state.forbiddenWords
+                }
+            }),
+            headers: { "Content-Type": "application/json" },
+        });
+        const item = await response.json();
+        console.log(item);
+    }
+
+    getDisplay() {
+        let display = [];
+        display.push(
+            <div>
+                <label for='answer'>Term To Explain</label>
+                <input id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
+            </div>);
+        display.push(
+            <div>
+                <label for='fw1'>Forbidden Word 1</label>
+                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 0)} />
+            </div>);
+        display.push(
+            <div>
+                <label for='fw1'>Forbidden Word 2</label>
+                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 1)} />
+            </div>);
+        display.push(
+            <div>
+                <label for='fw1'>Forbidden Word 3</label>
+                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 2)} />
+            </div>);
+        display.push(
+            <div>
+                <label for='fw1'>Forbidden Word 4</label>
+                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 3)} />
+            </div>);
+        return display;
+    }
+
+    async componentDidMount() {
         console.log(this.props);
         if (this.props.item == "NO_KEY") {
-            let lines = [];
-            let questions = [];
-            for (let i = 0; i < 2; i++) {
-                let line = [];
-                line.push('');
-                line.push('');
-                line.push('');
-                line.push('');
-                lines.push(line);
-                questions.push('');
-            }
 
             this.setState({
                 collection: this.state.collection,
                 key: this.state.key,
-                size: 4,
-                userCount: 2,
-                msp: 1,
-                lines: lines,
-                questions: questions
+                answer: '',
+                forbiddenWords: ['', '', '', '']
             });
 
             return;
@@ -51,32 +122,27 @@ class ContributorTaboo extends Component {
             });
             const item = await response.json();
             console.log(item);
-            let lines = [];
-            let questions = []
-            for (let i = 0; i < item.props.lines.length; i++) {
-                let line = [];
-                for (let j = 0; j < item.props.size; j++) {
-                    if ((j + 1) < item.props.lines[i].start || (j + 1) > item.props.lines[i].start + item.props.lines[i].answer.length) line.push('');
-                    else line.push(item.props.lines[i].answer.charAt(j + 1 - item.props.lines[i].start));
-                }
-                lines.push(line);
-                questions.push(item.props.lines[i].question);
-            }
+
             this.setState({
                 collection: this.state.collection,
                 key: this.state.key,
-                size: item.props.size,
-                userCount: item.props.userCount,
-                msp: item.props.msp,
-                lines: lines,
-                questions: questions
+                answer: item.props.answer,
+                forbiddenWords: item.props.forbiddenWords
             });
         }
         console.log(this.state);
     }
 
     render() {
-        return <div>Placeholder</div>
+        return <div>
+            <form onSubmit={(e) => this.onSubmit(e)}>
+                <input type='submit' value='Save Question' />
+            </form>
+            <form onSubmit={(e) => this.onCancel(e)}>
+                <input type='submit' value='Cancel' />
+            </form>
+            {this.getDisplay()}
+        </div>
     }
 }
 

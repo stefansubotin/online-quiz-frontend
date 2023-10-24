@@ -136,7 +136,7 @@ class ContributorKreuzwort extends Component {
         let size = this.state.size - 1;
         let lines = this.state.lines;
         for (let i = 0; i < this.state.userCount; i++) {
-            lines[size] = '';
+            lines[i][size] = '';
         }
 
         this.setState({
@@ -221,8 +221,11 @@ class ContributorKreuzwort extends Component {
     }
 
     getLine(i) {
+        console.log(this.state);
+        console.log('i: ' + i);
         let line = [];
         for (let j = 0; j < this.state.size; j++) {
+            console.log('j: ' + j);
             let style = 'cellSmall';
             if (j == this.state.msp - 1) style = style + ' inputMsp';
             else style = style + ' inputNormal';
@@ -246,6 +249,7 @@ class ContributorKreuzwort extends Component {
         let questions = [];
         for (let i = 0; i < this.state.userCount; i++) {
             questions.push(<input type='text' value={this.state.questions[i]} onChange={(e) => this.onQuestion(e, i)} />)
+            questions.push(<br/>);
         }
         return questions;
     }
