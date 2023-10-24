@@ -101,9 +101,11 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
+    let ppid = e.currentTarget.parentNode.parentNode.id;
     console.log("DragStart: "+id+"parent: "+pid)
     e.dataTransfer.setData("id", id);
     e.dataTransfer.setData("parent", pid)
+    e.dataTransfer.setData("grandparent", ppid)
 
   }
   handleDragOver(e) {
@@ -120,7 +122,11 @@ class Domino extends Component {
     let zielZelle = (ziel-(zielRow*laenge));
 
     let origin = e.dataTransfer.getData("id")
+    //Zellen id 
     let originParent = e.dataTransfer.getData("parent")
+    let originRow = e.dataTransfer.getData("grandparent")
+    let originZelle = (originParent-(originRow*laenge));
+
     // Feld und Pool kopie zur einfacheren Handhabung
     let pool1 = this.state.pool;
     let poolNeu = [];
@@ -134,7 +140,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
 
 
-    console.log("ziel "+ziel+" origin "+origin+" parent "+originParent+" zielRow "+zielRow+" zielZelle"+zielZelle)
+    console.log("ziel "+ziel+ "zielRow "+zielRow+" zielZelle"+zielZelle)
     
     //Stein kommt aus dem Pool
     if(originParent=="pool"&&feld1[zielRow].zellen[zielZelle].stone.id==""){
@@ -171,10 +177,9 @@ class Domino extends Component {
     }
 
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
-    else if((!isNaN(originParent))&&feld1[ziel].stone.id==""){
-      let originZelle = (origin-(originParent*laenge));
-      console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
-      console.log("und ist leer")
+    else if((!isNaN(originParent))&&feld1[zielRow].zellen[zielZelle].stone.id==""){
+      let originZelle = (originParent-(originRow*laenge));
+      console.log(" origin "+origin+" originRow "+originParent+" originZelle"+originZelle)
       //setzen des Steins
       feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].zellen[originZelle].stone.id;
       feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].zellen[originZelle].stone.antwort;
