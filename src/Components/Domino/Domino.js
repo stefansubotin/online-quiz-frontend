@@ -135,8 +135,8 @@ class Domino extends Component {
     console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
     
     //Stein kommt aus dem Pool
-    if(originParent=="pool"&&feld1[ziel].stone.id==""){
-      console.log("Stein kommt aus dem Pool "+feld1[ziel].stone.id)
+    if(originParent=="pool"&&feld1[zielRow].zellen[zielZelle].stone.id==""){
+      console.log("Stein kommt aus dem Pool "+feld1[zielRow].zellen[zielZelle].stone.id)
       console.log("und ist leer")
 
       //Finde Stein im Pool
@@ -173,11 +173,11 @@ class Domino extends Component {
       console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
       console.log("und ist leer")
       //setzen des Steins
-      feld1[ziel].stone.id=feld1[originParent].stone.id;
-      feld1[ziel].stone.antwort= feld1[originParent].stone.antwort;
-      feld1[ziel].stone.frage= feld1[originParent].stone.frage;
-      feld1[ziel].stone.h= feld1[originParent].stone.h;
-      feld1[ziel].stone.fO= feld1[originParent].stone.fO;
+      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].stone.id;
+      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].stone.antwort;
+      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originParent].stone.frage;
+      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originParent].stone.h;
+      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originParent].stone.fO;
       
       //löschen des Steins aus dem vorherigen Feld
       feld1[originParent].stone.id = "";
@@ -314,7 +314,7 @@ class Domino extends Component {
 
   initFeld() {
     //DominoData.json feld
-    let feld;
+    let feld=[];
     let zellen = [];
     let z;
     let laenge = JSON.parse(this.state.data).laenge;
