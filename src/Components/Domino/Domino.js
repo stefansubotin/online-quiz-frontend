@@ -98,7 +98,7 @@ class Domino extends Component {
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
     console.log(dat)
-    let ap = dat.activeUser;
+    let ap = dat.getActivePlayer;
     return ap;
   }
 
@@ -195,9 +195,9 @@ class Domino extends Component {
       feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originRow].zellen[originZelle].stone.fO;
       
       //löschen des Steins aus dem vorherigen Feld
-      feld1[zielRow].zellen[zielZelle].stone.id= "";
-      feld1[zielRow].zellen[zielZelle].stone.antwort= "";
-      feld1[zielRow].zellen[zielZelle].stone.frage= "";
+      feld1[originRow].zellen[originZelle].stone.id= "";
+      feld1[originRow].zellen[originZelle].stone.antwort= "";
+      feld1[originRow].zellen[originZelle].stone.frage= "";
       //Pool soll unverändert bleiben
       poolNeu=this.state.pool
 
