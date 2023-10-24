@@ -46,6 +46,7 @@ class Domino extends Component {
       console.log("im feld")
       h = feld1[zellenRow].zellen[zelle].stone.h;
       fO = feld1[zellenRow].zellen[zelle].stone.fO
+      d = feld1[zellenRow].zellen[zelle].stone.d
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO && !d){
@@ -57,14 +58,12 @@ class Domino extends Component {
         console.log("Von Zustand 2 nach 3")
         fO=false
         h= false
-        d = false
-         
+        d = false 
       }else if (!h && !fO && !d){
         console.log("Von Zustand 3 nach 4")
         h = true;
         fO = false;
         d  = true
-    
       }else if(h && !fO && d){
         console.log("Von Zustand 4 nach 5")
         h = true;
@@ -74,20 +73,17 @@ class Domino extends Component {
         console.log("Von Zustand 5 nach 6")
         fO=false
         h= false
-        d  = true
-         
+        d  = true   
       }else if (!h && !fO && d){
         console.log("Von Zustand 6 nach 7")
         fO=true
         h= false
-        d = false
-         
+        d = false  
       }else if (!h && fO && !d){
         console.log("Von Zustand 7 nach 8")
         fO=true
         h= true
-        d = true
-         
+        d = true 
       }else if (h && fO && d){
         console.log("Von Zustand 8 nach 1")
         fO=true
@@ -99,6 +95,7 @@ class Domino extends Component {
       }
       feld1[zellenRow].zellen[zelle].stone.h = h;
       feld1[zellenRow].zellen[zelle].stone.fO = fO;
+      feld1[zellenRow].zellen[zelle].stone.d  = d;
       console.log("STein gedreht ")
     }
     this.setState({
@@ -230,6 +227,9 @@ class Domino extends Component {
 
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
     else if((!isNaN(originParent))&&feld1[zielRow].zellen[zielZelle].stone.id==""){
+      if(originParent<0){
+        console.log("kleiner Parent"+originParent)
+      }
       originZelle = (originParent-(originRow*laenge));
       console.log(" originCard "+origin+" originId"+originParent+" originRow "+originRow+" originZelle"+originZelle)
       //setzen des Steins
@@ -378,7 +378,7 @@ class Domino extends Component {
         <div className="row flex-wrap " id={row.id}>
           {row.zellen.map((f)=>{
             return(
-                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-1" id={f.id}>
+                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle" id={f.id}>
                   {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
                 </div> 
               
