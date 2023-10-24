@@ -24,6 +24,7 @@ class Domino extends Component {
   async handleRotateStone(e){
     // Daten aus Event
     let id = e.currentTarget.id
+    console.log("id "+ id)
     let zellenID = e.currentTarget.parentNode.id;
     let zellenRow = e.currentTarget.parentNode.parentNode.id;
     let zelle = this.getZielZelle(zellenID, zellenRow);
@@ -35,31 +36,65 @@ class Domino extends Component {
     let feld1 = this.state.feld;
 
     console.log("Got clicked")
-
+    console.log("zellenID "+zellenID+ "zellenRow "+zellenRow+" zelle"+zelle)
     if(!isNaN(zellenID)){
+      if(zellenID<0){
+        console.log("diagonales")
+        zellenID = zellenRow
+        zellenRow = e.currentTarget.parentNode.parentNode.parentNode.id
+      }
       console.log("im feld")
       h = feld1[zellenRow].zellen[zelle].stone.h;
       fO = feld1[zellenRow].zellen[zelle].stone.fO
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
-      if(h && fO){
+      if(h && fO && !d){
         console.log("Von Zustand 1 nach 2")
         h = false;
-        fO =false;
-        //A/F
-      }else if (!h && !fO){
+        fO =true;
+        d = true;
+      }else if (!h && fO && d){
         console.log("Von Zustand 2 nach 3")
-        h = true;
-        //A|F
-      }else if (h && !fO){
+        fO=false
+        h= false
+        d = false
+         
+      }else if (!h && !fO && !d){
         console.log("Von Zustand 3 nach 4")
-        h = false;
-        fO = true;
-        //F/A
-      }else if(!h && fO){
-        console.log("Von Zustand 4 nach 1")
         h = true;
-      }else {
+        fO = false;
+        d  = true
+    
+      }else if(h && !fO && d){
+        console.log("Von Zustand 4 nach 5")
+        h = true;
+        fO = false;
+        d = false
+      }else if (h && !fO && !d){
+        console.log("Von Zustand 5 nach 6")
+        fO=false
+        h= false
+        d  = true
+         
+      }else if (!h && !fO && d){
+        console.log("Von Zustand 6 nach 7")
+        fO=true
+        h= false
+        d = false
+         
+      }else if (!h && fO && !d){
+        console.log("Von Zustand 7 nach 8")
+        fO=true
+        h= true
+        d = true
+         
+      }else if (h && fO && d){
+        console.log("Von Zustand 8 nach 1")
+        fO=true
+        h= true
+        d = false
+      }
+      else {
         console.log("nichts passiert ");
       }
       feld1[zellenRow].zellen[zelle].stone.h = h;
@@ -203,6 +238,7 @@ class Domino extends Component {
       feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originRow].zellen[originZelle].stone.frage;
       feld1[zielRow].zellen[zielZelle].stone.h= feld1[originRow].zellen[originZelle].stone.h;
       feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originRow].zellen[originZelle].stone.fO;
+      feld1[zielRow].zellen[zielZelle].stone.d= feld1[originRow].zellen[originZelle].stone.d;
       
       //löschen des Steins aus dem vorherigen Feld
       feld1[originRow].zellen[originZelle].stone.id= "";
@@ -271,7 +307,8 @@ class Domino extends Component {
         frage:dat.fragen[i].props.frage , 
         antwort: dat.fragen[i].props.antwort,
         h:false,
-        fO:true
+        fO:true,
+        d: false
       })
     }
     return stones;
@@ -282,19 +319,37 @@ class Domino extends Component {
     let id = stone.id
     let frage = stone.frage
     let antwort = stone.antwort
-    let horizontal = stone.h
+    let h = stone.h
     let fOben = stone.fO
+    let d = stone.d
     return (
-        <ul 
-          className={horizontal ? "lh-1 fs-6 list-group list-group-horizontal" : "lh-1 fs-6 list-group list-group-flush"} 
+        <ul
+          className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"} 
           id={id} 
           draggable onClick={(e)=>this.handleRotateStone(e)} 
           onDragStart={(e)=>this.handleDragStart(e)} 
           disabled={(this.state.user!=this.state.activePlayer)}>
-            <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
-            <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+          {d?
+            <>
+              <ul id="-1"className="list-group list-group-horizontal">
+                {h?<li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller}
+                {h?this.getDiagonalStoneFiller:<li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
+              </ul>
+              <ul id="-2" className="list-group list-group-horizontal">
+                {h?this.getDiagonalStoneFiller:<li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
+                {h?<li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller}
+              </ul>
+            </>
+            :<>
+              <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+              <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+            </>
+          }
         </ul>
     )
+  }
+  getDiagonalStoneFiller(){
+    return <li className="list-group-item bg-secondary-subtle">::</li>
   }
 
   //GENERIERE FELD
