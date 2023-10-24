@@ -314,15 +314,16 @@ class Domino extends Component {
     }      
     return (this.state.feld.map((row)=>{
       return (
-        <div className="row" id={row.id}>
-          {row.zellen.map((f)=>{
+        row.zellen.map((f)=>{
             return(
-            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="container zelle col-4" id={f.id}>
-              {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
-            </div>
+              <div className="row flex-wrap " id={row.id}>
+                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
+                  {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
+                </div> 
+              </div>
             );
-          })}
-        </div>
+          })
+       
       );
     }));
   }
@@ -421,7 +422,7 @@ class Domino extends Component {
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
         <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
+          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container flex-wrap">
               {this.getFeld()}
           </div>
         </div>
