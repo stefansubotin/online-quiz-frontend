@@ -317,7 +317,7 @@ class Domino extends Component {
         <div className="row" id={row.id}>
           {row.zellen.map((f)=>{
             return(
-            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle col-4" id={f.id}>
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="container zelle col-4" id={f.id}>
               {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
             </div>
             );
