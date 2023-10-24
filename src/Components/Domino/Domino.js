@@ -68,7 +68,7 @@ class Domino extends Component {
       }
       feld1[zellenRow].zellen[zelle].stone.h = h;
       feld1[zellenRow].zellen[zelle].stone.fO = fO;
-    
+      console.log("STein gedreht ")
     }
     this.setState({
       room: this.state.room,
@@ -79,7 +79,7 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld1,
       pool: pool1,
@@ -98,7 +98,7 @@ class Domino extends Component {
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
     console.log(dat)
-    let ap = dat.getActivePlayer;
+    let ap = dat.activeUser;
     return ap;
   }
 
