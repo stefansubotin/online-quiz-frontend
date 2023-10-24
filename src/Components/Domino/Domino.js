@@ -370,8 +370,9 @@ class Domino extends Component {
       activePlayer: activePlayer,
       pool: pool,
       feld: feld,
-      feldState: 2,
+      feldState: this.state.feldState,
     });   
+    console.log("SEND: "+ feld+ pool+activePlayer)
 
     await channel.publish('updateFeld', {
       user: this.state.user,
@@ -387,7 +388,7 @@ class Domino extends Component {
 
   async handleUpdateFeld(message) {
     console.log("Got this from: "+message.data.user);
-    let dat = JSON.parse(this.state.data);
+    console.log("NextPlayer: "+ message.data.activePlayer)
     
     //nur bei den anderen rerender
     if(message.user != this.state.user){
