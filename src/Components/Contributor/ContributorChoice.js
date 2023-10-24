@@ -1,54 +1,69 @@
 import React, { Component } from "react";
 
 class ContributorChoice extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             component: 'choice'
         }
     }
 
-    onNew(event){
+    onNew(event) {
         this.setState({
-            component: 'new'
+            component: event
         })
     }
 
-    onList(event){
+    onList(event) {
         this.setState({
             component: 'list'
         })
     }
 
-    onKey(event){
+    onKey(event) {
         this.setState({
             component: 'key'
         })
     }
 
-    handleCallback
+    handleCallback = (childData) => {
+        this.setState({ 
+            room: childData.room,
+            user: childData.user,
+            leader: childData.leader,
+            currentComponent: 'lobby'
+        });
+    }
 
-    getComponent(){
-        switch (this.state.component){
+    getComponent() {
+        switch (this.state.component) {
             case 'choice':
-                return <div>
-                    <button onClick={e => this.onPlayer(e)}>New Question</button><br/>
-                    <button onClick={e => this.onContributor(e)}>List of Questions</button>
-                </div>
-            case 'new':
+                return this.getBase()
+            case 'kreuzwort':
                 return <></>
-            case 'list':
+            case 'taboo':
+                return <></>
+            case 'simple':
                 return <></>
             default:
                 return <div>Error Homepage</div>
         }
     }
 
+    getBase() {
+        <div>
+            <button onClick={e => this.onNew('kreuzwort')}>New Kreuzwort Question</button><br />
+            <button onClick={e => this.onNew('taboo')}>New Taboo Question</button><br />
+            <button onClick={e => this.onNew('simple')}>New Simple Question</button><br />
+            <button onClick={e => this.onList(e)}>List of Questions</button>
+        </div>
+    }
+
     render() {
         return (
             <div name='contrHomepage'>
                 {this.getComponent()}
-            </div> 
+            </div>
         )
     }
 }

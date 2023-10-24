@@ -14,12 +14,12 @@ class ContributorList extends Component {
 
     getListToDisplay(){
         let dat = JSON.parse(this.state.fullList);
-        if (!this.state.filterKreuzwort && !this.state.filterSimpleQuestion && !this.state.filterTaboo) return dat.list;
+        if (!this.state.filterKreuzwort && !this.state.filterSimpleQuestion && !this.state.filterTaboo) return dat.results;
         let lst = [];
-        for (let i = 0; i < dat.list.length; i++){
-            if (this.state.filterKreuzwort && dat.list[i].collection == 'kreuzwort') lst.push(dat.list[i]);
-            if (this.state.filterTaboo && dat.list[i].collection == 'taboo') lst.push(dat.list[i]);
-            if (this.state.filterSimpleQuestion && dat.list[i].collection == 'simpleQuestion') lst.push(dat.list[i]);
+        for (let i = 0; i < dat.results.length; i++){
+            if (this.state.filterKreuzwort && dat.results[i].collection == 'kreuzwort') lst.push(dat.results[i]);
+            if (this.state.filterTaboo && dat.results[i].collection == 'taboo') lst.push(dat.results[i]);
+            if (this.state.filterSimpleQuestion && dat.results[i].collection == 'simpleQuestion') lst.push(dat.results[i]);
         }
         return lst;
     }
@@ -38,7 +38,7 @@ class ContributorList extends Component {
         const items = await response.json();
 
         this.setState({
-            fillList: JSON.stringify(items),
+            fullList: JSON.stringify(items),
             filterKreuzwort: this.state.filterKreuzwort,
             filterSimpleQuestion: this.state.filterSimpleQuestion,
             filterTaboo: this.state.filterTaboo,
