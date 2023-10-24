@@ -138,28 +138,28 @@ class ContributorSimpleQuestion extends Component {
         let display = [];
         display.push(
             <div>
-                <label for='question'>Question</label>
+                <label for='question'>Question&nbsp;</label>
                 <input id='question' type='text' value={this.state.question} onChange={(e) => this.onQuestion(e)} />
             </div>);
         display.push(
             <div>
-                <label for='answer'>Correct Answer</label>
+                <label for='answer'>Correct Answer&nbsp;</label>
                 <input id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
             </div>);
         if (this.state.answerCount == 4) {
             display.push(
                 <div>
-                    <label for='answer'>False Answer 1</label>
+                    <label for='answer'>False Answer 1&nbsp;</label>
                     <input id='answer' type='text' value={this.state.falseAnswer1} onChange={(e) => this.onFalseAnswer1(e)} />
                 </div>);
             display.push(
                 <div>
-                    <label for='answer'>False Answer 2</label>
+                    <label for='answer'>False Answer 2&nbsp;</label>
                     <input id='answer' type='text' value={this.state.falseAnswer2} onChange={(e) => this.onFalseAnswer2(e)} />
                 </div>);
             display.push(
                 <div>
-                    <label for='answer'>False Answer 3</label>
+                    <label for='answer'>False Answer 3&nbsp;</label>
                     <input id='answer' type='text' value={this.state.falseAnswer3} onChange={(e) => this.onFalseAnswer3(e)} />
                 </div>);
         }
@@ -172,7 +172,7 @@ class ContributorSimpleQuestion extends Component {
 
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: 'NO_KEY',
                 question: '',
                 answer: '',
                 falseAnswer1: '',
@@ -198,7 +198,7 @@ class ContributorSimpleQuestion extends Component {
 
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: item.props.key,
                 question: item.props.question,
                 answer: item.props.answer,
                 falseAnswer1: item.props.falseAnswer1,

@@ -53,7 +53,7 @@ class ContributorList extends Component {
                         <div>
                             <span>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</span>
                             <span>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Word&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</span>
+                            <span>Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</span>
                         </div>
                     );
                     break;
