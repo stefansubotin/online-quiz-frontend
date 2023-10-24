@@ -72,7 +72,7 @@ class ContributorKreuzwort extends Component {
     async sendQuestion() {
         console.log(this.state);
         let type = 'new';
-        if (this.state.key != '') type = 'change';
+        if (this.state.key != 'NO_KEY') type = 'change';
 
         let lines = [];
         for (let i = 0; i < this.state.userCount; i++) {
@@ -193,17 +193,28 @@ class ContributorKreuzwort extends Component {
         });
     }
 
-    getLines() {
-        let lines = [];
+    getMsp(){
         let mspLine = [];
         for (let k = 0; k < this.state.size; k++) {
             let checked = k + 1 == this.state.msp;
             mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
+        return mspLine;
+    }
+
+    getLines() {
+        console.log(1);
+        console.log(lines);
+        let lines = [];
         lines.push(mspLine);
+        console.log(2);
+        console.log(lines);
         for (let i = 0; i < this.state.userCount; i++) {
             lines.push(this.getLine(i));
+            console.log(3 + i);
+            console.log(lines);
         }
+
         return lines;
     }
 
