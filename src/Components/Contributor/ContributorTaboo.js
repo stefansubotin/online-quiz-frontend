@@ -107,7 +107,8 @@ class ContributorTaboo extends Component {
                 answer: '',
                 forbiddenWords: ['', '', '', '']
             });
-
+            console.log(1);
+            console.log(this.state);
             return;
         }
         else {
