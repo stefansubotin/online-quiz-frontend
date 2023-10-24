@@ -71,27 +71,27 @@ class ContributorTaboo extends Component {
         let display = [];
         display.push(
             <div>
-                <label for='answer'>Term To Explain</label>
+                <label for='answer'>Term To Explain&nbsp;</label>
                 <input id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
             </div>);
         display.push(
             <div>
-                <label for='fw1'>Forbidden Word 1</label>
+                <label for='fw1'>Forbidden Word 1&nbsp;</label>
                 <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 0)} />
             </div>);
         display.push(
             <div>
-                <label for='fw1'>Forbidden Word 2</label>
+                <label for='fw1'>Forbidden Word 2&nbsp;</label>
                 <input id='fw1' type='text' value={this.state.forbiddenWords[1]} onChange={(e) => this.onFw(e, 1)} />
             </div>);
         display.push(
             <div>
-                <label for='fw1'>Forbidden Word 3</label>
+                <label for='fw1'>Forbidden Word 3&nbsp;</label>
                 <input id='fw1' type='text' value={this.state.forbiddenWords[2]} onChange={(e) => this.onFw(e, 2)} />
             </div>);
         display.push(
             <div>
-                <label for='fw1'>Forbidden Word 4</label>
+                <label for='fw1'>Forbidden Word 4&nbsp;</label>
                 <input id='fw1' type='text' value={this.state.forbiddenWords[3]} onChange={(e) => this.onFw(e, 3)} />
             </div>);
         return display;
@@ -103,11 +103,12 @@ class ContributorTaboo extends Component {
             console.log('new');
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: 'NO_KEY',
                 answer: '',
                 forbiddenWords: ['', '', '', '']
             });
-
+            console.log(1);
+            console.log(this.state);
             return;
         }
         else {
@@ -126,7 +127,7 @@ class ContributorTaboo extends Component {
 
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: item.key,
                 answer: item.props.answer,
                 forbiddenWords: item.props.forbiddenWords
             });
