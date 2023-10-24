@@ -8,7 +8,7 @@ class Domino extends Component {
       users: props.users,
       user: props.user,
       data: props.data,
-      activeUser:"",
+      activePlayer:"",
       pool: [],
       feld:[],
       feldState: 0,
@@ -70,18 +70,18 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      activeUser: this.state.activeUser,
+      activePlayer: this.state.activePlayer,
       pool: pool1,
       feld: feld1,
       feldState: this.state.feldState,
     });
-    this.updateFeld(this.state.activeUser,feld1,pool1);
+    this.updateFeld(this.state.activePlayer,feld1,pool1);
   }
 
   //Spieler wechsel
   handleSwitchPlayer(){
     let users = this.state.users
-    let ap = this.state.activeUser;
+    let ap = this.state.activePlayer;
     let next;
     for(let i = 0; i<users.length;i++){
       if(users[i] == ap && i+1<users.length){
@@ -100,12 +100,13 @@ class Domino extends Component {
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
     let ap = dat.activePlayer;
-    if(this.state.activeUser==""){
+    if(this.state.activePlayer==""){
+      console.log("Aktive Spieler initiiert")
       this.setState({
         room: this.state.room,
         user: this.state.user,
         data: this.state.data,
-        activeUser: ap,
+        activePlayer: ap,
         pool: this.state.pool,
         feld: this.state.feld,
         feldState: this.state.feldState,
@@ -113,7 +114,7 @@ class Domino extends Component {
 
 
     }
-    return ap
+    return this.state.activePlayer
 
 
   }
@@ -224,13 +225,13 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      activeUser: this.state.activeUser,
+      activePlayer: this.state.activePlayer,
       pool: poolNeu,
       feld: feld1,
       feldState: this.state.feldState,
     });  
 
-    this.updateFeld(this.state.activeUser, feld1, poolNeu); 
+    this.updateFeld(this.state.activePlayer, feld1, poolNeu); 
     
   }
 
@@ -249,7 +250,7 @@ class Domino extends Component {
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          activeUser: this.state.activeUser,
+          activePlayer: this.state.activePlayer,
           pool: stones,
           feld: this.state.feld,
           feldState: fs,
@@ -284,7 +285,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card lh-1 fs-6" id={id} draggable={(this.state.user!=this.state.activeUser)} disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card lh-1 fs-6" id={id} draggable={(this.state.user!=this.state.activePlayer)} disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
@@ -307,7 +308,7 @@ class Domino extends Component {
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          activeUser: this.state.activeUser,
+          activePlayer: this.state.activePlayer,
           pool: this.state.pool,
           feld: feld,
           feldState: fs,
@@ -354,7 +355,7 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
-  async updateFeld(activeUser, feld, pool ){
+  async updateFeld(activePlayer, feld, pool ){
     // Kommunikation für Update Feld
     const Ably = require('ably');
     const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -366,7 +367,7 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      activeUser: activeUser,
+      activePlayer: activePlayer,
       pool: pool,
       feld: feld,
       feldState: 2,
@@ -376,7 +377,7 @@ class Domino extends Component {
       user: this.state.user,
       feld: feld,
       pool: pool,
-      activeUser: activeUser,
+      activePlayer: activePlayer,
       
     });
     ably.close();  
@@ -385,7 +386,7 @@ class Domino extends Component {
   
 
   async handleUpdateFeld(message) {
-    console.log("Got this: "+message.data.user+" "+message.data.feld);
+    console.log("Got this from: "+message.data.user);
     let dat = JSON.parse(this.state.data);
     
     //nur bei den anderen rerender
@@ -395,7 +396,7 @@ class Domino extends Component {
         room: this.state.room,
         user: this.state.user,
         data: this.state.data,
-        activeUser: message.data.activePlayer,
+        activePlayer: message.data.activePlayer,
         pool: message.data.pool,
         feld: message.data.feld,
         feldState: this.state.feldState,
@@ -435,7 +436,7 @@ class Domino extends Component {
               {this.getStones()}
             </div>
             <div className="col-4">
-              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
 
         </div>  
