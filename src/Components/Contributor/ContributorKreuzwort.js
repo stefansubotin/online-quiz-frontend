@@ -69,7 +69,7 @@ class ContributorKreuzwort extends Component {
         })
     }
 
-    async sendQuestion(){
+    async sendQuestion() {
         let type = 'new';
         if (this.state.key != '') type = 'change';
 
@@ -77,14 +77,14 @@ class ContributorKreuzwort extends Component {
         for (let i = 0; i < this.state.userCount; i++) {
             let answer = '';
             let start = -1;
-            for (let j = 0; this.state.size; i++){
-                if (this.state.lines[i][j] != ''){
+            for (let j = 0; this.state.size; i++) {
+                if (this.state.lines[i][j] != '') {
                     answer = answer + this.state.lines[i][j];
-                    if (start < 0) start = j+1;
-                } 
+                    if (start < 0) start = j + 1;
+                }
             }
             lines.push({
-                id: i+1,
+                id: i + 1,
                 start: start,
                 question: this.state.questions[i],
                 answer: answer
@@ -254,7 +254,7 @@ class ContributorKreuzwort extends Component {
 
     async componentDidMount() {
         console.log(this.props);
-        if (this.props.key == "") {
+        if (this.props.key == "NO_KEY") {
             let lines = [];
             let questions = [];
             for (let i = 0; i < 2; i++) {
@@ -279,39 +279,39 @@ class ContributorKreuzwort extends Component {
 
             return;
         }
-
-        const response = await fetch(BackendAccess.getUrlContributor(), {
-            method: "POST",
-            body: JSON.stringify({
-                type: 'get',
-                collection: this.props.collection,
-                key: this.props.key
-            }),
-            headers: { "Content-Type": "application/json" },
-        });
-        const item = await response.json();
-        console.log(item);
-        let lines = [];
-        let questions = []
-        for (let i = 0; i < item.props.lines.length; i++) {
-            let line = [];
-            for (let j = 0; j < item.props.size; j++) {
-                if ((j + 1) < item.props.lines[i].start || (j + 1) > item.props.lines[i].start + item.props.lines[i].answer.length) line.push('');
-                else line.push(item.props.lines[i].answer.charAt(j + 1 - item.props.lines[i].start));
+        else {
+            const response = await fetch(BackendAccess.getUrlContributor(), {
+                method: "POST",
+                body: JSON.stringify({
+                    type: 'get',
+                    collection: this.props.collection,
+                    key: this.props.key
+                }),
+                headers: { "Content-Type": "application/json" },
+            });
+            const item = await response.json();
+            console.log(item);
+            let lines = [];
+            let questions = []
+            for (let i = 0; i < item.props.lines.length; i++) {
+                let line = [];
+                for (let j = 0; j < item.props.size; j++) {
+                    if ((j + 1) < item.props.lines[i].start || (j + 1) > item.props.lines[i].start + item.props.lines[i].answer.length) line.push('');
+                    else line.push(item.props.lines[i].answer.charAt(j + 1 - item.props.lines[i].start));
+                }
+                lines.push(line);
+                questions.push(item.props.lines[i].question);
             }
-            lines.push(line);
-            questions.push(item.props.lines[i].question);
+            this.setState({
+                collection: this.state.collection,
+                key: this.state.key,
+                size: item.props.size,
+                userCount: item.props.userCount,
+                msp: item.props.msp,
+                lines: lines,
+                questions: questions
+            });
         }
-        this.setState({
-            collection: this.state.collection,
-            key: this.state.key,
-            size: item.props.size,
-            userCount: item.props.userCount,
-            msp: item.props.msp,
-            lines: lines,
-            questions: questions
-        });
-
         console.log(this.state);
     }
 
@@ -323,8 +323,8 @@ class ContributorKreuzwort extends Component {
             <form onSubmit={(e) => this.onCancel(e)}>
                 <input type='submit' value='Cancel' />
             </form>
-            {this.getControls()}<br/>
-            {this.getTable()}<br/>
+            {this.getControls()}<br />
+            {this.getTable()}<br />
             {this.getQuestions()}
         </div>
     }
