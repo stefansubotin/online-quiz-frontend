@@ -112,7 +112,7 @@ class Domino extends Component {
       });
     }
     return ap
-    
+
 
   }
 
@@ -433,7 +433,7 @@ class Domino extends Component {
               {this.getStones()}
             </div>
             <div className="col-4">
-              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.getActivePlayer())} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
 
         </div>  
