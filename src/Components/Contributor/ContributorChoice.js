@@ -59,13 +59,9 @@ class ContributorChoice extends Component {
             case 'choice':
                 return this.getBase()
             case 'new':
-                display.push(this.getBase());
-                display.push(<br/>)
                 display.push(this.getSingleQuestion(this.state.collection, ''));
                 return display;
             case 'edit':
-                display.push(this.getBase());
-                display.push(<br/>)
                 display.push(this.getSingleQuestion(this.state.collection, this.state.key));
                 return display;
             default:

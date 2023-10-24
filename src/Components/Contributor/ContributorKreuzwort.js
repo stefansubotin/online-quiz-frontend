@@ -253,6 +253,7 @@ class ContributorKreuzwort extends Component {
     }
 
     async componentDidMount() {
+        console.log(this.props);
         if (this.props.key == "") {
             let lines = [];
             let questions = [];
