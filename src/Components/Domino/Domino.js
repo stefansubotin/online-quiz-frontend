@@ -14,12 +14,19 @@ class Domino extends Component {
       feldState: 0,
     };
   }
-  
+  getZielZelle(id, row){
+    let laenge = JSON.parse(this.state.data).laenge;
+    let zelle = (id-(row*laenge));
+    return zelle;
+  }
   //Stein drehen
   async handleRotateStone(e){
     // Daten aus Event
     let id = e.currentTarget.id
-    let pid = e.currentTarget.parentNode.id;
+    let zellenID = e.currentTarget.parentNode.id;
+    let zellenRow = e.currentTarget.parentNode.parentNode.id;
+    let zelle = this.getZielZelle(zellenID, zellenRow);
+
     //Zur einfacheren Handhabung
     let h;
     let fO;
@@ -32,11 +39,11 @@ class Domino extends Component {
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
 
-    console.log("Got clicked " +id +"  "+pid)
-    if(!isNaN(pid)){
+    console.log("Got clicked")
+    if(!isNaN(zellenID)){
       console.log("im feld")
-      h = feld1[pid].stone.h;
-      fO = feld1[pid].stone.fO
+      h = feld1[zellenRow].zellen[zelle].stone.h;
+      fO = feld1[zellenRow].zellen[zelle].stone.fO
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
@@ -59,9 +66,9 @@ class Domino extends Component {
       }else {
         console.log("nichts passiert ");
       }
-      feld1[pid].stone.h = h;
-      feld1[pid].stone.fO= fO;
-    
+      feld1[zellenRow].zellen[zelle].stone.h = h;
+      feld1[zellenRow].zellen[zelle].stone.fO = fO;
+      console.log("STein gedreht ")
     }
     this.setState({
       room: this.state.room,
@@ -72,7 +79,7 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld1,
       pool: pool1,
@@ -181,16 +188,16 @@ class Domino extends Component {
       originZelle = (originParent-(originRow*laenge));
       console.log(" originCard "+origin+" originId"+originParent+" originRow "+originRow+" originZelle"+originZelle)
       //setzen des Steins
-      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].zellen[originZelle].stone.id;
-      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].zellen[originZelle].stone.antwort;
-      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originParent].zellen[originZelle].stone.frage;
-      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originParent].zellen[originZelle].stone.h;
-      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originParent].zellen[originZelle].stone.fO;
+      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originRow].zellen[originZelle].stone.id;
+      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originRow].zellen[originZelle].stone.antwort;
+      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originRow].zellen[originZelle].stone.frage;
+      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originRow].zellen[originZelle].stone.h;
+      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originRow].zellen[originZelle].stone.fO;
       
       //löschen des Steins aus dem vorherigen Feld
-      feld1[zielRow].zellen[zielZelle].stone.id= "";
-      feld1[zielRow].zellen[zielZelle].stone.antwort= "";
-      feld1[zielRow].zellen[zielZelle].stone.frage= "";
+      feld1[originRow].zellen[originZelle].stone.id= "";
+      feld1[originRow].zellen[originZelle].stone.antwort= "";
+      feld1[originRow].zellen[originZelle].stone.frage= "";
       //Pool soll unverändert bleiben
       poolNeu=this.state.pool
 
@@ -213,7 +220,7 @@ class Domino extends Component {
     });  
     //Send the Message to all user
     //Pool wird noch mit gesendet, kommt weg sobald Steine aufgeteilt werden
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld1,
       pool: poolNeu,
@@ -363,7 +370,7 @@ class Domino extends Component {
       feldState: 2,
     });   
 
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld,
       pool: pool,
