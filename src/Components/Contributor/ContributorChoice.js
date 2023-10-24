@@ -70,6 +70,7 @@ class ContributorChoice extends Component {
     }
 
     getSingleQuestion(collection, key) {
+        console.log(collection + ', ' + key);
         switch (collection) {
             case 'kreuzwort':
                 return <ContributorKreuzwort collection={collection} key={key} parentCallback={this.handleCallback}/>
