@@ -69,7 +69,7 @@ class Kreuzwort extends Component {
                 line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
                 question.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
             }
-            
+
             line.push(<br />);
             question.push(<br />);
 
@@ -237,8 +237,8 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort' style={{ display: 'flex' }}>
-                <span name='quizTable'>{this.getQuiz()}</span><br /><br />
-                <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
+                <div name='quizTable'>{this.getQuiz()}</div><br /><br />
+                <div><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></div>
             </div>
         )
     }
