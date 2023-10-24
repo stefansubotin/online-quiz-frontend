@@ -22,10 +22,8 @@ class Kreuzwort extends Component {
     getQuiz() {
         let data = JSON.parse(this.state.data);
         let quiz = [];
-        let questions = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
-            let question = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
             line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
@@ -234,7 +232,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
-                <span name='quizTable'>{this.getQuiz()}</span><br/><br/>
+                <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
                 <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
         )
