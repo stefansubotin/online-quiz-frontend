@@ -13,6 +13,14 @@ class ContributorChoice extends Component {
         }
     }
 
+    handleCallback = (childData) => {
+        this.setState({
+            component: 'choice',
+            collection: this.state.collection,
+            key: this.state.key
+        })
+    }
+
     onCollectionChanged(event) {
         this.setState({
             component: this.state.component,
@@ -60,11 +68,11 @@ class ContributorChoice extends Component {
     getSingleQuestion(collection, key) {
         switch (collection) {
             case 'kreuzwort':
-                return <ContributorKreuzwort collection={collection} key={key} />
+                return <ContributorKreuzwort collection={collection} key={key} parentCallback={this.handleCallback}/>
             case 'taboo':
-                return <ContributorTaboo collection={collection} key={key} />
+                return <ContributorTaboo collection={collection} key={key} parentCallback={this.handleCallback}/>
             case 'simpleQuestion':
-                return <ContributorSimpleQuestion collection={collection} key={key} />
+                return <ContributorSimpleQuestion collection={collection} key={key} parentCallback={this.handleCallback}/>
             default:
                 return <div>Error</div>
         }
