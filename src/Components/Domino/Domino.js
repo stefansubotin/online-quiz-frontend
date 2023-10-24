@@ -316,8 +316,10 @@ class Domino extends Component {
         let id = i*laenge+j;
         zelle = {id: id , stone:{id: "",frage: "frage", antwort: "   "}}
         row.push(zelle);
+        console.log(row);
       }
       feld.push(row);
+      row=[];
     }
     console.log(feld)
     return feld
