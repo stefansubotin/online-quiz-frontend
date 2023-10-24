@@ -243,7 +243,7 @@ class InnerRoom extends Component {
 
     render() {
         return (
-            <div className="col-sm-8">
+            <div className="col-8">
                 <div name="innerRoom" className="row">
                     <div className="col-3">{this.getUserList()}</div>
                     <br />

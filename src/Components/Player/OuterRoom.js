@@ -22,7 +22,7 @@ class OuterRoom extends Component {
           leader={this.state.leader}
         />
         <div className="col-1"></div>
-        <Chat className="col-3"room={this.state.room} type="lobby" user={this.state.user} />
+        <Chat room={this.state.room} type="lobby" user={this.state.user} />
       </div>
     );
   }
