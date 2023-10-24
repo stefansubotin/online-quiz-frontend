@@ -29,6 +29,14 @@ class ContributorChoice extends Component {
         })
     }
 
+    onKeyChanged(event) {
+        this.setState({
+            component: this.state.component,
+            collection: this.state.collection,
+            key: event.target.value
+        })
+    }
+
     onNew(event) {
         this.setState({
             component: 'new',
