@@ -113,6 +113,7 @@ class Domino extends Component {
   async handleDrop(e) {
     // Daten über Stein und Parent vom Stein
     let ziel = e.currentTarget.id;
+    let zielRow = e.currentTarget.parentNode;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     // Feld und Pool kopie zur einfacheren Handhabung
@@ -294,9 +295,9 @@ class Domino extends Component {
     }      
     return (this.state.feld.map((row)=>{
       return (
-        <div className="row">
+        <div className="row" id={row.id}>
           {row.map((f)=>(
-            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle col" id={f.id}>
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
               {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
             </div>
           ))}
@@ -318,7 +319,8 @@ class Domino extends Component {
         row.push(zelle);
         console.log(row);
       }
-      feld.push(row);
+
+      feld.push({id: i, row: row});
       row=[];
     }
     console.log(feld)
