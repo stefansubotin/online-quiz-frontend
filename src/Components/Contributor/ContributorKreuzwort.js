@@ -129,7 +129,7 @@ class ContributorKreuzwort extends Component {
             lines: lines,
             questions: this.state.questions
         });
-        console.log(state);
+        console.log(this.state);
     }
 
     decreaseSize(e) {
