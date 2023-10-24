@@ -49,7 +49,7 @@ class ContributorTaboo extends Component {
         console.log(this.state);
         let type = 'new';
         if (this.state.key != 'NO_KEY') type = 'change';
-
+        console.log(type);
         const response = await fetch(BackendAccess.getUrlContributor(), {
             method: "POST",
             body: JSON.stringify({
