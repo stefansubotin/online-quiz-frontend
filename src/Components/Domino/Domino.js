@@ -114,7 +114,7 @@ class Domino extends Component {
   async handleDrop(e) {
     // Daten über Stein und Parent vom Stein
     let ziel = e.currentTarget.id;
-    let zielRow = e.currentTarget.parentNode;
+    let zielRow = e.currentTarget.parentNode.id;
     let laenge = JSON.parse(this.state.data).laenge;
     let zielZelle = (ziel-(zielRow*laenge));
     let origin = e.dataTransfer.getData("id")
