@@ -256,6 +256,10 @@ class Domino extends Component {
           feldState: fs,
       });
     }
+    if(pool.length==0){
+      return <Button disabled={this.state.user!=this.state.users[0]}>beenden</Button>
+    }
+
     return(this.state.pool.map((stone)=>this.getOneStone(stone)));
   }
 
@@ -285,10 +289,10 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card lh-1 fs-6" id={id} draggable={(this.state.user!=this.state.activePlayer)} disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
-          <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
-          <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+      <div className="card w-20" id={id} draggable onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul className={horizontal ? "lh-1 fs-6 list-group list-group-horizontal" : "lh-1 fs-6 list-group list-group-flush"}>
+          <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+          <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </ul>
       </div>);
   }
@@ -426,14 +430,14 @@ class Domino extends Component {
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
         <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container flex-wrap">
+          <div name="dominoFeld" id="dominoFeld" disabled={(this.state.user!=this.state.activePlayer)} className="dominoFeld rounded container flex-wrap">
               {this.getFeld()}
           </div>
         </div>
 
         <div id="secondPart" className="row">
 
-            <div name="poolFeld" id="pool" className="col-8 pool">
+            <div name="poolFeld" disabled={(this.state.user!=this.state.activePlayer)} id="pool" className="col-8 pool">
               {this.getStones()}
             </div>
             <div className="col-4">
