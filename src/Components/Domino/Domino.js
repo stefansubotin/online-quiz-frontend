@@ -146,11 +146,11 @@ class Domino extends Component {
       }
 
       //setzen des Steins
-      feld1[ziel].stone.id=stone.id;
-      feld1[ziel].stone.antwort= stone.antwort;
-      feld1[ziel].stone.frage= stone.frage;
-      feld1[ziel].stone.h  = stone.h;
-      feld1[ziel].stone.fO = stone.fO
+      feld1[zielRow].stone.id=stone.id;
+      feld1[zielRow].stone.antwort= stone.antwort;
+      feld1[zielRow].stone.frage= stone.frage;
+      feld1[zielRow].stone.h  = stone.h;
+      feld1[zielRow].stone.fO = stone.fO
       
       console.log("stein gesetzt")
       //löschen des Steins
@@ -296,8 +296,8 @@ class Domino extends Component {
     return (this.state.feld.map((row)=>{
       return (
         <div className="row" id={row.id}>
-          {row.row.map((f)=>{
-            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+          {row.zellen.map((f)=>{
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle col" id={f.id}>
               {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
             </div>
     })}
@@ -309,19 +309,19 @@ class Domino extends Component {
   initFeld() {
     //DominoData.json feld
     let feld=[];
-    let row = [];
-    let zelle;
+    let zellen = [];
+    let z;
     let laenge = 3;
     for(let i= 0;i<laenge;++i){
       for(let j = 0; j<laenge;++j){
         let id = i*laenge+j;
-        zelle = {id: id , stone:{id: "",frage: "frage", antwort: "   "}}
-        row.push(zelle);
-        console.log(row);
+        z = {id: id , stone:{id: "",frage: "frage", antwort: "   "}}
+        zellen.push(z);
+        console.log(zellen);
       }
 
-      feld.push({id: i, row: row});
-      row=[];
+      feld.push({id: i, zellen: zellen});
+      zellen=[];
     }
     console.log(feld)
     return feld
