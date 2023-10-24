@@ -188,11 +188,11 @@ class Domino extends Component {
       originZelle = (originParent-(originRow*laenge));
       console.log(" originCard "+origin+" originId"+originParent+" originRow "+originRow+" originZelle"+originZelle)
       //setzen des Steins
-      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].zellen[originZelle].stone.id;
-      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].zellen[originZelle].stone.antwort;
-      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originParent].zellen[originZelle].stone.frage;
-      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originParent].zellen[originZelle].stone.h;
-      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originParent].zellen[originZelle].stone.fO;
+      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originRow].zellen[originZelle].stone.id;
+      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originRow].zellen[originZelle].stone.antwort;
+      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originRow].zellen[originZelle].stone.frage;
+      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originRow].zellen[originZelle].stone.h;
+      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originRow].zellen[originZelle].stone.fO;
       
       //löschen des Steins aus dem vorherigen Feld
       feld1[zielRow].zellen[zielZelle].stone.id= "";
