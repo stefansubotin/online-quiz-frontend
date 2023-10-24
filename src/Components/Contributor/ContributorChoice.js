@@ -59,7 +59,7 @@ class ContributorChoice extends Component {
             case 'choice':
                 return this.getBase()
             case 'new':
-                display.push(this.getSingleQuestion(this.state.collection, ''));
+                display.push(this.getSingleQuestion(this.state.collection, 'NO_KEY'));
                 return display;
             case 'edit':
                 display.push(this.getSingleQuestion(this.state.collection, this.state.key));
@@ -70,6 +70,7 @@ class ContributorChoice extends Component {
     }
 
     getSingleQuestion(collection, key) {
+        console.log(collection + ', ' + key);
         switch (collection) {
             case 'kreuzwort':
                 return <ContributorKreuzwort collection={collection} key={key} parentCallback={this.handleCallback}/>
