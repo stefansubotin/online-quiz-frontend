@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PlayerBase from './Player/Base';
-import ContributorChoice from './Contributor/ContributorChoice';
+import ContributorBase from './Contributor/ContributorBase';
 
 class Homepage extends Component {
     constructor(props){
@@ -32,7 +32,7 @@ class Homepage extends Component {
             case 'player':
                 return <PlayerBase />;
             case 'contributor':
-                return <ContributorChoice />
+                return <ContributorBase />
             default:
                 return <div>Error Homepage</div>
         }
