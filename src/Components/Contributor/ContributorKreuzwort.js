@@ -206,7 +206,7 @@ class ContributorKreuzwort extends Component {
         console.log(1);
         console.log(lines);
         let lines = [];
-        lines.push(mspLine);
+        lines.push(getMsp());
         console.log(2);
         console.log(lines);
         for (let i = 0; i < this.state.userCount; i++) {
