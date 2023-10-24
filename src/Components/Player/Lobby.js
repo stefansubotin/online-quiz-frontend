@@ -182,10 +182,10 @@ class Lobby extends Component {
     render() {
         return (
             <div name="lobby">
-                <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button>
-                <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button>
-                <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button>
-                <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button>
+                <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br/>
+                <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br/>
+                <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br/>
+                <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br/>
                 <button onClick={(e) => this.onStartTaboo()} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
