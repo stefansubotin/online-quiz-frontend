@@ -13,8 +13,6 @@
 
 .stone,
 .innerStone {
-    max-width: 100px;
-    max-height: 100px;
     font-size: xx-small;
 }
 

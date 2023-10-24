@@ -80,21 +80,21 @@ class Domino extends Component {
 
   //Spieler wechsel
   handleSwitchPlayer(){
-    console.log("clicked");
-    
     let users = this.state.users
     let ap = this.state.activeUser;
+    let next;
     for(let i = 0; i<users.length;i++){
       if(users[i] == ap && i+1<users.length){
         console.log("nicht der letzte: "+ users[i+1])
-        return users[i+1]
+        next = users[i+1]
       }else if(users[i] == ap && i+1==users.length){
         console.log("der letzte"+ users[0])
-        return users[0]
+        next = users[0]
+      }else{
+        next= users[0]
       }
     }
-    console.log("nichts von beiden")
-    return users[0];
+    this.updateFeld(next, this.state.feld, this.state.pool)
     
   }
   getActivePlayer(){
@@ -110,6 +110,8 @@ class Domino extends Component {
         feld: this.state.feld,
         feldState: this.state.feldState,
       });
+
+
     }
     return ap
 
