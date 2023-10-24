@@ -66,26 +66,10 @@ class Kreuzwort extends Component {
                 line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
                 line.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
             }
+            line.push(<br/>);
             quiz.push(line);
         }
         return quiz;
-    }
-
-    getQuizTable() {
-        let q = this.getQuiz();
-        return (
-            <table>
-                <tbody>
-                    {q.map(ele =>
-                        <tr key={ele}>
-                            <td>
-                                {ele}
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        )
     }
 
 //#region OnEvent-Functions
@@ -244,7 +228,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
-                <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
+                <span name='quizTable'>{this.getQuiz()}</span><br/><br/>
                 <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
         )
