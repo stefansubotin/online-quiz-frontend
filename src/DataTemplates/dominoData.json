@@ -10,7 +10,8 @@
             "antwort":"universal serial bus"}
         }]}
 ],
-"feld":[{
+"feld":{
+    "row":{
         "id":"index", 
         "stone":{
             "id":"id",
@@ -19,7 +20,7 @@
         }
       
         }
-],
+    },
 "pool":[{
         "id":"id",
         "frage":"Für was steht das Akronym USB?",

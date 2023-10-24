@@ -292,17 +292,31 @@ class Domino extends Component {
           feldState: fs,
       });     
     }      
-    return(this.state.feld.map((f)=>(
-    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
-      {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone)}
-    </div>)));  
+    return (this.state.feld.map((row)=>{
+      return (
+        <div className="row">
+          {row.map((f)=>(
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+              {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
+            </div>
+          ))}
+        </div>
+      );
+    }));
   }
 
   initFeld() {
     //DominoData.json feld
     let feld=[];
-    for(let i= 0;i<9;++i){
-      feld.push({id:i, stone:{id: "",frage: "frage", antwort: "   "}})
+    let row = [];
+    let zelle;
+    let laenge = 3;
+    for(let i= 0;i<laenge;++i){
+      for(let j = 0; j<laenge;++j){
+        zelle = {id:i*laenge+j, stone:{id: "",frage: "frage", antwort: "   "}}
+        row.push(zelle);
+      }
+      feld.push(row);
     }
     return feld
   }
