@@ -314,7 +314,7 @@ class Domino extends Component {
 
   initFeld() {
     //DominoData.json feld
-    let feld;
+    let feld=[];
     let zellen = [];
     let z;
     let laenge = JSON.parse(this.state.data).laenge;
