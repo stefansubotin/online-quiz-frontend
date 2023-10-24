@@ -311,7 +311,7 @@ class Domino extends Component {
       activeUser: activeUser,
       pool: pool,
       feld: feld,
-      feldState: fs,
+      feldState: 2,
     });   
 
     await channel.publish('updateSteine', {
@@ -373,7 +373,7 @@ class Domino extends Component {
               {this.getStones()}
             </div>
             <div className="col-4">
-              <button type="button" class="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
           </div>
         </div>  
