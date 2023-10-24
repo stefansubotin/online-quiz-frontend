@@ -243,7 +243,7 @@ class Kreuzwort extends Component {
 
     render() {
         return (
-            <div name='kreuzwort' className="container"style={{display: 'flex'}}>
+            <div name='kreuzwort' style={{display: 'flex'}}>
                 <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
                 <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
