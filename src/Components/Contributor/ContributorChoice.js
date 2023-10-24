@@ -72,7 +72,7 @@ class ContributorChoice extends Component {
 
     getBase() {
         return <div>
-            <select id='colorChoice' onChange={(e) => this.onCollectionChanged(e)}>
+            <select id='colChoice' onChange={(e) => this.onCollectionChanged(e)}>
                 {this.getOptions('kreuzwort')}
                 {this.getOptions('taboo')}
                 {this.getOptions('simpleQuestion')}
