@@ -15,7 +15,7 @@ class Kreuzwort extends Component {
         }
     }
 
-    getChannelId(){
+    getChannelId() {
         return 'kreuzwort' + this.state.room;
     }
 
@@ -68,17 +68,18 @@ class Kreuzwort extends Component {
                 line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
                 question.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
             }
-            question.push(<br/>);
-            line.push(<br/>);
-            line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
-            line.push(<br/>);
+            question.push(<br />);
+
             quiz.push(line);
             questions.push(question);
         }
+        quiz.push(<br />);
+        quiz.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+        quiz.push(<br />);
         return quiz.concat(questions);
     }
 
-//#region OnEvent-Functions
+    //#region OnEvent-Functions
     async onChangeLine(event) {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -106,7 +107,7 @@ class Kreuzwort extends Component {
         ably.close();
     }
 
-    async sendEnd(){
+    async sendEnd() {
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -137,10 +138,10 @@ class Kreuzwort extends Component {
         console.log(this.state)
     }
 
-    async onSubmit(event){
+    async onSubmit(event) {
         console.log(event);
         let result = '';
-        for (let i = 0; i < this.state.lines[event].length; i++){
+        for (let i = 0; i < this.state.lines[event].length; i++) {
             if (this.state.lines[event][i] != '') {
                 result = result + this.state.lines[event][i];
             }
@@ -162,7 +163,7 @@ class Kreuzwort extends Component {
         })
     }
 
-    async onCorrection(message){
+    async onCorrection(message) {
         console.log(message.data);
         let dat = JSON.parse(this.state.data);
         dat.lines[message.data.i].state = message.data.state;
@@ -174,8 +175,8 @@ class Kreuzwort extends Component {
             lines: this.state.lines
         });
     }
-//#endregion
-//#region React-Component-Lifetime-Functions
+    //#endregion
+    //#region React-Component-Lifetime-Functions
     static getDerivedStateFromProps(props, state) {
         console.log(state)
         if (state.init) {
@@ -219,7 +220,7 @@ class Kreuzwort extends Component {
         await channel.subscribe('correction', (message) => this.onCorrection(message));
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         ably.connection.once('connected');
@@ -229,12 +230,12 @@ class Kreuzwort extends Component {
         channel.unsubscribe('correction');
         ably.close();
     }
-//#endregion
+    //#endregion
 
     render() {
         return (
-            <div name='kreuzwort' style={{display: 'flex'}}>
-                <span name='quizTable'>{this.getQuiz()}</span><br/><br/>
+            <div name='kreuzwort' style={{ display: 'flex' }}>
+                <span name='quizTable'>{this.getQuiz()}</span><br /><br />
                 <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
         )
