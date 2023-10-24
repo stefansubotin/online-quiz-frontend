@@ -7,7 +7,7 @@ class ContributorKreuzwort extends Component {
         super(props);
         this.state = {
             collection: props.collection,
-            key: props.key,
+            key: props.item,
             size: 0,
             userCount: 0,
             msp: 0,
@@ -70,6 +70,7 @@ class ContributorKreuzwort extends Component {
     }
 
     async sendQuestion() {
+        console.log(this.state);
         let type = 'new';
         if (this.state.key != '') type = 'change';
 
@@ -77,7 +78,7 @@ class ContributorKreuzwort extends Component {
         for (let i = 0; i < this.state.userCount; i++) {
             let answer = '';
             let start = -1;
-            for (let j = 0; this.state.size; i++) {
+            for (let j = 0; j < this.state.size; i++) {
                 if (this.state.lines[i][j] != '') {
                     answer = answer + this.state.lines[i][j];
                     if (start < 0) start = j + 1;
@@ -95,7 +96,7 @@ class ContributorKreuzwort extends Component {
             body: JSON.stringify({
                 type: type,
                 collection: this.props.collection,
-                key: this.props.key,
+                key: this.props.item,
                 body: {
                     size: this.state.size,
                     lines: lines,
@@ -195,7 +196,7 @@ class ContributorKreuzwort extends Component {
         let mspLine = [];
         for (let k = 0; k < this.state.size; k++) {
             let checked = k + 1 == this.state.msp;
-            mspLine.push(<input className='cellSmall' type="checkbox" onChange={(e) => this.onMsp(k + 1)} />);
+            mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
         lines.push(mspLine);
         for (let i = 0; i < this.state.userCount; i++) {
@@ -254,7 +255,7 @@ class ContributorKreuzwort extends Component {
 
     async componentDidMount() {
         console.log(this.props);
-        if (this.props.key == "NO_KEY") {
+        if (this.props.item == "NO_KEY") {
             let lines = [];
             let questions = [];
             for (let i = 0; i < 2; i++) {
@@ -285,7 +286,7 @@ class ContributorKreuzwort extends Component {
                 body: JSON.stringify({
                     type: 'get',
                     collection: this.props.collection,
-                    key: this.props.key
+                    key: this.props.item
                 }),
                 headers: { "Content-Type": "application/json" },
             });
