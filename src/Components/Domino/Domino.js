@@ -284,8 +284,8 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card lh-1 fs-6 stone" id={id} draggable={(this.state.user!=this.state.activeUser)} disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul id ="innerStone" className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
+      <div className="card lh-1 fs-6" id={id} draggable={(this.state.user!=this.state.activeUser)} disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </ul>
@@ -395,7 +395,7 @@ class Domino extends Component {
         room: this.state.room,
         user: this.state.user,
         data: this.state.data,
-        activeUser: this.state.activeUser,
+        activeUser: message.data.activePlayer,
         pool: message.data.pool,
         feld: message.data.feld,
         feldState: this.state.feldState,
