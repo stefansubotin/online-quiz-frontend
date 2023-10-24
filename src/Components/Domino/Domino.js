@@ -414,8 +414,9 @@ class Domino extends Component {
 
 
   }
-
+  
   render() {
+    console.log(this.state)
     return (
       <div name = "domino" className="container">
         <div className="row">
@@ -434,7 +435,7 @@ class Domino extends Component {
               {this.getStones()}
             </div>
             <div className="col-4">
-              <button type="button" className="btn btn-light" disabled={this.state.user!=this.state.activeUser} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
 
         </div>  
