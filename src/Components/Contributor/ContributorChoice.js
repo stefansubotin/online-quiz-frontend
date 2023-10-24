@@ -77,7 +77,7 @@ class ContributorChoice extends Component {
                 {this.getOptions('taboo')}
                 {this.getOptions('simpleQuestion')}
             </select><br />
-            <label for='key'>Key If Editing Existiong Question</label>
+            <label for='key'>Key If Editing Existing Question:&nbsp;</label>
             <input type='text' id='key' onChange={(e) => this.onKeyChanged(e)} placeholder="Input Key" /><br />
             <button onClick={e => this.onNew(e)}>New Question</button>
             <button onClick={e => this.onEdit(e)}>Edit Question</button><br /><br />

@@ -27,6 +27,7 @@ class ContributorBase extends Component {
             display.push(<br/>);
             display.push(<ContributorList />);
         }
+        return display
     }
 
     render(){
