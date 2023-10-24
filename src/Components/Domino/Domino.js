@@ -334,7 +334,7 @@ class Domino extends Component {
         <h1>Domino</h1>
         <p>Spieler {this.state.activeUser} ist am Zug</p>
         <div className="container" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded col-12">
+          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
               {this.getFeld()}
           </div>
         </div>
