@@ -13,11 +13,27 @@ class ContributorChoice extends Component {
         }
     }
 
+    handleCallback = (childData) => {
+        this.setState({
+            component: 'choice',
+            collection: this.state.collection,
+            key: this.state.key
+        })
+    }
+
     onCollectionChanged(event) {
         this.setState({
             component: this.state.component,
             collection: event.target.value,
             key: this.state.key
+        })
+    }
+
+    onKeyChanged(event) {
+        this.setState({
+            component: this.state.component,
+            collection: this.state.collection,
+            key: event.target.value
         })
     }
 
@@ -43,13 +59,9 @@ class ContributorChoice extends Component {
             case 'choice':
                 return this.getBase()
             case 'new':
-                display.push(this.getBase());
-                display.push(<br/>)
                 display.push(this.getSingleQuestion(this.state.collection, ''));
                 return display;
             case 'edit':
-                display.push(this.getBase());
-                display.push(<br/>)
                 display.push(this.getSingleQuestion(this.state.collection, this.state.key));
                 return display;
             default:
@@ -60,11 +72,11 @@ class ContributorChoice extends Component {
     getSingleQuestion(collection, key) {
         switch (collection) {
             case 'kreuzwort':
-                return <ContributorKreuzwort collection={collection} key={key} />
+                return <ContributorKreuzwort collection={collection} key={key} parentCallback={this.handleCallback}/>
             case 'taboo':
-                return <ContributorTaboo collection={collection} key={key} />
+                return <ContributorTaboo collection={collection} key={key} parentCallback={this.handleCallback}/>
             case 'simpleQuestion':
-                return <ContributorSimpleQuestion collection={collection} key={key} />
+                return <ContributorSimpleQuestion collection={collection} key={key} parentCallback={this.handleCallback}/>
             default:
                 return <div>Error</div>
         }
