@@ -296,7 +296,7 @@ class Domino extends Component {
       return (
         <div className="row">
           {row.map((f)=>(
-            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle col" id={f.id}>
               {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
             </div>
           ))}
@@ -313,11 +313,13 @@ class Domino extends Component {
     let laenge = 3;
     for(let i= 0;i<laenge;++i){
       for(let j = 0; j<laenge;++j){
-        zelle = {id:i*laenge+j, stone:{id: "",frage: "frage", antwort: "   "}}
+        let id = i*laenge+j;
+        zelle = {id: id , stone:{id: "",frage: "frage", antwort: "   "}}
         row.push(zelle);
       }
       feld.push(row);
     }
+    console.log(feld)
     return feld
   }
 
@@ -391,7 +393,7 @@ class Domino extends Component {
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
         <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
+          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
               {this.getFeld()}
           </div>
         </div>
