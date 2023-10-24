@@ -54,8 +54,8 @@ class ContributorTaboo extends Component {
             method: "POST",
             body: JSON.stringify({
                 type: type,
-                collection: this.props.collection,
-                key: this.props.item,
+                collection: this.state.collection,
+                key: this.state.key,
                 body: {
                     answer: this.state.answer,
                     forbiddenWords: this.state.forbiddenWords
@@ -100,7 +100,7 @@ class ContributorTaboo extends Component {
     async componentDidMount() {
         console.log(this.props);
         if (this.props.item == "NO_KEY") {
-
+            console.log('new');
             this.setState({
                 collection: this.state.collection,
                 key: this.state.key,
@@ -111,6 +111,7 @@ class ContributorTaboo extends Component {
             return;
         }
         else {
+            console.log('change');
             const response = await fetch(BackendAccess.getUrlContributor(), {
                 method: "POST",
                 body: JSON.stringify({
