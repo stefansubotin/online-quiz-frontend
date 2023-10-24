@@ -18,7 +18,7 @@ class ContributorSimpleQuestion extends Component {
 
     onQuestion(e) {
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             answer: this.state.answer,
             question: e.target.value,
@@ -31,7 +31,7 @@ class ContributorSimpleQuestion extends Component {
 
     onAnswer(e) {
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             question: this.state.question,
             answer: e.target.value,
@@ -44,7 +44,7 @@ class ContributorSimpleQuestion extends Component {
 
     onFalseAnswer1(e) {
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             question: this.state.question,
             answer: this.state.answer,
@@ -57,7 +57,7 @@ class ContributorSimpleQuestion extends Component {
 
     onFalseAnswer2(e) {
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             question: this.state.question,
             answer: this.state.answer,
@@ -70,7 +70,7 @@ class ContributorSimpleQuestion extends Component {
 
     onFalseAnswer3(e) {
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             question: this.state.question,
             answer: this.state.answer,
@@ -83,7 +83,7 @@ class ContributorSimpleQuestion extends Component {
 
     onCount(i){
         this.setState({
-            collection: thisa.state.collection,
+            collection: this.state.collection,
             key: this.state.key,
             question: this.state.question,
             answer: this.state.answer,
