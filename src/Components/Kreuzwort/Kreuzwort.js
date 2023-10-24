@@ -22,11 +22,15 @@ class Kreuzwort extends Component {
     getQuiz() {
         let data = JSON.parse(this.state.data);
         let quiz = [];
+        let questions = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
+            let question = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
             line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+            question.push(<span>{i + 1}. Frage:</span>)
+            question.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
             for (let j = 0; j < data.size; j++) {
                 if (j + 1 < data.lines[i].start || j + 1 >= data.lines[i].start + data.lines[i].length) {
                     line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
@@ -58,40 +62,20 @@ class Kreuzwort extends Component {
             line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
             if (data.lines[i].user == this.state.user) {
                 line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
-            }
-            else {
-                line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
-            }
-            line.push(<br/>);
-            quiz.push(line);
-
-            question.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
-            if (data.lines[i].user == this.state.user) {
                 question.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
             }
             else {
+                line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
                 question.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
             }
+            question.push(<br/>);
+            line.push(<br/>);
+            line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+            line.push(<br/>);
             quiz.push(line);
+            questions.push(question);
         }
-        return quiz;
-    }
-
-    getQuizTable() {
-        let q = this.getQuiz();
-        return (
-            <table>
-                <tbody>
-                    {q.map(ele =>
-                        <tr key={ele}>
-                            <td>
-                                {ele}
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        )
+        return quiz.concat(questions);
     }
 
 //#region OnEvent-Functions
@@ -250,7 +234,7 @@ class Kreuzwort extends Component {
     render() {
         return (
             <div name='kreuzwort' style={{display: 'flex'}}>
-                <span name='quizTable'>{this.getQuizTable()}</span><br/><br/>
+                <span name='quizTable'>{this.getQuiz()}</span><br/><br/>
                 <span><button onClick={(e) => this.sendEnd(e)}>End Kreuzwort</button></span>
             </div>
         )
