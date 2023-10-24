@@ -280,7 +280,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card col-12" id={id} draggable={this.state.user==this.state.activeUser?"true":"false"} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card lh-1 fs-6" id={id} draggable={this.state.user!=this.getActivePlayer()?"true":"false"} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
