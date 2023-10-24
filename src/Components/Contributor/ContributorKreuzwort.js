@@ -221,6 +221,7 @@ class ContributorKreuzwort extends Component {
     }
 
     getLine(i) {
+        console.log(this.state);
         console.log('i: ' + i);
         let line = [];
         for (let j = 0; j < this.state.size; j++) {
