@@ -73,11 +73,11 @@ class ContributorChoice extends Component {
         console.log(collection + ', ' + key);
         switch (collection) {
             case 'kreuzwort':
-                return <ContributorKreuzwort collection={collection} key={key} parentCallback={this.handleCallback}/>
+                return <ContributorKreuzwort collection={collection} item={key} parentCallback={this.handleCallback}/>
             case 'taboo':
-                return <ContributorTaboo collection={collection} key={key} parentCallback={this.handleCallback}/>
+                return <ContributorTaboo collection={collection} item={key} parentCallback={this.handleCallback}/>
             case 'simpleQuestion':
-                return <ContributorSimpleQuestion collection={collection} key={key} parentCallback={this.handleCallback}/>
+                return <ContributorSimpleQuestion collection={collection} item={key} parentCallback={this.handleCallback}/>
             default:
                 return <div>Error</div>
         }

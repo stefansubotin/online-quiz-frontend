@@ -7,7 +7,7 @@ class ContributorKreuzwort extends Component {
         super(props);
         this.state = {
             collection: props.collection,
-            key: props.key,
+            key: props.item,
             size: 0,
             userCount: 0,
             msp: 0,
@@ -95,7 +95,7 @@ class ContributorKreuzwort extends Component {
             body: JSON.stringify({
                 type: type,
                 collection: this.props.collection,
-                key: this.props.key,
+                key: this.props.item,
                 body: {
                     size: this.state.size,
                     lines: lines,
@@ -254,7 +254,7 @@ class ContributorKreuzwort extends Component {
 
     async componentDidMount() {
         console.log(this.props);
-        if (this.props.key == "NO_KEY") {
+        if (this.props.item == "NO_KEY") {
             let lines = [];
             let questions = [];
             for (let i = 0; i < 2; i++) {
@@ -285,7 +285,7 @@ class ContributorKreuzwort extends Component {
                 body: JSON.stringify({
                     type: 'get',
                     collection: this.props.collection,
-                    key: this.props.key
+                    key: this.props.item
                 }),
                 headers: { "Content-Type": "application/json" },
             });
