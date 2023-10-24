@@ -117,6 +117,7 @@ class ContributorList extends Component {
     async componentDidMount() {
         const response = await fetch(BackendAccess.getUrlContributor());
         const items = await response.json();
+        console.log(items);
 
         this.setState({
             fullList: JSON.stringify(items),
