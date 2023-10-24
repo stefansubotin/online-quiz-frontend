@@ -200,6 +200,7 @@ class ContributorKreuzwort extends Component {
             let checked = k + 1 == this.state.msp;
             mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
+        mspLine.push(<br/>);
         return mspLine;
     }
 
@@ -230,6 +231,7 @@ class ContributorKreuzwort extends Component {
 
             line.push(<input type='text' className={style} value={value} maxLength={1} onChange={(e) => this.onChange(e, i, j)} />)
         }
+        line.push(<br/>);
         return line;
     }
 
@@ -238,19 +240,6 @@ class ContributorKreuzwort extends Component {
         return <div>
             {lines}
         </div>
-        return (
-            <table>
-                <tbody>
-                    {lines.map(ele =>
-                        <tr key={ele}>
-                            <td>
-                                {ele}
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        )
     }
 
     getQuestions() {
