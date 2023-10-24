@@ -113,10 +113,12 @@ class Domino extends Component {
 
   async handleDrop(e) {
     // Daten über Stein und Parent vom Stein
+    let laenge = JSON.parse(this.state.data).laenge;
+
     let ziel = e.currentTarget.id;
     let zielRow = e.currentTarget.parentNode.id;
-    let laenge = JSON.parse(this.state.data).laenge;
     let zielZelle = (ziel-(zielRow*laenge));
+
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     // Feld und Pool kopie zur einfacheren Handhabung
@@ -170,19 +172,20 @@ class Domino extends Component {
 
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
     else if((!isNaN(originParent))&&feld1[ziel].stone.id==""){
+      let originZelle = (origin-(originParent*laenge));
       console.log("Stein kommt aus dem Feld "+feld1[ziel].stone.id)
       console.log("und ist leer")
       //setzen des Steins
-      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].stone.id;
-      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].stone.antwort;
-      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originParent].stone.frage;
-      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originParent].stone.h;
-      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originParent].stone.fO;
+      feld1[zielRow].zellen[zielZelle].stone.id=feld1[originParent].zellen[originZelle].stone.id;
+      feld1[zielRow].zellen[zielZelle].stone.antwort= feld1[originParent].zellen[originZelle].stone.antwort;
+      feld1[zielRow].zellen[zielZelle].stone.frage= feld1[originParent].zellen[originZelle].stone.frage;
+      feld1[zielRow].zellen[zielZelle].stone.h= feld1[originParent].zellen[originZelle].stone.h;
+      feld1[zielRow].zellen[zielZelle].stone.fO= feld1[originParent].zellen[originZelle].stone.fO;
       
       //löschen des Steins aus dem vorherigen Feld
-      feld1[originParent].stone.id = "";
-      feld1[originParent].stone.antwort="";
-      feld1[originParent].stone.frage="";
+      feld1[zielRow].zellen[zielZelle].stone.id= "";
+      feld1[zielRow].zellen[zielZelle].stone.antwort= "";
+      feld1[zielRow].zellen[zielZelle].stone.frage= "";
       //Pool soll unverändert bleiben
       poolNeu=this.state.pool
 
