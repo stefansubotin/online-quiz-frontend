@@ -70,6 +70,7 @@ class ContributorKreuzwort extends Component {
     }
 
     async sendQuestion() {
+        console.log(this.state);
         let type = 'new';
         if (this.state.key != '') type = 'change';
 
