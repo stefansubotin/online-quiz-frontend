@@ -195,7 +195,7 @@ class ContributorKreuzwort extends Component {
         let mspLine = [];
         for (let k = 0; k < this.state.size; k++) {
             let checked = k + 1 == this.state.msp;
-            mspLine.push(<input className='cellSmall' type="checkbox" onChange={(e) => this.onMsp(k + 1)} />);
+            mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
         lines.push(mspLine);
         for (let i = 0; i < this.state.userCount; i++) {
