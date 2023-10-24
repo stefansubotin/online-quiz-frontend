@@ -132,7 +132,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
 
 
-    console.log("ziel "+ziel+" origin "+origin+" parent "+originParent)
+    console.log("ziel "+ziel+" origin "+origin+" parent "+originParent+" zielRow "+zielRow+" zielZelle"+zielZelle)
     
     //Stein kommt aus dem Pool
     if(originParent=="pool"&&feld1[zielRow].zellen[zielZelle].stone.id==""){
