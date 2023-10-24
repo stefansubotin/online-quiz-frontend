@@ -285,12 +285,16 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card" disabled={(this.state.user!=this.state.activePlayer)} id={id} draggable onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={horizontal ? "lh-1 fs-6 list-group list-group-horizontal" : "lh-1 fs-6 list-group list-group-flush"}>
-          <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
-          <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+        <ul 
+          className={horizontal ? "lh-1 fs-6 list-group list-group-horizontal" : "lh-1 fs-6 list-group list-group-flush"} 
+          id={id} 
+          draggable onClick={(e)=>this.handleRotateStone(e)} 
+          onDragStart={(e)=>this.handleDragStart(e)} 
+          disabled={(this.state.user!=this.state.activePlayer)}>
+            <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+            <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </ul>
-      </div>);
+    )
   }
 
   //GENERIERE FELD
@@ -319,7 +323,7 @@ class Domino extends Component {
         <div className="row flex-wrap " id={row.id}>
           {row.zellen.map((f)=>{
             return(
-                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
+                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-1" id={f.id}>
                   {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
                 </div> 
               
