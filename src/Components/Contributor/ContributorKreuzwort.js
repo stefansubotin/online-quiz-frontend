@@ -136,7 +136,7 @@ class ContributorKreuzwort extends Component {
         let size = this.state.size - 1;
         let lines = this.state.lines;
         for (let i = 0; i < this.state.userCount; i++) {
-            lines[size] = '';
+            lines[i][size] = '';
         }
 
         this.setState({
