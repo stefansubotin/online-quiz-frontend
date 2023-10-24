@@ -22,6 +22,7 @@ class Kreuzwort extends Component {
     getQuiz() {
         let data = JSON.parse(this.state.data);
         let quiz = [];
+        let questions = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
             let question = [];
