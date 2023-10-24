@@ -181,7 +181,7 @@ class InnerRoom extends Component {
                 component = (
                     <Domino
                         className="game"
-                        room={this.state.room}
+                        room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
                         data={this.state.data}
                     />
