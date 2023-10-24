@@ -5,6 +5,7 @@ class ContributorList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            init: true,
             fullList: '',
             filterKreuzwort: true,
             filterSimpleQuestion: false,
@@ -72,6 +73,7 @@ class ContributorList extends Component {
     }
 
     getDisplay() {
+        if (this.state.init) return <>Loading...</>
         let list = this.getDisplayList();
         return <div>
             <div>
@@ -80,7 +82,8 @@ class ContributorList extends Component {
                 <input type="checkbox" id="taboo" onChange={(e) => this.onCheck('taboo', e)} />
                 <label for="taboo"> Taboo</label><br />
                 <input type="checkbox" id="simple" onChange={(e) => this.onCheck('simple', e)} />
-                <label for="simple"> Simple Question</label><br />
+                <label for="simple"> Simple Question</label><br /><br/>
+                {list}
             </div>
         </div>
     }
@@ -120,11 +123,14 @@ class ContributorList extends Component {
         console.log(items);
 
         this.setState({
+            init: false,
             fullList: JSON.stringify(items),
             filterKreuzwort: false,
             filterSimpleQuestion: false,
             filterTaboo: false
         });
+
+        console.log(this.state);
     }
 
     render() {
