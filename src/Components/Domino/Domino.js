@@ -370,7 +370,7 @@ class Domino extends Component {
       feldState: 2,
     });   
 
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld,
       pool: pool,
