@@ -333,21 +333,19 @@ class Domino extends Component {
       <div name = "domino">
         <h1>Domino</h1>
         <p>Spieler {this.state.activeUser} ist am Zug</p>
-        <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
+        <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded col-12">
             {this.getFeld()}
         </div>
-        <div name="dominoPool"id="pool"className="pool rounded container">
-          <div className="row">
-            <div className="col-8">
-              {this.getStones()}
-            </div>
-            <div className="col-4">
-              <button type="button" class="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
-            </div>
+        <div id="secondPart" className="row">
+          <div name="poolFeld" id="pool" className="col-8">
+            {this.getStones()}
           </div>
+          <div className="col-4">
+            <button type="button" class="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+          </div>
+        </div>
           
 
-        </div>
       </div>
     );
   }
