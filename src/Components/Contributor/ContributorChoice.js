@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ContributorKreuzwort from "./ContributorKreuzwort";
 import ContributorTaboo from "./ContributorTaboo";
 import ContributorSimpleQuestion from "./ContributorSimpleQuestion";
+import BackendAccess from "../../Tools/BackendAccess";
 
 class ContributorChoice extends Component {
     constructor(props) {
@@ -53,6 +54,19 @@ class ContributorChoice extends Component {
         });
     }
 
+    async onDelete(event){
+        const response = await fetch(BackendAccess.getUrlContributor(), {
+            method: "DELETE",
+            body: JSON.stringify({
+                collection: this.state.collection,
+                key: this.state.key
+            }),
+            headers: { "Content-Type": "application/json" },
+        });
+        const item = await response.json();
+        console.log(item);
+    }
+
     getComponent() {
         let display = [];
         switch (this.state.component) {
@@ -85,15 +99,17 @@ class ContributorChoice extends Component {
 
     getBase() {
         return <div>
+            <label for='colChoice'>Collection:&nbsp;</label>
             <select id='colChoice' onChange={(e) => this.onCollectionChanged(e)}>
                 {this.getOptions('kreuzwort')}
                 {this.getOptions('taboo')}
                 {this.getOptions('simpleQuestion')}
             </select><br />
-            <label for='key'>Key If Editing Existing Question:&nbsp;</label>
+            <label for='key'>Key If Editing/Deleting Existing Question:&nbsp;</label>
             <input type='text' id='key' onChange={(e) => this.onKeyChanged(e)} placeholder="Input Key" /><br />
             <button onClick={e => this.onNew(e)}>New Question</button>
-            <button onClick={e => this.onEdit(e)}>Edit Question</button><br /><br />
+            <button onClick={e => this.onEdit(e)}>Edit Question</button>
+            <button onClick={e => this.onDelete(e)}>Delete Question</button><br /><br />
         </div>
     }
 
