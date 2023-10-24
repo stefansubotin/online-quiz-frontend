@@ -7,7 +7,7 @@ class Domino extends Component {
       room: props.room,
       user: props.user,
       data: props.data,
-      activUser: "aktiv",
+      activeUser: "aktiv",
       pool: [],
       feld:[],
       feldState: 0,
@@ -31,47 +31,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
 
     console.log("Got clicked " +id +"  "+pid)
-    if(pid == "pool"){
-
-      console.log("clicked in Pool momentan nicht möglich")
-      /*
-      let index;
-      for(index = 0 ; index<pool1.length;++index){
-        //Finde Stein im Pool
-        if(pool1[index].id==id){
-          console.log("stone "+id+"gefunden: "+pool1[index].id)
-        }
-      }
-      console.log(JSON.stringify(pool1[index]));
-      h = pool1[index].h;
-      fO = pool1[index].fO
-
-      // Varianten wie der Stein liegt: F|A A/F A|F F/A
-      if(h && fO){
-        console.log("Von Zustand 1 nach 2")
-        h = false;
-        fO =false;
-        //A/F
-      }else if (!h && !fO){
-        console.log("Von Zustand 2 nach 3")
-        h = true;
-        //A|F
-      }else if (h && !fO){
-        console.log("Von Zustand 3 nach 4")
-        h = false;
-        fO = true;
-        //F/A
-      }else if(!h && fO){
-        console.log("Von Zustand 4 nach 1")
-        h = true;
-      }else {
-        console.log("nichts passiert ");
-      }
-      pool1[index].h = h;
-      pool1[index].fO= fO;
-*/
-    }
-    else {
+    if(!isNaN(pid)){
       console.log("im feld")
       h = feld1[pid].stone.h;
       fO = feld1[pid].stone.fO
@@ -105,7 +65,7 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      activUser: this.state.activeUser,
+      activeUser: this.state.activeUser,
       pool: pool1,
       feld: feld1,
       feldState: this.state.feldState,
@@ -116,6 +76,10 @@ class Domino extends Component {
       pool: pool1,
     });
     ably.close();  
+  }
+  //Spieler wechsel
+  handleSwitchPlayer(){
+    console.log("clicked");
   }
 
   //DRAG AND DROP
@@ -218,7 +182,7 @@ class Domino extends Component {
       room: this.state.room,
       user: this.state.user,
       data: this.state.data,
-      activUser: this.state.activeUser,
+      activeUser: this.state.activeUser,
       pool: poolNeu,
       feld: feld1,
       feldState: this.state.feldState,
@@ -241,15 +205,15 @@ class Domino extends Component {
     console.log("FeldState Steine "+fs)
     
     if(fs==1){
+      fs++;
       console.log("initSteine "+stones);
-        fs++;
         stones = this.initStones();
         console.log(stones)
         this.setState({
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          activUser: this.state.activeUser,
+          activeUser: this.state.activeUser,
           pool: stones,
           feld: this.state.feld,
           feldState: fs,
@@ -285,10 +249,14 @@ class Domino extends Component {
     return (
       <div className="card" id={id} draggable="true" onClick={(e)=>this.handleOnClick(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
-          <li className="list-group-item">{fOben?frage:antwort}</li>
-          <li className="list-group-item">{fOben?antwort:frage}</li>
+          <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+          <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </ul>
       </div>);
+  }
+  getSurroundingDatas(){
+    let title = "Domino"
+    
   }
 
   //GENERIERE FELD
@@ -298,21 +266,21 @@ class Domino extends Component {
     console.log("FeldState Feld: "+fs)
   
     if(fs<1){
-      fs++;
+      fs++
       feld = this.initFeld();
       console.log(feld)
       this.setState({
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
-          activUser: this.state.activeUser,
+          activeUser: this.state.activeUser,
           pool: this.state.pool,
           feld: feld,
-          feldState: 1,
+          feldState: fs,
       });     
     }      
     return(this.state.feld.map((f)=>(
-    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle container" id={f.id}>
       {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone)}
     </div>)));  
   }
@@ -327,22 +295,23 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
+  
 
-  async handleUpdateSteine(message) {
+  async handleUpdateFeld(message) {
     console.log("Got this: "+message.data.user+" "+message.data.feld);
     let dat = JSON.parse(this.state.data);
     
     //nur bei den anderen rerender
     if(message.user != this.state.user){
       console.log("Set State von anderen")
-     this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      activUser: this.state.activeUser,
-      pool: message.data.pool,
-      feld: message.data.feld,
-      feldState: this.state.feldState,
+      this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        activeUser: this.state.activeUser,
+        pool: message.data.pool,
+        feld: message.data.feld,
+        feldState: this.state.feldState,
       });
     }
 }
@@ -354,7 +323,7 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    channel.subscribe('updateSteine', (message)=>this.handleUpdateSteine(message))
+    channel.subscribe('updateFeld', (message)=>this.handleUpdateFeld(message))
 
 
   }
@@ -363,11 +332,23 @@ class Domino extends Component {
     return (
       <div name = "domino">
         <h1>Domino</h1>
-        <p>Spieler {this.state.activUser} ist am Zug</p>
-        <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
-            {this.getFeld()}
+        <p>Spieler {this.state.activeUser} ist am Zug</p>
+        <div className="container" id="firstPart">
+          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
+              {this.getFeld()}
+          </div>
         </div>
-        <div name="dominoPool"id="pool"className="pool rounded">{this.getStones()}</div>
+        <div id="secondPart" className="container">
+          <div  className="row">
+            <div name="poolFeld" id="pool" className="col-8">
+              {this.getStones()}
+            </div>
+            <div className="col-4">
+              <button type="button" class="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+            </div>
+          </div>
+        </div>  
+
       </div>
     );
   }
