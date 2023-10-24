@@ -32,6 +32,7 @@ class Domino extends Component {
     let fO;
     let pool1 = this.state.pool;
     let feld1 = this.state.feld;
+
     //Kommunikation 
     const Ably = require('ably');
     const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -40,6 +41,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
 
     console.log("Got clicked")
+
     if(!isNaN(zellenID)){
       console.log("im feld")
       h = feld1[zellenRow].zellen[zelle].stone.h;
@@ -86,14 +88,25 @@ class Domino extends Component {
     });
     ably.close();  
   }
+  
   //Spieler wechsel
   handleSwitchPlayer(){
     console.log("clicked");
-    /*
+    
     let users = this.state.users
     let ap = this.state.activeUser;
-    for(let i = 0; i<)
-    */
+    for(let i = 0; i<users.length;i++){
+      if(users[i] == ap && i+1<users.length){
+        console.log("nicht der letzte: "+ users[i+1])
+        return users[i+1]
+      }else if(users[i] == ap && i+1==users.length){
+        console.log("der letzte"+ users[0])
+        return users[0]
+      }
+    }
+    console.log("nichts von beiden")
+    return users[0];
+    
   }
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
