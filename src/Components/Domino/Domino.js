@@ -297,10 +297,12 @@ class Domino extends Component {
       return (
         <div className="row" id={row.id}>
           {row.zellen.map((f)=>{
+            return(
             <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle col" id={f.id}>
               {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
             </div>
-    })}
+            );
+          })}
         </div>
       );
     }));
