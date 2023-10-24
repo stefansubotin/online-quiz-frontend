@@ -113,6 +113,7 @@ class Domino extends Component {
   async handleDrop(e) {
     // Daten über Stein und Parent vom Stein
     let ziel = e.currentTarget.id;
+    let zielRow = e.currentTarget.parentNode;
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     // Feld und Pool kopie zur einfacheren Handhabung
@@ -260,7 +261,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card " id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card" id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
@@ -292,18 +293,37 @@ class Domino extends Component {
           feldState: fs,
       });     
     }      
-    return(this.state.feld.map((f)=>(
-    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle container" id={f.id}>
-      {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone)}
-    </div>)));  
+    return (this.state.feld.map((row)=>{
+      return (
+        <div className="row" id={row.id}>
+          {row.map((f)=>(
+            <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
+              {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
+            </div>
+          ))}
+        </div>
+      );
+    }));
   }
 
   initFeld() {
     //DominoData.json feld
     let feld=[];
-    for(let i= 0;i<9;++i){
-      feld.push({id:i, stone:{id: "",frage: "frage", antwort: "   "}})
+    let row = [];
+    let zelle;
+    let laenge = 3;
+    for(let i= 0;i<laenge;++i){
+      for(let j = 0; j<laenge;++j){
+        let id = i*laenge+j;
+        zelle = {id: id , stone:{id: "",frage: "frage", antwort: "   "}}
+        row.push(zelle);
+        console.log(row);
+      }
+
+      feld.push({id: i, row: row});
+      row=[];
     }
+    console.log(feld)
     return feld
   }
 
@@ -384,7 +404,7 @@ class Domino extends Component {
 
         <div id="secondPart" className="row">
 
-            <div name="poolFeld" id="pool" className="col-8">
+            <div name="poolFeld" id="pool" className="col-8 pool">
               {this.getStones()}
             </div>
             <div className="col-4">

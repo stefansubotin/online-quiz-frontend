@@ -10,16 +10,17 @@
             "antwort":"universal serial bus"}
         }]}
 ],
-"feld":[{
+"feld":{
+    "rid" : "id",
+    "row":[{
         "id":"index", 
         "stone":{
             "id":"id",
             "frage":"Für was steht das Akronym USB?",
             "antwort":"universal serial bus"
         }
-      
-        }
-],
+    }]
+},
 "pool":[{
         "id":"id",
         "frage":"Für was steht das Akronym USB?",
