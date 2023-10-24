@@ -15,14 +15,14 @@ class OuterRoom extends Component {
 
   render() {
     return (
-      <div name="outerRoom" style={{ display: "flex" }}>
+      <div name="outerRoom" className="row">
         <InnerRoom
           room={this.state.room}
           user={this.state.user}
           leader={this.state.leader}
         />
-        <span className="fixedSize invis size25">&nbsp;</span>
-        <Chat room={this.state.room} type="lobby" user={this.state.user} />
+        <div className="col-1"></div>
+        <Chat className="col-3"room={this.state.room} type="lobby" user={this.state.user} />
       </div>
     );
   }

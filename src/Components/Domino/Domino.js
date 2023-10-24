@@ -80,6 +80,7 @@ class Domino extends Component {
   //Spieler wechsel
   handleSwitchPlayer(){
     console.log("clicked");
+    
   }
 
   //DRAG AND DROP
@@ -295,6 +296,34 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
+  async updateFeld(feld, pool, activeUser){
+    // Kommunikation für Update Feld
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'domino' + this.state.room;
+    const channel = ably.channels.get(channelId);
+
+    this.setState({
+      room: this.state.room,
+      user: this.state.user,
+      data: this.state.data,
+      activeUser: activeUser,
+      pool: pool,
+      feld: feld,
+      feldState: 2,
+    });   
+
+    await channel.publish('updateSteine', {
+      user: this.state.user,
+      feld: feld,
+      pool: pool,
+      activeUser: activeUser,
+      
+    });
+    ably.close();  
+
+  }
   
 
   async handleUpdateFeld(message) {
@@ -330,10 +359,10 @@ class Domino extends Component {
 
   render() {
     return (
-      <div name = "domino">
-        <h1>Domino</h1>
-        <p>Spieler {this.state.activeUser} ist am Zug</p>
-        <div className="container" id="firstPart">
+      <div name = "domino" className="row">
+        <div className="container col-12" id="firstPart">
+          <h1>Domino</h1>
+          <p>Spieler {this.state.activeUser} ist am Zug</p>
           <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
               {this.getFeld()}
           </div>
@@ -344,7 +373,7 @@ class Domino extends Component {
               {this.getStones()}
             </div>
             <div className="col-4">
-              <button type="button" class="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
           </div>
         </div>  
