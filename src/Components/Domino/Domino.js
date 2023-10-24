@@ -14,12 +14,19 @@ class Domino extends Component {
       feldState: 0,
     };
   }
-  
+  getZielZelle(id, row){
+    let laenge = JSON.parse(this.state.data).laenge;
+    let zelle = (id-(row*laenge));
+    return zelle;
+  }
   //Stein drehen
   async handleRotateStone(e){
     // Daten aus Event
     let id = e.currentTarget.id
-    let pid = e.currentTarget.parentNode.id;
+    let zellenID = e.currentTarget.parentNode.id;
+    let zellenRow = e.currentTarget.parentNode.parentNode.id;
+    let zelle = this.getZielZelle(zellenID, zellenRow);
+
     //Zur einfacheren Handhabung
     let h;
     let fO;
@@ -35,8 +42,8 @@ class Domino extends Component {
     console.log("Got clicked " +id +"  "+pid)
     if(!isNaN(pid)){
       console.log("im feld")
-      h = feld1[pid].stone.h;
-      fO = feld1[pid].stone.fO
+      h = feld1[zellenRow].zellen[zelle].stone.h;
+      fO = feld1[zellenRow].zellen[zelle].stone.fO
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if(h && fO){
@@ -59,8 +66,8 @@ class Domino extends Component {
       }else {
         console.log("nichts passiert ");
       }
-      feld1[pid].stone.h = h;
-      feld1[pid].stone.fO= fO;
+      feld1[zellenRow].zellen[zelle].stone.h = h;
+      feld1[zellenRow].zellen[zelle].stone.fO = fO;
     
     }
     this.setState({
