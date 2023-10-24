@@ -24,6 +24,7 @@ class Kreuzwort extends Component {
         let quiz = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
+            let question = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
             line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
