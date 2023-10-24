@@ -39,8 +39,8 @@ class Domino extends Component {
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
 
-    console.log("Got clicked " +id +"  "+pid)
-    if(!isNaN(pid)){
+    console.log("Got clicked")
+    if(!isNaN(zellenID)){
       console.log("im feld")
       h = feld1[zellenRow].zellen[zelle].stone.h;
       fO = feld1[zellenRow].zellen[zelle].stone.fO
