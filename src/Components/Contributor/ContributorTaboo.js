@@ -94,6 +94,7 @@ class ContributorTaboo extends Component {
                 <label for='fw1'>Forbidden Word 4</label>
                 <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 3)} />
             </div>);
+        return display;
     }
 
     async componentDidMount() {

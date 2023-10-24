@@ -249,6 +249,7 @@ class ContributorKreuzwort extends Component {
         let questions = [];
         for (let i = 0; i < this.state.userCount; i++) {
             questions.push(<input type='text' value={this.state.questions[i]} onChange={(e) => this.onQuestion(e, i)} />)
+            questions.push(<br/>);
         }
         return questions;
     }
