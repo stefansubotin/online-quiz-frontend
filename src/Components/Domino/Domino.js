@@ -8,7 +8,7 @@ class Domino extends Component {
       users: props.users,
       user: props.user,
       data: props.data,
-      activeUser: "aktiv",
+      activeUser: "",
       pool: [],
       feld:[],
       feldState: 0,
@@ -99,6 +99,7 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data);
     console.log(dat)
     let ap = dat.activeUser;
+    console.log("ActivePlayer"+ap)
     return ap;
   }
 
@@ -279,7 +280,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card" id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card col-1" id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
