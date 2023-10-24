@@ -135,6 +135,7 @@ class ContributorTaboo extends Component {
     }
 
     render() {
+        console.log(this.state);
         return <div>
             <form onSubmit={(e) => this.onSubmit(e)}>
                 <input type='submit' value='Save Question' />
