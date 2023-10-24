@@ -40,7 +40,7 @@ class Base extends Component {
     
     render() {
         return (
-            <div name='base'>
+            <div name='base' className='container'>
                 {this.getComponent()}
             </div>
         );

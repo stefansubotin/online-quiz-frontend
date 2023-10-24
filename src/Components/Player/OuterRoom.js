@@ -15,7 +15,7 @@ class OuterRoom extends Component {
 
   render() {
     return (
-      <div name="outerRoom" style={{ display: "flex" }}>
+      <div name="outerRoom" className="row">
         <InnerRoom
           room={this.state.room}
           user={this.state.user}

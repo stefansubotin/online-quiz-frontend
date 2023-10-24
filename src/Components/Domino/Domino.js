@@ -330,10 +330,10 @@ class Domino extends Component {
 
   render() {
     return (
-      <div name = "domino">
-        <h1>Domino</h1>
-        <p>Spieler {this.state.activeUser} ist am Zug</p>
-        <div className="container" id="firstPart">
+      <div name = "domino" className="row">
+        <div className="container col-12" id="firstPart">
+          <h1>Domino</h1>
+          <p>Spieler {this.state.activeUser} ist am Zug</p>
           <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
               {this.getFeld()}
           </div>
