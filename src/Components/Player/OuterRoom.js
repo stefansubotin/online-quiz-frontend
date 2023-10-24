@@ -21,7 +21,7 @@ class OuterRoom extends Component {
           user={this.state.user}
           leader={this.state.leader}
         />
-        <span className="fixedSize invis size25">&nbsp;</span>
+        <div className="col-1"></div>
         <Chat className="col-3"room={this.state.room} type="lobby" user={this.state.user} />
       </div>
     );
