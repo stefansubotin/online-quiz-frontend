@@ -260,7 +260,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card " id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card" id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
@@ -293,7 +293,7 @@ class Domino extends Component {
       });     
     }      
     return(this.state.feld.map((f)=>(
-    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle container" id={f.id}>
+    <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="zelle" id={f.id}>
       {(f.stone.id=="") ? "Zelle" : this.getOneStone(f.stone)}
     </div>)));  
   }
@@ -377,14 +377,14 @@ class Domino extends Component {
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
         <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
+          <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded">
               {this.getFeld()}
           </div>
         </div>
 
         <div id="secondPart" className="row">
 
-            <div name="poolFeld" id="pool" className="col-8">
+            <div name="poolFeld" id="pool" className="col-8 pool">
               {this.getStones()}
             </div>
             <div className="col-4">
