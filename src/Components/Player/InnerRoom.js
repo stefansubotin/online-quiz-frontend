@@ -130,7 +130,7 @@ class InnerRoom extends Component {
             case 'domino':
                 //TODO Lena: hier für domino ergänzen#
                 await channel.unsubscribe('updateFeld');
-                await channel.unsubscribe('');
+                //await channel.unsubscribe('');
                 break;
         }
         ably.close();
