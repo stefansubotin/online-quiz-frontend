@@ -5,6 +5,7 @@ class Domino extends Component {
     super(props);
     this.state = {
       room: props.room,
+      users: props.users,
       user: props.user,
       data: props.data,
       activeUser: "aktiv",
@@ -80,7 +81,11 @@ class Domino extends Component {
   //Spieler wechsel
   handleSwitchPlayer(){
     console.log("clicked");
-    
+    /*
+    let users = this.state.users
+    let ap = this.state.activeUser;
+    for(let i = 0; i<)
+    */
   }
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
@@ -231,6 +236,7 @@ class Domino extends Component {
 
   initStones(){
     //Object 
+    console.log("Mitspieler: "+ this.state.users)
     let dat = JSON.parse(this.state.data)
     let amount = dat.fragen.length;
     let stones =[];

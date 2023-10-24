@@ -185,6 +185,7 @@ class InnerRoom extends Component {
                         className="game"
                         room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
+                        users = {this.state.users}
                         data={this.state.data}
                     />
                 );
