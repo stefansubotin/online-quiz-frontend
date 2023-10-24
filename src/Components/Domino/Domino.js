@@ -88,7 +88,7 @@ class Domino extends Component {
     });
     ably.close();  
   }
-  
+
   //Spieler wechsel
   handleSwitchPlayer(){
     console.log("clicked");
@@ -249,7 +249,7 @@ class Domino extends Component {
     let stones =[];
     console.log("FeldState Steine "+fs)
     
-    if(fs==1){
+    if(fs<1){
       fs++;
       console.log("initSteine "+stones);
         stones = this.initStones();
