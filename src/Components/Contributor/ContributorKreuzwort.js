@@ -221,8 +221,10 @@ class ContributorKreuzwort extends Component {
     }
 
     getLine(i) {
+        console.log('i: ' + i);
         let line = [];
         for (let j = 0; j < this.state.size; j++) {
+            console.log('j: ' + j);
             let style = 'cellSmall';
             if (j == this.state.msp - 1) style = style + ' inputMsp';
             else style = style + ' inputNormal';
