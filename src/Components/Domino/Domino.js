@@ -256,7 +256,7 @@ class Domino extends Component {
           feldState: fs,
       });
     }
-    if(pool.length==0){
+    if(this.state.pool.length==0 && this.state.feldState>1){
       return <Button disabled={this.state.user!=this.state.users[0]}>beenden</Button>
     }
 
