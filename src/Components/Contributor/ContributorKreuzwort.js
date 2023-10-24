@@ -129,6 +129,7 @@ class ContributorKreuzwort extends Component {
             lines: lines,
             questions: this.state.questions
         });
+        console.log(state);
     }
 
     decreaseSize(e) {
@@ -234,6 +235,9 @@ class ContributorKreuzwort extends Component {
 
     getTable() {
         let lines = this.getLines();
+        return <div>
+            {lines}
+        </div>
         return (
             <table>
                 <tbody>
