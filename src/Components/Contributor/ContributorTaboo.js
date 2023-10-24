@@ -82,17 +82,17 @@ class ContributorTaboo extends Component {
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 2</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 1)} />
+                <input id='fw1' type='text' value={this.state.forbiddenWords[1]} onChange={(e) => this.onFw(e, 1)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 3</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 2)} />
+                <input id='fw1' type='text' value={this.state.forbiddenWords[2]} onChange={(e) => this.onFw(e, 2)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 4</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 3)} />
+                <input id='fw1' type='text' value={this.state.forbiddenWords[3]} onChange={(e) => this.onFw(e, 3)} />
             </div>);
         return display;
     }
