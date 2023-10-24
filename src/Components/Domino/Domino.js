@@ -82,7 +82,7 @@ class Domino extends Component {
   handleSwitchPlayer(){
     let users = this.state.users
     let ap = this.state.activePlayer;
-    let next;
+    let next = "";
     for(let i = 0; i<users.length;i++){
       if(users[i] == ap && i+1<users.length){
         console.log("nicht der letzte: "+ users[i+1])
@@ -90,8 +90,6 @@ class Domino extends Component {
       }else if(users[i] == ap && i+1==users.length){
         console.log("der letzte"+ users[0])
         next = users[0]
-      }else{
-        next= users[0]
       }
     }
     this.updateFeld(next, this.state.feld, this.state.pool)
@@ -287,7 +285,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card w-20" id={id} draggable onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card" disabled={(this.state.user!=this.state.activePlayer)} id={id} draggable onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "lh-1 fs-6 list-group list-group-horizontal" : "lh-1 fs-6 list-group list-group-flush"}>
           <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
@@ -428,7 +426,7 @@ class Domino extends Component {
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
         <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld" disabled={(this.state.user!=this.state.activePlayer)} className="dominoFeld rounded container flex-wrap">
+          <div name="dominoFeld" id="dominoFeld"  className="dominoFeld rounded container flex-wrap">
               {this.getFeld()}
           </div>
         </div>
