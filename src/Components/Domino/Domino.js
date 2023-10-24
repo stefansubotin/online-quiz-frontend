@@ -5,6 +5,7 @@ class Domino extends Component {
     super(props);
     this.state = {
       room: props.room,
+      users: props.users,
       user: props.user,
       data: props.data,
       activeUser: "aktiv",
@@ -14,7 +15,7 @@ class Domino extends Component {
     };
   }
   //Stein drehen
-  async handleOnClick(e){
+  async handleRotateStone(e){
     // Daten aus Event
     let id = e.currentTarget.id
     let pid = e.currentTarget.parentNode.id;
@@ -80,7 +81,17 @@ class Domino extends Component {
   //Spieler wechsel
   handleSwitchPlayer(){
     console.log("clicked");
-    
+    /*
+    let users = this.state.users
+    let ap = this.state.activeUser;
+    for(let i = 0; i<)
+    */
+  }
+  getActivePlayer(){
+    let dat = JSON.parse(this.state.data);
+    console.log(dat)
+    let ap = dat.activeUser;
+    return ap;
   }
 
   //DRAG AND DROP
@@ -225,6 +236,7 @@ class Domino extends Component {
 
   initStones(){
     //Object 
+    console.log("Mitspieler: "+ this.state.users)
     let dat = JSON.parse(this.state.data)
     let amount = dat.fragen.length;
     let stones =[];
@@ -248,7 +260,7 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card" id={id} draggable="true" onClick={(e)=>this.handleOnClick(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+      <div className="card " id={id} draggable="true" onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
         <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
@@ -359,23 +371,26 @@ class Domino extends Component {
 
   render() {
     return (
-      <div name = "domino" className="row">
-        <div className="container col-12" id="firstPart">
-          <h1>Domino</h1>
-          <p>Spieler {this.state.activeUser} ist am Zug</p>
+      <div name = "domino" className="container">
+        <div className="row">
+          <h1 className="col-6 align-baseline">Domino</h1>
+          <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
+        </div>
+        <div className="row" id="firstPart">
           <div name="dominoFeld" id="dominoFeld" className="dominoFeld rounded container">
               {this.getFeld()}
           </div>
         </div>
-        <div id="secondPart" className="container">
-          <div  className="row">
+
+        <div id="secondPart" className="row">
+
             <div name="poolFeld" id="pool" className="col-8">
               {this.getStones()}
             </div>
             <div className="col-4">
               <button type="button" className="btn btn-light" onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
             </div>
-          </div>
+
         </div>  
 
       </div>

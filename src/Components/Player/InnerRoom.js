@@ -185,6 +185,7 @@ class InnerRoom extends Component {
                         className="game"
                         room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
+                        users = {this.state.users}
                         data={this.state.data}
                     />
                 );
@@ -243,7 +244,7 @@ class InnerRoom extends Component {
 
     render() {
         return (
-            <div className="col-sm-8">
+            <div className="col-8">
                 <div name="innerRoom" className="row">
                     <div className="col-3">{this.getUserList()}</div>
                     <br />
