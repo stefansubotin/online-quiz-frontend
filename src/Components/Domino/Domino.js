@@ -314,16 +314,16 @@ class Domino extends Component {
     }      
     return (this.state.feld.map((row)=>{
       return (
-        row.zellen.map((f)=>{
+        <div className="row flex-wrap " id={row.id}>
+          {row.zellen.map((f)=>{
             return(
-              <div className="row flex-wrap " id={row.id}>
                 <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
                   {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
                 </div> 
-              </div>
+              
             );
-          })
-       
+          })}
+       </div>
       );
     }));
   }
