@@ -40,8 +40,6 @@ class Domino extends Component {
     if(!isNaN(zellenID)){
       if(zellenID<0){
         console.log("diagonales")
-        zellenID = zellenRow
-        zellenRow = e.currentTarget.parentNode.parentNode.parentNode.id
       }
       console.log("im feld")
       h = feld1[zellenRow].zellen[zelle].stone.h;
