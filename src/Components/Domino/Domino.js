@@ -14,6 +14,7 @@ class Domino extends Component {
       feldState: 0,
     };
   }
+  //Gibt bei bekannter Zellen id und Zeile die Spalte zurück
   getZielZelle(id, row){
     let laenge = JSON.parse(this.state.data).laenge;
     let zelle = (id-(row*laenge));
@@ -32,13 +33,6 @@ class Domino extends Component {
     let fO;
     let pool1 = this.state.pool;
     let feld1 = this.state.feld;
-
-    //Kommunikation 
-    const Ably = require('ably');
-    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-    await ably.connection.once('connected');
-    const channelId = 'domino' + this.state.room;
-    const channel = ably.channels.get(channelId);
 
     console.log("Got clicked")
 
@@ -81,12 +75,7 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });
-    await channel.publish('updateFeld', {
-      user: this.state.user,
-      feld: feld1,
-      pool: pool1,
-    });
-    ably.close();  
+    this.updateFeld(this.state.activeUser,feld1,pool1);
   }
 
   //Spieler wechsel
@@ -110,10 +99,21 @@ class Domino extends Component {
   }
   getActivePlayer(){
     let dat = JSON.parse(this.state.data);
-    console.log(dat)
     let ap = dat.activePlayer;
-    console.log("ActivePlayer"+ap)
-    return ap;
+    if(this.state.activeUser==""){
+      this.setState({
+        room: this.state.room,
+        user: this.state.user,
+        data: this.state.data,
+        activeUser: ap,
+        pool: this.state.pool,
+        feld: this.state.feld,
+        feldState: this.state.feldState,
+      });
+    }
+    return ap
+    
+
   }
 
   //DRAG AND DROP
