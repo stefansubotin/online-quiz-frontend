@@ -198,7 +198,7 @@ class ContributorSimpleQuestion extends Component {
 
             this.setState({
                 collection: this.state.collection,
-                key: item.props.key,
+                key: item.key,
                 question: item.props.question,
                 answer: item.props.answer,
                 falseAnswer1: item.props.falseAnswer1,

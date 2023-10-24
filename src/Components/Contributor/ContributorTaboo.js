@@ -103,7 +103,7 @@ class ContributorTaboo extends Component {
             console.log('new');
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: 'NO_KEY',
                 answer: '',
                 forbiddenWords: ['', '', '', '']
             });
@@ -127,7 +127,7 @@ class ContributorTaboo extends Component {
 
             this.setState({
                 collection: this.state.collection,
-                key: this.state.key,
+                key: item.key,
                 answer: item.props.answer,
                 forbiddenWords: item.props.forbiddenWords
             });
