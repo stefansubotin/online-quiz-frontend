@@ -14,6 +14,7 @@ class Domino extends Component {
       feldState: 0,
     };
   }
+  
   //Stein drehen
   async handleRotateStone(e){
     // Daten aus Event
@@ -114,6 +115,8 @@ class Domino extends Component {
     // Daten über Stein und Parent vom Stein
     let ziel = e.currentTarget.id;
     let zielRow = e.currentTarget.parentNode;
+    let laenge = JSON.parse(this.state.data).laenge;
+    let zielZelle = (ziel-(zielRow*laenge));
     let origin = e.dataTransfer.getData("id")
     let originParent = e.dataTransfer.getData("parent")
     // Feld und Pool kopie zur einfacheren Handhabung
@@ -146,11 +149,11 @@ class Domino extends Component {
       }
 
       //setzen des Steins
-      feld1[zielRow].stone.id=stone.id;
-      feld1[zielRow].stone.antwort= stone.antwort;
-      feld1[zielRow].stone.frage= stone.frage;
-      feld1[zielRow].stone.h  = stone.h;
-      feld1[zielRow].stone.fO = stone.fO
+      feld1[zielRow].zellen[zielZelle].stone.id=stone.id;
+      feld1[zielRow].zellen[zielZelle].stone.antwort= stone.antwort;
+      feld1[zielRow].zellen[zielZelle].stone.frage= stone.frage;
+      feld1[zielRow].zellen[zielZelle].stone.h  = stone.h;
+      feld1[zielRow].zellen[zielZelle].stone.fO = stone.fO
       
       console.log("stein gesetzt")
       //löschen des Steins
@@ -278,6 +281,7 @@ class Domino extends Component {
     let fs = this.state.feldState
     let feld= [];
     console.log("FeldState Feld: "+fs)
+    
   
     if(fs<1){
       fs++
@@ -310,10 +314,12 @@ class Domino extends Component {
 
   initFeld() {
     //DominoData.json feld
-    let feld=[];
+    let feld;
     let zellen = [];
     let z;
-    let laenge = 3;
+    let laenge = JSON.parse(this.state.data).laenge;
+    console.log("laenge"+laenge)
+    
     for(let i= 0;i<laenge;++i){
       for(let j = 0; j<laenge;++j){
         let id = i*laenge+j;
@@ -325,6 +331,7 @@ class Domino extends Component {
       feld.push({id: i, zellen: zellen});
       zellen=[];
     }
+    
     console.log(feld)
     return feld
   }
