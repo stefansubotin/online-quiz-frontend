@@ -220,7 +220,7 @@ class Domino extends Component {
     });  
     //Send the Message to all user
     //Pool wird noch mit gesendet, kommt weg sobald Steine aufgeteilt werden
-    await channel.publish('updateSteine', {
+    await channel.publish('updateFeld', {
       user: this.state.user,
       feld: feld1,
       pool: poolNeu,
