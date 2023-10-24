@@ -22,8 +22,10 @@ class Kreuzwort extends Component {
     getQuiz() {
         let data = JSON.parse(this.state.data);
         let quiz = [];
+        let questions = [];
         for (let i = 0; i < data.count; i++) {
             let line = [];
+            let question = [];
             console.log(data.lines[i]);
             line.push(<span>{i + 1}. Frage:</span>)
             line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
@@ -55,21 +57,24 @@ class Kreuzwort extends Component {
                     }
                 }
             }
-            line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
-            if (data.lines[i].user == this.state.user) {
-                line.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
-                line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
-                line.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
-            }
-            else {
-                line.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
-                line.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
-                line.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
-            }
             line.push(<br/>);
             quiz.push(line);
+
+            question.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+            if (data.lines[i].user == this.state.user) {
+                question.push(<button name={i} className='cellBig' onClick={e => this.onSubmit(i)}>Submit</button>);
+                question.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+                question.push(<span className='fixedSize cellQuestion'>{data.lines[i].question}</span>)
+            }
+            else {
+                question.push(<span className='cellBig fixedSize'>{data.lines[i].user}</span>);
+                question.push(<span className='cellSmall fixedSize invis'>&nbsp;</span>);
+                question.push(<span className='fixedSize invis cellQuestion'>&nbsp;</span>)
+            }
+            question.push(<br/>);
+            questions.push(question);
         }
-        return quiz;
+        return quiz.concat(questions);
     }
 
 //#region OnEvent-Functions
