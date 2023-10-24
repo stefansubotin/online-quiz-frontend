@@ -8,7 +8,7 @@ class Domino extends Component {
       users: props.users,
       user: props.user,
       data: props.data,
-      activeUser: "",
+      activeUser:"",
       pool: [],
       feld:[],
       feldState: 0,
@@ -153,12 +153,7 @@ class Domino extends Component {
     let poolNeu = [];
     let feld1 = this.state.feld;
     let stone;
-    // Kommunikation für Update Feld
-    const Ably = require('ably');
-    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-    await ably.connection.once('connected');
-    const channelId = 'domino' + this.state.room;
-    const channel = ably.channels.get(channelId);
+
 
 
     console.log("ziel "+ziel+ "zielRow "+zielRow+" zielZelle"+zielZelle)
@@ -232,14 +227,8 @@ class Domino extends Component {
       feld: feld1,
       feldState: this.state.feldState,
     });  
-    //Send the Message to all user
-    //Pool wird noch mit gesendet, kommt weg sobald Steine aufgeteilt werden
-    await channel.publish('updateFeld', {
-      user: this.state.user,
-      feld: feld1,
-      pool: poolNeu,
-    });
-    ably.close();  
+
+    this.updateFeld(this.state.activeUser, feld1, poolNeu); 
     
   }
 
@@ -249,7 +238,7 @@ class Domino extends Component {
     let stones =[];
     console.log("FeldState Steine "+fs)
     
-    if(fs<1){
+    if(fs==1){
       fs++;
       console.log("initSteine "+stones);
         stones = this.initStones();
@@ -293,16 +282,12 @@ class Domino extends Component {
     let horizontal = stone.h
     let fOben = stone.fO
     return (
-      <div className="card lh-1 fs-6" id={id} draggable={(this.state.user!=this.getActivePlayer())} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
-        <ul className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
+      <div className="card lh-1 fs-6 stone" id={id} draggable={(this.state.user!=this.state.activeUser)} disabled={(this.state.user!=this.state.activeUser)} onClick={(e)=>this.handleRotateStone(e)} onDragStart={(e)=>this.handleDragStart(e)}>
+        <ul id ="innerStone" className={horizontal ? "list-group list-group-horizontal" : "list-group list-group-flush"}>
           <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
           <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </ul>
       </div>);
-  }
-  getSurroundingDatas(){
-    let title = "Domino"
-    
   }
 
   //GENERIERE FELD
@@ -367,7 +352,7 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
-  async updateFeld(feld, pool, activeUser){
+  async updateFeld(activeUser, feld, pool ){
     // Kommunikation für Update Feld
     const Ably = require('ably');
     const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
