@@ -10,15 +10,19 @@ class ContributorBase extends Component {
         }
     }
 
-    handleCallBack = (childData) => {
+    onList(event){
         this.setState({
-            list: childData.list
+            list: !this.state.list
         })
     }
 
     getDisplay() {
         let display = [];
-        display.push(<ContributorChoice parentCallback={this.handleCallBack} />);
+        let list = 'Display Question List';
+        if (this.state.list) list = 'Hide Question List'
+        display.push(<ContributorChoice parentCallback={this.handleCallBack} list={this.state.list} />);
+        display.push(<br/>);
+        display.push(<button onClick={(e) => this.onList(e)}>{list}</button> )
         if (this.state.list) {
             display.push(<br/>);
             display.push(<ContributorList />);
