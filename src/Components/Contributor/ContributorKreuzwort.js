@@ -76,9 +76,11 @@ class ContributorKreuzwort extends Component {
 
         let lines = [];
         for (let i = 0; i < this.state.userCount; i++) {
+            console.log('i: ' + i)
             let answer = '';
             let start = -1;
-            for (let j = 0; j < this.state.size; i++) {
+            for (let j = 0; j < this.state.size; j++) {
+                console.log('j: ' + j)
                 if (this.state.lines[i][j] != '') {
                     answer = answer + this.state.lines[i][j];
                     if (start < 0) start = j + 1;
