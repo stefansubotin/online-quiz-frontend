@@ -14,8 +14,13 @@ class BackendAccess {
   static getUrlContributor() {
     return this.getUrl() + "contributor";
   }
+
   static getUrlDomino() {
     return this.getUrl() + "domino";
+  }
+
+  static getUrlTaboo() {
+    return this.getUrl() + "taboo";
   }
 }
 

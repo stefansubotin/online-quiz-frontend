@@ -76,7 +76,7 @@ class Lobby extends Component {
             users: users,
         };
 
-        let url = BackendAccess.getUrl() + 'taboo';
+        let url = BackendAccess.getUrlTaboo();
         fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
