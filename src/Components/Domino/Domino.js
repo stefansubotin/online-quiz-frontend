@@ -79,7 +79,7 @@ class Domino extends Component {
   }
   //Spieler wechsel
   handleSwitchPlayer(){
-    console.log(clicked);
+    console.log("clicked");
   }
 
   //DRAG AND DROP
