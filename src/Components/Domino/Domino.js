@@ -330,12 +330,12 @@ class Domino extends Component {
       {d?
         <>
           <ul id="-1"className="list-group">
-            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller}
-            {h?this.getDiagonalStoneFiller:<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
+            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
           </ul>
           <ul id="-2" className="list-group list-group-horizontal">
-            {h?this.getDiagonalStoneFiller:<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
-            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
+            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
           </ul>
         </>
         :<>
@@ -347,7 +347,7 @@ class Domino extends Component {
     )
   }
   getDiagonalStoneFiller(){
-    return <li className="list-group-item bg-secondary-subtle">::</li>
+    return <li className="list-group-item bg-secondary-subtle">:TEST:</li>
   }
 
   //GENERIERE FELD
