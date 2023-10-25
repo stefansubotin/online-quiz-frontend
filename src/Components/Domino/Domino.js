@@ -466,7 +466,7 @@ class Domino extends Component {
         .then((response) => response.json)
         .then((data) => (res = data))
         .catch((error) => console.log(error));
-    if(red !=undefined){this.sendResultsFormular(res)
+    if(res !=undefined){this.sendResultsFormular(res)
     }else{
       console.log(res)
       alert("somthing wrong")
