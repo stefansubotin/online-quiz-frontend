@@ -521,10 +521,14 @@ class Domino extends Component {
     }
   }
   async setResultData(message) {  
+    console.log("Got Result Sheet")
+   
     let dat = message
     let cAnswers = dat.correctAnswers
     let wAnswers = dat.wrongAnswers
 
+    console.log(dat)
+    
     this.setState(() =>({
       feldState: 4,
       wrongAnswers: wAnswers,
@@ -582,7 +586,7 @@ class Domino extends Component {
               </thead>
               <tbody>
                 <tr>
-                  {this.state.wrongAnswers.length==0?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
+                  {this.state.wrongAnswers.length==0|undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
