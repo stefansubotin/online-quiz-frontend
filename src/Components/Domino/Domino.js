@@ -465,15 +465,16 @@ class Domino extends Component {
         .then((data) => console.log(data))
         .catch((error) => console.log(error));
   }
-  StopGame(message){
+  stopGame(message){
     let wQuestions=[]
     let cQuestions= []
-    
+    console.log("Gott end Text")
     message.wrongAnswers.forEach(question => wQuestions.push({question: question.answer, answer: question.answer}))
     message.correctAnswers.forEach(question => cQuestions.push({question: question.answer, answer: question.answer}))
     console.log("Richtige: "+wQuestions)
     console.log("Richtige: "+cQuestions)
       this.setState(()=>({
+        feldState: 4,
         correctAnswers : cQuestions,
         wrongAnswers: wQuestions,
       }));
@@ -482,7 +483,7 @@ class Domino extends Component {
   }
   
 
-  async handleUpdateFeld(message) {
+  async updateFeld(message) {
     console.log("Got this from: "+message.data.user);
     console.log("NextPlayer: "+ message.data.activePlayer)
     
@@ -508,8 +509,8 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    channel.subscribe('updateFeld', (message)=>this.handleUpdateFeld(message))
-    channel.subscribe('ende', (message)=>this.StopGame(message))
+    channel.subscribe('updateFeld', (message)=>this.updateFeld(message))
+    channel.subscribe('resultDomino', (message)=>this.stopGame(message))
 
   }
   
