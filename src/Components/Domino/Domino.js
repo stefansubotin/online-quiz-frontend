@@ -330,12 +330,12 @@ class Domino extends Component {
       {d?
         <>
           <ul id="-1"className={h?"list-group":"list-group list-group-horizontal"}>
-            {h?<li className={fOben?"list-group-item col-6 bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
+            {h?<li className={fOben?"list-group-item bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
             {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 list-group-item bg-secondary-subtle":"col-6 list-group-item "}>{fOben?frage:antwort}</li>}
           </ul>
           <ul id="-2" className={h?"list-group":"list-group list-group-horizontal"}>
-            {h?this.getDiagonalStoneFiller():<li className={fOben?"list-group-item col-6":" bg-secondary-subtle col-6 list-group-item"}>{fOben?antwort:frage}</li>}
-            {h?<li className={fOben?"list-group-item col-6":" bg-secondary-subtle col-6 list-group-item"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"list-group-item":" bg-secondary-subtle list-group-item"}>{fOben?antwort:frage}</li>}
+            {h?<li className={fOben?"list-group-item":" bg-secondary-subtle list-group-item"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
           </ul>
         </>
         :<>
@@ -466,9 +466,13 @@ class Domino extends Component {
         .then((response) => response.json)
         .then((data) => (res = data))
         .catch((error) => console.log(error));
-        
-    this.sendResultsFormular(res);
+    if(red !=undefined){this.sendResultsFormular(res)
+    }else{
+      console.log(res)
+      alert("somthing wrong")
+    }
   }
+
   async sendResultsFormular(data) {
     console.log("Ende Spiel");
     const Ably = require('ably');

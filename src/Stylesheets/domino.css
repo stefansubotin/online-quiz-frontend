@@ -11,9 +11,12 @@
     padding-bottom: 100%;
 }
 
-.list-group-item {
+.position48 {
     width: 50%;
     height: 50%;
+}
+
+.list-group-item {
     overflow: auto;
     font-size: xx-small;
 }
