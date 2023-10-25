@@ -447,7 +447,7 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
     console.log("ROOM "+this.state.room)
-    
+
     let body = {
         state: 2,
         room: this.state.room,
@@ -468,17 +468,12 @@ class Domino extends Component {
         .catch((error) => console.log(error));
   }
   setGameEnd(message){
-    let wQuestions=[]
-    let cQuestions= []
-    console.log("Gott end Text")
-    message.wrongAnswers.forEach(question => wQuestions.push({question: question.answer, answer: question.answer}))
-    message.correctAnswers.forEach(question => cQuestions.push({question: question.answer, answer: question.answer}))
-    console.log("Richtige: "+wQuestions)
-    console.log("Richtige: "+cQuestions)
+    console.log("Richtige: "+message.correctAnswers)
+    console.log("Richtige: "+message.wrongAnswers)
       this.setState(()=>({
         feldState: 4,
-        correctAnswers : cQuestions,
-        wrongAnswers: wQuestions,
+        correctAnswers : message.correctAnswers,
+        wrongAnswers: message.wrongAnswers,
       }));
   }
   
