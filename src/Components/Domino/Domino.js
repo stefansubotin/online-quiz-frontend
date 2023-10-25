@@ -444,7 +444,8 @@ class Domino extends Component {
 
   }
   async handleStopGame(){
-
+    let dat = JSON.parse(this.state.data)
+    let questions =  dat.fragen
     let body = {
         state: 2,
         room: this.state.room,
@@ -551,7 +552,7 @@ class Domino extends Component {
               <tbody>
                 <tr>
                   {this.state.wrongAnswers.map((question)=>{
-                    retrun (
+                    return (
                     <tr>
                       <td>{question.question}</td>
                       <td>{question.answer}</td>
