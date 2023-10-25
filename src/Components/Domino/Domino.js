@@ -440,6 +440,7 @@ class Domino extends Component {
   async handleStopGame(){
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
+    let res;
 
     this.setState(()=>({
       feldState: 4,
@@ -463,8 +464,10 @@ class Domino extends Component {
         headers: { "Content-Type": "application/json" },
     })
         .then((response) => response.json)
-        .then((data) => this.sendResultsFormular(data))
+        .then((data) => (res = data))
         .catch((error) => console.log(error));
+        
+    this.sendResultsFormular(res);
   }
   async sendResultsFormular(data) {
     console.log("Ende Spiel");
@@ -473,9 +476,12 @@ class Domino extends Component {
     await ably.connection.once('connected');
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
+    let dat = JSON.parse(data)
 
-    let cAnswers = data.correctAnswers
-    let wAnswers = data.wrongAnswers
+    let cAnswers = dat.correctAnswers
+    let wAnswers = dat.wrongAnswers
+    console.log("cAnswer"+cAnswers)
+    console.log("wAnswer"+wAnswers)
 
     this.setState(() =>({
       feldState: 4,

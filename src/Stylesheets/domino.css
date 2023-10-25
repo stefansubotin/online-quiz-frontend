@@ -12,7 +12,8 @@
 }
 
 .list-group-item {
-
+    width: 50%;
+    height: 50%;
     overflow: auto;
     font-size: xx-small;
 }
