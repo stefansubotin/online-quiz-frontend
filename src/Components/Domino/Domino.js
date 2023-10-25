@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, isValidElement } from "react";
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
 class Domino extends Component {
@@ -421,13 +421,9 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
     console.log("ROOM "+this.state.room)
     this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
       activePlayer: activePlayer,
       pool: pool,
       feld: feld,
-      feldState: this.state.feldState,
     });   
     console.log("SEND: "+ feld+ pool+activePlayer)
 
@@ -444,7 +440,7 @@ class Domino extends Component {
   async handleStopGame(){
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
-    console.log("ROOM "+this.state.room)
+
     this.setState(()=>({
       feldState: 4,
       correctAnswers :[],
@@ -460,32 +456,50 @@ class Domino extends Component {
     };
 
     let url = BackendAccess.getUrlDomino();
-    //https://rapidapi.com/guides/fetch-api-react
+
     fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
         headers: { "Content-Type": "application/json" },
     })
         .then((response) => response.json)
-        .then((data) => console.log(data))
+        .then((data) => this.sendResultsFormular(data))
         .catch((error) => console.log(error));
   }
-  setGameEnd(message){
-    let c =[]
-    let w = []
+  async sendResultsFormular(data) {
+    console.log("Ende Spiel");
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'domino' + this.state.room;
+    const channel = ably.channels.get(channelId);
 
-    c = message.data.correctAnswers
-    w = message.data.wrongAnswers
-    console.log("Richtige: "+c)
-    console.log("Richtige: "+w)
-    console.log("Richtige: "+message)
-    console.log("Richtige: "+message.data)
-    
-      this.setState(()=>({
+    let dat = JSON.parse(data)
+    let cAnswers = dat.correctAnswers
+    let wAnswers = dat.wrongAnswers
+
+    this.setState(() =>({
+      feldState: 4,
+       wrongAnswers: wAnswers,
+       correctAnswers: cAnswers
+    }));   
+
+    console.log("SEND: "+ wAnswers+cAnswers)
+
+    let body = {
+      game: "domino",
+      data: {
         feldState: 4,
-        correctAnswers :c,
-        wrongAnswers: w,
-      }));
+        correctAnswers: correctAnswers,
+        wrongAnswers: cAnswers
+      },
+    }
+
+    await channel.publish('resultDomino', body);
+    
+    console.log("gesendet an " + body);
+    ably.close();  
+   
   }
   
 
@@ -506,7 +520,18 @@ class Domino extends Component {
         feldState: this.state.feldState,
       });
     }
-}
+  }
+  async setResultData(message) {  
+    let dat = message
+    let cAnswers = dat.correctAnswers
+    let wAnswers = dat.wrongAnswers
+
+    this.setState(() =>({
+      feldState: 4,
+      wrongAnswers: wAnswers,
+      correctAnswers: cAnswers
+    }));   
+  }
   async componentDidMount(){
     //Connection Ably to transfer and update Data
     const Ably = require('ably');
@@ -516,7 +541,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
     channel.subscribe('updateFeld', (message)=>this.setUpdateFeld(message))
-    channel.subscribe('resultDomino', (message)=>this.setGameEnd(message))
+    channel.subscribe('resultDomino', (message)=>this.setResultData(message))
 
   }
   
@@ -558,7 +583,7 @@ class Domino extends Component {
               </thead>
               <tbody>
                 <tr>
-                  {this.state.wrongAnswers.map((question)=>{
+                  {this.state.wrongAnswers.length==0?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
