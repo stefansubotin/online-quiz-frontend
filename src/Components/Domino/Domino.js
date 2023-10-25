@@ -260,7 +260,7 @@ class Domino extends Component {
       feld: feld1,
     });
 
-    this.updateFeld(this.state.activePlayer, feld1, poolNeu);
+    this.updateFeld(this.state.activePlayer, feld1, this.state.pool);
 
   }
 
