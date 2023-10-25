@@ -63,7 +63,7 @@ class Lobby extends Component {
             .catch((error) => console.log(error));
     }
 
-    async onStartTaboo() {
+    async onStartTaboo(event) {
         let users = [];
         console.log(this.state);
         for (let i = 0; i < this.state.userCount; i++) {
@@ -186,7 +186,7 @@ class Lobby extends Component {
                 <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br/>
                 <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br/>
                 <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br/>
-                <button onClick={(e) => this.onStartTaboo()} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
+                <button onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
     }
