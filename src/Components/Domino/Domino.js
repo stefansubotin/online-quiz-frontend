@@ -458,17 +458,18 @@ class Domino extends Component {
 
     let url = BackendAccess.getUrlDomino();
 
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-    })
-        .then((response) => response.json)
-        .then((data) => (res = data))
-        .catch((error) => console.log(error));
-    if(res !=undefined){this.sendResultsFormular(res)
+    const requestOptions= {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    }
+    const response = await fetch (url, requestOptions);
+    const data = await response.json();
+    
+    if(data !=undefined){
+      this.sendResultsFormular(data)
     }else{
-      console.log(res)
+      console.log(data)
       alert("somthing wrong")
     }
   }
