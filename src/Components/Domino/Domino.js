@@ -421,7 +421,7 @@ class Domino extends Component {
     await ably.connection.once('connected');
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
-
+    console.log("ROOM "+this.state.room)
     this.setState({
       room: this.state.room,
       user: this.state.user,
@@ -446,6 +446,8 @@ class Domino extends Component {
   async handleStopGame(){
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
+    console.log("ROOM "+this.state.room)
+    
     let body = {
         state: 2,
         room: this.state.room,
@@ -465,7 +467,7 @@ class Domino extends Component {
         .then((data) => console.log(data))
         .catch((error) => console.log(error));
   }
-  stopGame(message){
+  setGameEnd(message){
     let wQuestions=[]
     let cQuestions= []
     console.log("Gott end Text")
@@ -478,12 +480,10 @@ class Domino extends Component {
         correctAnswers : cQuestions,
         wrongAnswers: wQuestions,
       }));
-
-  
   }
   
 
-  async updateFeld(message) {
+  async setUpdateFeld(message) {
     console.log("Got this from: "+message.data.user);
     console.log("NextPlayer: "+ message.data.activePlayer)
     
@@ -509,8 +509,8 @@ class Domino extends Component {
     const channelId = 'domino'+this.state.room;
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
-    channel.subscribe('updateFeld', (message)=>this.updateFeld(message))
-    channel.subscribe('resultDomino', (message)=>this.stopGame(message))
+    channel.subscribe('updateFeld', (message)=>this.setUpdateFeld(message))
+    channel.subscribe('resultDomino', (message)=>this.setGameEnd(message))
 
   }
   
