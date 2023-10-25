@@ -471,12 +471,20 @@ class Domino extends Component {
         .catch((error) => console.log(error));
   }
   setGameEnd(message){
-    console.log("Richtige: "+message.data.correctAnswers)
-    console.log("Richtige: "+message.data.wrongAnswers)
+    let c =[]
+    let w = []
+
+    c = message.data.correctAnswers
+    w = message.data.wrongAnswers
+    console.log("Richtige: "+c)
+    console.log("Richtige: "+w)
+    console.log("Richtige: "+message)
+    console.log("Richtige: "+message.data)
+    
       this.setState(()=>({
         feldState: 4,
-        correctAnswers : message.data.correctAnswers,
-        wrongAnswers: message.data.wrongAnswers,
+        correctAnswers :c,
+        wrongAnswers: w,
       }));
   }
   
