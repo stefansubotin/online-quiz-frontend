@@ -53,7 +53,7 @@ class InnerRoom extends Component {
             await channel.publish("join-res", {
                 you: message.data.user,
                 game: this.state.game,
-                users: this.state.users
+                users: this.state.users,
             });
             ably.close();
         }
@@ -92,49 +92,12 @@ class InnerRoom extends Component {
             currentComponent: this.state.currentComponent,
             users: newUsers,
             message: this.state.message,
-            game: this.state.game
+            game: data.game
         });
         console.log(this.state);
     }
 
     async onEnd(message) {
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-
-        let start = JSON.parse(this.state.message);
-        const channelId = start.data.game + this.state.room;
-        console.log(channelId);
-        const channel = ably.channels.get(channelId);
-        channel.on('detached', function(stateChange) {
-            console.log('detached from the channel ' + channel.name);
-          });
-        switch (start.data.game) {
-            case 'wwm':
-                let dat = start.data.data;
-                if (dat.moderator == this.state.user) {
-                    await channel.unsubscribe('player');
-                }
-                else if (dat.moderator != "") {
-                    await channel.unsubscribe('moderator');
-                }
-                break;
-            case 'kreuzwort':
-                await channel.unsubscribe('update');
-                await channel.unsubscribe('correction');
-                break;
-            case 'taboo':
-                await channel.unsubscribe('message');
-                await channel.unsubscribe('system');
-                break;
-            case 'domino':
-                //TODO Lena: hier für domino ergänzen#
-                await channel.unsubscribe('updateFeld');
-                await channel.unsubscribe('ende');
-                //Meintest du so?
-                break;
-        }
-        ably.close();
         console.log('end');
         this.setState({
             room: this.state.room,
@@ -209,13 +172,6 @@ class InnerRoom extends Component {
     }
 
     getUserList(){
-        // let users = [];
-        // for (let i = 0; i < this.state.users.length; i++){
-        //     console.log(this.state.users[i]);
-        //     users.push(<div>{this.state.users[i]}</div>)
-        //     users.push(<br/>);
-        // }
-        // return users;
         return this.state.users.join(', ');
     }
 
