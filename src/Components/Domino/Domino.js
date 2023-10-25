@@ -465,6 +465,7 @@ class Domino extends Component {
     }
     const response = await fetch (url, requestOptions);
     const data = await response.json();
+    console.log(data);
     
     if(data !=undefined){
       this.sendResultsFormular(data)
