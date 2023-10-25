@@ -155,9 +155,6 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
-    if(pid<0){
-      console.log("diagonalerStein")
-    }    
     let ppid = e.currentTarget.parentNode.parentNode.id;
     console.log("DragStart: "+id+"parent: "+pid)
     e.dataTransfer.setData("id", id);
@@ -297,13 +294,14 @@ class Domino extends Component {
     //Object 
     console.log("Mitspieler: "+ this.state.users)
     let dat = JSON.parse(this.state.data)
+    console.log(dat)
     let amount = dat.fragen.length;
     let stones =[];
     for(let i = 0; i<amount;i++){
       stones.push({
-        id:dat.fragen[i].key,
-        frage:dat.fragen[i].props.question , 
-        antwort: dat.fragen[i].props.answer,
+        id: dat.fragen[i].key,
+        frage:dat.fragen[i].question, 
+        antwort: dat.fragen[i].answer,
         h:false,
         fO:true,
         d: false
@@ -440,7 +438,6 @@ class Domino extends Component {
   async handleStopGame(){
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
-    let res;
 
     this.setState(()=>({
       feldState: 4,
@@ -482,7 +479,7 @@ class Domino extends Component {
     await ably.connection.once('connected');
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
-    let dat = data.props
+    let dat = data
 
     let cAnswers = dat.correctAnswers
     let wAnswers = dat.wrongAnswers
@@ -535,7 +532,7 @@ class Domino extends Component {
   async setResultData(message) {  
     console.log("Got Result Sheet")
    
-    let dat = message
+    let dat = message.data.data
     let cAnswers = dat.correctAnswers
     let wAnswers = dat.wrongAnswers
 
@@ -597,15 +594,29 @@ class Domino extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
                   {this.state.wrongAnswers==undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
                       <td>{question.answer}</td>
-                    </tr>);
+                    </tr>
+                    );
                   })}
-                </tr>
+                  <tr>
+                    <th colspan="2">Richtige Fragen</th>
+                  </tr>
+                  <tr>
+                    <th>Fragen</th>
+                    <th>Antwort</th>
+                  </tr>
+                  {this.state.correctAnswers==undefined?"Waiting for data...":this.state.correctAnswers.map((question)=>{
+                    return (
+                    <tr>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
+                    </tr>
+                    );
+                  })}
                 </tbody>
             </table>
           </div>}
