@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../Stylesheets/domino.css";
+import BackendAccess from "../../Tools/BackendAccess";
 class Domino extends Component {
   constructor(props) {
     super(props);
@@ -442,6 +443,30 @@ class Domino extends Component {
     ably.close();  
 
   }
+  async handleStopGame(){
+    let questions=[]
+    let dat = JSON.parse(this.state.data)
+    dat.fragen.forEach(frage => questions.push({frage: frage.antwort, antwort: frage.antwort}))
+
+    let body = {
+        state: 2,
+        room: this.state.room,
+        users: this.state.users,
+        feld: this.state.feld,
+        questions: questions
+    };
+
+    let url = BackendAccess.getUrlDomino();
+    //https://rapidapi.com/guides/fetch-api-react
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+    })
+        .then((response) => response.json)
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+  }
   
 
   async handleUpdateFeld(message) {
@@ -496,6 +521,7 @@ class Domino extends Component {
             </div>
             <div className="col-4">
               <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+              <button type="button" className="btn btn-light" onClick={(e)=>this.handleStopGame()}>Spiel beenden</button>
             </div>
 
         </div>  
