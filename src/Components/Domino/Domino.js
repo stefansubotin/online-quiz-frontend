@@ -450,6 +450,11 @@ class Domino extends Component {
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
     console.log("ROOM "+this.state.room)
+    this.setState(()=>({
+      feldState: 4,
+      correctAnswers :[],
+      wrongAnswers: [],
+    }));
 
     let body = {
         state: 2,
