@@ -155,6 +155,9 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
+    if(pid<0){
+      console.log("diagonalerStein")
+    }    
     let ppid = e.currentTarget.parentNode.parentNode.id;
     console.log("DragStart: "+id+"parent: "+pid)
     e.dataTransfer.setData("id", id);
@@ -331,7 +334,7 @@ class Domino extends Component {
       disabled={(this.state.user!=this.state.activePlayer)}>
       {d?
         <>
-          <ul id="-1"className={h?"list-group list-group-horizontal":"list-group"}>
+          <ul id="-1"className="list-group">
             {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller}
             {h?this.getDiagonalStoneFiller:<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
           </ul>
