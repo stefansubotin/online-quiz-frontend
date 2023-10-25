@@ -482,7 +482,7 @@ class Domino extends Component {
     await ably.connection.once('connected');
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
-    let dat = data.props
+    let dat = data
 
     let cAnswers = dat.correctAnswers
     let wAnswers = dat.wrongAnswers
