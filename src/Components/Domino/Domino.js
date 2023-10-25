@@ -474,9 +474,8 @@ class Domino extends Component {
     const channelId = 'domino' + this.state.room;
     const channel = ably.channels.get(channelId);
 
-    let dat = JSON.parse(data)
-    let cAnswers = dat.correctAnswers
-    let wAnswers = dat.wrongAnswers
+    let cAnswers = data.correctAnswers
+    let wAnswers = data.wrongAnswers
 
     this.setState(() =>({
       feldState: 4,
