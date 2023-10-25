@@ -345,8 +345,7 @@ class Domino extends Component {
     )
   }
   getDiagonalStoneFiller(sclass) {
-    let klasse = sclass + "list-group-item"
-    return <li className={klasse}>diagonaleDarstellung</li>
+    return <li className="list-group-item">OuO</li>
   }
 
   //GENERIERE FELD
