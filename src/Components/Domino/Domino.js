@@ -603,6 +603,21 @@ class Domino extends Component {
                       <td>{question.answer}</td>
                     </tr>
                     );
+                  })}^
+                  <tr>
+                    <th colspan="2">Richtige Fragen</th>
+                  </tr>
+                  <tr>
+                    <th>Fragen</th>
+                    <th>Antwort</th>
+                  </tr>
+                  {this.state.correctAnswers==undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
+                    return (
+                    <tr>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
+                    </tr>
+                    );
                   })}
                 </tbody>
             </table>
