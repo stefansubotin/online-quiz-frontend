@@ -329,18 +329,18 @@ class Domino extends Component {
       disabled={(this.state.user!=this.state.activePlayer)}>
       {d?
         <>
-          <ul id="-1"className="list-group">
-            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
-            {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
+          <ul id="-1"className={h?"list-group":"list-group list-group-horizontal"}>
+            {h?<li className={fOben?"list-group-item col-6 bg-secondary-subtle":"col-6 list-group-item"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 list-group-item bg-secondary-subtle":"col-6 list-group-item "}>{fOben?frage:antwort}</li>}
           </ul>
-          <ul id="-2" className="list-group ">
-            {h?this.getDiagonalStoneFiller():<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
-            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
+          <ul id="-2" className={h?"list-group":"list-group list-group-horizontal"}>
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"list-group-item col-6 bg-secondary-subtle":"col-6 list-group-item"}>{fOben?antwort:frage}</li>}
+            {h?<li className={fOben?"list-group-item col-6 bg-secondary-subtle":"col-6 list-group-item"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
           </ul>
         </>
         :<>
-          <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
-          <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+          <li className={fOben?"list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+          <li className={fOben?"list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
         </>
       }
     </ul>
@@ -528,7 +528,7 @@ class Domino extends Component {
     let wAnswers = dat.wrongAnswers
 
     console.log(dat)
-    
+
     this.setState(() =>({
       feldState: 4,
       wrongAnswers: wAnswers,
@@ -586,7 +586,7 @@ class Domino extends Component {
               </thead>
               <tbody>
                 <tr>
-                  {this.state.wrongAnswers.length==0|undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
+                  {this.state.wrongAnswers.length==0||undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
