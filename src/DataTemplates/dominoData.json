@@ -3,12 +3,16 @@
         "collection":"domino",
         "key":"0",
         "props":{
-            "updated":"2023-10-21T16:18:45.760Z",
-            "frage":"Für was steht das Akronym USB?",
-            "created":"2023-10-21T16:18:45.760Z",
-            "id":0,
-            "antwort":"universal serial bus"}
-        }]}
+            "question": "Was ist 6 + 1 ?",
+            "answerCount": "4",
+            "created": "2023-10-22T18:17:10.199Z",
+            "falseAnswer1": "1",
+            "falseAnswer3": "3",
+            "falseAnswer2": "2",
+            "answer": "7",
+            "updated": "2023-10-22T18:17:10.199Z"
+        }
+    }]}
 ],
 "feld":[{
     "row":[{
@@ -25,6 +29,17 @@
         "id":"id",
         "frage":"Für was steht das Akronym USB?",
         "antwort":"universal serial bus"      
-}]
+}],
+
+
+
+"beenden":{
+    "feld": "feld",
+    "questions":"questions"
+},
+"Formular":{
+    "correctList":"Liste Richtiger Antworten",
+    "wrongList": "Liste falscher Antworten oder nicht gesetzter Steine"
+}
         
 }
