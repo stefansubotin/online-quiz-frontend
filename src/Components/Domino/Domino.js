@@ -440,7 +440,6 @@ class Domino extends Component {
   async handleStopGame(){
     let dat = JSON.parse(this.state.data)
     let questions =  dat.fragen
-    let res;
 
     this.setState(()=>({
       feldState: 4,
@@ -535,7 +534,7 @@ class Domino extends Component {
   async setResultData(message) {  
     console.log("Got Result Sheet")
    
-    let dat = message
+    let dat = message.data.data
     let cAnswers = dat.correctAnswers
     let wAnswers = dat.wrongAnswers
 
