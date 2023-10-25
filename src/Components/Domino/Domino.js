@@ -509,7 +509,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
     channel.subscribe('updateFeld', (message)=>this.handleUpdateFeld(message))
-    channel.subscribe('end', (message)=>this.StopGame(message))
+    channel.subscribe('ende', (message)=>this.StopGame(message))
 
   }
   
