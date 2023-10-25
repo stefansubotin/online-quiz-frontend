@@ -24,6 +24,7 @@
 
 .pool {
     background-color: lightgray;
+    display: flex;
 }
 
 .dominoFeld {
