@@ -31,6 +31,7 @@ class Domino extends Component {
 
     //Zur einfacheren Handhabung
     let h;
+    let d;
     let fO;
     let pool1 = this.state.pool;
     let feld1 = this.state.feld;
@@ -320,7 +321,30 @@ class Domino extends Component {
     let h = stone.h
     let fOben = stone.fO
     let d = stone.d
-    return (  <div>Hallos</div>
+    return (  
+      <ul
+      className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"} 
+      id={id} 
+      draggable onClick={(e)=>this.handleRotateStone(e)} 
+      onDragStart={(e)=>this.handleDragStart(e)} 
+      disabled={(this.state.user!=this.state.activePlayer)}>
+      {d?
+        <>
+          <ul id="-1"className={h?"list-group list-group-horizontal":"list-group"}>
+            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller}
+            {h?this.getDiagonalStoneFiller:<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
+          </ul>
+          <ul id="-2" className="list-group list-group-horizontal">
+            {h?this.getDiagonalStoneFiller:<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
+            {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller}
+          </ul>
+        </>
+        :<>
+          <li className={fOben?"lh-1 fs-6 list-group-item bg-secondary-subtle text-emphasis-secondary":"list-group-item"}>{fOben?frage:antwort}</li>
+          <li className={fOben?"lh-1 fs-6 list-group-item ":"list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>
+        </>
+      }
+    </ul>
     )
   }
   getDiagonalStoneFiller(){
@@ -353,7 +377,7 @@ class Domino extends Component {
         <div className="row flex-wrap " id={row.id}>
           {row.zellen.map((f)=>{
             return(
-                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle" id={f.id}>
+                <div onDrop={(e)=>this.handleDrop(e)} onDragOver={(e)=>this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
                   {(f.stone.id=="") ? f.id : this.getOneStone(f.stone)}
                 </div> 
               
