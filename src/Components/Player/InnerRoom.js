@@ -17,7 +17,6 @@ class InnerRoom extends Component {
             data: "",
             currentComponent: "lobby",
             users: [props.user],
-            message: "",
             game: 0
         };
     }
@@ -33,7 +32,6 @@ class InnerRoom extends Component {
             data: dat,
             currentComponent: message.data.game,
             users: this.state.users,
-            message: JSON.stringify(message),
             game: this.state.game
         });
     }
@@ -65,7 +63,6 @@ class InnerRoom extends Component {
             data: this.state.data,
             currentComponent: this.state.currentComponent,
             users: newUsers,
-            message: this.state.message,
             game: this.state.game
         });
         console.log(this.state);
@@ -91,7 +88,6 @@ class InnerRoom extends Component {
             data: this.state.data,
             currentComponent: this.state.currentComponent,
             users: newUsers,
-            message: this.state.message,
             game: data.game
         });
         console.log(this.state);
@@ -106,7 +102,6 @@ class InnerRoom extends Component {
             data: this.state.data,
             currentComponent: "lobby",
             users: this.state.users,
-            message: this.state.message,
             game: this.state.game + 1
         });
     }
