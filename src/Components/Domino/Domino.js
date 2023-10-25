@@ -155,9 +155,6 @@ class Domino extends Component {
   handleDragStart(e) {
     let id = e.currentTarget.id;
     let pid = e.target.parentNode.id;
-    if(pid<0){
-      console.log("diagonalerStein")
-    }    
     let ppid = e.currentTarget.parentNode.parentNode.id;
     console.log("DragStart: "+id+"parent: "+pid)
     e.dataTransfer.setData("id", id);
@@ -301,9 +298,9 @@ class Domino extends Component {
     let stones =[];
     for(let i = 0; i<amount;i++){
       stones.push({
-        id:dat.fragen[i].props.key,
-        frage:dat.fragen[i].props.question, 
-        antwort: dat.fragen[i].props.answer,
+        id:dat.fragen[i].key,
+        frage:dat.fragen[i].question, 
+        antwort: dat.fragen[i].answer,
         h:false,
         fO:true,
         d: false
