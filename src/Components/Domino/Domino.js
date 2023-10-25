@@ -596,15 +596,14 @@ class Domino extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
                   {this.state.wrongAnswers==undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
                       <td>{question.answer}</td>
-                    </tr>);
+                    </tr>
+                    );
                   })}
-                </tr>
                 </tbody>
             </table>
           </div>}
