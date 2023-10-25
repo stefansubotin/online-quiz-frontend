@@ -17,13 +17,14 @@
     min-width: 50px;
     max-width: 51px;
     max-width: 51px;
-    overflow: auto;
+
     font-size: xx-small;
 }
 
 
 .pool {
     background-color: lightgray;
+    display: flex;
 }
 
 .dominoFeld {
