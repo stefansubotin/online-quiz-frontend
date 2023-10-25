@@ -280,7 +280,7 @@ class Domino extends Component {
       console.log("initSteine "+stones);
         stones = this.initStones();
         console.log(stones)
-        this.setState({
+        this.setState(()=>({
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
@@ -288,7 +288,7 @@ class Domino extends Component {
           pool: stones,
           feld: this.state.feld,
           feldState: fs,
-      });
+      }));
     }
 
 
@@ -303,9 +303,9 @@ class Domino extends Component {
     let stones =[];
     for(let i = 0; i<amount;i++){
       stones.push({
-        id:dat.fragen[i].props.id,
-        frage:dat.fragen[i].props.frage , 
-        antwort: dat.fragen[i].props.antwort,
+        id:dat.fragen[i].key,
+        frage:dat.fragen[i].props.question , 
+        antwort: dat.fragen[i].props.answer,
         h:false,
         fO:true,
         d: false
@@ -359,11 +359,11 @@ class Domino extends Component {
     console.log("FeldState Feld: "+fs)
     
   
-    if(fs<1){
-      fs++
+    if(fs==0){
+      fs++;
       feld = this.initFeld();
       console.log(feld)
-      this.setState({
+      this.setState(()=>({
           room: this.state.room,
           user: this.state.user,
           data: this.state.data,
@@ -371,7 +371,7 @@ class Domino extends Component {
           pool: this.state.pool,
           feld: feld,
           feldState: fs,
-      });     
+      }));     
     }      
     return (this.state.feld.map((row)=>{
       return (
@@ -444,9 +444,6 @@ class Domino extends Component {
 
   }
   async handleStopGame(){
-    let questions=[]
-    let dat = JSON.parse(this.state.data)
-    dat.fragen.forEach(frage => questions.push({frage: frage.antwort, antwort: frage.antwort}))
 
     let body = {
         state: 2,
@@ -466,6 +463,21 @@ class Domino extends Component {
         .then((response) => response.json)
         .then((data) => console.log(data))
         .catch((error) => console.log(error));
+  }
+  StopGame(message){
+    let wQuestions=[]
+    let cQuestions= []
+    
+    message.wrongAnswers.forEach(question => wQuestions.push({question: question.answer, answer: question.answer}))
+    message.correctAnswers.forEach(question => cQuestions.push({question: question.answer, answer: question.answer}))
+    console.log("Richtige: "+wQuestions)
+    console.log("Richtige: "+cQuestions)
+      this.setState(()=>({
+        correctAnswers : cQuestions,
+        wrongAnswers: wQuestions,
+      }));
+
+  
   }
   
 
@@ -496,7 +508,7 @@ class Domino extends Component {
     const channel = ably.channels.get(channelId);
     console.log("Channel aktiv");
     channel.subscribe('updateFeld', (message)=>this.handleUpdateFeld(message))
-
+    channel.subscribe('end', (message)=>this.StopGame(message))
 
   }
   
@@ -508,23 +520,47 @@ class Domino extends Component {
           <h1 className="col-6 align-baseline">Domino</h1>
           <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
         </div>
-        <div className="row" id="firstPart">
-          <div name="dominoFeld" id="dominoFeld"  className="dominoFeld rounded container flex-wrap">
-              {this.getFeld()}
+        {this.state.feldState!=4?
+        <div>
+          <div className="row" id="firstPart">
+            <div name="dominoFeld" id="dominoFeld"  className="dominoFeld rounded container flex-wrap">
+                {this.getFeld()}
+            </div>
           </div>
+
+          <div id="secondPart" className="row">
+
+              <div name="poolFeld" disabled={(this.state.user!=this.state.activePlayer)} id="pool" className="col-8 pool">
+                {this.getStones()}
+              </div>
+              <div className="col-4">
+                <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
+                <button type="button" className="btn btn-light" onClick={(e)=>this.handleStopGame()}>Spiel beenden</button>
+              </div>
+
+          </div>  
         </div>
-
-        <div id="secondPart" className="row">
-
-            <div name="poolFeld" disabled={(this.state.user!=this.state.activePlayer)} id="pool" className="col-8 pool">
-              {this.getStones()}
-            </div>
-            <div className="col-4">
-              <button type="button" className="btn btn-light" disabled={(this.state.user!=this.state.activePlayer)} onClick={(e)=>this.handleSwitchPlayer()}>Zug beenden</button>
-              <button type="button" className="btn btn-light" onClick={(e)=>this.handleStopGame()}>Spiel beenden</button>
-            </div>
-
-        </div>  
+        : <div>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Frage</th>
+                  <th scope="col">Antwort</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {this.state.wrongAnswers.map((question)=>{
+                    retrun (
+                    <tr>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
+                    </tr>)
+                  })}
+                </tr>
+                </tbody>
+            </table>
+          </div>}
 
       </div>
     );

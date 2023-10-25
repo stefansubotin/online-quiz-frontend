@@ -1,4 +1,4 @@
-{"domino":[
+{"vom_Server_an_domino_Anfang":[
     {"fragen":[{
         "collection":"domino",
         "key":"0",
@@ -33,13 +33,30 @@
 
 
 
-"beenden":{
+"von_Domino_an_Server":{
     "feld": "feld",
     "questions":"questions"
 },
-"Formular":{
-    "correctList":"Liste Richtiger Antworten",
-    "wrongList": "Liste falscher Antworten oder nicht gesetzter Steine"
+"vom_Server_an_Domino_Ende":{
+    "correctAnswers":"Liste Richtiger Antworten",
+    "wrongAnswers": "Liste falscher Antworten oder nicht gesetzter Steine"
+},
+"Server_DominoNew.js_questionList":{
+    "CyclicItem" :[{
+        "collection": "simpleQuestion",
+        "key": "6",
+        "props": {
+          "question": "Was ist 6 + 1 ?",
+          "answerCount": 4,
+          "created": "2023-10-22T18:17:10.199Z",
+          "falseAnswer1": "1",
+          "falseAnswer3": "3",
+          "falseAnswer2": "2",
+          "answer": "7",
+          "updated": "2023-10-22T18:17:10.199Z"
+        }
+      }]
 }
+
         
 }
