@@ -331,11 +331,11 @@ class Domino extends Component {
         <>
           <ul id="-1"className={h?"list-group":"list-group list-group-horizontal"}>
             {h?<li className={fOben?"list-group-item col-6 bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
-            {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 list-group-item bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item "}>{fOben?frage:antwort}</li>}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 list-group-item bg-secondary-subtle":"col-6 list-group-item "}>{fOben?frage:antwort}</li>}
           </ul>
           <ul id="-2" className={h?"list-group":"list-group list-group-horizontal"}>
-            {h?this.getDiagonalStoneFiller():<li className={fOben?"list-group-item col-6 bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item"}>{fOben?antwort:frage}</li>}
-            {h?<li className={fOben?"list-group-item col-6 bg-secondary-subtle border-top-4 border-primary":"col-6 list-group-item"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
+            {h?this.getDiagonalStoneFiller():<li className={fOben?"list-group-item col-6":" bg-secondary-subtle col-6 list-group-item"}>{fOben?antwort:frage}</li>}
+            {h?<li className={fOben?"list-group-item col-6":" bg-secondary-subtle col-6 list-group-item"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
           </ul>
         </>
         :<>
@@ -586,7 +586,7 @@ class Domino extends Component {
               </thead>
               <tbody>
                 <tr>
-                  {this.state.wrongAnswers!=undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
+                  {this.state.wrongAnswers==undefined?"Waiting for data...":this.state.wrongAnswers.map((question)=>{
                     return (
                     <tr>
                       <td>{question.question}</td>
