@@ -259,13 +259,8 @@ class Domino extends Component {
     }       
 
     this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      activePlayer: this.state.activePlayer,
       pool: poolNeu,
       feld: feld1,
-      feldState: this.state.feldState,
     });  
 
     this.updateFeld(this.state.activePlayer, feld1, poolNeu); 
@@ -476,12 +471,12 @@ class Domino extends Component {
         .catch((error) => console.log(error));
   }
   setGameEnd(message){
-    console.log("Richtige: "+message.correctAnswers)
-    console.log("Richtige: "+message.wrongAnswers)
+    console.log("Richtige: "+message.data.correctAnswers)
+    console.log("Richtige: "+message.data.wrongAnswers)
       this.setState(()=>({
         feldState: 4,
-        correctAnswers : message.correctAnswers,
-        wrongAnswers: message.wrongAnswers,
+        correctAnswers : message.data.correctAnswers,
+        wrongAnswers: message.data.wrongAnswers,
       }));
   }
   
@@ -560,7 +555,7 @@ class Domino extends Component {
                     <tr>
                       <td>{question.question}</td>
                       <td>{question.answer}</td>
-                    </tr>)
+                    </tr>);
                   })}
                 </tr>
                 </tbody>
