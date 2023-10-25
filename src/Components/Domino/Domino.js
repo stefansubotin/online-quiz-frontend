@@ -490,8 +490,8 @@ class Domino extends Component {
       game: "domino",
       data: {
         feldState: 4,
-        correctAnswers: correctAnswers,
-        wrongAnswers: cAnswers
+        correctAnswers: cAnswers,
+        wrongAnswers: wAnswers
       },
     }
 
