@@ -333,7 +333,7 @@ class Domino extends Component {
             {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>:this.getDiagonalStoneFiller()}
             {h?this.getDiagonalStoneFiller():<li className={fOben?"col-6 lh-1 fs-6 list-group-item ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?frage:antwort}</li>}
           </ul>
-          <ul id="-2" className="list-group list-group-horizontal">
+          <ul id="-2" className="list-group ">
             {h?this.getDiagonalStoneFiller():<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>}
             {h?<li className={fOben?"lh-1 fs-6 list-group-item col-6 ":"col-6 list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben?antwort:frage}</li>:this.getDiagonalStoneFiller()}
           </ul>
