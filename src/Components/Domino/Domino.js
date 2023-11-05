@@ -514,6 +514,7 @@ class Domino extends Component {
   }
   async setResultData(message) {
     console.log("Got Result Sheet")
+    console.log(message.data);
 
     let dat = message.data.data
     let cAnswers = dat.correctAnswers
@@ -570,33 +571,34 @@ class Domino extends Component {
           </div>
           : <div>
             <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">question</th>
-                  <th scope="col">answer</th>
-                </tr>
-              </thead>
+              <tr>
+                <th colspan="2">Falsche Fragen</th>
+              </tr>
+              <tr>
+                <th scope="col">Frage</th>
+                <th scope="col">Antwort</th>
+              </tr>
               <tbody>
                 {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
                   return (
                     <tr>
-                      <td>{question.question}</td>
-                      <td>{question.answer}</td>
+                      <td>{question.props.question}</td>
+                      <td>{question.props.answer}</td>
                     </tr>
                   );
                 })}
                 <tr>
-                  <th colspan="2">Richtige questions</th>
+                  <th colspan="2">Richtige Fragen</th>
                 </tr>
                 <tr>
-                  <th>questions</th>
-                  <th>answer</th>
+                  <th>Frage</th>
+                  <th>Antwort</th>
                 </tr>
                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
                   return (
                     <tr>
-                      <td>{question.question}</td>
-                      <td>{question.answer}</td>
+                      <td>{question.props.question}</td>
+                      <td>{question.props.answer}</td>
                     </tr>
                   );
                 })}
