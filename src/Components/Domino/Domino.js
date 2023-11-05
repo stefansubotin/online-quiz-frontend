@@ -44,9 +44,9 @@ class Domino extends Component {
         console.log("diagonales")
       }
       console.log("im feld")
-      h = feld1[zellenRow].zellen[zelle].stone.h;
-      fO = feld1[zellenRow].zellen[zelle].stone.fO
-      d = feld1[zellenRow].zellen[zelle].stone.d
+      h = feld1[zellenRow].columns[zelle].stone.h;
+      fO = feld1[zellenRow].columns[zelle].stone.fO
+      d = feld1[zellenRow].columns[zelle].stone.d
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
       if (h && fO && !d) {
@@ -93,9 +93,9 @@ class Domino extends Component {
       else {
         console.log("nichts passiert ");
       }
-      feld1[zellenRow].zellen[zelle].stone.h = h;
-      feld1[zellenRow].zellen[zelle].stone.fO = fO;
-      feld1[zellenRow].zellen[zelle].stone.d = d;
+      feld1[zellenRow].columns[zelle].stone.h = h;
+      feld1[zellenRow].columns[zelle].stone.fO = fO;
+      feld1[zellenRow].columns[zelle].stone.d = d;
       console.log("STein gedreht ")
     }
     this.setState({
@@ -188,8 +188,8 @@ class Domino extends Component {
     console.log("ziel " + ziel + "zielRow " + zielRow + " zielZelle" + zielZelle)
 
     //Stein kommt aus dem Pool
-    if (originParent == "pool" && feld1[zielRow].zellen[zielZelle].stone.id == "") {
-      console.log("Stein kommt aus dem Pool " + feld1[zielRow].zellen[zielZelle].stone.id)
+    if (originParent == "pool" && feld1[zielRow].columns[zielZelle].stone.id == "") {
+      console.log("Stein kommt aus dem Pool " + feld1[zielRow].columns[zielZelle].stone.id)
       console.log("und ist leer")
 
       //Finde Stein im Pool
@@ -202,11 +202,11 @@ class Domino extends Component {
       }
 
       //setzen des Steins
-      feld1[zielRow].zellen[zielZelle].stone.id = stone.id;
-      feld1[zielRow].zellen[zielZelle].stone.antwort = stone.antwort;
-      feld1[zielRow].zellen[zielZelle].stone.frage = stone.frage;
-      feld1[zielRow].zellen[zielZelle].stone.h = stone.h;
-      feld1[zielRow].zellen[zielZelle].stone.fO = stone.fO
+      feld1[zielRow].columns[zielZelle].stone.id = stone.id;
+      feld1[zielRow].columns[zielZelle].stone.antwort = stone.antwort;
+      feld1[zielRow].columns[zielZelle].stone.frage = stone.frage;
+      feld1[zielRow].columns[zielZelle].stone.h = stone.h;
+      feld1[zielRow].columns[zielZelle].stone.fO = stone.fO
 
       console.log("stein gesetzt")
       //löschen des Steins
@@ -222,24 +222,24 @@ class Domino extends Component {
     }
 
     //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
-    else if ((!isNaN(originParent)) && feld1[zielRow].zellen[zielZelle].stone.id == "") {
+    else if ((!isNaN(originParent)) && feld1[zielRow].columns[zielZelle].stone.id == "") {
       if (originParent < 0) {
         console.log("kleiner Parent" + originParent)
       }
       originZelle = (originParent - (originRow * laenge));
       console.log(" originCard " + origin + " originId" + originParent + " originRow " + originRow + " originZelle" + originZelle)
       //setzen des Steins
-      feld1[zielRow].zellen[zielZelle].stone.id = feld1[originRow].zellen[originZelle].stone.id;
-      feld1[zielRow].zellen[zielZelle].stone.antwort = feld1[originRow].zellen[originZelle].stone.antwort;
-      feld1[zielRow].zellen[zielZelle].stone.frage = feld1[originRow].zellen[originZelle].stone.frage;
-      feld1[zielRow].zellen[zielZelle].stone.h = feld1[originRow].zellen[originZelle].stone.h;
-      feld1[zielRow].zellen[zielZelle].stone.fO = feld1[originRow].zellen[originZelle].stone.fO;
-      feld1[zielRow].zellen[zielZelle].stone.d = feld1[originRow].zellen[originZelle].stone.d;
+      feld1[zielRow].columns[zielZelle].stone.id = feld1[originRow].columns[originZelle].stone.id;
+      feld1[zielRow].columns[zielZelle].stone.antwort = feld1[originRow].columns[originZelle].stone.antwort;
+      feld1[zielRow].columns[zielZelle].stone.frage = feld1[originRow].columns[originZelle].stone.frage;
+      feld1[zielRow].columns[zielZelle].stone.h = feld1[originRow].columns[originZelle].stone.h;
+      feld1[zielRow].columns[zielZelle].stone.fO = feld1[originRow].columns[originZelle].stone.fO;
+      feld1[zielRow].columns[zielZelle].stone.d = feld1[originRow].columns[originZelle].stone.d;
 
       //löschen des Steins aus dem vorherigen Feld
-      feld1[originRow].zellen[originZelle].stone.id = "";
-      feld1[originRow].zellen[originZelle].stone.antwort = "";
-      feld1[originRow].zellen[originZelle].stone.frage = "";
+      feld1[originRow].columns[originZelle].stone.id = "";
+      feld1[originRow].columns[originZelle].stone.antwort = "";
+      feld1[originRow].columns[originZelle].stone.frage = "";
       //Pool soll unverändert bleiben
       poolNeu = this.state.pool
 
@@ -359,7 +359,7 @@ class Domino extends Component {
     return (this.state.feld.map((row) => {
       return (
         <div className="row flex-wrap " id={row.id}>
-          {row.zellen.map((f) => {
+          {row.columns.map((f) => {
             return (
               <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
                 {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
@@ -375,7 +375,7 @@ class Domino extends Component {
   initFeld() {
     //DominoData.json feld
     let feld = [];
-    let zellen = [];
+    let columns = [];
     let z;
     let laenge = JSON.parse(this.state.data).laenge;
     console.log("laenge" + laenge)
@@ -384,12 +384,12 @@ class Domino extends Component {
       for (let j = 0; j < laenge; ++j) {
         let id = i * laenge + j;
         z = { id: id, stone: { id: "", frage: "frage", antwort: "   " } }
-        zellen.push(z);
-        console.log(zellen);
+        columns.push(z);
+        console.log(columns);
       }
 
-      feld.push({ id: i, zellen: zellen });
-      zellen = [];
+      feld.push({ id: i, columns: columns });
+      columns = [];
     }
 
     console.log(feld)
