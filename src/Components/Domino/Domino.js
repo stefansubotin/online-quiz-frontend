@@ -433,7 +433,7 @@ class Domino extends Component {
     }));
 
     let body = {
-      state: 2,
+      state: 4,
       room: this.state.room,
       users: this.state.users,
       feld: this.state.feld,
