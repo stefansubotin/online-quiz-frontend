@@ -1,4 +1,5 @@
-import React, { Component, isValidElement } from "react";
+import React, { Component } from "react";
+import edge from "./edge.png"
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
 class Domino extends Component {
@@ -333,7 +334,8 @@ class Domino extends Component {
     )
   }
   getDiagonalStoneFiller() {
-    return <li className="list-group-item empty"></li>
+    style = { transform: 'rotate(45deg)' };
+    return <li className="list-group-item empty"><img src={edge} alt="Logo" style={style} />  </li>
   }
 
   //GENERIERE rows
