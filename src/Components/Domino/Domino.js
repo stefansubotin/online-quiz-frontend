@@ -133,13 +133,9 @@ class Domino extends Component {
     if (this.state.activePlayer == "") {
       console.log("Aktive Spieler initiiert")
       this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
+
         activePlayer: ap,
-        pool: this.state.pool,
-        feld: this.state.feld,
-        feldState: this.state.feldState,
+
       });
 
 
@@ -276,12 +272,7 @@ class Domino extends Component {
       stones = this.initStones();
       console.log(stones)
       this.setState(() => ({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        activePlayer: this.state.activePlayer,
         pool: stones,
-        feld: this.state.feld,
         feldState: fs,
       }));
     }
@@ -295,6 +286,7 @@ class Domino extends Component {
     console.log("Mitspieler: " + this.state.users)
     let dat = JSON.parse(this.state.data)
     console.log(dat)
+    console.log("Richtige Fragen: " + this.state.correctQuestions)
     let amount = dat.fragen.length;
     let stones = [];
     for (let i = 0; i < amount; i++) {
@@ -360,11 +352,6 @@ class Domino extends Component {
       feld = this.initFeld();
       console.log(feld)
       this.setState(() => ({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
-        activePlayer: this.state.activePlayer,
-        pool: this.state.pool,
         feld: feld,
         feldState: fs,
       }));
@@ -437,7 +424,7 @@ class Domino extends Component {
   }
   async handleStopGame() {
     let dat = JSON.parse(this.state.data)
-    let questions = dat.fragen
+    let questions = dat.correctQuestions
 
     this.setState(() => ({
       feldState: 4,
@@ -519,13 +506,9 @@ class Domino extends Component {
     if (message.user != this.state.user) {
       console.log("Set State von anderen")
       this.setState({
-        room: this.state.room,
-        user: this.state.user,
-        data: this.state.data,
         activePlayer: message.data.activePlayer,
         pool: message.data.pool,
         feld: message.data.feld,
-        feldState: this.state.feldState,
       });
     }
   }
