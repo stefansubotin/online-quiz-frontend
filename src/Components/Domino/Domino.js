@@ -383,7 +383,7 @@ class Domino extends Component {
     let rows = [];
     let columns = [];
     let z;
-    let laenge = 6;
+    let laenge = JSON.parse(this.state.data).laenge;
     console.log("laenge" + laenge)
 
     for (let i = 0; i < laenge; ++i) {
@@ -462,7 +462,18 @@ class Domino extends Component {
       alert("somthing wrong")
     }
   }
+  async handleEndGame() {
+    let tmp = this.state.room.split('_');
+    const Ably = require('ably');
+    const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+    await ably.connection.once('connected');
+    const channelId = 'room' + tmp[0];
+    const channel = ably.channels.get(channelId);
 
+    await channel.publish('end', {
+      content: 'empty'
+    })
+  }
   async sendResultsFormular(data) {
     console.log("Ende Spiel");
     const Ably = require('ably');
@@ -606,6 +617,7 @@ class Domino extends Component {
                 })}
               </tbody>
             </table>
+            <button type="button" className="btn btn-primary" onClick={(e) => this.handleEndGame()}>Zurück zur Lobby</button>
           </div>}
 
       </div>
