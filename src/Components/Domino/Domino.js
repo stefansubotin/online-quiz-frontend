@@ -203,8 +203,8 @@ class Domino extends Component {
 
       //setzen des Steins
       rows1[zielRow].columns[zielZelle].stone.id = stone.id;
-      rows1[zielRow].columns[zielZelle].stone.antwort = stone.antwort;
-      rows1[zielRow].columns[zielZelle].stone.frage = stone.frage;
+      rows1[zielRow].columns[zielZelle].stone.answer = stone.answer;
+      rows1[zielRow].columns[zielZelle].stone.question = stone.question;
       rows1[zielRow].columns[zielZelle].stone.h = stone.h;
       rows1[zielRow].columns[zielZelle].stone.fO = stone.fO
 
@@ -230,16 +230,16 @@ class Domino extends Component {
       console.log(" originCard " + origin + " originId" + originParent + " originRow " + originRow + " originZelle" + originZelle)
       //setzen des Steins
       rows1[zielRow].columns[zielZelle].stone.id = rows1[originRow].columns[originZelle].stone.id;
-      rows1[zielRow].columns[zielZelle].stone.antwort = rows1[originRow].columns[originZelle].stone.antwort;
-      rows1[zielRow].columns[zielZelle].stone.frage = rows1[originRow].columns[originZelle].stone.frage;
+      rows1[zielRow].columns[zielZelle].stone.answer = rows1[originRow].columns[originZelle].stone.answer;
+      rows1[zielRow].columns[zielZelle].stone.question = rows1[originRow].columns[originZelle].stone.question;
       rows1[zielRow].columns[zielZelle].stone.h = rows1[originRow].columns[originZelle].stone.h;
       rows1[zielRow].columns[zielZelle].stone.fO = rows1[originRow].columns[originZelle].stone.fO;
       rows1[zielRow].columns[zielZelle].stone.d = rows1[originRow].columns[originZelle].stone.d;
 
       //löschen des Steins aus dem vorherigen rows
       rows1[originRow].columns[originZelle].stone.id = "";
-      rows1[originRow].columns[originZelle].stone.antwort = "";
-      rows1[originRow].columns[originZelle].stone.frage = "";
+      rows1[originRow].columns[originZelle].stone.answer = "";
+      rows1[originRow].columns[originZelle].stone.question = "";
       //Pool soll unverändert bleiben
       poolNeu = this.state.pool
 
@@ -286,14 +286,14 @@ class Domino extends Component {
     console.log("Mitspieler: " + this.state.users)
     let dat = JSON.parse(this.state.data)
     console.log(dat)
-    console.log("Richtige Fragen: " + this.state.correctQuestions)
-    let amount = dat.fragen.length;
+    console.log("Richtige questionn: " + this.state.correctQuestions)
+    let amount = dat.questionn.length;
     let stones = [];
     for (let i = 0; i < amount; i++) {
       stones.push({
-        id: dat.fragen[i].key,
-        frage: dat.fragen[i].question,
-        antwort: dat.fragen[i].answer,
+        id: dat.questionn[i].key,
+        question: dat.questionn[i].question,
+        answer: dat.questionn[i].answer,
         h: false,
         fO: true,
         d: false
@@ -305,8 +305,8 @@ class Domino extends Component {
 
   getOneStone(stone) {
     let id = stone.id
-    let frage = stone.frage
-    let antwort = stone.antwort
+    let question = stone.question
+    let answer = stone.answer
     let h = stone.h
     let fOben = stone.fO
     let d = stone.d
@@ -320,17 +320,17 @@ class Domino extends Component {
         {d ?
           <>
             <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
-              {h ? <li className={fOben ? "list-group-item bg-secondary-subtle" : "  list-group-item"}>{fOben ? frage : antwort}</li> : this.getDiagonalStoneFiller()}
-              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "  list-group-item bg-secondary-subtle" : "  list-group-item "}>{fOben ? frage : antwort}</li>}
+              {h ? <li className={fOben ? "list-group-item bg-secondary-subtle" : "  list-group-item"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller()}
+              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "  list-group-item bg-secondary-subtle" : "  list-group-item "}>{fOben ? question : answer}</li>}
             </ul>
             <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? antwort : frage}</li>}
-              {h ? <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? antwort : frage}</li> : this.getDiagonalStoneFiller()}
+              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li>}
+              {h ? <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller()}
             </ul>
           </>
           : <>
-            <li className={fOben ? "list-group-item bg-secondary-subtle text-emphasis-secondary" : "list-group-item"}>{fOben ? frage : antwort}</li>
-            <li className={fOben ? "list-group-item " : "list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben ? antwort : frage}</li>
+            <li className={fOben ? "list-group-item bg-secondary-subtle text-emphasis-secondary" : "list-group-item"}>{fOben ? question : answer}</li>
+            <li className={fOben ? "list-group-item " : "list-group-item bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
           </>
         }
       </ul>
@@ -383,7 +383,7 @@ class Domino extends Component {
     for (let i = 0; i < laenge; ++i) {
       for (let j = 0; j < laenge; ++j) {
         let id = i * laenge + j;
-        z = { id: id, stone: { id: "", frage: "frage", antwort: "   " } }
+        z = { id: id, stone: { id: "", question: "question", answer: "   " } }
         columns.push(z);
         console.log(columns);
       }
@@ -572,8 +572,8 @@ class Domino extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Frage</th>
-                  <th scope="col">Antwort</th>
+                  <th scope="col">question</th>
+                  <th scope="col">answer</th>
                 </tr>
               </thead>
               <tbody>
@@ -586,11 +586,11 @@ class Domino extends Component {
                   );
                 })}
                 <tr>
-                  <th colspan="2">Richtige Fragen</th>
+                  <th colspan="2">Richtige questionn</th>
                 </tr>
                 <tr>
-                  <th>Fragen</th>
-                  <th>Antwort</th>
+                  <th>questionn</th>
+                  <th>answer</th>
                 </tr>
                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
                   return (
