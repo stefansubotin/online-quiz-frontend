@@ -7,6 +7,11 @@
     font-size: xx-small;
 }
 
+.edge {
+    max-width: 100px;
+    max-height: 100px;
+}
+
 .empty {
     max-width: inherit;
     max-height: inherit;
