@@ -582,8 +582,8 @@ class Domino extends Component {
                   return (
                     <tr>
                       <td>{question.key}</td>
-                      <td>{question.props.question}</td>
-                      <td>{question.props.answer}</td>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
                     </tr>
                   );
                 })}
@@ -594,8 +594,8 @@ class Domino extends Component {
                   return (
                     <tr>
                       <td>{question.key}</td>
-                      <td>{question.props.question}</td>
-                      <td>{question.props.answer}</td>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
                     </tr>
                   );
                 })}
