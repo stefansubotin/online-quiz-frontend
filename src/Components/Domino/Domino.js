@@ -334,7 +334,7 @@ class Domino extends Component {
     )
   }
   getDiagonalStoneFiller() {
-    style = { transform: 'rotate(45deg)' };
+    let style = { transform: 'rotate(45deg)' };
     return <li className="list-group-item empty"><img src={edge} alt="Logo" style={style} />  </li>
   }
 
