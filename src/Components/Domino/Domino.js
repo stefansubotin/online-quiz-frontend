@@ -367,7 +367,7 @@ class Domino extends Component {
         <div className="row flex-wrap " id={row.id}>
           {row.columns.map((f) => {
             return (
-              <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-4" id={f.id}>
+              <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-2" id={f.id}>
                 {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
               </div>
 
@@ -383,7 +383,7 @@ class Domino extends Component {
     let rows = [];
     let columns = [];
     let z;
-    let laenge = JSON.parse(this.state.data).laenge;
+    let laenge = 6;
     console.log("laenge" + laenge)
 
     for (let i = 0; i < laenge; ++i) {
