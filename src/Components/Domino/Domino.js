@@ -98,13 +98,8 @@ class Domino extends Component {
       console.log("STein gedreht ")
     }
     this.setState({
-      room: this.state.room,
-      user: this.state.user,
-      data: this.state.data,
-      activePlayer: this.state.activePlayer,
       pool: pool1,
       rows: rows1,
-      rowsState: this.state.rowsState,
     });
     this.updaterows(this.state.activePlayer, rows1, pool1);
   }
@@ -315,9 +310,9 @@ class Domino extends Component {
       <ul
         className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
         id={id}
-        draggable onClick={(e) => this.handleRotateStone(e)}
+        draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
         onDragStart={(e) => this.handleDragStart(e)}
-        disabled={(this.state.user != this.state.activePlayer)}>
+      >
         {d ?
           <>
             <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
