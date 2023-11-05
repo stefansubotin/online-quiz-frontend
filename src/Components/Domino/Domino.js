@@ -257,7 +257,7 @@ class Domino extends Component {
       rows: rows1,
     });
 
-    this.updaterows(this.state.activePlayer, rows1, this.state.pool);
+    this.updaterows(this.state.activePlayer, rows1);
 
   }
 
@@ -398,7 +398,7 @@ class Domino extends Component {
   }
 
   //KOMMUNIKATION
-  async updaterows(activePlayer, rows, pool) {
+  async updaterows(activePlayer, rows) {
     // Kommunikation für Update rows
     const Ably = require('ably');
     const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -408,7 +408,6 @@ class Domino extends Component {
     console.log("ROOM " + this.state.room)
     this.setState({
       activePlayer: activePlayer,
-      pool: pool,
       rows: rows,
     });
     console.log("SEND: " + rows + pool + activePlayer)
