@@ -49,7 +49,7 @@ class Domino extends Component {
       d = rows1[zellenRow].columns[zelle].stone.d
 
       // Varianten wie der Stein liegt: F|A A/F A|F F/A
-      if (h && fO && !d) {
+      if (!h && fO && !d) {
         console.log("Von Zustand 1 nach 2")
         h = false;
         fO = true;
@@ -57,19 +57,19 @@ class Domino extends Component {
       } else if (!h && fO && d) {
         console.log("Von Zustand 2 nach 3")
         fO = false
-        h = false
+        h = true
         d = false
-      } else if (!h && !fO && !d) {
+      } else if (h && !fO && !d) {
         console.log("Von Zustand 3 nach 4")
         h = true;
         fO = false;
         d = true
       } else if (h && !fO && d) {
         console.log("Von Zustand 4 nach 5")
-        h = true;
+        h = false;
         fO = false;
         d = false
-      } else if (h && !fO && !d) {
+      } else if (!h && !fO && !d) {
         console.log("Von Zustand 5 nach 6")
         fO = false
         h = false
@@ -77,9 +77,9 @@ class Domino extends Component {
       } else if (!h && !fO && d) {
         console.log("Von Zustand 6 nach 7")
         fO = true
-        h = false
+        h = true
         d = false
-      } else if (!h && fO && !d) {
+      } else if (h && fO && !d) {
         console.log("Von Zustand 7 nach 8")
         fO = true
         h = true
@@ -87,10 +87,9 @@ class Domino extends Component {
       } else if (h && fO && d) {
         console.log("Von Zustand 8 nach 1")
         fO = true
-        h = true
+        h = false
         d = false
-      }
-      else {
+      } else {
         console.log("nichts passiert ");
       }
       rows1[zellenRow].columns[zelle].stone.h = h;
@@ -207,6 +206,8 @@ class Domino extends Component {
       rows1[zielRow].columns[zielZelle].stone.question = stone.question;
       rows1[zielRow].columns[zielZelle].stone.h = stone.h;
       rows1[zielRow].columns[zielZelle].stone.fO = stone.fO
+      rows1[zielRow].columns[zielZelle].stone.d = stone.d
+
 
       console.log("stein gesetzt")
       //löschen des Steins
@@ -341,7 +342,7 @@ class Domino extends Component {
   }
 
   //GENERIERE rows
-  getrows() {
+  getRows() {
     let fs = this.state.rowsState
     let rows = [];
     console.log("rowsState rows: " + fs)
@@ -349,7 +350,7 @@ class Domino extends Component {
 
     if (fs == 0) {
       fs++;
-      rows = this.initrows();
+      rows = this.initRows();
       console.log(rows)
       this.setState(() => ({
         rows: rows,
@@ -372,7 +373,7 @@ class Domino extends Component {
     }));
   }
 
-  initrows() {
+  initRows() {
     //DominoData.json rows
     let rows = [];
     let columns = [];
@@ -553,7 +554,7 @@ class Domino extends Component {
           <div>
             <div className="row" id="firstPart">
               <div name="dominorows" id="dominorows" className="dominorows rounded container flex-wrap">
-                {this.getrows()}
+                {this.getRows()}
               </div>
             </div>
 
@@ -582,6 +583,7 @@ class Domino extends Component {
                 {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
                   return (
                     <tr>
+                      <td>{question.key}</td>
                       <td>{question.props.question}</td>
                       <td>{question.props.answer}</td>
                     </tr>
@@ -597,6 +599,7 @@ class Domino extends Component {
                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
                   return (
                     <tr>
+                      <td>{question.key}</td>
                       <td>{question.props.question}</td>
                       <td>{question.props.answer}</td>
                     </tr>
