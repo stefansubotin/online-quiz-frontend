@@ -410,12 +410,11 @@ class Domino extends Component {
       activePlayer: activePlayer,
       rows: rows,
     });
-    console.log("SEND: " + rows + pool + activePlayer)
+    console.log("SEND: " + rows + activePlayer)
 
     await channel.publish('updaterows', {
       user: this.state.user,
       rows: rows,
-      pool: pool,
       activePlayer: activePlayer,
 
     });
@@ -507,7 +506,6 @@ class Domino extends Component {
       console.log("Set State von anderen")
       this.setState({
         activePlayer: message.data.activePlayer,
-        pool: message.data.pool,
         rows: message.data.rows,
       });
     }
