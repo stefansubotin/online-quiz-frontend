@@ -311,7 +311,7 @@ class Domino extends Component {
         className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
         id={id}
         draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
-        onDragStart={(e) => this.handleDragStart(e)}
+        onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
       >
         {d ?
           <>
@@ -332,8 +332,8 @@ class Domino extends Component {
       </ul>
     )
   }
-  getDiagonalStoneFiller(sclass) {
-    return <li className="list-group-item">o</li>
+  getDiagonalStoneFiller() {
+    return <li className="list-group-item empty"></li>
   }
 
   //GENERIERE rows
@@ -545,7 +545,7 @@ class Domino extends Component {
         {this.state.rowsState != 4 ?
           <div>
             <div className="row" id="firstPart">
-              <div name="dominorows" id="dominorows" className="dominorows rounded container flex-wrap">
+              <div name="dominoRows" id="dominoRows" className="dominoRows rounded container flex-wrap">
                 {this.getRows()}
               </div>
             </div>

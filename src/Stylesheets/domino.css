@@ -15,8 +15,6 @@
 .list-group-item {
     min-width: 50px;
     min-width: 50px;
-    max-width: 51px;
-    max-width: 51px;
     overflow: auto;
     font-size: xx-small;
 }
@@ -27,7 +25,7 @@
     display: flex;
 }
 
-.dominoFeld {
+.dominoRows {
     background-color: grey;
 
 }
