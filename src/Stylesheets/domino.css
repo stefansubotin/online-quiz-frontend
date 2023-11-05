@@ -16,6 +16,7 @@
     overflow: hidden;
     max-width: inherit;
     max-height: inherit;
+    padding: 0px;
 }
 
 .pool {

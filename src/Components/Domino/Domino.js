@@ -317,12 +317,12 @@ class Domino extends Component {
         {d ?
           <>
             <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
-              {h ? <li className={fOben ? "list-group-item bg-secondary-subtle" : "  list-group-item"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller()}
-              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "  list-group-item bg-secondary-subtle" : "  list-group-item "}>{fOben ? question : answer}</li>}
+              {h ? <li className={fOben ? "list-group-item bg-secondary-subtle" : "  list-group-item"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+              {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item bg-secondary-subtle" : "  list-group-item "}>{fOben ? question : answer}</li>}
             </ul>
             <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-              {h ? this.getDiagonalStoneFiller() : <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li>}
-              {h ? <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller()}
+              {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li>}
+              {h ? <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
             </ul>
           </>
           : <>
@@ -333,8 +333,16 @@ class Domino extends Component {
       </ul>
     )
   }
-  getDiagonalStoneFiller() {
-    let style = { transform: 'rotate(90deg)' };
+  getDiagonalStoneFiller(h, fOben, d) {
+    let deg = 0;
+    if (h && fOben && d) {
+      deg = 90;
+    } else if (!h && fOben && d) {
+      deg = 180
+    } else if (h && !fOben && d) {
+      deg = -90;
+    }
+    let style = { transform: 'rotate(' + deg + 'deg)' };
     return <li className="list-group-item empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
   }
 
