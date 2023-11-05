@@ -286,14 +286,14 @@ class Domino extends Component {
     console.log("Mitspieler: " + this.state.users)
     let dat = JSON.parse(this.state.data)
     console.log(dat)
-    console.log("Richtige questionn: " + this.state.correctQuestions)
-    let amount = dat.questionn.length;
+    console.log("Richtige questions: " + dat.correctQuestions)
+    let amount = dat.questions.length;
     let stones = [];
     for (let i = 0; i < amount; i++) {
       stones.push({
-        id: dat.questionn[i].key,
-        question: dat.questionn[i].question,
-        answer: dat.questionn[i].answer,
+        id: dat.questions[i].key,
+        question: dat.questions[i].question,
+        answer: dat.questions[i].answer,
         h: false,
         fO: true,
         d: false
@@ -586,10 +586,10 @@ class Domino extends Component {
                   );
                 })}
                 <tr>
-                  <th colspan="2">Richtige questionn</th>
+                  <th colspan="2">Richtige questions</th>
                 </tr>
                 <tr>
-                  <th>questionn</th>
+                  <th>questions</th>
                   <th>answer</th>
                 </tr>
                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
