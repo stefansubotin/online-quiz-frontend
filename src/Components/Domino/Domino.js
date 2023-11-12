@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import edge from "./edge.png"
+
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
+import Feld from "./Feld"
+import Feedback from "./Feedback"
+import Stone from "./Stone"
+
+
 class Domino extends Component {
     constructor(props) {
         let stones = this.initStones();
@@ -455,7 +460,7 @@ class Domino extends Component {
                 {this.state.rowsState != 4 ?
                     <div>
                         <Feld className="row col-12" id="firstPart"></Feld>
-                        <div name="poolrows col-8" disabled={(!this.isUserActive)} id="pool" className="col-8 pool">
+                        <div name="poolrows col-8" id="pool" className="col-8 pool">
                             {this.state.pool.map((stone) =>
                                 <Stone
                                     isUserActive={this.isUserActive()}
@@ -467,7 +472,7 @@ class Domino extends Component {
                         </div>
                         <div className="col-4">
                             <button type="button" className="btn btn-light" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
-                            <button type="button" className="btn btn-light" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
+                            <button type="button" className="btn btn-light" onClick={this.handleStopGame()}>Spiel beenden</button>
                         </div>
 
                     </div>
@@ -475,7 +480,7 @@ class Domino extends Component {
                         <Feedback
                             correctAnswers={this.state.correctAnswers}
                             wrongAnswers={this.state.wrongAnswers}
-                            handleEndGame={this.handleEndGame()}
+                            handleEndGame={this.handleEndGame}
                         />
                     </div>}
 

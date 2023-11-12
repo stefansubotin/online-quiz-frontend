@@ -1,3 +1,6 @@
+import e from "express";
+import edge from "./edge.png"
+import React, { Component } from "react";
 
 class Stone extends Component {
     constructor(props) {
@@ -9,8 +12,6 @@ class Stone extends Component {
         this.h = props.stone.h
         this.this.ftop = props.stone.fO
         this.d = props.stone.d
-        this.handleDragStart = props.handleDragStart
-        this.handleRotateStone = props.handleRotateStone
     }
     getDiagonalStoneFiller(h, fOben, d) {
         let deg = 0;
@@ -28,10 +29,10 @@ class Stone extends Component {
     render() {
         return (
             <ul
-                className={this.h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
+                className={this.h ? "stone list-group list-group-horizontal" : "stone list-group list-group-flush"}
                 id={this.id}
-                draggable onClick={this.isUserActive ? null : (e) => this.handleRotateStone(e)}
-                onDragStart={this.isUserActive ? null : (e) => this.handleDragStart(e)}
+                draggable onClick={this.isUserActive ? null : (e) => this.props.handleRotateStone(e)}
+                onDragStart={this.isUserActive ? null : (e) => this.props.handleDragStart(e)}
             >
                 {this.d ?
                     <>
@@ -53,3 +54,4 @@ class Stone extends Component {
         )
     }
 }
+export default Stone
