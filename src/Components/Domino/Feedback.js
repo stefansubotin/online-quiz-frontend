@@ -9,7 +9,7 @@ class Feedback extends Component {
         <>
             <table className="table table-striped">
                 <tr>
-                    <th colspan="3">Falsche Fragen</th>
+                    <th colspan="3">Falsche d Fragen</th>
                 </tr>
                 <tr>
                     <th scope="col">Frage</th>
