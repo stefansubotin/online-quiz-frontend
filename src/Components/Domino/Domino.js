@@ -9,8 +9,8 @@ import Stone from "./Stone"
 
 class Domino extends Component {
     constructor(props) {
-        let stones = this.initStones();
-        let rows = this.initRows();
+        let stones = initStones();
+        let rows = initRows();
 
         super(props);
         this.state = {
@@ -480,7 +480,7 @@ class Domino extends Component {
                         <Feedback
                             correctAnswers={this.state.correctAnswers}
                             wrongAnswers={this.state.wrongAnswers}
-                            handleEndGame={this.handleEndGame}
+                            handleEndGame={this.handleEndGame()}
                         />
                     </div>}
 
