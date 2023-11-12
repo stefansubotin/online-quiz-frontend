@@ -1,26 +1,18 @@
 import React, { Component } from "react";
-
+import edge from "./edge.png"
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
-import Feld from "./Feld"
-import Feedback from "./Feedback"
-import Stone from "./Stone"
-
-
 class Domino extends Component {
     constructor(props) {
-        let stones = this.initStones();
-        let rows = this.initRows();
-
         super(props);
         this.state = {
             room: props.room,
             users: props.users,
             user: props.user,
             data: props.data,
-            activePlayer: props.users[0],
-            pool: stones,
-            rows: rows,
+            activePlayer: "",
+            pool: [],
+            rows: [],
             rowsState: 0,
         };
     }
@@ -31,11 +23,121 @@ class Domino extends Component {
         let zelle = (id - (row * laenge));
         return zelle;
     }
+    //GENERIERE STEINE
+    getStones() {
+        let fs = this.state.rowsState
+        let stones = [];
+        console.log("rowsState Steine " + fs)
 
-    isUserActive() {
-        return this.state.user == this.state.activePlayer;
+        if (fs == 1) {
+            fs++;
+            console.log("initSteine " + stones);
+            stones = this.initStones();
+            console.log(stones)
+            this.setState(() => ({
+                pool: stones,
+                rowsState: fs,
+            }));
+        }
+
+
+        return (this.state.pool.map((stone) => this.getOneStone(stone)));
     }
 
+
+    getOneStone(stone) {
+        let id = stone.id
+        let question = stone.question
+        let answer = stone.answer
+        let h = stone.h
+        let fOben = stone.fO
+        let d = stone.d
+        return (
+            <ul
+                className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
+                id={id}
+                draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
+                onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
+            >
+                {d ?
+                    <>
+                        <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                            {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                        </ul>
+                        <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
+                            {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                        </ul>
+                    </>
+                    : <>
+                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
+                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
+                    </>
+                }
+            </ul>
+        )
+    }
+    getDiagonalStoneFiller(h, fOben, d) {
+        let deg = 0;
+        if (h && fOben && d) {
+            deg = 90;
+        } else if (!h && fOben && d) {
+            deg = 180
+        } else if (h && !fOben && d) {
+            deg = -90;
+        }
+        let style = { transform: 'rotate(' + deg + 'deg)' };
+        return <li className="list-group-item col-6 empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
+    }
+
+    getRows() {
+        let fs = this.state.rowsState
+        let rows = [];
+        console.log("rowsState rows: " + fs)
+
+
+        if (fs == 0) {
+            fs++;
+            rows = this.initRows();
+            console.log(rows)
+            this.setState(() => ({
+                rows: rows,
+                rowsState: fs,
+            }));
+        }
+        return (this.state.rows.map((row) => {
+            return (
+                <div className="row flex-wrap " id={row.id}>
+                    {row.columns.map((f) => {
+                        return (
+                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-2" id={f.id}>
+                                {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
+                            </div>
+
+                        );
+                    })}
+                </div>
+            );
+        }));
+    }
+    getActivePlayer() {
+        let dat = JSON.parse(this.state.data);
+        let ap = dat.activePlayer;
+        if (this.state.activePlayer == "") {
+            console.log("Aktive Spieler initiiert")
+            this.setState({
+
+                activePlayer: ap,
+
+            });
+
+
+        }
+        return this.state.activePlayer
+
+
+    }
     //SETTER
     async setUpdaterows(message) {
         console.log("Got this from: " + message.data.user);
@@ -455,33 +557,60 @@ class Domino extends Component {
             <div name="domino" className="container">
                 <div className="row">
                     <h1 className="col-6 align-baseline">Domino</h1>
-                    <p className="col-6 align-text-bottom">Spieler {this.state.activePlayer} ist am Zug</p>
+                    <p className="col-6 align-text-bottom">Spieler {this.getActivePlayer()} ist am Zug</p>
                 </div>
                 {this.state.rowsState != 4 ?
                     <div>
-                        <Feld className="row col-12" id="firstPart"></Feld>
-                        <div name="poolrows col-8" id="pool" className="col-8 pool">
-                            {this.state.pool.map((stone) =>
-                                <Stone
-                                    isUserActive={this.isUserActive()}
-                                    stone={stone}
-                                    handleDragStart={this.handleDragStart}
-                                    handleRotateStone={this.handleRotateStone}
-                                />
-                            )}
-                        </div>
-                        <div className="col-4">
-                            <button type="button" className="btn btn-light" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
-                            <button type="button" className="btn btn-light" onClick={this.handleStopGame()}>Spiel beenden</button>
+                        <div className="row" id="firstPart">
+                            <div name="dominoRows" id="dominoRows" className="dominoRows rounded container flex-wrap">
+                                {this.getRows()}
+                            </div>
                         </div>
 
+                        <div id="secondPart" className="row">
+
+                            <div name="poolrows" disabled={(this.state.user != this.state.activePlayer)} id="pool" className="col-8 pool">
+                                {this.getStones()}
+                            </div>
+                            <div className="col-4">
+                                <button type="button" className="btn btn-light" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
+                                <button type="button" className="btn btn-light" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
+                            </div>
+
+                        </div>
                     </div>
                     : <div>
-                        <Feedback
-                            correctAnswers={this.state.correctAnswers}
-                            wrongAnswers={this.state.wrongAnswers}
-                            handleEndGame={this.handleEndGame}
-                        />
+                        <table className="table table-striped">
+                            <tr>
+                                <th colspan="3">Falsche Fragen</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Frage</th>
+                                <th scope="col">Antwort</th>
+                            </tr>
+                            <tbody>
+                                {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
+                                    return (
+                                        <tr>
+                                            <td>{question.question}</td>
+                                            <td>{question.answer}</td>
+                                        </tr>
+                                    );
+                                })}
+                                <tr>
+                                    <th colspan="3">Richtige Fragen</th>
+                                </tr>
+                                {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
+                                    return (
+                                        <tr>
+                                            <td>{question.question}</td>
+                                            <td>{question.answer}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                        <button type="button" className="btn btn-primary" onClick={(e) => this.handleEndGame()}>Zurück zur Lobby</button>
                     </div>}
 
             </div>
