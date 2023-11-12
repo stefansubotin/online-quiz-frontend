@@ -23,7 +23,7 @@ class Feld extends Component {
                                             <Stone
                                                 isUserActive={this.isUserActive}
                                                 stone={f.stone}
-                                                handleDragStart={this.props.handleDragStart(e)}
+                                                handleDragStart={(e) => this.props.handleDragStart(e)}
                                                 handleRotateStone={(e) => this.props.handleRotateStone(e)}
                                             />
                                         }
