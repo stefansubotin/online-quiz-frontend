@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-class Feedback extends Component {
-    constructor(props) {
-        this.correctAnswers = props.correctAnswers
-        this.wrongAnswers = props.wrongAnswers
+class Feedback {
+    constructor(wrongAnswers, correctAnswers) {
+        this.wrongAnswers = wrongAnswers
+        this.correctAnswers = correctAnswers
     }
 
-    render() {
+    getFeedback() {
         return (
             <>
                 <table className="table table-striped">
