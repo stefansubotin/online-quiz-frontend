@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 class Feedback {
-    constructor(wrongAnswers, correctAnswers) {
-        this.wrongAnswers = wrongAnswers
-        this.correctAnswers = correctAnswers
+    constructor() {
     }
 
-    getFeedback() {
+    getFeedback(wrongAnswers, correctAnswers) {
         return (
             <>
                 <table className="table table-striped">
@@ -17,7 +15,7 @@ class Feedback {
                         <th scope="col">Antwort</th>
                     </tr>
                     <tbody>
-                        {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
+                        {wrongAnswers == undefined ? "Waiting for data..." : wrongAnswers.map((question) => {
                             return (
                                 <tr>
                                     <td>{question.question}</td>
@@ -30,7 +28,7 @@ class Feedback {
                         <th colspan="3">Richtige Fragen</th>
                     </tr>
                     <tbody>
-                        {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
+                        {correctAnswers == undefined ? "Waiting for data..." : correctAnswers.map((question) => {
                             return (
                                 <tr>
                                     <td>{question.question}</td>
@@ -40,7 +38,7 @@ class Feedback {
                         })}
                     </tbody>
                 </table>
-                <button type="button" className="btn btn-primary" onClick={(e) => this.props.handleEndGame()}>Zurück zur Lobby</button>
+                <button type="button" className="btn btn-primary" onClick={(e) => this.handleEndGame()}>Zurück zur Lobby</button>
             </>
         )
     }
