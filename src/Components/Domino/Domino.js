@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import edge from "./edge.png"
+import Feld from "./Feld"
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
 class Domino extends Component {
