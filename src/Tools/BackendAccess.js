@@ -22,6 +22,10 @@ class BackendAccess {
   static getUrlTaboo() {
     return this.getUrl() + "taboo";
   }
+
+  static getUrlLobby() {
+    return this.getUrl() + "taboo";
+  }
 }
 
 export default BackendAccess;
