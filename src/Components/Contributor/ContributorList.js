@@ -75,7 +75,7 @@ class ContributorList extends Component {
                     break;
             }
         }
-        let table = <table class="table table-striped" style={{ overflow: 'scroll', textAlign: 'left' }}>{display}</table>
+        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left' }}>{display}</table>
         return table;
     }
 
