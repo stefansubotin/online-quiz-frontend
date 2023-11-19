@@ -20,7 +20,7 @@ class OuterRoom extends Component {
 
     render() {
         return (
-            <div name="outerRoom" className="row">
+            <div name="outerRoom" className="row outer">
                 <InnerRoom
                     room={this.state.room}
                     user={this.state.user}
