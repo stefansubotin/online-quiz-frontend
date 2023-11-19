@@ -25,7 +25,7 @@ class ContributorBase extends Component {
         display.push(<button style={{ margin: '10px' }} type="button" class="btn btn-secondary" onClick={(e) => this.onList(e)}>{list}</button>)
         if (this.state.list) {
             display.push(<br />);
-            display.push(<ContributorList />);
+            display.push(<ContributorList style={{ textAlign: 'left' }} />);
         }
         return display;
     }
