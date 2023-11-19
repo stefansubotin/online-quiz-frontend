@@ -14,7 +14,7 @@ class Chat extends Component {
 
     render() {
         return (
-            <div name='chat' className="col-3" style={{ backgroundColor: 'darkgrey', font: 'white' }}>
+            <div name='chat' className="col-3" style={{ backgroundColor: 'darkgrey', color: 'white' }}>
                 <div><ChatInput room={this.state.room} type={this.state.type} user={this.state.user} /></div><br />
                 <div><ChatLog room={this.state.room} type={this.state.type} /></div>
             </div>
