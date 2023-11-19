@@ -138,13 +138,14 @@ class InnerRoom extends Component {
     }
 
     getComponent() {
+        console.log("Call getComponent")
         let component;
         switch (this.state.currentComponent) {
             case "lobby":
                 component = (
                     <Lobby
                         user={this.state.user}
-                        leader={this.state.leader || this.state.users[0] == this.state.user}
+                        leader={this.state.leader}
                         room={this.state.room}
                         users={this.state.users}
                         game={this.state.game}
