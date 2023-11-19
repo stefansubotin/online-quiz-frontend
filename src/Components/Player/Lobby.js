@@ -13,7 +13,7 @@ class Lobby extends Component {
             leader: props.leader,
             game: props.game
         };
-    } 
+    }
 
     getDisabled(game) {
         if (!this.state.leader) return true;
@@ -25,7 +25,7 @@ class Lobby extends Component {
                 if (this.state.users.length <= 10) return false;
                 return true;
             case 'domino':
-                if(this.state.users.length <= 4 ) return false;
+                if (this.state.users.length <= 4) return false;
                 return true;
             case 'wwmPlayerMe':
                 if (this.state.users.length <= 2) return false;
@@ -184,11 +184,11 @@ class Lobby extends Component {
         console.log(this.state);
         return (
             <div name="lobby">
-                <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br/>
-                <button onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br/>
-                <button onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br/>
-                <button onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br/>
-                <button onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
+                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br />
+                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br />
+                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br />
+                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br />
+                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
     }

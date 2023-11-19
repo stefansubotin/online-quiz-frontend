@@ -566,8 +566,8 @@ class Domino extends Component {
                                 {this.getStones()}
                             </div>
                             <div className="col-4">
-                                <button type="button" className="btn btn-light" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
-                                <button type="button" className="btn btn-light" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
+                                <button type="button" class="btn btn-secondary" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
+                                <button type="button" class="btn btn-secondary" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
                             </div>
 
                         </div>

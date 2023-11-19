@@ -112,7 +112,7 @@ class InnerRoom extends Component {
         console.log(message);
         console.log(this.state);
         let newUsers = [];
-        for (let i = 0; i < this.state.users.length; i++){
+        for (let i = 0; i < this.state.users.length; i++) {
             if (message.data.user != this.state.users[i]) newUsers.push(this.state.users[i]);
         }
 
@@ -269,8 +269,8 @@ class InnerRoom extends Component {
         return (
             <div className="col-8">
                 <div name="innerRoom" className="row">
-                    <div className="col-1">
-                        <button onClick={(e) => this.leaveLobby(e)}>Leave</button>
+                    <div className="col-1" style={{ backgroundColor: 'lightgray' }}>
+                        <button type="button" class="btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>
                         {this.getUserList()}
                     </div>
                     <div name="innerRoomComponent" className="col-11">
