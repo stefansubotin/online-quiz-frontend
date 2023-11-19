@@ -47,7 +47,7 @@ class Player2 extends Component {
                         <input type="text" name="user" placeholder='Choose Username' required='true' /><br />
                         <input type="submit" value="Create Lobby" disabled={this.state.room == ''}/>
                     </form>
-                    <button onClick={(e) => this.onNewCode(e)} disbaled={this.state.room != ''}>New Roomcode</button><br/>
+                    <button onClick={(e) => this.onNewCode(e)} disabled={this.state.room != ''}>New Roomcode</button><br/>
                 </span>
                 <span className='fixedSize invis size25'>&nbsp;</span>
                 <span>
