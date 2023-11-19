@@ -14,6 +14,7 @@ class OuterRoom extends Component {
     }
 
     handleCallback = (event) => {
+        console.log('innercallback');
         this.props.parentCallback();
     }
 

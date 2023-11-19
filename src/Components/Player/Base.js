@@ -39,6 +39,7 @@ class Base extends Component {
     }
 
     handleLeaveLobby = (event) => {
+        console.log('outercallback');
         this.setState({ 
             room: '',
             user: '',
