@@ -108,6 +108,9 @@ class InnerRoom extends Component {
     }
 
     async onLeave(message) {
+        console.log("someone left");
+        console.log(message);
+        console.log(this.state);
         let newUsers = this.state.users;
         newUsers.pop(message.user);
         let leader = this.state.leader;
@@ -247,7 +250,7 @@ class InnerRoom extends Component {
                 <div name="innerRoom" className="row">
                     <div className="col-1">
                         <button onClick={(e) => this.leaveLobby(e)}>Leave</button>
-                        <a>Room:&nbsp;{this.state.room}</a><br />
+                        <p>Room:&nbsp;{this.state.room}</p><br />
                         {this.getUserList()}
                     </div>
                     <div name="innerRoomComponent" className="col-11">
