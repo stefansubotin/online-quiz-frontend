@@ -311,7 +311,7 @@ class Domino extends Component {
             <ul
                 className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
                 id={id}
-                style={{ height: '100px', width: '100px' }}
+                style={{ height: '100px', width: '100%' }}
                 draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
             >
@@ -327,8 +327,8 @@ class Domino extends Component {
                         </ul>
                     </>
                     : <>
-                        <li className={fOben ? "list-group-item bg-secondary-subtle text-emphasis-secondary" : "list-group-item " + h ? "" : "col-6"}>{fOben ? question : answer}</li>
-                        <li className={fOben ? "list-group-item  " : "list-group-item  bg-secondary-subtle text-emphasis-secondary" + h ? "" : "col-6"}>{fOben ? answer : question}</li>
+                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
+                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
                     </>
                 }
             </ul>
@@ -402,29 +402,47 @@ class Domino extends Component {
         console.log(rows)
         return rows
     }
-
-    //KOMMUNIKATION
-    async updaterows(activePlayer, rows) {
-        // Kommunikation für Update rows
+    async sendMessage(reason, body) {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
         const channelId = 'domino' + this.state.room;
         const channel = ably.channels.get(channelId);
+        if (reason == 'end') {
+            let tmp = this.state.room.split('_');
+            const channelId = 'room' + tmp[0];
+            const channel = ably.channels.get(channelId);
+        }
         console.log("ROOM " + this.state.room)
+        await channel.publish(reason, body);
+        ably.close();
+
+    }
+    async sendEnd() {
+        var body = {
+            content: 'empty'
+        }
+        this.sendMessage('end', body)
+    }
+
+    //KOMMUNIKATION
+    async updaterows(activePlayer, rows) {
+        // Kommunikation für Update rows
+
         this.setState({
             activePlayer: activePlayer,
             rows: rows,
         });
-        console.log("SEND: " + rows + activePlayer)
 
-        await channel.publish('updaterows', {
+        console.log("SEND: " + rows + activePlayer)
+        var body = {
             user: this.state.user,
             rows: rows,
             activePlayer: activePlayer,
 
-        });
-        ably.close();
+        }
+        this.sendMessage('updaterows', body)
+
 
     }
     async handleStopGame() {
@@ -466,11 +484,6 @@ class Domino extends Component {
 
     async sendResultsFormular(data) {
         console.log("Ende Spiel");
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        const channelId = 'domino' + this.state.room;
-        const channel = ably.channels.get(channelId);
         let dat = data
 
         let cAnswers = dat.correctAnswers
@@ -495,10 +508,10 @@ class Domino extends Component {
             },
         }
 
-        await channel.publish('resultDomino', body);
+        this.sendMessage('resultDomino', body)
 
         console.log("gesendet an " + body);
-        ably.close();
+
 
     }
 
@@ -567,8 +580,8 @@ class Domino extends Component {
                                 {this.getStones()}
                             </div>
                             <div className="col-4">
-                                <button type="button" class="btn btn-secondary" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
-                                <button type="button" class="btn btn-secondary" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
+                                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
+                                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.handleStopGame()}>Spiel beenden</button>
                             </div>
 
                         </div>
@@ -604,6 +617,7 @@ class Domino extends Component {
                                 })}
                             </tbody>
                         </table>
+                        <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.handleStopGame()}>Zurück zur Lobby</button>
                     </div>}
 
             </div>
