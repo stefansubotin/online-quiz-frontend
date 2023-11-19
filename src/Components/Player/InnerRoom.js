@@ -253,7 +253,6 @@ class InnerRoom extends Component {
                 <div name="innerRoom" className="row">
                     <div className="col-1">
                         <button onClick={(e) => this.leaveLobby(e)}>Leave</button>
-                        <p>Room:&nbsp;{this.state.room}</p><br />
                         {this.getUserList()}
                     </div>
                     <div name="innerRoomComponent" className="col-11">
