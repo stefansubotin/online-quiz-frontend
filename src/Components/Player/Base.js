@@ -41,7 +41,8 @@ class Base extends Component {
     render() {
         return (
             <div name='base' className='container'>
-                {this.getComponent()}
+                {this.getComponent()}<br/>
+                {this.state.room}
             </div>
         );
     }
