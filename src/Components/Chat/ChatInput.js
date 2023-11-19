@@ -75,7 +75,7 @@ class ChatInput extends Component {
                     {this.getOption('lavender')}
                 </select><br />
                 <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange} />
-                <button onClick={this.onMessageSend} type="button" class="col-12 btn btn-secondary" >Send Message</button>
+                <button onClick={this.onMessageSend} type="button" class=" btn btn-secondary" >Send Message</button>
             </div>
         )
     }

@@ -28,15 +28,17 @@ class Player extends Component {
                         <input type="text" name="user" placeholder='Choose Username' /><br />
                         <input type="text" name="room" placeholder='Choose RoomID' /><br /><br />
                         <input type="submit" value="Create Lobby" />
+                        <button type="button" class="btn btn-secondary">Submit</button>
                     </form>
                 </span>
                 <span className='fixedSize invis size25'>&nbsp;</span>
                 <span>
                     <p>Join Lobby</p>
-                    <form onSubmit={this.onTriggerJoin}>
+                    <form >
                         <input type="text" name="user" placeholder='Choose Username' /><br />
                         <input type="text" name="room" placeholder='Enter RoomID' /><br /><br />
                         <input type="submit" value="Join Lobby" />
+                        <button type="button" class="btn btn-secondary" onClick={this.onTriggerJoin}>Join Lobby</button>
                     </form>
                 </span>
             </div>
