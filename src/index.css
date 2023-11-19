@@ -15,8 +15,8 @@ body {
 .innerRoomOne,
 .innerRoomTwo,
 .userList {
-  min-height: inherit;
-  background-color: inherit;
+  min-height: 100%;
+  background-color: lightblue;
 }
 
 code {
