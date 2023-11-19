@@ -44,7 +44,7 @@ class Base extends Component {
             room: '',
             user: '',
             leader: '',
-            currentComponent: 'lobby'
+            currentComponent: 'home'
         });
     }
     
