@@ -18,5 +18,5 @@ code {
 }
 
 :root {
-  min-height: 100%;
+  min-height: inherit;
 }
