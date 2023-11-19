@@ -5,22 +5,13 @@ import '../../Stylesheets/span.css';
 class Player2 extends Component {
 
     async onTriggerCreate(event) {
-        const response = await fetch(BackendAccess.getUrlContributor(), {
-            method: "POST",
-            body: JSON.stringify({
-                type: type,
-                collection: this.state.collection,
-                key: this.state.key,
-                body: {
-                    answer: this.state.answer,
-                    forbiddenWords: this.state.forbiddenWords
-                }
-            }),
-            headers: { "Content-Type": "application/json" },
+        const response = await fetch(BackendAccess.getUrlLobby(), {
+            method: "GET"
         });
         const item = await response.json();
+        console.log(item);
         this.props.parentCallback({
-            room: event.target.room.value,
+            room: item.code,
             user: event.target.user.value,
             leader: true
         });

@@ -6,6 +6,7 @@ import Kreuzwort from "../Kreuzwort/Kreuzwort";
 import AblyFunctions from "../../Tools/AblyFunctions";
 import WerWirdMillionaer from "../WerWirdMillionaer/WerWirdMillionaer";
 import Taboo from "../Taboo/Taboo";
+import BackendAccess from "../../Tools/BackendAccess";
 
 class InnerRoom extends Component {
     constructor(props) {
@@ -106,6 +107,23 @@ class InnerRoom extends Component {
         });
     }
 
+    async onLeave(message) {
+        let newUsers = this.state.users;
+        newUsers.pop(message.user);
+        let leader = this.state.leader;
+        if (message.leader && this.state.users[1] == this.state.user) leader = true;
+
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: leader,
+            data: this.state.data,
+            currentComponent: this.state.currentComponent,
+            users: newUsers,
+            game: this.state.game
+        });
+    }
+
     getComponent() {
         let component;
         switch (this.state.currentComponent) {
@@ -144,7 +162,7 @@ class InnerRoom extends Component {
                         className="game"
                         room={this.state.room + '_' + this.state.game}
                         user={this.state.user}
-                        users = {this.state.users}
+                        users={this.state.users}
                         data={this.state.data}
                     />
                 );
@@ -166,7 +184,7 @@ class InnerRoom extends Component {
         return component;
     }
 
-    getUserList(){
+    getUserList() {
         return this.state.users.join(', ');
     }
 
@@ -180,18 +198,41 @@ class InnerRoom extends Component {
         await channel.subscribe("end", (message) =>
             this.onEnd(message)
         );
-        await channel.subscribe("join", (message) => this.onJoin(message));
-    
-            if (!this.state.leader) {
-                console.log("not leader");
-                await channel.subscribe("join-res", (message) => this.onJoinRes(message));
-                channel.publish("join", {
-                    user: this.state.user,
-                });
-                channel.publish("join-lobby", {
-                    user: this.state.user,
-                });
-            }
+        await channel.subscribe("join", (message) =>
+            this.onJoin(message)
+        );
+        await channel.subscribe("leave", (message) =>
+            this.onLeave(message)
+        );
+
+        if (!this.state.leader) {
+            console.log("not leader");
+            await channel.subscribe("join-res", (message) => this.onJoinRes(message));
+            channel.publish("join", {
+                user: this.state.user,
+            });
+            channel.publish("join-lobby", {
+                user: this.state.user,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.state.users.length > 1) {
+            const ably = AblyFunctions.getAbly();
+            const channelId = "room" + this.state.room;
+            const channel = AblyFunctions.getChannel(ably, channelId);
+            channel.publish("leave", {
+                user: this.state.user,
+                leader: this.state.leader
+            });
+        }
+        else {
+            fetch(BackendAccess.getUrlLeaveLobby() + this.state.room, {
+                method: "DELETE"
+            });
+        }
+        console.log("Left");
     }
 
     render() {
@@ -199,6 +240,7 @@ class InnerRoom extends Component {
             <div className="col-8">
                 <div name="innerRoom" className="row">
                     <div className="col-1">
+                        <a>Room:{this.state.room}</a><br />
                         {this.getUserList()}
                     </div>
                     <div name="innerRoomComponent" className="col-11">

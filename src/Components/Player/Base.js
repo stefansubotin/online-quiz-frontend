@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Player from './Player';
+import Player from './Player2';
 import OuterRoom from './OuterRoom';
 
 class Base extends Component {
