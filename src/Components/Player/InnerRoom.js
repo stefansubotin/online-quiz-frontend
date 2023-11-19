@@ -218,7 +218,9 @@ class InnerRoom extends Component {
     }
 
     async leaveLobby(event) {
+        console.log(this.state);
         if (this.state.users.length > 1) {
+            console.log(">1");
             const ably = await AblyFunctions.getAbly();
             const channelId = "room" + this.state.room;
             const channel = await AblyFunctions.getChannel(ably, channelId);
@@ -228,9 +230,12 @@ class InnerRoom extends Component {
             });
         }
         else {
-            await fetch(BackendAccess.getUrlLeaveLobby() + this.state.room, {
+            console.log("1  or 0");
+            const response = await fetch(BackendAccess.getUrlLeaveLobby() + this.state.room, {
                 method: "DELETE"
             });
+            let item = await response.json();
+            console.log(item);
         }
         console.log("Left");
         this.props.parentCallback();
