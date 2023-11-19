@@ -19,3 +19,8 @@ body,
 #root {
   height: 100%
 }
+
+.home,
+.base {
+  height: 100%;
+}
