@@ -134,6 +134,7 @@ class InnerRoom extends Component {
             users: newUsers,
             game: this.state.game
         });
+        //Ekeliger Hack, um Neuladen von Lobby zu erzwingen
         this.setState({
             room: this.state.room,
             user: this.state.user,
