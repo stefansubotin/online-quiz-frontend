@@ -27,7 +27,6 @@ class OuterRoom extends Component {
                     leader={this.state.leader}
                     parentCallback={this.handleCallback}
                 />
-                <div className="col-1"></div>
                 <Chat room={this.state.room} type="lobby" user={this.state.user} />
             </div>
         );

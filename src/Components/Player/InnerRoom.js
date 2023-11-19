@@ -267,7 +267,7 @@ class InnerRoom extends Component {
 
     render() {
         return (
-            <div className="col-8">
+            <div className="col-9">
                 <div name="innerRoom" className="row">
                     <div className="col-1" style={{ backgroundColor: 'lightgray' }}>
                         <button type="button" class="btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>

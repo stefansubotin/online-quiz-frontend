@@ -3,20 +3,20 @@ import PlayerBase from './Player/Base';
 import ContributorBase from './Contributor/ContributorBase';
 
 class Homepage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             component: 'choice'
         }
     }
 
-    onPlayer(event){
+    onPlayer(event) {
         this.setState({
             component: 'player'
         })
     }
 
-    onContributor(event){
+    onContributor(event) {
         this.setState({
             component: 'contributor'
         })
@@ -28,15 +28,15 @@ class Homepage extends Component {
         })
     }
 
-    getComponent(){
-        switch (this.state.component){
+    getComponent() {
+        switch (this.state.component) {
             case 'choice':
                 return <div>
-                    <button onClick={e => this.onPlayer(e)}>Play Quiz</button><br/>
-                    <button onClick={e => this.onContributor(e)}>Curate Questions</button>
+                    <button type="button" class="btn btn-secondary" onClick={e => this.onPlayer(e)}>Play Quiz</button><br />
+                    <button type="button" class="btn btn-secondary" onClick={e => this.onContributor(e)}>Curate Questions</button>
                 </div>
             case 'player':
-                return <PlayerBase parentCallback={this.handleCallback}/>;
+                return <PlayerBase parentCallback={this.handleCallback} />;
             case 'contributor':
                 return <ContributorBase />
             default:
@@ -46,9 +46,9 @@ class Homepage extends Component {
 
     render() {
         return (
-            <div name='homepage'>
+            <div id="home" name='homepage'>
                 {this.getComponent()}
-            </div> 
+            </div>
         )
     }
 }
