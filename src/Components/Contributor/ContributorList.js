@@ -28,11 +28,11 @@ class ContributorList extends Component {
     getDisplayList() {
         let list = this.filterList();
         let display = [];
-        display.push(<tr>
-            <th>Collection</th>
-            <th>Key</th>
-            <th colSpan={3}>More Data</th>
-        </tr>)
+        display.push(<ul class="list-group list-group-horizontal">
+            <li class="list-group-item">Collection</li >
+            <li class="list-group-item">Key</li >
+            <li class="list-group-item" colSpan={3}>More Data</li >
+        </ul>)
         for (let i = 0; i < list.length; i++) {
             switch (list[i].collection) {
                 case 'kreuzwort':
@@ -44,32 +44,32 @@ class ContributorList extends Component {
                         msw = msw + answer.charAt(mspLine);
                     }
                     display.push(
-                        <tr>
-                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Width:&nbsp;&#091;{list[i].props.size}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Depth:&nbsp;&#091;{list[i].props.lines.length}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Vertical&nbsp;Word:&nbsp;&#091;{msw}&#093;</td>
-                        </tr>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item">{list[i].collection}</li >
+                            <li class="list-group-item">{list[i].key}</li >
+                            <li class="list-group-item">Width:&nbsp;&#091;{list[i].props.size}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Depth:&nbsp;&#091;{list[i].props.lines.length}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Vertical&nbsp;Word:&nbsp;&#091;{msw}&#093;</li >
+                        </ul>
                     );
                     break;
                 case 'taboo':
                     display.push(
-                        <tr>
-                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</td>
-                        </tr>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item">Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</li >
+                        </ul>
                     );
                     break;
                 case 'simpleQuestion':
                     display.push(
-                        <tr>
-                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Question:&nbsp;&#091;{list[i].props.question}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>AnswerCount:&nbsp;&#091;{list[i].props.answerCount}&#093;</td>
-                        </tr>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item">Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">Question:&nbsp;&#091;{list[i].props.question}&#093;&nbsp;&#47;&nbsp;</li >
+                            <li class="list-group-item">AnswerCount:&nbsp;&#091;{list[i].props.answerCount}&#093;</li >
+                        </ul>
                     );
                     break;
             }
