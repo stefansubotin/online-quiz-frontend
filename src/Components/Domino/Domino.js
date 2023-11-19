@@ -6,7 +6,7 @@ import BackendAccess from "../../Tools/BackendAccess";
 class Domino extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
       room: props.room,
       users: props.users,
       user: props.user,
