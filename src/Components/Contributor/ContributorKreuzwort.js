@@ -256,10 +256,10 @@ class ContributorKreuzwort extends Component {
 
     getControls() {
         return <div>
-            <button type="button" class="btn btn-secondary" onClick={(e) => this.increaseSize(e)}>+ Width</button>
-            <button type="button" class="btn btn-secondary" onClick={(e) => this.decreaseSize(e)}>- Width</button>
-            <button type="button" class="btn btn-secondary" onClick={(e) => this.increaseUserCount(e)}>+ Depth</button>
-            <button type="button" class="btn btn-secondary" onClick={(e) => this.decreaseUserCount(e)}>- Depth</button>
+            <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.increaseSize(e)}>+ Width</button>
+            <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.decreaseSize(e)}>- Width</button>
+            <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.increaseUserCount(e)}>+ Depth</button>
+            <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.decreaseUserCount(e)}>- Depth</button>
         </div>
     }
 

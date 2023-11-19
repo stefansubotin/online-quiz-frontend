@@ -22,7 +22,7 @@ class ContributorBase extends Component {
         if (this.state.list) list = 'Hide Question List'
         display.push(<ContributorChoice parentCallback={this.handleCallBack} list={this.state.list} />);
         display.push(<br />);
-        display.push(<button type="button" class="btn btn-secondary" onClick={(e) => this.onList(e)}>{list}</button>)
+        display.push(<button style={{ margin: '10px' }} type="button" class="btn btn-secondary" onClick={(e) => this.onList(e)}>{list}</button>)
         if (this.state.list) {
             display.push(<br />);
             display.push(<ContributorList />);
