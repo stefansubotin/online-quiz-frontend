@@ -418,7 +418,7 @@ class Domino extends Component {
         ably.close();
 
     }
-    async sendEnd() {
+    async backToLobby() {
         var body = {
             content: 'empty'
         }
@@ -617,7 +617,7 @@ class Domino extends Component {
                                 })}
                             </tbody>
                         </table>
-                        <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.handleStopGame()}>Zurück zur Lobby</button>
+                        <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.backToLobby()}>Zurück zur Lobby</button>
                     </div>}
 
             </div>
