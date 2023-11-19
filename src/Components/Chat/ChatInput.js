@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AblyFunctions from '../../Tools/AblyFunctions';
 
 class ChatInput extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             room: props.room,
@@ -13,7 +13,7 @@ class ChatInput extends Component {
         }
     }
 
-    getChannelId(){
+    getChannelId() {
         return 'chat' + this.state.type + '_' + this.state.room;
     }
 
@@ -21,7 +21,7 @@ class ChatInput extends Component {
         this.sendMessage();
     }
 
-    async sendMessage(){
+    async sendMessage() {
         let dat = {
             user: this.state.user,
             message: this.state.message,
@@ -67,20 +67,20 @@ class ChatInput extends Component {
                 <a>User: {this.state.user}</a><br />
                 <a>Room: {this.state.room}</a><br />
                 <label for='colorchoice'>Color:&nbsp;&nbsp;&nbsp;</label>
-                <select id='colorChoice' onChange={this.onColorChanged}>
+                <select id='colorChoice' onChange={this.onColorChanged} style={{ color: "white", background: "darkgray" }}>
                     {this.getOption('black')}
                     {this.getOption('green')}
                     {this.getOption('red')}
                     {this.getOption('blue')}
                     {this.getOption('lavender')}
-                </select><br/>
-                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange}/>
+                </select><br />
+                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange} />
                 <button onClick={this.onMessageSend}>Send Message</button>
             </div>
         )
     }
 
-    getOption(option){
+    getOption(option) {
         if (this.state.color == option) {
             return <option value={option} selected>{option}</option>
         }
