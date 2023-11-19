@@ -11,13 +11,8 @@ class Player2 extends Component {
     }
 
     async onTriggerCreate(event) {
-        const response = await fetch(BackendAccess.getUrlLobby(), {
-            method: "GET"
-        });
-        const item = await response.json();
-        console.log(item);
         this.props.parentCallback({
-            room: item.code,
+            room: this.state.room,
             user: event.target.user.value,
             leader: true
         });
