@@ -367,7 +367,7 @@ class Domino extends Component {
                 <div className="row flex-wrap " id={row.id}>
                     {row.columns.map((f) => {
                         return (
-                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-2" id={f.id}>
+                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap border zelle col-2" id={f.id}>
                                 {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
                             </div>
 
