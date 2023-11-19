@@ -180,6 +180,7 @@ class Lobby extends Component {
     }
 
     render() {
+        console.log("lobby render");
         return (
             <div name="lobby">
                 <button onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br/>
