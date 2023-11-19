@@ -65,6 +65,7 @@ class ChatInput extends Component {
         return (
             <div name='chatController'>
                 <a>User: {this.state.user}</a><br />
+                <a>Room: {this.state.room}</a><br />
                 <label for='colorchoice'>Color:&nbsp;&nbsp;&nbsp;</label>
                 <select id='colorChoice' onChange={this.onColorChanged}>
                     {this.getOption('black')}

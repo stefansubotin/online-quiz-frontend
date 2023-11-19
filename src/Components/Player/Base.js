@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Player from './Player';
+import Player from './Player2';
 import OuterRoom from './OuterRoom';
 
 class Base extends Component {
@@ -17,10 +17,10 @@ class Base extends Component {
         let component;
         switch (this.state.currentComponent) {
             case 'home':
-                component = <Player parentCallback={this.handleCallback} />
+                component = <Player parentCallback={this.handlePlayerChoice} />
                 break;
             case 'lobby':
-                component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
+                component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} parentCallback={this.handleLeaveLobby} />
                 break;
             default:
                 component = <div>Error</div>
@@ -29,13 +29,18 @@ class Base extends Component {
         return component;
     }
 
-    handleCallback = (childData) => {
+    handlePlayerChoice = (childData) => {
         this.setState({ 
             room: childData.room,
             user: childData.user,
             leader: childData.leader,
             currentComponent: 'lobby'
         });
+    }
+
+    handleLeaveLobby = (event) => {
+        console.log('outercallback');
+        this.props.parentCallback();
     }
     
     render() {

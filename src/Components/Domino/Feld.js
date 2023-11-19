@@ -1,4 +1,4 @@
-import Stone from "./Stone"
+
 import React, { Component } from "react";
 
 class Feld extends Component {

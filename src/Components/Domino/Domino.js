@@ -16,11 +16,281 @@ class Domino extends Component {
             rowsState: 0,
         };
     }
+    //GETTER
     //Gibt bei bekannter Zellen id und Zeile die Spalte zurück
     getZielZelle(id, row) {
         let laenge = JSON.parse(this.state.data).laenge;
         let zelle = (id - (row * laenge));
         return zelle;
+    }
+    //GENERIERE STEINE
+    getStones() {
+        let fs = this.state.rowsState
+        let stones = [];
+        console.log("rowsState Steine " + fs)
+
+        if (fs == 1) {
+            fs++;
+            console.log("initSteine " + stones);
+            stones = this.initStones();
+            console.log(stones)
+            this.setState(() => ({
+                pool: stones,
+                rowsState: fs,
+            }));
+        }
+
+
+        return (this.state.pool.map((stone) => this.getOneStone(stone)));
+    }
+
+
+    getOneStone(stone) {
+        let id = stone.id
+        let question = stone.question
+        let answer = stone.answer
+        let h = stone.h
+        let fOben = stone.fO
+        let d = stone.d
+        return (
+            <ul
+                className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
+                id={id}
+                draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
+                onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
+            >
+                {d ?
+                    <>
+                        <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                            {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                        </ul>
+                        <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
+                            {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                        </ul>
+                    </>
+                    : <>
+                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
+                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
+                    </>
+                }
+            </ul>
+        )
+    }
+    getDiagonalStoneFiller(h, fOben, d) {
+        let deg = 0;
+        if (h && fOben && d) {
+            deg = 90;
+        } else if (!h && fOben && d) {
+            deg = 180
+        } else if (h && !fOben && d) {
+            deg = -90;
+        }
+        let style = { transform: 'rotate(' + deg + 'deg)' };
+        return <li className="list-group-item col-6 empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
+    }
+
+    getRows() {
+        let fs = this.state.rowsState
+        let rows = [];
+        console.log("rowsState rows: " + fs)
+
+
+        if (fs == 0) {
+            fs++;
+            rows = this.initRows();
+            console.log(rows)
+            this.setState(() => ({
+                rows: rows,
+                rowsState: fs,
+            }));
+        }
+        return (this.state.rows.map((row) => {
+            return (
+                <div className="row flex-wrap " id={row.id}>
+                    {row.columns.map((f) => {
+                        return (
+                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-2" id={f.id}>
+                                {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
+                            </div>
+
+                        );
+                    })}
+                </div>
+            );
+        }));
+    }
+    getActivePlayer() {
+        let dat = JSON.parse(this.state.data);
+        let ap = dat.activePlayer;
+        if (this.state.activePlayer == "") {
+            console.log("Aktive Spieler initiiert")
+            this.setState({
+
+                activePlayer: ap,
+
+            });
+
+
+        }
+        return this.state.activePlayer
+
+
+    }
+    //SETTER
+    async setUpdaterows(message) {
+        console.log("Got this from: " + message.data.user);
+        console.log("NextPlayer: " + message.data.activePlayer)
+
+        //nur bei den anderen rerender
+        if (message.user != this.state.user) {
+            console.log("Set State von anderen")
+            this.setState({
+                activePlayer: message.data.activePlayer,
+                rows: message.data.rows,
+            });
+        }
+    }
+    async setResultData(message) {
+        console.log("Got Result Sheet")
+        console.log(message.data);
+
+        let dat = message.data.data
+        let cAnswers = dat.correctAnswers
+        let wAnswers = dat.wrongAnswers
+
+        console.log(dat)
+
+        this.setState(() => ({
+            rowsState: 4,
+            wrongAnswers: wAnswers,
+            correctAnswers: cAnswers
+        }));
+    }
+    //KOMMUNIKATION
+    async updateRows(activePlayer, rows) {
+        // Kommunikation für Update rows
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'domino' + this.state.room;
+        const channel = ably.channels.get(channelId);
+        console.log("ROOM " + this.state.room)
+        this.setState({
+            activePlayer: activePlayer,
+            rows: rows,
+        });
+        console.log("SEND: " + rows + activePlayer)
+
+        await channel.publish('updateRows', {
+            user: this.state.user,
+            rows: rows,
+            activePlayer: activePlayer,
+
+        });
+        ably.close();
+
+    }
+    async sendResultsFormular(data) {
+        console.log("Ende Spiel");
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'domino' + this.state.room;
+        const channel = ably.channels.get(channelId);
+        let dat = data
+
+        let cAnswers = dat.correctAnswers
+        let wAnswers = dat.wrongAnswers
+        console.log("cAnswer" + cAnswers)
+        console.log("wAnswer" + wAnswers)
+
+        this.setState(() => ({
+            rowsState: 4,
+            wrongAnswers: wAnswers,
+            correctAnswers: cAnswers
+        }));
+
+        console.log("SEND: " + wAnswers + cAnswers)
+
+        let body = {
+            game: "domino",
+            data: {
+                rowsState: 4,
+                correctAnswers: cAnswers,
+                wrongAnswers: wAnswers
+            },
+        }
+
+        await channel.publish('resultDomino', body);
+
+        console.log("gesendet an " + body);
+        ably.close();
+
+    }
+    //INITIIERUNG
+    initStones() {
+        //Object 
+        console.log("Mitspieler: " + this.state.users)
+        let dat = JSON.parse(this.state.data)
+        console.log(dat)
+        console.log("Richtige questions: " + dat.correctQuestions)
+        let amount = dat.questions.length;
+        let stones = [];
+        for (let i = 0; i < amount; i++) {
+            stones.push({
+                id: dat.questions[i].key,
+                question: dat.questions[i].question,
+                answer: dat.questions[i].answer,
+                h: false,
+                fO: true,
+                d: false
+            })
+        }
+        return stones;
+
+    }
+    initRows() {
+        //DominoData.json rows
+        let rows = [];
+        let columns = [];
+        let z;
+        let laenge = JSON.parse(this.state.data).laenge;
+        console.log("laenge" + laenge)
+
+        for (let i = 0; i < laenge; ++i) {
+            for (let j = 0; j < laenge; ++j) {
+                let id = i * laenge + j;
+                z = { id: id, stone: { id: "", question: "question", answer: "   " } }
+                columns.push(z);
+                console.log(columns);
+            }
+
+            rows.push({ id: i, columns: columns });
+            columns = [];
+        }
+
+        console.log(rows)
+        return rows
+    }
+    //HANDLER
+    //Spieler wechsel
+    handleSwitchPlayer() {
+        let users = this.state.users
+        let ap = this.state.activePlayer;
+        let next = "";
+        for (let i = 0; i < users.length; i++) {
+            if (users[i] == ap && i + 1 < users.length) {
+                console.log("nicht der letzte: " + users[i + 1])
+                next = users[i + 1]
+            } else if (users[i] == ap && i + 1 == users.length) {
+                console.log("der letzte" + users[0])
+                next = users[0]
+            }
+        }
+        this.updateRows(next, this.state.rows, this.state.pool)
+
     }
     //Stein drehen
     async handleRotateStone(e) {
@@ -102,44 +372,56 @@ class Domino extends Component {
             pool: pool1,
             rows: rows1,
         });
-        this.updaterows(this.state.activePlayer, rows1, pool1);
+        this.updateRows(this.state.activePlayer, rows1, pool1);
     }
+    async handleStopGame() {
+        let dat = JSON.parse(this.state.data)
+        let questions = dat.correctQuestions
 
-    //Spieler wechsel
-    handleSwitchPlayer() {
-        let users = this.state.users
-        let ap = this.state.activePlayer;
-        let next = "";
-        for (let i = 0; i < users.length; i++) {
-            if (users[i] == ap && i + 1 < users.length) {
-                console.log("nicht der letzte: " + users[i + 1])
-                next = users[i + 1]
-            } else if (users[i] == ap && i + 1 == users.length) {
-                console.log("der letzte" + users[0])
-                next = users[0]
-            }
+        this.setState(() => ({
+            rowsState: 4,
+            correctAnswers: [],
+            wrongAnswers: [],
+        }));
+
+        let body = {
+            state: 4,
+            room: this.state.room,
+            users: this.state.users,
+            rows: this.state.rows,
+            questions: questions
+        };
+
+        let url = BackendAccess.getUrlDomino();
+
+        const requestOptions = {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { "Content-Type": "application/json" },
         }
-        this.updaterows(next, this.state.rows, this.state.pool)
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        console.log(data);
 
-    }
-    getActivePlayer() {
-        let dat = JSON.parse(this.state.data);
-        let ap = dat.activePlayer;
-        if (this.state.activePlayer == "") {
-            console.log("Aktive Spieler initiiert")
-            this.setState({
-
-                activePlayer: ap,
-
-            });
-
-
+        if (data != undefined) {
+            this.sendResultsFormular(data)
+        } else {
+            console.log(data)
+            alert("somthing wrong")
         }
-        return this.state.activePlayer
-
-
     }
+    async handleEndGame() {
+        let tmp = this.state.room.split('_');
+        const Ably = require('ably');
+        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+        await ably.connection.once('connected');
+        const channelId = 'room' + tmp[0];
+        const channel = ably.channels.get(channelId);
 
+        await channel.publish('end', {
+            content: 'empty'
+        })
+    }
     //DRAG AND DROP
     //https://react.dev/reference/react-dom/components/common#dragevent-handler
     //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
@@ -253,283 +535,8 @@ class Domino extends Component {
             rows: rows1,
         });
 
-        this.updaterows(this.state.activePlayer, rows1);
+        this.updateRows(this.state.activePlayer, rows1);
 
-    }
-
-    //GENERIERE STEINE
-    getStones() {
-        let fs = this.state.rowsState
-        let stones = [];
-        console.log("rowsState Steine " + fs)
-
-        if (fs == 1) {
-            fs++;
-            console.log("initSteine " + stones);
-            stones = this.initStones();
-            console.log(stones)
-            this.setState(() => ({
-                pool: stones,
-                rowsState: fs,
-            }));
-        }
-
-
-        return (this.state.pool.map((stone) => this.getOneStone(stone)));
-    }
-
-    initStones() {
-        //Object 
-        console.log("Mitspieler: " + this.state.users)
-        let dat = JSON.parse(this.state.data)
-        console.log(dat)
-        console.log("Richtige questions: " + dat.correctQuestions)
-        let amount = dat.questions.length;
-        let stones = [];
-        for (let i = 0; i < amount; i++) {
-            stones.push({
-                id: dat.questions[i].key,
-                question: dat.questions[i].question,
-                answer: dat.questions[i].answer,
-                h: false,
-                fO: true,
-                d: false
-            })
-        }
-        return stones;
-
-    }
-
-    getOneStone(stone) {
-        let id = stone.id
-        let question = stone.question
-        let answer = stone.answer
-        let h = stone.h
-        let fOben = stone.fO
-        let d = stone.d
-        return (
-            <ul
-                className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
-                id={id}
-                draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
-                onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
-            >
-                {d ?
-                    <>
-                        <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                            {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
-                        </ul>
-                        <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
-                            {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                        </ul>
-                    </>
-                    : <>
-                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
-                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
-                    </>
-                }
-            </ul>
-        )
-    }
-    getDiagonalStoneFiller(h, fOben, d) {
-        let deg = 0;
-        if (h && fOben && d) {
-            deg = 90;
-        } else if (!h && fOben && d) {
-            deg = 180
-        } else if (h && !fOben && d) {
-            deg = -90;
-        }
-        let style = { transform: 'rotate(' + deg + 'deg)' };
-        return <li className="list-group-item col-6 empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
-    }
-
-    //GENERIERE rows
-    getRows() {
-        let fs = this.state.rowsState
-        let rows = [];
-        console.log("rowsState rows: " + fs)
-
-
-        if (fs == 0) {
-            fs++;
-            rows = this.initRows();
-            console.log(rows)
-            this.setState(() => ({
-                rows: rows,
-                rowsState: fs,
-            }));
-        }
-        return (this.state.rows.map((row) => {
-            return (
-                <div className="row flex-wrap " id={row.id}>
-                    {row.columns.map((f) => {
-                        return (
-                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap zelle col-2" id={f.id}>
-                                {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
-                            </div>
-
-                        );
-                    })}
-                </div>
-            );
-        }));
-    }
-
-    initRows() {
-        //DominoData.json rows
-        let rows = [];
-        let columns = [];
-        let z;
-        let laenge = 6;
-        console.log("laenge" + laenge)
-
-        for (let i = 0; i < laenge; ++i) {
-            for (let j = 0; j < laenge; ++j) {
-                let id = i * laenge + j;
-                z = { id: id, stone: { id: "", question: "question", answer: "   " } }
-                columns.push(z);
-                console.log(columns);
-            }
-
-            rows.push({ id: i, columns: columns });
-            columns = [];
-        }
-
-        console.log(rows)
-        return rows
-    }
-
-    //KOMMUNIKATION
-    async updaterows(activePlayer, rows) {
-        // Kommunikation für Update rows
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        const channelId = 'domino' + this.state.room;
-        const channel = ably.channels.get(channelId);
-        console.log("ROOM " + this.state.room)
-        this.setState({
-            activePlayer: activePlayer,
-            rows: rows,
-        });
-        console.log("SEND: " + rows + activePlayer)
-
-        await channel.publish('updaterows', {
-            user: this.state.user,
-            rows: rows,
-            activePlayer: activePlayer,
-
-        });
-        ably.close();
-
-    }
-    async handleStopGame() {
-        let dat = JSON.parse(this.state.data)
-        let questions = dat.correctQuestions
-
-        this.setState(() => ({
-            rowsState: 4,
-            correctAnswers: [],
-            wrongAnswers: [],
-        }));
-
-        let body = {
-            state: 4,
-            room: this.state.room,
-            users: this.state.users,
-            rows: this.state.rows,
-            questions: questions
-        };
-
-        let url = BackendAccess.getUrlDomino();
-
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: { "Content-Type": "application/json" },
-        }
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        console.log(data);
-
-        if (data != undefined) {
-            this.sendResultsFormular(data)
-        } else {
-            console.log(data)
-            alert("somthing wrong")
-        }
-    }
-
-    async sendResultsFormular(data) {
-        console.log("Ende Spiel");
-        const Ably = require('ably');
-        const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
-        await ably.connection.once('connected');
-        const channelId = 'domino' + this.state.room;
-        const channel = ably.channels.get(channelId);
-        let dat = data
-
-        let cAnswers = dat.correctAnswers
-        let wAnswers = dat.wrongAnswers
-        console.log("cAnswer" + cAnswers)
-        console.log("wAnswer" + wAnswers)
-
-        this.setState(() => ({
-            rowsState: 4,
-            wrongAnswers: wAnswers,
-            correctAnswers: cAnswers
-        }));
-
-        console.log("SEND: " + wAnswers + cAnswers)
-
-        let body = {
-            game: "domino",
-            data: {
-                rowsState: 4,
-                correctAnswers: cAnswers,
-                wrongAnswers: wAnswers
-            },
-        }
-
-        await channel.publish('resultDomino', body);
-
-        console.log("gesendet an " + body);
-        ably.close();
-
-    }
-
-
-    async setUpdaterows(message) {
-        console.log("Got this from: " + message.data.user);
-        console.log("NextPlayer: " + message.data.activePlayer)
-
-        //nur bei den anderen rerender
-        if (message.user != this.state.user) {
-            console.log("Set State von anderen")
-            this.setState({
-                activePlayer: message.data.activePlayer,
-                rows: message.data.rows,
-            });
-        }
-    }
-    async setResultData(message) {
-        console.log("Got Result Sheet")
-        console.log(message.data);
-
-        let dat = message.data.data
-        let cAnswers = dat.correctAnswers
-        let wAnswers = dat.wrongAnswers
-
-        console.log(dat)
-
-        this.setState(() => ({
-            rowsState: 4,
-            wrongAnswers: wAnswers,
-            correctAnswers: cAnswers
-        }));
     }
     async componentDidMount() {
         //Connection Ably to transfer and update Data
@@ -539,7 +546,7 @@ class Domino extends Component {
         const channelId = 'domino' + this.state.room;
         const channel = ably.channels.get(channelId);
         console.log("Channel aktiv");
-        channel.subscribe('updaterows', (message) => this.setUpdaterows(message))
+        channel.subscribe('updateRows', (message) => this.setUpdaterows(message))
         channel.subscribe('resultDomino', (message) => this.setResultData(message))
 
     }
@@ -578,7 +585,6 @@ class Domino extends Component {
                                 <th colspan="3">Falsche Fragen</th>
                             </tr>
                             <tr>
-                                <th scope="col">ID</th>
                                 <th scope="col">Frage</th>
                                 <th scope="col">Antwort</th>
                             </tr>
@@ -586,7 +592,6 @@ class Domino extends Component {
                                 {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
                                     return (
                                         <tr>
-                                            <td>{question.key}</td>
                                             <td>{question.question}</td>
                                             <td>{question.answer}</td>
                                         </tr>
@@ -598,7 +603,6 @@ class Domino extends Component {
                                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
                                     return (
                                         <tr>
-                                            <td>{question.key}</td>
                                             <td>{question.question}</td>
                                             <td>{question.answer}</td>
                                         </tr>
@@ -606,6 +610,7 @@ class Domino extends Component {
                                 })}
                             </tbody>
                         </table>
+                        <button type="button" className="btn btn-primary" onClick={(e) => this.handleEndGame()}>Zurück zur Lobby</button>
                     </div>}
 
             </div>

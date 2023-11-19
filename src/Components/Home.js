@@ -22,6 +22,12 @@ class Homepage extends Component {
         })
     }
 
+    handleCallback = (event) => {
+        this.setState({
+            component: 'choice'
+        })
+    }
+
     getComponent(){
         switch (this.state.component){
             case 'choice':
@@ -30,7 +36,7 @@ class Homepage extends Component {
                     <button onClick={e => this.onContributor(e)}>Curate Questions</button>
                 </div>
             case 'player':
-                return <PlayerBase />;
+                return <PlayerBase parentCallback={this.handleCallback}/>;
             case 'contributor':
                 return <ContributorBase />
             default:
