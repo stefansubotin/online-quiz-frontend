@@ -81,7 +81,7 @@ class ContributorSimpleQuestion extends Component {
         });
     }
 
-    onCount(i){
+    onCount(i) {
         this.setState({
             collection: this.state.collection,
             key: this.state.key,
@@ -92,9 +92,9 @@ class ContributorSimpleQuestion extends Component {
             falseAnswer3: '',
             answerCount: i
         });
-        
+
     }
-    
+
     onSubmit(e) {
         this.sendQuestion();
         this.props.parentCallback({
@@ -139,28 +139,28 @@ class ContributorSimpleQuestion extends Component {
         display.push(
             <div>
                 <label for='question'>Question&nbsp;</label>
-                <input id='question' type='text' value={this.state.question} onChange={(e) => this.onQuestion(e)} />
+                <input className="rounded  bg-secondary text-white" id='question' type='text' value={this.state.question} onChange={(e) => this.onQuestion(e)} />
             </div>);
         display.push(
             <div>
                 <label for='answer'>Correct Answer&nbsp;</label>
-                <input id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
+                <input className="rounded  bg-secondary text-white" id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
             </div>);
         if (this.state.answerCount == 4) {
             display.push(
                 <div>
                     <label for='answer'>False Answer 1&nbsp;</label>
-                    <input id='answer' type='text' value={this.state.falseAnswer1} onChange={(e) => this.onFalseAnswer1(e)} />
+                    <input className="rounded  bg-secondary text-white" id='answer' type='text' value={this.state.falseAnswer1} onChange={(e) => this.onFalseAnswer1(e)} />
                 </div>);
             display.push(
                 <div>
                     <label for='answer'>False Answer 2&nbsp;</label>
-                    <input id='answer' type='text' value={this.state.falseAnswer2} onChange={(e) => this.onFalseAnswer2(e)} />
+                    <input className="rounded  bg-secondary text-white" id='answer' type='text' value={this.state.falseAnswer2} onChange={(e) => this.onFalseAnswer2(e)} />
                 </div>);
             display.push(
                 <div>
                     <label for='answer'>False Answer 3&nbsp;</label>
-                    <input id='answer' type='text' value={this.state.falseAnswer3} onChange={(e) => this.onFalseAnswer3(e)} />
+                    <input className="rounded  bg-secondary text-white" id='answer' type='text' value={this.state.falseAnswer3} onChange={(e) => this.onFalseAnswer3(e)} />
                 </div>);
         }
         return display;
@@ -213,15 +213,15 @@ class ContributorSimpleQuestion extends Component {
     render() {
         return <div>
             <form onSubmit={(e) => this.onSubmit(e)}>
-                <input type='submit' value='Save Question' />
+                <input className="rounded  bg-secondary text-white" type='submit' value='Save Question' />
             </form>
             <form onSubmit={(e) => this.onCancel(e)}>
-                <input type='submit' value='Cancel' />
-            </form><br/><br/>
+                <input className="rounded  bg-secondary text-white" type='submit' value='Cancel' />
+            </form><br /><br />
             <label for='1'>One Answer</label>
-            <input id='1' type='checkbox' checked={this.state.answerCount == 1} onChange={(e) => this.onCount(1)} /><br/>
+            <input className="rounded  bg-secondary text-white" id='1' type='checkbox' checked={this.state.answerCount == 1} onChange={(e) => this.onCount(1)} /><br />
             <label for='4'>Four Answers</label>
-            <input id='4' type='checkbox' checked={this.state.answerCount == 4} onChange={(e) => this.onCount(4)} /><br/>
+            <input className="rounded  bg-secondary text-white" id='4' type='checkbox' checked={this.state.answerCount == 4} onChange={(e) => this.onCount(4)} /><br />
             {this.getDisplay()}
         </div>
     }

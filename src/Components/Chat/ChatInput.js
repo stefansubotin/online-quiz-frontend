@@ -74,7 +74,7 @@ class ChatInput extends Component {
                     {this.getOption('blue')}
                     {this.getOption('lavender')}
                 </select><br />
-                <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange} style={{ color: 'inherit', background: 'inherit' }} />
+                <input className="rounded  bg-secondary text-white" type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange} style={{ color: 'inherit', background: 'inherit' }} />
                 <button onClick={this.onMessageSend} type="button" class=" btn btn-secondary" >Send Message</button>
             </div>
         )

@@ -77,12 +77,12 @@ class ContributorList extends Component {
         let list = this.getDisplayList();
         return <div>
             <div>
-                <input type="checkbox" id="kw" onChange={(e) => this.onCheck('kw', e)} />
+                <input className="rounded  bg-secondary text-white" type="checkbox" id="kw" onChange={(e) => this.onCheck('kw', e)} />
                 <label for="kw"> Kreuzwort</label><br />
-                <input type="checkbox" id="taboo" onChange={(e) => this.onCheck('taboo', e)} />
+                <input className="rounded  bg-secondary text-white" type="checkbox" id="taboo" onChange={(e) => this.onCheck('taboo', e)} />
                 <label for="taboo"> Taboo</label><br />
-                <input type="checkbox" id="simple" onChange={(e) => this.onCheck('simple', e)} />
-                <label for="simple"> Simple Question</label><br /><br/>
+                <input className="rounded  bg-secondary text-white" type="checkbox" id="simple" onChange={(e) => this.onCheck('simple', e)} />
+                <label for="simple"> Simple Question</label><br /><br />
                 {list}
             </div>
         </div>

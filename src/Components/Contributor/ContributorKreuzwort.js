@@ -198,7 +198,7 @@ class ContributorKreuzwort extends Component {
         let mspLine = [];
         for (let k = 0; k < this.state.size; k++) {
             let checked = k + 1 == this.state.msp;
-            mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
+            mspLine.push(<input className='rounded  bg-secondary text-white cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
         mspLine.push(<br />);
         return mspLine;
@@ -248,7 +248,7 @@ class ContributorKreuzwort extends Component {
     getQuestions() {
         let questions = [];
         for (let i = 0; i < this.state.userCount; i++) {
-            questions.push(<input type='text' value={this.state.questions[i]} onChange={(e) => this.onQuestion(e, i)} />)
+            questions.push(<input className="rounded  bg-secondary text-white" type='text' value={this.state.questions[i]} onChange={(e) => this.onQuestion(e, i)} />)
             questions.push(<br />);
         }
         return questions;
@@ -329,10 +329,10 @@ class ContributorKreuzwort extends Component {
     render() {
         return <div>
             <form onSubmit={(e) => this.onSubmit(e)}>
-                <input type='submit' value='Save Question' />
+                <input className="rounded  bg-secondary text-white" type='submit' value='Save Question' />
             </form>
             <form onSubmit={(e) => this.onCancel(e)}>
-                <input type='submit' value='Cancel' />
+                <input className="rounded  bg-secondary text-white" type='submit' value='Cancel' />
             </form>
             {this.getControls()}<br />
             {this.getTable()}<br />

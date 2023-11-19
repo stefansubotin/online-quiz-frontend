@@ -44,7 +44,7 @@ class Player2 extends Component {
                 <span>
                     <p>Create Lobby</p>
                     <form onSubmit={(e) => this.onTriggerCreate(e)}>
-                        <input type="text" name="user" placeholder='Choose Username' required='true' /><br />
+                        <input className="rounded  bg-secondary text-white" type="text" name="user" placeholder='Choose Username' required='true' /><br />
                         <button type="submit" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onNewCode(e)} disabled={this.state.room == ''}>Create Lobby</button>
                     </form>
                     <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onNewCode(e)} disabled={this.state.room != ''}>New Roomcode</button><br />
@@ -53,8 +53,8 @@ class Player2 extends Component {
                 <span>
                     <p>Join Lobby</p>
                     <form onSubmit={this.onTriggerJoin}>
-                        <input type="text" name="user" placeholder='Choose Username' /><br />
-                        <input type="text" name="room" placeholder='Enter RoomID' /><br /><br />
+                        <input className="rounded  bg-secondary text-white" type="text" name="user" placeholder='Choose Username' /><br />
+                        <input className="rounded  bg-secondary text-white" type="text" name="room" placeholder='Enter RoomID' /><br /><br />
                         <button type="submit" style={{ margin: '10px' }} class="btn btn-secondary">Join Lobby</button>
                     </form>
                 </span>

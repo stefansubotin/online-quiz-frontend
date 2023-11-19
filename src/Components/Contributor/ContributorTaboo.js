@@ -21,7 +21,7 @@ class ContributorTaboo extends Component {
         });
     }
 
-    onFw(e, i){
+    onFw(e, i) {
         let fw = this.state.forbiddenWords;
         fw[i] = e.target.value;
         this.setState({
@@ -31,7 +31,7 @@ class ContributorTaboo extends Component {
             forbiddenWords: fw
         });
     }
-    
+
     onSubmit(e) {
         this.sendQuestion();
         this.props.parentCallback({
@@ -72,27 +72,27 @@ class ContributorTaboo extends Component {
         display.push(
             <div>
                 <label for='answer'>Term To Explain&nbsp;</label>
-                <input id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
+                <input className="rounded  bg-secondary text-white" id='answer' type='text' value={this.state.answer} onChange={(e) => this.onAnswer(e)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 1&nbsp;</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 0)} />
+                <input className="rounded  bg-secondary text-white" id='fw1' type='text' value={this.state.forbiddenWords[0]} onChange={(e) => this.onFw(e, 0)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 2&nbsp;</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[1]} onChange={(e) => this.onFw(e, 1)} />
+                <input className="rounded  bg-secondary text-white" id='fw1' type='text' value={this.state.forbiddenWords[1]} onChange={(e) => this.onFw(e, 1)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 3&nbsp;</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[2]} onChange={(e) => this.onFw(e, 2)} />
+                <input className="rounded  bg-secondary text-white" id='fw1' type='text' value={this.state.forbiddenWords[2]} onChange={(e) => this.onFw(e, 2)} />
             </div>);
         display.push(
             <div>
                 <label for='fw1'>Forbidden Word 4&nbsp;</label>
-                <input id='fw1' type='text' value={this.state.forbiddenWords[3]} onChange={(e) => this.onFw(e, 3)} />
+                <input className="rounded  bg-secondary text-white" id='fw1' type='text' value={this.state.forbiddenWords[3]} onChange={(e) => this.onFw(e, 3)} />
             </div>);
         return display;
     }
@@ -139,10 +139,10 @@ class ContributorTaboo extends Component {
         console.log(this.state);
         return <div>
             <form onSubmit={(e) => this.onSubmit(e)}>
-                <input type='submit' value='Save Question' />
+                <input className="rounded  bg-secondary text-white" type='submit' value='Save Question' />
             </form>
             <form onSubmit={(e) => this.onCancel(e)}>
-                <input type='submit' value='Cancel' />
+                <input className="rounded  bg-secondary text-white" type='submit' value='Cancel' />
             </form>
             {this.getDisplay()}
         </div>
