@@ -75,7 +75,7 @@ class ContributorList extends Component {
                     break;
             }
         }
-        let table = <table class="table table-striped" style={{ overflow: 'scroll' }}>{display}</table>
+        let table = <table class="table table-striped" style={{ overflow: 'scroll', textAlign: 'left' }}>{display}</table>
         return table;
     }
 
@@ -84,7 +84,8 @@ class ContributorList extends Component {
         let list = this.getDisplayList();
         return <div>
             <div>
-                <input className="rounded  bg-secondary text-white" type="checkbox" id="kw" onChange={(e) => this.onCheck('kw', e)} />
+                <input className="rounded  bg-secondary 
+                -white" type="checkbox" id="kw" onChange={(e) => this.onCheck('kw', e)} />
                 <label for="kw"> Kreuzwort</label><br />
                 <input className="rounded  bg-secondary text-white" type="checkbox" id="taboo" onChange={(e) => this.onCheck('taboo', e)} />
                 <label for="taboo"> Taboo</label><br />
