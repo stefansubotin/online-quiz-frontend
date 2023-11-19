@@ -13,10 +13,8 @@ code {
     monospace;
 }
 
-#root {
-  min-height: 100%;
-}
-
-:root {
-  min-height: inherit;
+html,
+body,
+.App {
+  height: 100%
 }
