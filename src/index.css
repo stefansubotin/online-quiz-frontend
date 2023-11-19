@@ -21,6 +21,8 @@ body,
 }
 
 .home,
-.base {
+.base,
+.outer,
+.inner {
   height: 100%;
 }

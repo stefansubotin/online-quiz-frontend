@@ -267,13 +267,13 @@ class InnerRoom extends Component {
 
     render() {
         return (
-            <div className="col-9">
+            <div className="col-9 row inner">
                 <div name="innerRoom" className="row">
-                    <div className="col-1" style={{ backgroundColor: 'lightgray', height: '100 %' }}>
-                        <button type="button" class="btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>
+                    <div className="col-2" style={{ backgroundColor: 'lightgray', height: '100 %' }}>
+                        <button type="button" class="col-12 btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>
                         {this.getUserList()}
                     </div>
-                    <div name="innerRoomComponent" className="col-11">
+                    <div name="innerRoomComponent" className="col-10">
                         {this.getComponent()}
                     </div>
                 </div>
