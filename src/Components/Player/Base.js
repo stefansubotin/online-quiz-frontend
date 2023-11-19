@@ -17,10 +17,10 @@ class Base extends Component {
         let component;
         switch (this.state.currentComponent) {
             case 'home':
-                component = <Player parentCallback={this.handleCallback} />
+                component = <Player parentCallback={this.handlePlayerChoice} />
                 break;
             case 'lobby':
-                component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} />
+                component = <OuterRoom room={this.state.room} user={this.state.user} leader={this.state.leader} parentCallback={this.handleLeaveLobby} />
                 break;
             default:
                 component = <div>Error</div>
@@ -29,7 +29,7 @@ class Base extends Component {
         return component;
     }
 
-    handleCallback = (childData) => {
+    handlePlayerChoice = (childData) => {
         this.setState({ 
             room: childData.room,
             user: childData.user,
@@ -37,12 +37,20 @@ class Base extends Component {
             currentComponent: 'lobby'
         });
     }
+
+    handleLeaveLobby = (event) => {
+        this.setState({ 
+            room: '',
+            user: '',
+            leader: '',
+            currentComponent: 'lobby'
+        });
+    }
     
     render() {
         return (
             <div name='base' className='container'>
-                {this.getComponent()}<br/>
-                {this.state.room}
+                {this.getComponent()}
             </div>
         );
     }

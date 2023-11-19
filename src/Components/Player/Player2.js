@@ -10,7 +10,7 @@ class Player2 extends Component {
         }
     }
 
-    async onTriggerCreate(event) {
+    onTriggerCreate(event) {
         this.props.parentCallback({
             room: this.state.room,
             user: event.target.user.value,

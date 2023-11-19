@@ -217,22 +217,23 @@ class InnerRoom extends Component {
         }
     }
 
-    componentWillUnmount() {
+    async leaveLobby(event) {
         if (this.state.users.length > 1) {
-            const ably = AblyFunctions.getAbly();
+            const ably = await AblyFunctions.getAbly();
             const channelId = "room" + this.state.room;
-            const channel = AblyFunctions.getChannel(ably, channelId);
-            channel.publish("leave", {
+            const channel = await AblyFunctions.getChannel(ably, channelId);
+            await channel.publish("leave", {
                 user: this.state.user,
                 leader: this.state.leader
             });
         }
         else {
-            fetch(BackendAccess.getUrlLeaveLobby() + this.state.room, {
+            await fetch(BackendAccess.getUrlLeaveLobby() + this.state.room, {
                 method: "DELETE"
             });
         }
         console.log("Left");
+        this.props.parentCallback();
     }
 
     render() {
@@ -240,7 +241,8 @@ class InnerRoom extends Component {
             <div className="col-8">
                 <div name="innerRoom" className="row">
                     <div className="col-1">
-                        <a>Room:{this.state.room}</a><br />
+                        <button onClick={(e) => this.leaveLobby(e)}>Leave</button>
+                        <a>Room:&nbsp;{this.state.room}</a><br />
                         {this.getUserList()}
                     </div>
                     <div name="innerRoomComponent" className="col-11">
