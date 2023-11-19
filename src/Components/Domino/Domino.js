@@ -575,10 +575,9 @@ class Domino extends Component {
                     : <div>
                         <table className="table table-striped">
                             <tr>
-                                <th colspan="3">Falsche Fragen</th>
+                                <th colspan="2">Falsche Fragen</th>
                             </tr>
                             <tr>
-                                <th scope="col">ID</th>
                                 <th scope="col">Frage</th>
                                 <th scope="col">Antwort</th>
                             </tr>
@@ -586,19 +585,17 @@ class Domino extends Component {
                                 {this.state.wrongAnswers == undefined ? "Waiting for data..." : this.state.wrongAnswers.map((question) => {
                                     return (
                                         <tr>
-                                            <td>{question.key}</td>
                                             <td>{question.question}</td>
                                             <td>{question.answer}</td>
                                         </tr>
                                     );
                                 })}
                                 <tr>
-                                    <th colspan="3">Richtige Fragen</th>
+                                    <th colspan="2">Richtige Fragen</th>
                                 </tr>
                                 {this.state.correctAnswers == undefined ? "Waiting for data..." : this.state.correctAnswers.map((question) => {
                                     return (
                                         <tr>
-                                            <td>{question.key}</td>
                                             <td>{question.question}</td>
                                             <td>{question.answer}</td>
                                         </tr>
