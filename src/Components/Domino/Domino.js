@@ -406,15 +406,22 @@ class Domino extends Component {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
-        const channelId = 'domino' + this.state.room;
-        const channel = ably.channels.get(channelId);
+
+        var channel;
+        var channelId;
         if (reason == 'end') {
+            console.log("ENDE zürück zur Lobby")
             let tmp = this.state.room.split('_');
-            const channelId = 'room' + tmp[0];
-            const channel = ably.channels.get(channelId);
+            channelId = 'room' + tmp[0];
+            channel = ably.channels.get(channelId);
+        } else {
+            channelId = 'domino' + this.state.room;
+            channel = ably.channels.get(channelId);
+
         }
-        console.log("ROOM " + this.state.room)
+
         await channel.publish(reason, body);
+        console.log("Send message")
         ably.close();
 
     }
