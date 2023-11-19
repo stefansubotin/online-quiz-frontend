@@ -46,7 +46,7 @@ class Homepage extends Component {
 
     render() {
         return (
-            <div id="home" name='homepage'>
+            <div name='homepage'>
                 {this.getComponent()}
             </div>
         )

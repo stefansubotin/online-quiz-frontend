@@ -7,7 +7,7 @@ class Base extends Component {
         super(props);
         this.state = {
             currentComponent: 'home',
-            room: '', 
+            room: '',
             user: '',
             leader: false
         };
@@ -30,7 +30,7 @@ class Base extends Component {
     }
 
     handlePlayerChoice = (childData) => {
-        this.setState({ 
+        this.setState({
             room: childData.room,
             user: childData.user,
             leader: childData.leader,
@@ -42,10 +42,10 @@ class Base extends Component {
         console.log('outercallback');
         this.props.parentCallback();
     }
-    
+
     render() {
         return (
-            <div name='base' className='container'>
+            <div name='base' className='container base'>
                 {this.getComponent()}
             </div>
         );
