@@ -267,9 +267,9 @@ class InnerRoom extends Component {
 
     render() {
         return (
-            <div className="col-9 innerRoomOne">
-                <div name="innerRoom" className="row innerRoomTwo">
-                    <div className="col-1 flex-wrap userList" style={{ backgroundColor: 'lightgray' }}>
+            <div className="col-9">
+                <div name="innerRoom" className="row">
+                    <div className="col-1" style={{ backgroundColor: 'lightgray', height: '100 %' }}>
                         <button type="button" class="btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>
                         {this.getUserList()}
                     </div>

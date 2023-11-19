@@ -1,4 +1,5 @@
 body {
+  min-height: 100%;
   margin: 0;
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -8,23 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root,
-.home,
-.base,
-.outerRoom,
-.innerRoomOne,
-.innerRoomTwo,
-.userList {
-  min-height: 100%;
-  background-color: lightblue;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-:root {
-  height: 100%;
-  background-color: lightblue
 }
