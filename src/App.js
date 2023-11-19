@@ -5,7 +5,7 @@ import Homepage from "./Components/Home";
 
 function App() {
   return (
-    <div className="App" style={{ backgroundColor: 'lightblue' }}>
+    <div className="App" >
       <Homepage />
     </div>
   );
