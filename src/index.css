@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
-#root {
+:root {
+  height: 100%;
   background-color: lightblue
 }
