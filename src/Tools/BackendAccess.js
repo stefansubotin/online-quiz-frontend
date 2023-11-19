@@ -28,7 +28,7 @@ class BackendAccess {
     }
 
     static getUrlLeaveLobby() {
-        return this.getUrl() + "db/"
+        return this.getUrl() + "db/lobbies/"
     }
 }
 
