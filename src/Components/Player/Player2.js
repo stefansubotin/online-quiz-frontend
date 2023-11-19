@@ -55,7 +55,7 @@ class Player2 extends Component {
                     <form onSubmit={this.onTriggerJoin}>
                         <input type="text" name="user" placeholder='Choose Username' /><br />
                         <input type="text" name="room" placeholder='Enter RoomID' /><br /><br />
-                        <button type="submit" style={{ margin: '10px' }} class="btn btn-secondary" value="Join Lobby" />
+                        <button type="submit" style={{ margin: '10px' }} class="btn btn-secondary">Join Lobby</button>
                     </form>
                 </span>
                 <span>
