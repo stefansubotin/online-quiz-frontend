@@ -10,7 +10,7 @@ class ContributorBase extends Component {
         }
     }
 
-    onList(event){
+    onList(event) {
         this.setState({
             list: !this.state.list
         })
@@ -21,16 +21,16 @@ class ContributorBase extends Component {
         let list = 'Display Question List';
         if (this.state.list) list = 'Hide Question List'
         display.push(<ContributorChoice parentCallback={this.handleCallBack} list={this.state.list} />);
-        display.push(<br/>);
-        display.push(<button onClick={(e) => this.onList(e)}>{list}</button> )
+        display.push(<br />);
+        display.push(<button type="button" class="btn btn-secondary" onClick={(e) => this.onList(e)}>{list}</button>)
         if (this.state.list) {
-            display.push(<br/>);
+            display.push(<br />);
             display.push(<ContributorList />);
         }
         return display;
     }
 
-    render(){
+    render() {
         return (
             <div>
                 {this.getDisplay()}

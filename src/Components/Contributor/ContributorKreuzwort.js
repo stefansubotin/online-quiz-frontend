@@ -194,13 +194,13 @@ class ContributorKreuzwort extends Component {
         });
     }
 
-    getMsp(){
+    getMsp() {
         let mspLine = [];
         for (let k = 0; k < this.state.size; k++) {
             let checked = k + 1 == this.state.msp;
             mspLine.push(<input className='cellSmall' type="checkbox" checked={checked} onChange={(e) => this.onMsp(k + 1)} />);
         }
-        mspLine.push(<br/>);
+        mspLine.push(<br />);
         return mspLine;
     }
 
@@ -234,7 +234,7 @@ class ContributorKreuzwort extends Component {
 
             line.push(<input type='text' className={style} value={value} maxLength={1} onChange={(e) => this.onChange(e, i, j)} />)
         }
-        line.push(<br/>);
+        line.push(<br />);
         return line;
     }
 
@@ -249,17 +249,17 @@ class ContributorKreuzwort extends Component {
         let questions = [];
         for (let i = 0; i < this.state.userCount; i++) {
             questions.push(<input type='text' value={this.state.questions[i]} onChange={(e) => this.onQuestion(e, i)} />)
-            questions.push(<br/>);
+            questions.push(<br />);
         }
         return questions;
     }
 
     getControls() {
         return <div>
-            <button onClick={(e) => this.increaseSize(e)}>+ Width</button>
-            <button onClick={(e) => this.decreaseSize(e)}>- Width</button>
-            <button onClick={(e) => this.increaseUserCount(e)}>+ Depth</button>
-            <button onClick={(e) => this.decreaseUserCount(e)}>- Depth</button>
+            <button type="button" class="btn btn-secondary" onClick={(e) => this.increaseSize(e)}>+ Width</button>
+            <button type="button" class="btn btn-secondary" onClick={(e) => this.decreaseSize(e)}>- Width</button>
+            <button type="button" class="btn btn-secondary" onClick={(e) => this.increaseUserCount(e)}>+ Depth</button>
+            <button type="button" class="btn btn-secondary" onClick={(e) => this.decreaseUserCount(e)}>- Depth</button>
         </div>
     }
 

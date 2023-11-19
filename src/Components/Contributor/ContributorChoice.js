@@ -54,7 +54,7 @@ class ContributorChoice extends Component {
         });
     }
 
-    async onDelete(event){
+    async onDelete(event) {
         const response = await fetch(BackendAccess.getUrlContributor(), {
             method: "DELETE",
             body: JSON.stringify({
@@ -87,11 +87,11 @@ class ContributorChoice extends Component {
         console.log(collection + ', ' + key);
         switch (collection) {
             case 'kreuzwort':
-                return <ContributorKreuzwort collection={collection} item={key} parentCallback={this.handleCallback}/>
+                return <ContributorKreuzwort collection={collection} item={key} parentCallback={this.handleCallback} />
             case 'taboo':
-                return <ContributorTaboo collection={collection} item={key} parentCallback={this.handleCallback}/>
+                return <ContributorTaboo collection={collection} item={key} parentCallback={this.handleCallback} />
             case 'simpleQuestion':
-                return <ContributorSimpleQuestion collection={collection} item={key} parentCallback={this.handleCallback}/>
+                return <ContributorSimpleQuestion collection={collection} item={key} parentCallback={this.handleCallback} />
             default:
                 return <div>Error</div>
         }
@@ -107,9 +107,9 @@ class ContributorChoice extends Component {
             </select><br />
             <label for='key'>Key If Editing/Deleting Existing Question:&nbsp;</label>
             <input type='text' id='key' onChange={(e) => this.onKeyChanged(e)} placeholder="Input Key" /><br />
-            <button onClick={e => this.onNew(e)}>New Question</button>
-            <button onClick={e => this.onEdit(e)}>Edit Question</button>
-            <button onClick={e => this.onDelete(e)}>Delete Question</button><br /><br />
+            <button type="button" class="btn btn-secondary" onClick={e => this.onNew(e)}>New Question</button>
+            <button type="button" class="btn btn-secondary" onClick={e => this.onEdit(e)}>Edit Question</button>
+            <button type="button" class="btn btn-secondary" onClick={e => this.onDelete(e)}>Delete Question</button><br /><br />
         </div>
     }
 
