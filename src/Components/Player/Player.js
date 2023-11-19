@@ -20,7 +20,7 @@ class Player extends Component {
 
     render() {
         return (
-            <div name='home' style={{display: 'flex'}}>
+            <div name='home' style={{ display: 'flex', alignItems: 'center' }}>
                 <span className='fixedSize invis size25'>&nbsp;</span>
                 <span>
                     <p>Create Lobby</p>

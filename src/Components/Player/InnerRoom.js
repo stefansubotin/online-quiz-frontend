@@ -269,7 +269,7 @@ class InnerRoom extends Component {
         return (
             <div className="col-9 row inner">
                 <div name="innerRoom" className="row">
-                    <div className="col-2" style={{ backgroundColor: 'lightgray', height: '100 %' }}>
+                    <div className="col-2" style={{ backgroundColor: 'darkgrey', font: 'white', height: '100 %' }}>
                         <button type="button" class="col-12 btn btn-secondary" onClick={(e) => this.leaveLobby(e)}>Leave</button>
                         {this.getUserList()}
                     </div>
