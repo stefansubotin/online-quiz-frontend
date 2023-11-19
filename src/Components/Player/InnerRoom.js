@@ -134,15 +134,6 @@ class InnerRoom extends Component {
             users: newUsers,
             game: this.state.game
         });
-        this.setState({
-            room: this.state.room,
-            user: this.state.user,
-            leader: leader,
-            data: this.state.data,
-            currentComponent: this.state.currentComponent,
-            users: newUsers,
-            game: this.state.game
-        });
         console.log(this.state);
     }
 
@@ -153,7 +144,7 @@ class InnerRoom extends Component {
                 component = (
                     <Lobby
                         user={this.state.user}
-                        leader={this.state.leader}
+                        leader={this.state.leader || this.state.users[0] == this.state.user}
                         room={this.state.room}
                         users={this.state.users}
                         game={this.state.game}
