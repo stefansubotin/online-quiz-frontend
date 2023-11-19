@@ -67,7 +67,7 @@ class ChatInput extends Component {
                 <a>User: {this.state.user}</a><br />
                 <a>Room: {this.state.room}</a><br />
                 <label for='colorchoice'>Color:&nbsp;&nbsp;&nbsp;</label>
-                <select id='colorChoice' onChange={this.onColorChanged} style={{ color: "white", background: "darkgray" }}>
+                <select id='colorChoice' onChange={this.onColorChanged} style={{ color: "inherhit", background: "inherit" }}>
                     {this.getOption('black')}
                     {this.getOption('green')}
                     {this.getOption('red')}
@@ -75,7 +75,7 @@ class ChatInput extends Component {
                     {this.getOption('lavender')}
                 </select><br />
                 <input type="text" name="message" placeholder='Input Message' value={this.state.message} onChange={this.onMessageChange} />
-                <button onClick={this.onMessageSend}>Send Message</button>
+                <button onClick={this.onMessageSend} type="button" class="col-12 btn btn-secondary" >Send Message</button>
             </div>
         )
     }
