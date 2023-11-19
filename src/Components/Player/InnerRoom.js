@@ -130,6 +130,7 @@ class InnerRoom extends Component {
             users: newUsers,
             game: this.state.game
         });
+        console.log(this.state);
     }
 
     getComponent() {
