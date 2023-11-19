@@ -119,7 +119,7 @@ class InnerRoom extends Component {
         let leader = this.state.leader;
         console.log(this.state.users[1]);
         console.log(this.state.user);
-        if (message.data.leader && this.state.users[1] == this.state.user) leader = true;
+        if (this.state.users[1] == this.state.user) leader = message.data.leader;
 
         this.setState({
             room: this.state.room,
