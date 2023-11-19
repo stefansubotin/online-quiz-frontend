@@ -134,6 +134,15 @@ class InnerRoom extends Component {
             users: newUsers,
             game: this.state.game
         });
+        this.setState({
+            room: this.state.room,
+            user: this.state.user,
+            leader: leader,
+            data: this.state.data,
+            currentComponent: this.state.currentComponent,
+            users: newUsers,
+            game: this.state.game
+        });
         console.log(this.state);
     }
 
