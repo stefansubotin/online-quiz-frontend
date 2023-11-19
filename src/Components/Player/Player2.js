@@ -45,6 +45,7 @@ class Player2 extends Component {
                     <p>Create Lobby</p>
                     <form onSubmit={(e) => this.onTriggerCreate(e)}>
                         <input type="text" name="user" placeholder='Choose Username' required='true' /><br />
+                        <button onClick={(e) => this.onNewCode(e)} disbaled={this.state.room != ''}>New Roomcode</button><br/>
                         <input type="submit" value="Create Lobby" disabled={this.state.room == ''}/>
                     </form>
                 </span>
@@ -58,7 +59,7 @@ class Player2 extends Component {
                     </form>
                 </span>
                 <span>
-                    <button onClick={(e) => this.onNewCode(e)}>New Roomcode</button>
+                    
                 </span>
             </div>
         )

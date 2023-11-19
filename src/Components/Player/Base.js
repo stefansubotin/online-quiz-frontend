@@ -40,12 +40,7 @@ class Base extends Component {
 
     handleLeaveLobby = (event) => {
         console.log('outercallback');
-        this.setState({ 
-            room: '',
-            user: '',
-            leader: '',
-            currentComponent: 'home'
-        });
+        this.props.parentCallback();
     }
     
     render() {
