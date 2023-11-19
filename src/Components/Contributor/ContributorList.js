@@ -28,6 +28,11 @@ class ContributorList extends Component {
     getDisplayList() {
         let list = this.filterList();
         let display = [];
+        display.push(<tr>
+            <th>Collection</th>
+            <th>Key</th>
+            <th colSpan={3}>More Data</th>
+        </tr>)
         for (let i = 0; i < list.length; i++) {
             switch (list[i].collection) {
                 case 'kreuzwort':
@@ -39,32 +44,32 @@ class ContributorList extends Component {
                         msw = msw + answer.charAt(mspLine);
                     }
                     display.push(
-                        <div>
-                            <span>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Width:&nbsp;&#091;{list[i].props.size}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Depth:&nbsp;&#091;{list[i].props.lines.length}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Vertical&nbsp;Word:&nbsp;&#091;{msw}&#093;</span>
-                        </div>
+                        <tr>
+                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Width:&nbsp;&#091;{list[i].props.size}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Depth:&nbsp;&#091;{list[i].props.lines.length}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Vertical&nbsp;Word:&nbsp;&#091;{msw}&#093;</td>
+                        </tr>
                     );
                     break;
                 case 'taboo':
                     display.push(
-                        <div>
-                            <span>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</span>
-                        </div>
+                        <tr>
+                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</td>
+                        </tr>
                     );
                     break;
                 case 'simpleQuestion':
                     display.push(
-                        <div>
-                            <span>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>Question:&nbsp;&#091;{list[i].props.question}&#093;&nbsp;&#47;&nbsp;</span>
-                            <span>AnswerCount:&nbsp;&#091;{list[i].props.answerCount}&#093;</span>
-                        </div>
+                        <tr>
+                            <td>Collection:&nbsp;&#091;{list[i].collection}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Key:&nbsp;&#091;{list[i].key}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>Question:&nbsp;&#091;{list[i].props.question}&#093;&nbsp;&#47;&nbsp;</td>
+                            <td>AnswerCount:&nbsp;&#091;{list[i].props.answerCount}&#093;</td>
+                        </tr>
                     );
                     break;
             }
