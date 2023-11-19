@@ -27,6 +27,7 @@ class ContributorList extends Component {
 
     getDisplayList() {
         let list = this.filterList();
+
         let display = [];
         display.push(<tr>
             <th>Collection</th>
@@ -74,7 +75,8 @@ class ContributorList extends Component {
                     break;
             }
         }
-        return display;
+        let table = <table class="table table-striped" style={{ overflow: 'scroll' }}>{display}</table>
+        return table;
     }
 
     getDisplay() {

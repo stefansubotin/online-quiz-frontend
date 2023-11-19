@@ -1,5 +1,5 @@
 .home {
-    overflow-y: scroll;
+    overflow: scroll;
     display: 'flex';
     text-align: center;
     justify-content: center;
