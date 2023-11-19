@@ -111,10 +111,13 @@ class InnerRoom extends Component {
         console.log("someone left");
         console.log(message);
         console.log(this.state);
-        let newUsers = this.state.users;
-        newUsers.pop(message.user);
+        let newUsers = [];
+        for (let i = 0; i < this.state.users.length; i++){
+            if (message.data.user != this.state.users[i]) newUsers.push(this.state.users[i]);
+        }
+
         let leader = this.state.leader;
-        if (message.leader && this.state.users[1] == this.state.user) leader = true;
+        if (message.data.leader && this.state.users[1] == this.state.user) leader = true;
 
         this.setState({
             room: this.state.room,
