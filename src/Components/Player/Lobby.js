@@ -184,11 +184,11 @@ class Lobby extends Component {
         console.log(this.state);
         return (
             <div name="lobby">
-                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br />
-                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br />
-                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br />
-                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br />
-                <button type="button" class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br />
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br />
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br />
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br />
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
             </div>
         );
     }

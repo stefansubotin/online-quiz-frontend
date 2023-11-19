@@ -32,8 +32,8 @@ class Homepage extends Component {
         switch (this.state.component) {
             case 'choice':
                 return <div>
-                    <button type="button" class="btn btn-secondary" onClick={e => this.onPlayer(e)}>Play Quiz</button><br />
-                    <button type="button" class="btn btn-secondary" onClick={e => this.onContributor(e)}>Curate Questions</button>
+                    <button type="button" class="btn btn-secondary" style={{ margin: '10px' }} onClick={e => this.onPlayer(e)}>Play Quiz</button><br />
+                    <button type="button" class="btn btn-secondary" style={{ margin: '10px' }} onClick={e => this.onContributor(e)}>Curate Questions</button>
                 </div>
             case 'player':
                 return <PlayerBase parentCallback={this.handleCallback} />;
