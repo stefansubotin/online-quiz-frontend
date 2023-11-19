@@ -311,6 +311,7 @@ class Domino extends Component {
             <ul
                 className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
                 id={id}
+                style={{ height: '100px', width: '100px' }}
                 draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
             >
@@ -326,8 +327,8 @@ class Domino extends Component {
                         </ul>
                     </>
                     : <>
-                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
-                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
+                        <li className={fOben ? "list-group-item bg-secondary-subtle text-emphasis-secondary" : "list-group-item " + h ? "" : "col-6"}>{fOben ? question : answer}</li>
+                        <li className={fOben ? "list-group-item  " : "list-group-item  bg-secondary-subtle text-emphasis-secondary" + h ? "" : "col-6"}>{fOben ? answer : question}</li>
                     </>
                 }
             </ul>
@@ -367,7 +368,7 @@ class Domino extends Component {
                 <div className="row flex-wrap " id={row.id}>
                     {row.columns.map((f) => {
                         return (
-                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap border zelle col-2" id={f.id}>
+                            <div onDrop={(e) => this.handleDrop(e)} onDragOver={(e) => this.handleDragOver(e)} className="flex-wrap border border-light zelle col-2" id={f.id}>
                                 {(f.stone.id == "") ? f.id : this.getOneStone(f.stone)}
                             </div>
 
