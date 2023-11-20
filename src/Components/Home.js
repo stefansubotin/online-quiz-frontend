@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlayerBase from './Player/Base';
 import ContributorBase from './Contributor/ContributorBase';
-import "./Stylesheets/home.css";
+import "../Stylesheets/home.css"
 
 class Homepage extends Component {
     constructor(props) {
