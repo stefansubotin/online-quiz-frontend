@@ -56,7 +56,7 @@ class Lobby extends Component {
         return (
             <div name='variants'>
                 <label for='variants'>Quizvariants:&nbsp;&nbsp;&nbsp;</label>
-                <select id='variants' onChange={(e) => this.onVariantChanged(e)} style={{ color: "inherhit", background: "inherit" }}>
+                <select id='variants' onChange={(e) => this.onVariantChanged(e)} style={{ color: "inherhit", background: "inherit" }} disabled={!this.state.leader}>
                     {this.getVariant('kreuzwort')}
                     {this.getVariant('taboo')}
                     {this.getVariant('domino')}
