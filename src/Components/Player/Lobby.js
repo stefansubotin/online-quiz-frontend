@@ -12,7 +12,7 @@ class Lobby extends Component {
             users: props.users,
             leader: props.leader,
             game: props.game,
-            variant: ''
+            variant: 'kreuzwort'
         };
     }
 
