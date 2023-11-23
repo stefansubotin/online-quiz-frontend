@@ -38,7 +38,7 @@ class ContributorList extends Component {
                 </tr>
             </thead>)
         display.push(
-            <tbody class="table-group-divider">
+            <tbody className="table-group-divider">
 
             </tbody>
         )
