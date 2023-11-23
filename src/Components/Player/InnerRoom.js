@@ -124,7 +124,7 @@ class InnerRoom extends Component {
         }
         console.log("Leader");
         console.log(leader);
-
+ 
         this.setState({
             room: this.state.room,
             user: this.state.user,

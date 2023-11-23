@@ -27,7 +27,7 @@ class Base extends Component {
                 break;
         }
         return component;
-    }
+    } 
 
     handlePlayerChoice = (childData) => {
         this.setState({

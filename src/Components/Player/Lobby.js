@@ -11,7 +11,8 @@ class Lobby extends Component {
             user: props.user,
             users: props.users,
             leader: props.leader,
-            game: props.game
+            game: props.game,
+            variant: 'kreuzwort'
         };
     }
 
@@ -32,6 +33,65 @@ class Lobby extends Component {
                 return true;
             case 'wwmPlayerOther':
                 if (this.state.users.length == 2) return false;
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    onVariantChanged(event) {
+        this.setState({
+            room: this.state.room,
+            userCount: this.state.userCount,
+            user: this.state.user,
+            users: this.state.users,
+            leader: this.state.leader,
+            game: this.state.game,
+            variant: event.target.value
+        });
+    }
+
+    getVariants() {
+        console.log(this.state)
+        return (
+            <div name='variants'>
+                <label for='variants'>Quizvariants:&nbsp;&nbsp;&nbsp;</label>
+                <select id='variants' onChange={(e) => this.onVariantChanged(e)} style={{ color: "inherhit", background: "inherit" }} disabled={!this.state.leader}>
+                    {this.getVariant('kreuzwort')}
+                    {this.getVariant('taboo')}
+                    {this.getVariant('domino')}
+                    {this.getVariant('wwmPlayerMe')}
+                    {this.getVariant('wwmPlayerOther')}
+                </select><br />
+            </div>
+        )
+    }
+
+    getVariant(variant) {
+        if (this.state.variant == variant) {
+            return <option value={variant} selected>{variant}</option>
+        }
+        else {
+            return <option value={variant}>{variant}</option>
+        }
+    }
+
+    onStart(event) {
+        switch (this.state.variant) {
+            case 'kreuzwort':
+                this.onStartKreuzwort(event);
+                return true;
+            case 'taboo':
+                this.onStartTaboo(event);
+                return true;
+            case 'domino':
+                this.onStartDomino(event);
+                return true;
+            case 'wwmPlayerMe':
+                this.onStartWwm(true);
+                return true;
+            case 'wwmPlayerOther':
+                this.onStartWwm(false);
                 return true;
             default:
                 return false;
@@ -184,14 +244,17 @@ class Lobby extends Component {
         console.log(this.state);
         return (
             <div name="lobby">
-                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br />
+                {/* <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartKreuzwort(e)} disabled={this.getDisabled('kreuzwort')}>Starte Kreuzwort</button><br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartDomino(e)} disabled={this.getDisabled('domino')}>Starte Domino</button><br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br />
-                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button>
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button> */}
+                {this.getVariants()}<br/>
+                <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStart(e)} disabled={this.getDisabled(this.state.variant)}>Start Quiz</button>
             </div>
         );
     }
 }
 
 export default Lobby;
+ 
