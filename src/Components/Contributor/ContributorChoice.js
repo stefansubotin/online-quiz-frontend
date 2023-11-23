@@ -106,10 +106,10 @@ class ContributorChoice extends Component {
                 {this.getOptions('simpleQuestion')}
             </select><br />
             <label for='key'>Key If Editing/Deleting Existing Question:&nbsp;</label>
-            <input className="rounded  bg-secondary text-white" type='text' id='key' onChange={(e) => this.onKeyChanged(e)} placeholder="Input Key" /><br />
-            <button type="button" class="btn btn-secondary" onClick={e => this.onNew(e)}>New Question</button>
-            <button type="button" class="btn btn-secondary" onClick={e => this.onEdit(e)}>Edit Question</button>
-            <button type="button" class="btn btn-secondary" onClick={e => this.onDelete(e)}>Delete Question</button><br /><br />
+            <input style={{ margin: '10px' }} className="rounded  bg-secondary text-white" type='text' id='key' onChange={(e) => this.onKeyChanged(e)} placeholder="Input Key" /><br />
+            <button style={{ margin: '10px' }} type="button" class="btn btn-secondary" onClick={e => this.onNew(e)}>New Question</button>
+            <button style={{ margin: '10px' }} type="button" class="btn btn-secondary" onClick={e => this.onEdit(e)}>Edit Question</button>
+            <button style={{ margin: '10px' }} type="button" class="btn btn-secondary" onClick={e => this.onDelete(e)}>Delete Question</button><br /><br />
         </div>
     }
 
