@@ -29,11 +29,19 @@ class ContributorList extends Component {
         let list = this.filterList();
 
         let display = [];
-        display.push(<tr>
-            <th>Collection</th>
-            <th>Key</th>
-            <th colSpan={3}>More Data</th>
-        </tr>)
+        let displayHead = (
+            <thead>
+                <tr>
+                    <th>Collection</th>
+                    <th>Key</th>
+                    <th colSpan={3}>More Data</th>
+                </tr>
+            </thead>)
+        display.push(
+            <tbody class="table-group-divider">
+
+            </tbody>
+        )
         for (let i = 0; i < list.length; i++) {
             switch (list[i].collection) {
                 case 'kreuzwort':
@@ -48,9 +56,9 @@ class ContributorList extends Component {
                         <tr>
                             <td>{list[i].collection}</td>
                             <td>{list[i].key}</td>
-                            <td>Width:&nbsp;&#091;{list[i].props.size}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Depth:&nbsp;&#091;{list[i].props.lines.length}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>Vertical&nbsp;Word:&nbsp;&#091;{msw}&#093;</td>
+                            <td>Width: {list[i].props.size}</td>
+                            <td>Depth: {list[i].props.lines.length}</td>
+                            <td>Vertical {msw}</td>
                         </tr>
                     );
                     break;
@@ -59,7 +67,7 @@ class ContributorList extends Component {
                         <tr>
                             <td>{list[i].collection}</td>
                             <td>{list[i].key}</td>
-                            <td colSpan={3}>Term&nbsp;To&nbsp;Explain:&nbsp;&#091;{list[i].props.answer}&#093;</td>
+                            <td colSpan={3}>Term to Explain: {list[i].props.answer}</td>
                         </tr>
                     );
                     break;
@@ -68,14 +76,15 @@ class ContributorList extends Component {
                         <tr>
                             <td>{list[i].collection}</td>
                             <td>{list[i].key}</td>
-                            <td colSpan={2}>Question:&nbsp;&#091;{list[i].props.question}&#093;&nbsp;&#47;&nbsp;</td>
-                            <td>AnswerCount:&nbsp;&#091;{list[i].props.answerCount}&#093;</td>
+                            <td colSpan={2}>Question: {list[i].props.question}</td>
+                            <td>AnswerCount: {list[i].props.answerCount}</td>
                         </tr>
                     );
                     break;
             }
         }
-        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>{display}</table>
+        displayHead.push(display)
+        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>{displayHead}</table>
         return table;
     }
 
