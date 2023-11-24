@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import '../../Stylesheets/span.css';
 import '../../Stylesheets/taboo.css';
 
-class Taboo extends Component {
+class Taboo extends Component { 
     constructor(props) {
         super(props);
+        // Initialisierung des Zustands der Komponente 
         this.state = {
             room: props.room,
             user: props.user,
@@ -16,24 +17,29 @@ class Taboo extends Component {
         }
     }
 
+    // Funktion zur Erstellung des Ably-Kanalnamens
     getChannelId() {
         return 'taboo' + this.state.room;
     }
 
+    // Formatiert empfangene Nachrichten für die Anzeige
     getMessages() {
         let lst = [];
         for (let i = 0; i < this.state.messages.length; i++) {
             let m = JSON.parse(this.state.messages[i]);
             if (m.explainer) {
+                // Nachrichten des Erklärer
                 lst.push(<div className='explainer'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</div>);
             }
             else {
+                // Nachrichten des Raters
                 lst.push(<div><span className='invis fixed-size size50'>&nbsp;</span><span className='guesser'>&#091;{m.time}&#093;&nbsp;{m.user}:&nbsp;{m.text}</span></div>);
             }
         }
         return lst;
     }
 
+    // Rendert das Eingabefeld für Benutzerantworten
     getInput() {
         let dat = JSON.parse(this.state.data);
         return (
@@ -44,6 +50,7 @@ class Taboo extends Component {
         )
     }
 
+    // Rendert die verbotenen Wörter für die aktuelle Runde
     getForbiddenWords() {
         let dat = JSON.parse(this.state.data);
         console.log('FW Test');
@@ -63,14 +70,17 @@ class Taboo extends Component {
         }
     }
 
+    // Rendert die Anzeige basierend auf dem Spielzustand
     getDisplay() {
         let dat = JSON.parse(this.state.data);
         let display = [];
 
         if (this.state.state == -1) {
+            // Verbotenes Wort wurde verwendet
             display.push(<div><h2 className='forbidden'>Verbotenes Wort wurde verwendet</h2></div>);
         }
         else if (this.state.state == 1) {
+            // Begriff wurde korrekt geraten
             display.push(<div><h2 className='correct'>Begriff erraten</h2></div>);
         }
         console.log(this.state.turn + '+' + dat.team + '%' + dat.teams)
@@ -80,17 +90,20 @@ class Taboo extends Component {
                 let words = [dat.explainingInfo.answer];
                 words = words.concat(dat.explainingInfo.forbiddenWords);
                 console.log(words);
+                // Anzeige der zu erklärenden Wörter für den Erklärer
                 display.push(<div>{words.join(', ')}</div>);
             }
             display.push(this.getInput());
             display.push(this.getMessages());
             if (this.state.turn == dat.explainingTurn) {
+                // Schaltfläche für den Erklärer
                 display.push(<button onClick={(e) => this.sendCorrect(e)} disabled={!this.state.state == 0}>Richtige Antwort!</button>);
                 if ((this.state.turn + 1) == dat.maxTurns) display.push(<button onClick={(e) => this.sendEnd(e)} disabled={this.state.state == 0}>End</button>)
                 else display.push(<button onClick={(e) => this.sendContinue(e)} disabled={this.state.state == 0}>Next Turn</button>);
             }
         }
         else {
+            // Anzeige der verbotenen Wörtter für den Rater
             display.push(this.getForbiddenWords());
             display.push(this.getMessages());
             display.push(<div><button onClick={(e) => this.sendUsedForbiddenWord(e)} disabled={this.state.state == -1}>Forbidden Word Used!!</button></div>);
@@ -98,6 +111,7 @@ class Taboo extends Component {
         return display;
     }
 
+     // Überprüft, ob ein gegebenes Wort mit der Antwort oder den verbotenen Worten übereinstimmt
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
         console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
@@ -114,6 +128,7 @@ class Taboo extends Component {
         return false;
     }
 
+    // Überprüft, ob verbotene Wörter in einer gegebenen Nachricht verwendet wurden
     checkForForbiddenWords(toCheck) {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
@@ -126,6 +141,7 @@ class Taboo extends Component {
         return false;
     }
 
+    //Funktion zum Senden einer Nachricht
     async sendMessage(event) {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -158,6 +174,7 @@ class Taboo extends Component {
         ably.close();
     }
 
+    // Sendet eine Nachricht über Ably, dass ein verbotenes Wort verwendet wurde
     async sendUsedForbiddenWord() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -170,6 +187,7 @@ class Taboo extends Component {
         })
     }
 
+    // Sendet eine Nachricht über Ably, dass das Spiel fortgesetzt werden soll
     async sendContinue() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -182,6 +200,7 @@ class Taboo extends Component {
         })
     }
 
+    // Sendet eine Nachricht über Ably, dass die Antwort korrekt ist
     async sendCorrect() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -194,6 +213,7 @@ class Taboo extends Component {
         })
     }
 
+    // Sendet eine Nachricht über Ably, dass das Spiel enden soll
     async sendEnd(){
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
@@ -207,6 +227,7 @@ class Taboo extends Component {
         })
     }
 
+    // Handler für Änderungen am Eingabefeld
     onMessageChange(event) {
         this.setState({
             room: this.state.room,
@@ -219,6 +240,7 @@ class Taboo extends Component {
         })
     }
 
+    // Handler für eingehende Nachrichten über Ably
     async onMessage(message) {
         console.log(message.data);
         let date = new Date();
@@ -242,6 +264,7 @@ class Taboo extends Component {
         console.log(this.state);
     }
 
+     // Handler für systembezogene Nachrichten über Ably
     async onSystem(message) {
         console.log(message.data);
         switch (message.data.type) {

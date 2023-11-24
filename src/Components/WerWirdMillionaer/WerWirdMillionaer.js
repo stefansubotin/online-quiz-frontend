@@ -3,7 +3,8 @@ import '../../Stylesheets/wwm.css';
 
 class WerWirdMillionaer extends Component {
     constructor(props) {
-        super(props);
+        super(props); 
+        // Initialisierung des Komponentenzustands
         this.state = {
             room: props.room,
             user: props.user,
@@ -13,11 +14,12 @@ class WerWirdMillionaer extends Component {
             chosenAnswer: -1,
         }
     }
-
+    // Funktion zur Erstellung des Ably-Kanalnamens
     getChannelId() {
         return 'wwm' + this.state.room;
     }
 
+    //Funktion zum Rendern der Antwortmöglichkeiten
     getCurrentAnswers() {
         console.log(this.state);
         let dat = JSON.parse(this.state.data);
@@ -49,6 +51,7 @@ class WerWirdMillionaer extends Component {
         return answers;
     }
 
+    // Funktion zum Rendern der Quiz-Anzeige
     getDisplay() {
         let dat = JSON.parse(this.state.data);
         let display = [];
@@ -62,6 +65,7 @@ class WerWirdMillionaer extends Component {
         return display;
     }
 
+    // Handler für den Fortsetzungs-Button
     async onContinue() {
         let dat = JSON.parse(this.state.data);
         if (dat.moderator != "") {
@@ -89,6 +93,7 @@ class WerWirdMillionaer extends Component {
 
     }
 
+    // Handler für den End-Button
     async sendEnd(){
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
@@ -102,6 +107,7 @@ class WerWirdMillionaer extends Component {
         })
     }
 
+    // Handler für geratene Antworten
     async onGuess(message) {
         let dat = JSON.parse(this.state.data);
         console.log(dat.moderator);
@@ -141,7 +147,8 @@ class WerWirdMillionaer extends Component {
         }
 
     }
-
+    
+    // Handler für Moderator-Nachrichten
     async onModerator(message) {
         console.log(message);
         this.setState({
@@ -154,6 +161,7 @@ class WerWirdMillionaer extends Component {
         });
     }
 
+    // Handler für gegebene Antworten
     async onAnswer(e) {
         let i = e.target.name;
         let dat = JSON.parse(this.state.data);
@@ -194,6 +202,78 @@ class WerWirdMillionaer extends Component {
         }
     }
 
+     // Hilfsfunktion zum Rendern der Antwortmöglichkeiten mit 50/50-Joker
+     getCurrentAnswers = () => {
+        const { data, user, chosenAnswer, correctAnswer, currentQuestion } = this.state;
+        const dat = JSON.parse(data);
+        const disabled = dat.moderator === user || chosenAnswer !== -1;
+
+        let answers = [];
+        if (dat.moderator === '' && chosenAnswer === -1) {
+            // Nur wenn der Benutzer kein Moderator ist und noch keine Antwort gewählt hat
+            const allAnswers = [...dat.list[currentQuestion].answers];
+            const incorrectAnswers = this.get50_50_Joker(allAnswers, correctAnswer);
+
+            answers.push(
+                <button
+                    name={correctAnswer}
+                    onClick={this.onAnswer}
+                    className={chosenAnswer === correctAnswer ? 'chosen' : ''}
+                    disabled={disabled}
+                >
+                    {`X) ${dat.list[currentQuestion].answers[correctAnswer]}`}
+                </button>
+            );
+
+            for (let i = 0; i < incorrectAnswers.length; i++) {
+                answers.push(
+                    <button
+                        name={`fake${i}`}
+                        onClick={this.onAnswer}
+                        className={chosenAnswer === `fake${i}` ? 'chosen' : ''}
+                        disabled={disabled}
+                    >
+                        {`X) ${incorrectAnswers[i]}`}
+                    </button>
+                );
+            }
+        } else {
+            // Andernfalls rendere die Antworten ohne 50/50-Joker
+            answers = dat.list[currentQuestion].answers.map((answer, index) => (
+                <button
+                    key={index}
+                    name={index}
+                    onClick={this.onAnswer}
+                    className={chosenAnswer === index ? 'chosen' : ''}
+                    disabled={disabled}
+                >
+                    {`${this.getLetter(index)}) ${answer}`}
+                </button>
+            ));
+        }
+
+        return answers;
+    };
+
+    // Funktion zum Erstellen der 50/50-Joker-Antworten
+    get50_50_Joker = (allAnswers, correctAnswer) => {
+        // Entferne die richtige Antwort
+        allAnswers.splice(correctAnswer, 1);
+
+        // Entferne eine zufällige falsche Antwort
+        const randomIndex = Math.floor(Math.random() * allAnswers.length);
+        allAnswers.splice(randomIndex, 1);
+
+        return allAnswers;
+    };
+
+    // Hilfsfunktion, um den Buchstaben zu erhalten (A, B, C, ...)
+    getLetter = (index) => {
+        return String.fromCharCode(65 + index);
+    };
+
+
+    // Lebenszyklus-Methode: Wird nach dem Rendern aufgerufen
     async componentDidMount() {
         let dat = JSON.parse(this.props.data);
         console.log(dat);
@@ -222,6 +302,7 @@ class WerWirdMillionaer extends Component {
         else await channel.subscribe('moderator', (message) => this.onModerator(message));
     }
 
+    // Lebenszyklus-Methode: Wird vor dem Entfernen der Komponente aufgerufen 
     componentWillUnmount() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -233,9 +314,10 @@ class WerWirdMillionaer extends Component {
         ably.close();
     }
 
+    // Lebenszyklus-Methode: Rendert die Komponente
     render() {
         return (
-            <div nmae='wwm'>{this.getDisplay()}</div>
+            <div name='wwm'>{this.getDisplay()}</div>
         )
     }
 }
