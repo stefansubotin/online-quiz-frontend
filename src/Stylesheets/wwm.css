@@ -1,9 +1,67 @@
-button.correct {
-    background-color: greenyellow;
-    color: black;
-}
+/* wwm.css */
 
-button.chosen {
-    background-color: lightcoral;
-    color: black;
-}
+/* Allgemeine Styles für die Komponente */
+.wwm {
+    font-family: 'Arial', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Stile für die Frageanzeige */
+  .wwm > div {
+    margin-bottom: 10px;
+  }
+  
+  /* Stile für Antwortbuttons */
+  button {
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button.correct {
+    background-color: #5cb85c;
+    color: #fff;
+  }
+  
+  button.chosen {
+    background-color: #337ab7;
+    color: #fff;
+  }
+  
+  /* Stile für den End-Button */
+  button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Stile für den End-Button */
+  button:last-child {
+    margin-top: 10px;
+  }
+  
+  /* Stile für den Moderator-Text */
+  .moderator-text {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Stile für die Anzeige der aktuellen Frage */
+  .current-question {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /* Stile für den Anzeigebereich */
+  .display-area {
+    margin-bottom: 20px;
+  }
+  
