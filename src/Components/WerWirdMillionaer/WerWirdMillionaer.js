@@ -51,6 +51,25 @@ class WerWirdMillionaer extends Component {
         return answers;
     }
 
+    useFiftyFiftyJoker() {
+        if (this.state.chosenAnswer === -1) {
+            // Nur den Joker verwenden, wenn noch keine Antwort ausgewählt wurde
+            const Ably = require('ably');
+            const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
+            ably.connection.once('connected').then(async () => {
+                const channelId = this.getChannelId();
+                const channel = ably.channels.get(channelId);
+
+                let body = {
+                    type: 2,  // 2 steht für die Verwendung des 50/50-Jokers
+                };
+                await channel.publish('player', body);
+                ably.close();
+            });
+        }
+    }
+    
+
     // Funktion zum Rendern der Quiz-Anzeige
     getDisplay() {
         let dat = JSON.parse(this.state.data);
@@ -60,7 +79,11 @@ class WerWirdMillionaer extends Component {
         display.push(<br />);
         display.push(<div>{dat.list[this.state.currentQuestion].question}</div>)
         display.push(this.getCurrentAnswers());
-        if ((this.state.currentQuestion + 1) == dat.list.length) display.push(<button onClick={(e) => this.sendEnd()} disabled={disabled}>End</button>);
+         // Button für den 50/50-Joker hinzufügen
+         display.push(<button onClick={() => this.useFiftyFiftyJoker()} disabled={disabled}>50/50 Joker</button>);
+
+        if ((this.state.currentQuestion + 1) === dat.list.length) 
+            display.push(<button onClick={(e) => this.sendEnd()} disabled={disabled}>End</button>);
         else display.push(<button onClick={(e) => this.onContinue()} disabled={disabled}>Next Question</button>);
         return display;
     }
