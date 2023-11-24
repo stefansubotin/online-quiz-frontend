@@ -2,7 +2,22 @@ import React, { Component } from "react";
 import edge from "./edge.png"
 import "../../Stylesheets/domino.css";
 import BackendAccess from "../../Tools/BackendAccess";
+
+
+/**
+ * Erstellt das Quiz für die übergebene Spieler und 
+ * regelt die direkte Interaktion und Kommunikation mit 
+ * der Oberfläche, über Ably und der Datenbank.
+ *
+ * @class Domino
+ * @extends {Component}
+ */
 class Domino extends Component {
+    /** 
+     * Instanziiert ein Domino Objekt und initiiert ein State. 
+     * @constructor
+     * @param {JSON} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -16,13 +31,26 @@ class Domino extends Component {
             rowsState: 0,
         };
     }
-    //Gibt bei bekannter Zellen id und Zeile die Spalte zurück
+
+    /**
+     * Gibt bei bekannter Zellen ID und Zeile die Spalte zurück
+     *
+     * @param {number} id
+     * @param {number} row
+     * @return {number} 
+     */
     getZielZelle(id, row) {
         let laenge = JSON.parse(this.state.data).laenge;
-        let zelle = (id - (row * laenge));
-        return zelle;
+        let spalte = (id - (row * laenge));
+        return spalte;
     }
-    //Stein drehen
+
+    /**
+     * Dreht den Stein um eine Ausrichtung im Uhrzeigersinn. 
+     * Setzt den State neu und sendet Update an alle.
+     * @async
+     * @param {MouseEvent} e
+     */
     async handleRotateStone(e) {
         // Daten aus Event
         let id = e.currentTarget.id
@@ -140,9 +168,13 @@ class Domino extends Component {
 
     }
 
-    //DRAG AND DROP
-    //https://react.dev/reference/react-dom/components/common#dragevent-handler
-    //https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+
+    /**
+     * Speichert temporär für das Bewegen die Herkunft
+     * des bewegten Steins.
+     *
+     * @param {DragEvent} e
+     */
     handleDragStart(e) {
         let id = e.currentTarget.id;
         let pid = e.target.parentNode.id;
@@ -153,42 +185,43 @@ class Domino extends Component {
         e.dataTransfer.setData("grandparent", ppid)
 
     }
+    /**
+     * Erlaubt das hoovern über einem Element.
+     *
+     * @param {DragEvent} e
+     */
     handleDragOver(e) {
-        console.log("drag over ")
         e.preventDefault();
     }
-
+    /**
+     * Kopiert den Stein in das Element über das er fallen gelassen wurde
+     * und löscht es aus seinem vorherigen Elternelement.
+     * Aktualisiert den State und sendet das Update an alle.
+     * 
+     * @async
+     *
+     * @param {*} e
+     */
     async handleDrop(e) {
         // Daten über Stein und Parent vom Stein
         let laenge = JSON.parse(this.state.data).laenge;
-
         let ziel = e.currentTarget.id;
         let zielRow = e.currentTarget.parentNode.id;
         let zielZelle = (ziel - (zielRow * laenge));
-
         let origin = e.dataTransfer.getData("id")
-        //Zellen id 
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
         let originZelle;
 
-        // rows und Pool kopie zur einfacheren Handhabung
+        // Feld und Pool Kopie zur einfacheren Handhabung
         let pool1 = this.state.pool;
         let poolNeu = [];
         let rows1 = this.state.rows;
         let stone;
 
-
-
-        console.log("ziel " + ziel + "zielRow " + zielRow + " zielZelle" + zielZelle)
-
-        //Stein kommt aus dem Pool
+        // Wenn der Stein  aus dem Pool kommt und nicht bereits einer liegt
         if (originParent == "pool" && rows1[zielRow].columns[zielZelle].stone.id == "") {
-            console.log("Stein kommt aus dem Pool " + rows1[zielRow].columns[zielZelle].stone.id)
-            console.log("und ist leer")
-
-            //Finde Stein im Pool
-            //eventuell getIndexAtKey(id)?
+            //Findet Stein im Pool und Kopie speichern
             for (let i = 0; i < pool1.length; ++i) {
                 if (pool1[i].id == origin) {
                     console.log("stone " + origin + "gefunden: " + pool1[i].id)
@@ -196,7 +229,7 @@ class Domino extends Component {
                 }
             }
 
-            //setzen des Steins
+            // Kopie des Steins in die Zelle kopieren
             rows1[zielRow].columns[zielZelle].stone.id = stone.id;
             rows1[zielRow].columns[zielZelle].stone.answer = stone.answer;
             rows1[zielRow].columns[zielZelle].stone.question = stone.question;
@@ -204,10 +237,7 @@ class Domino extends Component {
             rows1[zielRow].columns[zielZelle].stone.fO = stone.fO
             rows1[zielRow].columns[zielZelle].stone.d = stone.d
 
-
-            console.log("stein gesetzt")
-            //löschen des Steins
-            //eventuell getIndexAtKey(id)?
+            // Kopie des Pools ohne den kopierten Stein
             for (let i = 0; i < pool1.length; ++i) {
                 if (pool1[i].id == origin) {
                     console.log(pool1[i].id + " wird übersprungen. ")
@@ -215,17 +245,14 @@ class Domino extends Component {
                     poolNeu.push(pool1[i]);
                 }
             }
-            console.log(poolNeu)
         }
-
-        //Stein kommt von einer anderen Zelle wenn Parent eine Zahl ists
+        // Stein kommt aus dem Feld wenn Parent eine Zahl ist und Zelle ist leer
         else if ((!isNaN(originParent)) && rows1[zielRow].columns[zielZelle].stone.id == "") {
             if (originParent < 0) {
                 console.log("kleiner Parent" + originParent)
             }
             originZelle = (originParent - (originRow * laenge));
-            console.log(" originCard " + origin + " originId" + originParent + " originRow " + originRow + " originZelle" + originZelle)
-            //setzen des Steins
+            //Kopieren des Steins in die gewünschte Zelle
             rows1[zielRow].columns[zielZelle].stone.id = rows1[originRow].columns[originZelle].stone.id;
             rows1[zielRow].columns[zielZelle].stone.answer = rows1[originRow].columns[originZelle].stone.answer;
             rows1[zielRow].columns[zielZelle].stone.question = rows1[originRow].columns[originZelle].stone.question;
@@ -233,59 +260,57 @@ class Domino extends Component {
             rows1[zielRow].columns[zielZelle].stone.fO = rows1[originRow].columns[originZelle].stone.fO;
             rows1[zielRow].columns[zielZelle].stone.d = rows1[originRow].columns[originZelle].stone.d;
 
-            //löschen des Steins aus dem vorherigen rows
+            //löschen des Steins aus der ursprünglichen Zelle
             rows1[originRow].columns[originZelle].stone.id = "";
             rows1[originRow].columns[originZelle].stone.answer = "";
             rows1[originRow].columns[originZelle].stone.question = "";
-            //Pool soll unverändert bleiben
+            // Pool bleibt unverändert
             poolNeu = this.state.pool
-
-
         }
+        // Falls der Stein besetzt ist oder kein definierten Parent hat
         else {
-            console.log("besetzt")
-            //es soll sich nichts ändern
+            console.log("Error")
+            // Pool bleibt unverändert
             poolNeu = this.state.pool
         }
-
         this.setState({
             pool: poolNeu,
             rows: rows1,
         });
-
         this.updaterows(this.state.activePlayer, rows1);
-
     }
-
-    //GENERIERE STEINE
-    getStones() {
+    /**
+     * Gibt den Pool anhand des States zurück.
+     *
+     * @return {React.JSX.Element} 
+     */
+    getPool() {
         let fs = this.state.rowsState
         let stones = [];
-        console.log("rowsState Steine " + fs)
-
+        // Noch kein Pool initiiert
         if (fs == 1) {
             fs++;
-            console.log("initSteine " + stones);
             stones = this.initStones();
-            console.log(stones)
             this.setState(() => ({
                 pool: stones,
                 rowsState: fs,
             }));
         }
-
-
         return (this.state.pool.map((stone) => this.getOneStone(stone)));
     }
 
+    /**
+     * Einmaliges initiieren der Steine.
+     *
+     * @return {Array<Object>} 
+     */
     initStones() {
-        //Object 
-        console.log("Mitspieler: " + this.state.users)
         let dat = JSON.parse(this.state.data)
-        console.log(dat)
-        console.log("Richtige questions: " + dat.correctQuestions)
         let amount = dat.questions.length;
         let stones = [];
+
+        /*  Array wird mit den Frage Antwort - Paaren gefüllt und 
+            der Default Ausrichtung */
         for (let i = 0; i < amount; i++) {
             stones.push({
                 id: dat.questions[i].key,
@@ -300,13 +325,22 @@ class Domino extends Component {
 
     }
 
+    /**
+     * Gibt einen Stein als JSX.Element zurück.
+     *
+     * @param {Object} stone
+     * @return {React.JSX.Element} 
+     */
     getOneStone(stone) {
+        // Werte des Steins
         let id = stone.id
         let question = stone.question
         let answer = stone.answer
+        // Ausrichtung des Steins
         let h = stone.h
         let fOben = stone.fO
         let d = stone.d
+
         return (
             <ul
                 className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
@@ -334,6 +368,15 @@ class Domino extends Component {
             </ul>
         )
     }
+
+    /**
+     * Gibt eine leere Ecke des Steins zurück.
+     *
+     * @param {Boolean} h
+     * @param {Boolean} fOben
+     * @param {Boolean} d
+     * @return {React.JSX.Element} 
+     */
     getDiagonalStoneFiller(h, fOben, d) {
         let deg = 0;
         if (h && fOben && d) {
@@ -346,17 +389,18 @@ class Domino extends Component {
         let style = { transform: 'rotate(' + deg + 'deg)' };
         return <li className="list-group-item col-6 empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
     }
-
-    //GENERIERE rows
-    getRows() {
+    /**
+     * Gibt das Feld anhand des States zurück.
+     *
+     * @returns {React.JSX.Element}
+     */
+    getField() {
         let fs = this.state.rowsState
         let rows = [];
-        console.log("rowsState rows: " + fs)
-
-
+        // Noch kein Feld initiiert
         if (fs == 0) {
             fs++;
-            rows = this.initRows();
+            rows = this.initField();
             console.log(rows)
             this.setState(() => ({
                 rows: rows,
@@ -379,29 +423,39 @@ class Domino extends Component {
         }));
     }
 
-    initRows() {
-        //DominoData.json rows
+    /**
+     * Initiiert das Feld mit der Länge aus der Datenbank, mit den Zellen IDs als
+     * Representanten der leeren Steine
+     *
+     * @returns {Array<Object>}
+     */
+    initField() {
         let rows = [];
         let columns = [];
         let z;
-        let laenge = 6;
-        console.log("laenge" + laenge)
+        let laenge = JSON.parse(this.state.data).laenge;
 
+        // Füllt die Zeilen
         for (let i = 0; i < laenge; ++i) {
+            // Füllt die Zellen jeder Spalte mit den Defaultwerten
             for (let j = 0; j < laenge; ++j) {
                 let id = i * laenge + j;
-                z = { id: id, stone: { id: "", question: "question", answer: "   " } }
+                z = { id: id, stone: { id: "", question: "", answer: "" } }
                 columns.push(z);
-                console.log(columns);
             }
-
             rows.push({ id: i, columns: columns });
             columns = [];
         }
-
-        console.log(rows)
         return rows
     }
+
+    /**
+     * Versendet Nachrichten mit einem Filter über Ably.
+     *  
+     * @async
+     * @param {String} reason
+     * @param {Object} body
+     */
     async sendMessage(reason, body) {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -410,29 +464,38 @@ class Domino extends Component {
         var channel;
         var channelId;
         if (reason == 'end') {
-            console.log("ENDE zürück zur Lobby")
             let tmp = this.state.room.split('_');
             channelId = 'room' + tmp[0];
             channel = ably.channels.get(channelId);
         } else {
             channelId = 'domino' + this.state.room;
             channel = ably.channels.get(channelId);
-
         }
-
         await channel.publish(reason, body);
-        console.log("Send message")
         ably.close();
 
     }
+    /**
+     * Bereitet die Nachricht für den Sprung 
+     * zurück in die Lobby vor und sendet sie ab. 
+     *
+     * @async
+     * @returns {*}
+     */
     async backToLobby() {
         var body = {
             content: 'empty'
         }
         this.sendMessage('end', body)
     }
-
-    //KOMMUNIKATION
+    /**
+     * Ändert Lokal und für alle Mitspieler 
+     * den State.
+     *
+     * @async
+     * @param {String} activePlayer
+     * @param {Array} rows
+     */
     async updaterows(activePlayer, rows) {
         // Kommunikation für Update rows
 
@@ -449,9 +512,14 @@ class Domino extends Component {
 
         }
         this.sendMessage('updaterows', body)
-
-
     }
+    /**
+     * Beendet das Spiel und sendet das Feld an 
+     * das Backend und erhält zwei Listen mit den 
+     * richtigen und falschen Antworten.
+     *
+     * @async
+     */
     async handleStopGame() {
         let dat = JSON.parse(this.state.data)
         let questions = dat.correctQuestions
@@ -461,7 +529,7 @@ class Domino extends Component {
             correctAnswers: [],
             wrongAnswers: [],
         }));
-
+        // State 4 ändert die View vom Spielfeld zur Übersicht des Ergebnisses
         let body = {
             state: 4,
             room: this.state.room,
@@ -479,17 +547,23 @@ class Domino extends Component {
         }
         const response = await fetch(url, requestOptions);
         const data = await response.json();
-        console.log(data);
-
+        // Die Listen werden in die Übersicht übertragen, wenn es keine Fehler gab.
         if (data != undefined) {
-            this.sendResultsFormular(data)
+            this.sendOverview(data)
         } else {
             console.log(data)
             alert("somthing wrong")
         }
     }
 
-    async sendResultsFormular(data) {
+    /**
+     * Sendet die Ergebnisse mit dem neuen
+     * Status des Spiels an alle Teilnehmer.
+     *
+     * @async
+     * @param {JSON} data
+     */
+    async sendOverview(data) {
         console.log("Ende Spiel");
         let dat = data
 
@@ -516,18 +590,20 @@ class Domino extends Component {
         }
 
         this.sendMessage('resultDomino', body)
-
-        console.log("gesendet an " + body);
-
-
     }
-
-
+    /**
+     * Aktualisiert den State, falls die Nachricht
+     * nicht vom Nutzer selbst gesendet wurde.
+     *
+     * @async
+     * @param {*} message
+     * @returns {*}
+     */
     async setUpdaterows(message) {
         console.log("Got this from: " + message.data.user);
         console.log("NextPlayer: " + message.data.activePlayer)
 
-        //nur bei den anderen rerender
+        // Von anderem Nutzer
         if (message.user != this.state.user) {
             console.log("Set State von anderen")
             this.setState({
@@ -536,15 +612,17 @@ class Domino extends Component {
             });
         }
     }
+    /**
+     * Erweitert den State um zwei Listen und
+     * setzt den Status des Spiels auf 4
+     *
+     * @async
+     * @param {*} message
+     */
     async setResultData(message) {
-        console.log("Got Result Sheet")
-        console.log(message.data);
-
         let dat = message.data.data
         let cAnswers = dat.correctAnswers
         let wAnswers = dat.wrongAnswers
-
-        console.log(dat)
 
         this.setState(() => ({
             rowsState: 4,
@@ -552,21 +630,33 @@ class Domino extends Component {
             correctAnswers: cAnswers
         }));
     }
+    /**
+     * Verbindet sich mit Ably und wartet auf Nachrichten 
+     * von anderen Nutzern
+     * die mit den Filtern übereinstimmen.
+     *
+     * @async
+     */
     async componentDidMount() {
-        //Connection Ably to transfer and update Data
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         await ably.connection.once('connected');
         const channelId = 'domino' + this.state.room;
         const channel = ably.channels.get(channelId);
-        console.log("Channel aktiv");
         channel.subscribe('updaterows', (message) => this.setUpdaterows(message))
         channel.subscribe('resultDomino', (message) => this.setResultData(message))
-
     }
 
+    /**
+     * Gibt das Spiel an die Elternkomponente zurück.
+     * 
+     * @returns {React.JSX.Element}
+     */
     render() {
-        console.log(this.state)
+        /** 
+            Es wird das Spielfeld zurück gegeben, solange der Status nicht vier ist. 
+            Sonst wird die Übersicht der Ergebnisse gezeigt. 
+         */
         return (
             <div name="domino" className="container">
                 <div className="row">
@@ -577,14 +667,14 @@ class Domino extends Component {
                     <div>
                         <div className="row" id="firstPart">
                             <div name="dominoRows" id="dominoRows" className="dominoRows rounded container flex-wrap">
-                                {this.getRows()}
+                                {this.getField()}
                             </div>
                         </div>
 
                         <div id="secondPart" className="row">
 
                             <div name="poolrows" disabled={(this.state.user != this.state.activePlayer)} id="pool" className="col-8 pool">
-                                {this.getStones()}
+                                {this.getPool()}
                             </div>
                             <div className="col-4">
                                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" disabled={(this.state.user != this.state.activePlayer)} onClick={(e) => this.handleSwitchPlayer()}>Zug beenden</button>
