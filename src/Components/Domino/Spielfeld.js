@@ -347,6 +347,8 @@ class Spielfeld extends Component {
      * @returns {React.JSX.Element}
      */
     render() {
+        console.log("Spielfeld: ")
+        console.log(this.state)
         /** 
             Es wird das Spielfeld zurück gegeben, solange der Status nicht vier ist. 
             Sonst wird die Übersicht der Ergebnisse gezeigt. 
