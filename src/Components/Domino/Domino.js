@@ -33,10 +33,16 @@ class Domino extends Component {
         };
         let poolNew = this.initStones()
         let rowsNew = this.initField()
-        this.setState({
+        console.log("Pool: ")
+        console.log(poolNew)
+        console.log("Feld: ")
+        console.log(rowsNew)
+        console.log("Constructor: ")
+        this.setState(() => ({
             pool: poolNew,
-            rows: rowsNew,
-        });
+            rows: rowsNew
+        }))
+        console.log(this.state)
     }
 
     /**
@@ -339,6 +345,7 @@ class Domino extends Component {
      * @returns {React.JSX.Element}
      */
     render() {
+        console.log(this.state)
         /** 
             Es wird das Spielfeld zurück gegeben, solange der Status nicht vier ist. 
             Sonst wird die Übersicht der Ergebnisse gezeigt. 
