@@ -5,6 +5,7 @@ import '../../Stylesheets/taboo.css';
 class Taboo extends Component {
     constructor(props) {
         super(props);
+        // Initialisierung des Komponentenzustands mit den übergebenen Props
         this.state = {
             room: props.room,
             user: props.user,
@@ -15,11 +16,11 @@ class Taboo extends Component {
             messages: []
         }
     }
-
+    // Methode zur Generierung der Channel-ID basierend auf der Raumnummer
     getChannelId() {
         return 'taboo' + this.state.room;
     }
-
+    // Methode zur Verarbeitung der Nachrichten für die Anzeige
     getMessages() {
         let lst = [];
         for (let i = 0; i < this.state.messages.length; i++) {
@@ -33,7 +34,7 @@ class Taboo extends Component {
         }
         return lst;
     }
-
+    // Methode zur Generierung des Eingabefelds für Nachrichten
     getInput() {
         let dat = JSON.parse(this.state.data);
         return (
@@ -43,7 +44,7 @@ class Taboo extends Component {
             </div>
         )
     }
-
+    // Methode zur Anzeige der verbotenen Wörter
     getForbiddenWords() {
         let dat = JSON.parse(this.state.data);
         console.log('FW Test');
@@ -62,7 +63,7 @@ class Taboo extends Component {
             }
         }
     }
-
+    // Methode zur Generierung der Anzeige basierend auf dem Spielzustand
     getDisplay() {
         let dat = JSON.parse(this.state.data);
         let display = [];
@@ -97,7 +98,7 @@ class Taboo extends Component {
         }
         return display;
     }
-
+    // Methode zum Überprüfen, ob das eingegebene Wort erlaubt oder verboten ist
     checkWord(toCheck) {
         let dat = JSON.parse(this.state.data);
         console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
@@ -113,7 +114,7 @@ class Taboo extends Component {
         }
         return false;
     }
-
+    // Methode zum Überprüfen, ob verbotene Wörter in der Nachricht verwendet werden
     checkForForbiddenWords(toCheck) {
         let lst = toCheck.split(' ');
         for (let i = 0; i < lst.length; i++) {
@@ -125,7 +126,7 @@ class Taboo extends Component {
         }
         return false;
     }
-
+    // Methode zum Senden einer Nachricht über den Channel
     async sendMessage(event) {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -157,7 +158,7 @@ class Taboo extends Component {
         }
         ably.close();
     }
-
+    // Methode zum Senden einer Nachricht über verbotene Wörter
     async sendUsedForbiddenWord() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -169,7 +170,7 @@ class Taboo extends Component {
             type: 'forbidden'
         })
     }
-
+    // Methode zum Senden einer Nachricht zum Fortsetzen des Spiels
     async sendContinue() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -181,7 +182,7 @@ class Taboo extends Component {
             type: 'continue'
         })
     }
-
+    // Methode zum Senden einer Nachricht über die richtige Antwort
     async sendCorrect() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -193,7 +194,7 @@ class Taboo extends Component {
             type: 'correct'
         })
     }
-
+    // Methode zum Senden einer Nachricht zum Beenden des Spiels
     async sendEnd(){
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
@@ -206,7 +207,7 @@ class Taboo extends Component {
             content: 'empty'
         })
     }
-
+    // Methode zum Aktualisieren des Nachrichten-Texts im Komponentenstatus
     onMessageChange(event) {
         this.setState({
             room: this.state.room,
@@ -218,7 +219,7 @@ class Taboo extends Component {
             messages: this.state.messages
         })
     }
-
+    // Methode zur Verarbeitung von Nachrichten aus dem Channel
     async onMessage(message) {
         console.log(message.data);
         let date = new Date();
@@ -241,7 +242,7 @@ class Taboo extends Component {
         });
         console.log(this.state);
     }
-
+    // Methode zur Verarbeitung von Systemnachrichten aus dem Channel
     async onSystem(message) {
         console.log(message.data);
         switch (message.data.type) {
@@ -281,7 +282,7 @@ class Taboo extends Component {
                 break;
         }
     }
-
+    // Lebenszyklusmethode - Methode zum Abonnieren des Channels für Nachrichten und Systemnachrichten 
     async componentDidMount() {
         console.log(JSON.parse(this.state.data));
         const Ably = require('ably');
@@ -292,7 +293,7 @@ class Taboo extends Component {
         await channel.subscribe('message', (message) => this.onMessage(message));
         await channel.subscribe('system', (message) => this.onSystem(message));
     }
-
+    // Lebenszyklusmethode - Methode zum Abbestellen des Channels und Schließen der Ably-Verbindung
     componentWillUnmount(){
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -304,6 +305,7 @@ class Taboo extends Component {
         ably.close();
     }
 
+    // Methode zur Rendern der Komponente
     render() {
         return (
             <div name='taboo'>{this.getDisplay()}</div>
