@@ -38,10 +38,16 @@ class Domino extends Component {
         console.log("Feld: ")
         console.log(rowsNew)
         console.log("Constructor: ")
-        this.setState(() => ({
+        this.state = {
+            room: props.room,
+            users: props.users,
+            user: props.user,
+            data: props.data,
+            activePlayer: "",
             pool: poolNew,
-            rows: rowsNew
-        }))
+            rows: rowsNew,
+            rowsState: 0,
+        };
         console.log(this.state)
     }
 
