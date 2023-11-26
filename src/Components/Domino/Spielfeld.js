@@ -26,7 +26,7 @@ class Spielfeld extends Component {
             activePlayer: props.activePlayer,
             pool: props.pool,
             rows: props.rows,
-            rowsState: 0,
+            rowsState: props.rowsState,
             changeState: props.changeState,
         };
     }
