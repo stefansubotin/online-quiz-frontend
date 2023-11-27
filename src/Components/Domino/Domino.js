@@ -32,6 +32,7 @@ class Domino extends Component {
             rowsState: 0,
         };
         let poolNew = this.initStones()
+        let activePlayerNew = this.getActivePlayer()
         let rowsNew = this.initField()
         console.log("Pool: ")
         console.log(poolNew)
@@ -78,20 +79,11 @@ class Domino extends Component {
      * @return {String} 
      */
     getActivePlayer() {
-        let dat = JSON.parse(this.state.data);
-        let ap = dat.activePlayer;
         if (this.state.activePlayer == "") {
             console.log("Aktive Spieler initiiert")
-            this.setState({
-
-                activePlayer: ap,
-
-            });
-
-
+            return this.state.users[0]
         }
         return this.state.activePlayer
-
 
     }
 

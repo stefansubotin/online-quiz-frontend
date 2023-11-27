@@ -142,10 +142,11 @@ class Spielfeld extends Component {
         let id = e.currentTarget.id;
         let pid = e.target.parentNode.id;
         let ppid = e.currentTarget.parentNode.parentNode.id;
-        console.log("DragStart: " + id + "parent: " + pid)
         e.dataTransfer.setData("id", id);
         e.dataTransfer.setData("parent", pid)
         e.dataTransfer.setData("grandparent", ppid)
+        console.log("DragStart")
+        console.log("Target: " + id + " - Parent: " + pid + " - Grandparent: " + ppid)
 
     }
     /**
@@ -155,6 +156,7 @@ class Spielfeld extends Component {
      */
     handleDragOver(e) {
         e.preventDefault();
+        console.log("DragOver")
     }
     /**
      * Kopiert den Stein in das Element über das er fallen gelassen wurde
@@ -163,7 +165,7 @@ class Spielfeld extends Component {
      * 
      * @async
      *
-     * @param {*} e
+     * @param {MouseEvent} e
      */
     async handleDrop(e) {
         // Daten über Stein und Parent vom Stein
@@ -275,7 +277,7 @@ class Spielfeld extends Component {
                 className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
                 id={id}
                 style={{ height: '100px', width: '100%' }}
-                draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
+                draggable={this.state.activePlayer == this.state.user} onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
             >
                 {d ?
