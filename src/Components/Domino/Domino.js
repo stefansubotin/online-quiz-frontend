@@ -9,6 +9,7 @@ import Spielfeld from "./Spielfeld";
  * Erstellt das Quiz für die übergebene Spieler und 
  * regelt die direkte Interaktion und Kommunikation mit 
  * der Oberfläche, über Ably und der Datenbank.
+ * 
  * @author Lena Wolf
  * @class Domino
  * @extends {Component}
