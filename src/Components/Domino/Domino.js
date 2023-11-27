@@ -16,6 +16,7 @@ import Spielfeld from "./Spielfeld";
 class Domino extends Component {
     /** 
      * Instanziiert ein Domino Objekt und initiiert ein State. 
+     * 
      * @constructor
      * @param {JSON} props
      */
