@@ -38,7 +38,8 @@ class Domino extends Component {
         console.log(poolNew)
         console.log("Feld: ")
         console.log(rowsNew)
-        console.log("Constructor: ")
+        console.log("AcitvePlayer")
+        console.log(activePlayerNew)
         this.state = {
             room: props.room,
             users: props.users,
@@ -49,6 +50,7 @@ class Domino extends Component {
             rows: rowsNew,
             rowsState: 0,
         };
+        console.log("Constructor: ")
         console.log(this.state)
     }
 
