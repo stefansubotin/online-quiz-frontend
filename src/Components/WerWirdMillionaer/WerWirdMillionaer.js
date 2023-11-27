@@ -4,6 +4,7 @@ import '../../Stylesheets/wwm.css';
 class WerWirdMillionaer extends Component {
     constructor(props) {
         super(props);
+        // Initialisierung des Komponentenstatus mit den übergebenen Props
         this.state = {
             room: props.room,
             user: props.user,
@@ -13,11 +14,11 @@ class WerWirdMillionaer extends Component {
             chosenAnswer: -1,
         }
     }
-
+    // Methode zur Generierung der Channel-ID basierend auf der Raumnummer
     getChannelId() {
         return 'wwm' + this.state.room;
     }
-
+    // Methode zur Erstellung der Antwortmöglichkeiten
     getCurrentAnswers() {
         console.log(this.state);
         let dat = JSON.parse(this.state.data);
@@ -48,7 +49,7 @@ class WerWirdMillionaer extends Component {
         }
         return answers;
     }
-
+    // Methode zur Erstellung der Quiz-Anzeige (Anzeige der Frage und Antwortmöglichkeiten)
     getDisplay() {
         let dat = JSON.parse(this.state.data);
         let display = [];
@@ -61,7 +62,7 @@ class WerWirdMillionaer extends Component {
         else display.push(<button onClick={(e) => this.onContinue()} disabled={disabled}>Next Question</button>);
         return display;
     }
-
+    // Methode zum Senden einer Nachricht über Ably, dass das Spiel fortgesetzt werden soll
     async onContinue() {
         let dat = JSON.parse(this.state.data);
         if (dat.moderator != "") {
@@ -88,7 +89,7 @@ class WerWirdMillionaer extends Component {
         });
 
     }
-
+    // Methode zum Senden einer Nachricht über Ably, dass das Spiel enden soll
     async sendEnd(){
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
@@ -101,7 +102,7 @@ class WerWirdMillionaer extends Component {
             content: 'empty'
         })
     }
-
+     // Methode zur Verarbeitung von Spieler-Guess-Nachrichte
     async onGuess(message) {
         let dat = JSON.parse(this.state.data);
         console.log(dat.moderator);
@@ -141,7 +142,7 @@ class WerWirdMillionaer extends Component {
         }
 
     }
-
+    // Methode zur Verarbeitung von Moderator-Nachrichten
     async onModerator(message) {
         console.log(message);
         this.setState({
@@ -153,7 +154,7 @@ class WerWirdMillionaer extends Component {
             chosenAnswer: this.state.chosenAnswer
         });
     }
-
+    // Methode zur Verarbeitung von Antworten
     async onAnswer(e) {
         let i = e.target.name;
         let dat = JSON.parse(this.state.data);
@@ -193,7 +194,7 @@ class WerWirdMillionaer extends Component {
             });
         }
     }
-
+    // Lebenszyklusmethode - Methode zum Abonnieren des Channels für Nachrichten und Systemnachrichten  
     async componentDidMount() {
         let dat = JSON.parse(this.props.data);
         console.log(dat);
@@ -221,7 +222,7 @@ class WerWirdMillionaer extends Component {
         }
         else await channel.subscribe('moderator', (message) => this.onModerator(message));
     }
-
+    // Lebenszyklusmethode - Methode zum Abbestellen des Channels und Schließen der Ably-Verbindung 
     componentWillUnmount() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -232,7 +233,7 @@ class WerWirdMillionaer extends Component {
         channel.unsubscribe('player');
         ably.close();
     }
-
+    // Methode zur Rendern der Komponente
     render() {
         return (
             <div nmae='wwm'>{this.getDisplay()}</div>
