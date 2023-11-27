@@ -55,7 +55,8 @@ class Domino extends Component {
     }
 
     /**
-     *
+     * Setzt den nächsten Spieler in der users Liste 
+     * als Active Spieler
      *
      */
     handleSwitchPlayer() {
@@ -76,7 +77,7 @@ class Domino extends Component {
     }
 
     /**
-     *
+     * Gibt den aktuellen aktiven Spieler zurück.
      *
      * @return {String} 
      */
