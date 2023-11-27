@@ -45,7 +45,7 @@ class Domino extends Component {
             users: props.users,
             user: props.user,
             data: props.data,
-            activePlayer: "",
+            activePlayer: activePlayerNew,
             pool: poolNew,
             rows: rowsNew,
             rowsState: 0,
