@@ -215,12 +215,11 @@ class Spielfeld extends Component {
         }
         // Stein kommt aus dem Feld wenn Parent eine Zahl ist und Zelle ist leer
         else if ((!isNaN(originParent)) && rows1[destinationRow].columns[destinationCell].stone.id == "") {
-            if (originParent < 0) {
-                console.log("kleiner Parent" + originParent)
-            }
+
             originCell = getDestinationCell(originParent, originRow);
             console.log("originParent + destinationCell + originRow")
             console.log(originParent + "+" + originCell + " + " + originRow)
+
             //Kopieren des Steins in die gewünschte Zelle
             rows1[destinationRow].columns[destinationCell].stone.id = rows1[originRow].columns[originCell].stone.id;
             rows1[destinationRow].columns[destinationCell].stone.answer = rows1[originRow].columns[originCell].stone.answer;
