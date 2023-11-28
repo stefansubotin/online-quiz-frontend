@@ -1,4 +1,6 @@
 .list-group-item {
+    min-width: 50px;
+    min-width: 50px;
     font-size: xx-small;
 }
 

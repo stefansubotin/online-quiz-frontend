@@ -55,6 +55,7 @@ class Taboo extends Component {
                 return (
                     <div>
                         <div>{dat.enemyTurns[i].answer}</div>
+                        <br></br>
                         <div>{dat.enemyTurns[i].forbiddenWords.join(', ')}</div>
                     </div>
                 )
