@@ -376,7 +376,7 @@ class Domino extends Component {
                                 </ul>
                             </> :
                             <>
-                                <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                                <ul id="-1" className="list-group">
                                     {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
                                     {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
                                 </ul>
