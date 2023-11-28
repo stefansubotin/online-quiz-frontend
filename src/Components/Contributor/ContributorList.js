@@ -79,7 +79,10 @@ class ContributorList extends Component {
             }
         }
 
-        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>{displayHead}<tbody>display</tbody></table>
+        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>
+            {displayHead}
+            <tbody>{display}</tbody>
+        </table>
         return table;
     }
 
