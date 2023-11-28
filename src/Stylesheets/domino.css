@@ -1,8 +1,15 @@
 .list-group-item {
     min-width: 50px;
     min-width: 50px;
-    overflow: auto;
     font-size: xx-small;
+}
+
+.stone {
+    min-width: 100px;
+    min-width: 100px;
+    max-width: inherit;
+    max-width: inherit;
+    overflow-wrap: break-word;
 }
 
 .edge {

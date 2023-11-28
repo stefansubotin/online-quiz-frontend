@@ -278,7 +278,7 @@ class Spielfeld extends Component {
 
         return (
             <ul
-                className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
+                className={h ? "list-group list-group-horizontal stone" : "list-group list-group-flush stone"}
                 id={id}
                 style={{ height: '100px', width: '100%' }}
                 draggable={this.state.activePlayer == this.state.user} onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
