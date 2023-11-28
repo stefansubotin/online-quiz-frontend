@@ -377,12 +377,12 @@ class Domino extends Component {
                             </> :
                             <>
                                 <ul id="-1" className="list-group">
-                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
-                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item "}>{fOben ? question : answer}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item  bg-secondary-subtle" : "  list-group-item  "}>{fOben ? question : answer}</li>}
                                 </ul>
                                 <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
-                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "list-group-item " : " bg-secondary-subtle list-group-item "}>{fOben ? answer : question}</li>}
+                                    {h ? <li className={fOben ? "list-group-item " : " bg-secondary-subtle list-group-item "}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
                                 </ul>
                             </>}
                     </>
