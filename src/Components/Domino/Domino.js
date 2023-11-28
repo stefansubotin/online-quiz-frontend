@@ -462,7 +462,6 @@ class Domino extends Component {
     }
     /**
      * Versendet Nachrichten mit einem Filter über Ably.
-     *  
      * @async
      * @param {String} reason
      * @param {Object} body
