@@ -216,6 +216,7 @@ class Domino extends Component {
         let destination = e.currentTarget.id;
         let destinationRow = e.currentTarget.parentNode.id;
         let destinationCell = this.getDestinationCell(destination, destinationRow);
+
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
@@ -226,6 +227,8 @@ class Domino extends Component {
         let poolNeu = [];
         let rows1 = this.state.rows;
         let stone;
+        console.log("destination + destinationRow + destinationCell")
+        console.log(destination + destinationRow + destinationCell)
 
         // Wenn der Stein  aus dem Pool kommt und nicht bereits einer liegt
         if (originParent == "pool" && rows1[destinationRow].columns[destinationCell].stone.id == "") {
