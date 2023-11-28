@@ -29,19 +29,14 @@ class ContributorList extends Component {
         let list = this.filterList();
 
         let display = [];
-        let displayHead = [(
+        let displayHead = (
             <thead>
                 <tr>
                     <th>Collection</th>
                     <th>Key</th>
                     <th colSpan={3}>More Data</th>
                 </tr>
-            </thead>)]
-        display.push(
-            <tbody className="table-group-divider">
-
-            </tbody>
-        )
+            </thead>)
         for (let i = 0; i < list.length; i++) {
             switch (list[i].collection) {
                 case 'kreuzwort':
@@ -83,8 +78,8 @@ class ContributorList extends Component {
                     break;
             }
         }
-        displayHead.push(display)
-        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>{displayHead}</table>
+
+        let table = <table class="table-striped" style={{ overflow: 'scroll', textAlign: 'left', width: "90%", marginInline: "10%" }}>{displayHead}<tbody>display</tbody></table>
         return table;
     }
 
