@@ -184,6 +184,8 @@ class Spielfeld extends Component {
         let rows1 = this.state.rows;
         console.log("Test Cell:")
         console.log(rows1[3].columns[2].stone)
+        console.log("destionation + destinationCell + destinationRow")
+        console.log(destination + "+" + destinationCell + " + " + destinationRow)
         let copyStone;
 
         // Wenn der Stein  aus dem Pool kommt und nicht bereits einer liegt
