@@ -18,7 +18,7 @@ class Domino extends Component {
      * Instanziiert ein Domino Objekt und initiiert ein State. 
      * 
      * @constructor
-     * @param {JSON} props
+     * @param {} props
      */
     constructor(props) {
         super(props);
@@ -43,7 +43,7 @@ class Domino extends Component {
      * @param {number} row
      * @return {number} 
      */
-    getZielZelle(id, row) {
+    getDestinationCell(id, row) {
         let laenge = JSON.parse(this.state.data).laenge;
         let spalte = (id - (row * laenge));
         return spalte;
@@ -59,9 +59,9 @@ class Domino extends Component {
         // Daten aus Event
         let id = e.currentTarget.id
         console.log("id " + id)
-        let zellenID = e.currentTarget.parentNode.id;
-        let zellenRow = e.currentTarget.parentNode.parentNode.id;
-        let zelle = this.getZielZelle(zellenID, zellenRow);
+        let cellID = e.currentTarget.parentNode.id;
+        let cellRow = e.currentTarget.parentNode.parentNode.id;
+        let cell = this.getDestinationCell(cellID, cellRow);
 
         //Zur einfacheren Handhabung
         let h;
@@ -71,15 +71,15 @@ class Domino extends Component {
         let rows1 = this.state.rows;
 
         console.log("Got clicked")
-        console.log("zellenID " + zellenID + "zellenRow " + zellenRow + " zelle" + zelle)
-        if (!isNaN(zellenID)) {
-            if (zellenID < 0) {
+        console.log("cellID " + cellID + "cellRow " + cellRow + " cell" + cell)
+        if (!isNaN(cellID)) {
+            if (cellID < 0) {
                 console.log("diagonales")
             }
             console.log("im rows")
-            h = rows1[zellenRow].columns[zelle].stone.h;
-            fO = rows1[zellenRow].columns[zelle].stone.fO
-            d = rows1[zellenRow].columns[zelle].stone.d
+            h = rows1[cellRow].columns[cell].stone.h;
+            fO = rows1[cellRow].columns[cell].stone.fO
+            d = rows1[cellRow].columns[cell].stone.d
 
             // Varianten wie der Stein liegt: F|A A/F A|F F/A
             if (!h && fO && !d) {
@@ -125,9 +125,9 @@ class Domino extends Component {
             } else {
                 console.log("nichts passiert ");
             }
-            rows1[zellenRow].columns[zelle].stone.h = h;
-            rows1[zellenRow].columns[zelle].stone.fO = fO;
-            rows1[zellenRow].columns[zelle].stone.d = d;
+            rows1[cellRow].columns[cell].stone.h = h;
+            rows1[cellRow].columns[cell].stone.fO = fO;
+            rows1[cellRow].columns[cell].stone.d = d;
             console.log("STein gedreht ")
         }
         this.setState({
@@ -212,14 +212,14 @@ class Domino extends Component {
      */
     handleDrop(e) {
         // Daten über Stein und Parent vom Stein
-        let laenge = JSON.parse(this.state.data).laenge;
-        let ziel = e.currentTarget.id;
-        let zielRow = e.currentTarget.parentNode.id;
-        let zielZelle = (ziel - (zielRow * laenge));
+        let laenge = this.state.rows.length
+        let destination = e.currentTarget.id;
+        let destinationRow = e.currentTarget.parentNode.id;
+        let destinationCell = (destination - (destinationRow * laenge));
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
-        let originZelle;
+        let originCell;
 
         // Feld und Pool Kopie zur einfacheren Handhabung
         let pool1 = this.state.pool;
@@ -228,7 +228,7 @@ class Domino extends Component {
         let stone;
 
         // Wenn der Stein  aus dem Pool kommt und nicht bereits einer liegt
-        if (originParent == "pool" && rows1[zielRow].columns[zielZelle].stone.id == "") {
+        if (originParent == "pool" && rows1[destinationRow].columns[destinationCell].stone.id == "") {
             //Findet Stein im Pool und Kopie speichern
             for (let i = 0; i < pool1.length; ++i) {
                 if (pool1[i].id == origin) {
@@ -238,12 +238,12 @@ class Domino extends Component {
             }
 
             // Kopie des Steins in die Zelle kopieren
-            rows1[zielRow].columns[zielZelle].stone.id = stone.id;
-            rows1[zielRow].columns[zielZelle].stone.answer = stone.answer;
-            rows1[zielRow].columns[zielZelle].stone.question = stone.question;
-            rows1[zielRow].columns[zielZelle].stone.h = stone.h;
-            rows1[zielRow].columns[zielZelle].stone.fO = stone.fO
-            rows1[zielRow].columns[zielZelle].stone.d = stone.d
+            rows1[destinationRow].columns[destinationCell].stone.id = stone.id;
+            rows1[destinationRow].columns[destinationCell].stone.answer = stone.answer;
+            rows1[destinationRow].columns[destinationCell].stone.question = stone.question;
+            rows1[destinationRow].columns[destinationCell].stone.h = stone.h;
+            rows1[destinationRow].columns[destinationCell].stone.fO = stone.fO
+            rows1[destinationRow].columns[destinationCell].stone.d = stone.d
 
             // Kopie des Pools ohne den kopierten Stein
             for (let i = 0; i < pool1.length; ++i) {
@@ -255,23 +255,23 @@ class Domino extends Component {
             }
         }
         // Stein kommt aus dem Feld wenn Parent eine Zahl ist und Zelle ist leer
-        else if ((!isNaN(originParent)) && rows1[zielRow].columns[zielZelle].stone.id == "") {
+        else if ((!isNaN(originParent)) && rows1[destinationRow].columns[destinationCell].stone.id == "") {
             if (originParent < 0) {
                 console.log("kleiner Parent" + originParent)
             }
-            originZelle = (originParent - (originRow * laenge));
+            originCell = (originParent - (originRow * laenge));
             //Kopieren des Steins in die gewünschte Zelle
-            rows1[zielRow].columns[zielZelle].stone.id = rows1[originRow].columns[originZelle].stone.id;
-            rows1[zielRow].columns[zielZelle].stone.answer = rows1[originRow].columns[originZelle].stone.answer;
-            rows1[zielRow].columns[zielZelle].stone.question = rows1[originRow].columns[originZelle].stone.question;
-            rows1[zielRow].columns[zielZelle].stone.h = rows1[originRow].columns[originZelle].stone.h;
-            rows1[zielRow].columns[zielZelle].stone.fO = rows1[originRow].columns[originZelle].stone.fO;
-            rows1[zielRow].columns[zielZelle].stone.d = rows1[originRow].columns[originZelle].stone.d;
+            rows1[destinationRow].columns[destinationCell].stone.id = rows1[originRow].columns[originCell].stone.id;
+            rows1[destinationRow].columns[destinationCell].stone.answer = rows1[originRow].columns[originCell].stone.answer;
+            rows1[destinationRow].columns[destinationCell].stone.question = rows1[originRow].columns[originCell].stone.question;
+            rows1[destinationRow].columns[destinationCell].stone.h = rows1[originRow].columns[originCell].stone.h;
+            rows1[destinationRow].columns[destinationCell].stone.fO = rows1[originRow].columns[originCell].stone.fO;
+            rows1[destinationRow].columns[destinationCell].stone.d = rows1[originRow].columns[originCell].stone.d;
 
             //löschen des Steins aus der ursprünglichen Zelle
-            rows1[originRow].columns[originZelle].stone.id = "";
-            rows1[originRow].columns[originZelle].stone.answer = "";
-            rows1[originRow].columns[originZelle].stone.question = "";
+            rows1[originRow].columns[originCell].stone.id = "";
+            rows1[originRow].columns[originCell].stone.answer = "";
+            rows1[originRow].columns[originCell].stone.question = "";
             // Pool bleibt unverändert
             poolNeu = this.state.pool
         }
