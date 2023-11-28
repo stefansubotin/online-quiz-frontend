@@ -358,7 +358,7 @@ class Domino extends Component {
             <ul
                 className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
                 id={id}
-                style={{ height: '100px', width: '100%' }}
+
                 draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
             >
@@ -367,22 +367,22 @@ class Domino extends Component {
                         {h ?
                             <>
                                 <ul id="-4" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                                    {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
                                 </ul>
                                 <ul id="-3" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                                    {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
-                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "list-group-item " : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li>}
+                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item "}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
                                 </ul>
                             </> :
                             <>
                                 <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                                    {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                                    {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
                                 </ul>
                                 <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                                    {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
-                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
+                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
                                 </ul>
                             </>}
                     </>
@@ -420,7 +420,7 @@ class Domino extends Component {
             deg = -90;
         }
         let style = { transform: 'rotate(' + deg + 'deg)' };
-        return <li className="list-group-item col-6 empty"><img className="edge" src={edge} alt="Logo" style={style} />  </li>
+        return <img className="edge" src={edge} alt="Logo" style={style} />
     }
     /**
      * Gibt das Feld anhand des States zurück.
