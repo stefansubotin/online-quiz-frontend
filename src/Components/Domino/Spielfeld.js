@@ -21,7 +21,6 @@ class Spielfeld extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            laenge: props.laenge,
             user: props.user,
             activePlayer: props.activePlayer,
             pool: props.pool,
@@ -39,7 +38,7 @@ class Spielfeld extends Component {
      * @return {number} 
      */
     getDestinationCell(id, row) {
-        let laenge = this.state.laenge;
+        let laenge = this.state.rows.length;
         let spalte = (id - (row * laenge));
         return spalte;
     }
@@ -170,10 +169,9 @@ class Spielfeld extends Component {
      */
     async handleDrop(e) {
         // Daten über Stein und Parent vom Stein
-        let laenge = this.state.laenge;
         let destination = e.currentTarget.id;
-        let destinationCell = e.currentTarget.parentNode.id;
-        let destinationRow = (destination - (destinationRow * laenge));
+        let destinationRow = e.currentTarget.parentNode.id;
+        let destinationCell = getDestinationCell(destination, destinationRow)
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
@@ -183,8 +181,7 @@ class Spielfeld extends Component {
         let pool1 = this.state.pool;
         let poolNeu = [];
         let rows1 = this.state.rows;
-        console.log("Test Cell:")
-        console.log(rows1[3].columns[2].stone)
+
         console.log("destionation + destinationCell + destinationRow")
         console.log(destination + "+" + destinationCell + " + " + destinationRow)
         let copyStone;
@@ -221,7 +218,9 @@ class Spielfeld extends Component {
             if (originParent < 0) {
                 console.log("kleiner Parent" + originParent)
             }
-            originCell = (originParent - (originRow * laenge));
+            originCell = getDestinationCell(originParent, originRow);
+            console.log("originParent + destinationCell + originRow")
+            console.log(originParent + "+" + originCell + " + " + originRow)
             //Kopieren des Steins in die gewünschte Zelle
             rows1[destinationRow].columns[destinationCell].stone.id = rows1[originRow].columns[originCell].stone.id;
             rows1[destinationRow].columns[destinationCell].stone.answer = rows1[originRow].columns[originCell].stone.answer;

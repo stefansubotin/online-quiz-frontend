@@ -312,7 +312,7 @@ class Domino extends Component {
      * @async
      * @param {*} message
      */
-    async setResultData(message) {
+    async setOverview(message) {
         let dat = message.data.data
         let cAnswers = dat.correctAnswers
         let wAnswers = dat.wrongAnswers
@@ -337,7 +337,7 @@ class Domino extends Component {
         const channelId = 'domino' + this.state.room;
         const channel = ably.channels.get(channelId);
         channel.subscribe('updaterows', (message) => this.setUpdaterows(message))
-        channel.subscribe('resultDomino', (message) => this.setResultData(message))
+        channel.subscribe('resultDomino', (message) => this.setOverview(message))
     }
 
     /**
@@ -359,7 +359,6 @@ class Domino extends Component {
                 </div>
                 {this.rowsState != 4 ?
                     <Spielfeld
-                        laenge={this.state.laenge}
                         user={this.state.user}
                         activePlayer={this.state.activePlayer}
                         pool={this.state.pool}
