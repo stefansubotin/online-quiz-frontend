@@ -209,7 +209,7 @@ class Domino extends Component {
      * 
      * 
      *
-     * @param {*} e
+     * @param {Event} e
      */
     handleDrop(e) {
         // Daten über Stein und Parent vom Stein
@@ -490,7 +490,7 @@ class Domino extends Component {
      * Bereitet die Nachricht für den Sprung 
      * zurück in die Lobby vor und sendet sie ab. 
      *
-     * @async
+     * 
      * @returns {*}
      */
     backToLobby() {
