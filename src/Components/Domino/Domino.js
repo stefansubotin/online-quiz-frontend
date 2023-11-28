@@ -353,6 +353,7 @@ class Domino extends Component {
         let fOben = stone.fO
         let d = stone.d
 
+        //Acht Ausrichtungen des Steins
 
         return (
             <ul
