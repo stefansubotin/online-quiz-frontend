@@ -137,7 +137,10 @@ class Domino extends Component {
         this.updaterows(this.state.activePlayer, rows1, pool1);
     }
 
-    //Spieler wechsel
+    /**
+     * Ändert den aktiven Spieler.
+     *
+     */
     handleSwitchPlayer() {
         let users = this.state.users
         let ap = this.state.activePlayer;
@@ -174,7 +177,6 @@ class Domino extends Component {
 
     }
 
-
     /**
      * Speichert temporär für das Bewegen die Herkunft
      * des bewegten Steins.
@@ -208,7 +210,7 @@ class Domino extends Component {
      *
      * @param {*} e
      */
-    async handleDrop(e) {
+    handleDrop(e) {
         // Daten über Stein und Parent vom Stein
         let laenge = JSON.parse(this.state.data).laenge;
         let ziel = e.currentTarget.id;
@@ -454,7 +456,6 @@ class Domino extends Component {
         }
         return rows
     }
-
     /**
      * Versendet Nachrichten mit einem Filter über Ably.
      *  
@@ -488,7 +489,7 @@ class Domino extends Component {
      * @async
      * @returns {*}
      */
-    async backToLobby() {
+    backToLobby() {
         var body = {
             content: 'empty'
         }
@@ -502,7 +503,7 @@ class Domino extends Component {
      * @param {String} activePlayer
      * @param {Array} rows
      */
-    async updaterows(activePlayer, rows) {
+    updaterows(activePlayer, rows) {
         // Kommunikation für Update rows
 
         this.setState({
@@ -561,7 +562,6 @@ class Domino extends Component {
             alert("somthing wrong")
         }
     }
-
     /**
      * Sendet die Ergebnisse mit dem neuen
      * Status des Spiels an alle Teilnehmer.
@@ -569,7 +569,7 @@ class Domino extends Component {
      * @async
      * @param {JSON} data
      */
-    async sendOverview(data) {
+    sendOverview(data) {
         console.log("Ende Spiel");
         let dat = data
 
@@ -605,7 +605,7 @@ class Domino extends Component {
      * @param {*} message
      * @returns {*}
      */
-    async setUpdaterows(message) {
+    setUpdaterows(message) {
         console.log("Got this from: " + message.data.user);
         console.log("NextPlayer: " + message.data.activePlayer)
 
@@ -625,7 +625,7 @@ class Domino extends Component {
      * @async
      * @param {*} message
      */
-    async setOverview(message) {
+    setOverview(message) {
         let dat = message.data.data
         let cAnswers = dat.correctAnswers
         let wAnswers = dat.wrongAnswers
