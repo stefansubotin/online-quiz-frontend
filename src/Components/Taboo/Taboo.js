@@ -52,13 +52,11 @@ class Taboo extends Component {
         for (let i = 0; i < dat.enemyTurns.length; i++) {
             console.log(dat.enemyTurns[i].turn);
             if (this.state.turn == dat.enemyTurns[i].turn) {
-                let words = [dat.enemyTurns[i].answer];
-                words = words.concat(dat.enemyTurns[i].forbiddenWords);
-                console.log(dat.enemyTurns[i]);
-                console.log(dat.enemyTurns[i].forbiddenWords);
-                console.log(words);
                 return (
-                    <div>{words.join(', ')}</div>
+                    <div>
+                        <div>{dat.enemyTurns[i].answer}</div>
+                        <div>{dat.enemyTurns[i].forbiddenWords.join(', ')}</div>
+                    </div>
                 )
             }
         }
@@ -103,10 +101,10 @@ class Taboo extends Component {
         let dat = JSON.parse(this.state.data);
         console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.answer.toLowerCase());
         console.log(toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase());
-        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()){
+        if (toCheck.toLowerCase() == dat.explainingInfo.answer.toLowerCase()) {
             console.log('1');
             return true;
-        } 
+        }
         for (let i = 0; i < dat.explainingInfo.forbiddenWords.length; i++) {
             console.log('2 ' + i);
             console.log('Check: ' + toCheck.toLowerCase() + ', ' + dat.explainingInfo.forbiddenWords[i].toLowerCase());
@@ -195,7 +193,7 @@ class Taboo extends Component {
         })
     }
     // Methode zum Senden einer Nachricht zum Beenden des Spiels
-    async sendEnd(){
+    async sendEnd() {
         let tmp = this.state.room.split('_');
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
@@ -294,7 +292,7 @@ class Taboo extends Component {
         await channel.subscribe('system', (message) => this.onSystem(message));
     }
     // Lebenszyklusmethode - Methode zum Abbestellen des Channels und Schließen der Ably-Verbindung
-    componentWillUnmount(){
+    componentWillUnmount() {
         const Ably = require('ably');
         const ably = new Ably.Realtime.Promise('0sa0Qw.VDigAw:OeO1LYUxxUM7VIF4bSsqpHMSZlqMYBxN-cxS0fKeWDE');
         ably.connection.once('connected');
