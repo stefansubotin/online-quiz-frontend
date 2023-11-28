@@ -171,8 +171,8 @@ class Spielfeld extends Component {
         // Daten über Stein und Parent vom Stein
         let laenge = this.state.laenge;
         let destination = e.currentTarget.id;
-        let destinationRow = e.currentTarget.parentNode.id;
-        let destinationCell = (destination - (destinationRow * laenge));
+        let destinationCell = e.currentTarget.parentNode.id;
+        let destinationRow = (destination - (destinationRow * laenge));
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
