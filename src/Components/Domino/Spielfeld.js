@@ -182,25 +182,27 @@ class Spielfeld extends Component {
         let pool1 = this.state.pool;
         let poolNeu = [];
         let rows1 = this.state.rows;
-        let stone;
+        console.log("Test Cell:")
+        console.log(rows1[3].columns[2].stone)
+        let copyStone;
 
         // Wenn der Stein  aus dem Pool kommt und nicht bereits einer liegt
         if (originParent == "pool" && rows1[destinationRow].columns[destinationCell].stone.id == "") {
-            //Findet Stein im Pool und Kopie speichern
+            //Findet Stein im Pool und speichert die Kopie
             for (let i = 0; i < pool1.length; ++i) {
                 if (pool1[i].id == origin) {
                     console.log("stone " + origin + "gefunden: " + pool1[i].id)
-                    stone = pool1[i];
+                    copyStone = pool1[i];
                 }
             }
 
             // Kopie des Steins in die Zelle kopieren
-            rows1[destinationRow].columns[destinationCell].stone.id = stone.id;
-            rows1[destinationRow].columns[destinationCell].stone.answer = stone.answer;
-            rows1[destinationRow].columns[destinationCell].stone.question = stone.question;
-            rows1[destinationRow].columns[destinationCell].stone.h = stone.h;
-            rows1[destinationRow].columns[destinationCell].stone.fO = stone.fO
-            rows1[destinationRow].columns[destinationCell].stone.d = stone.d
+            rows1[destinationRow].columns[destinationCell].stone.id = copyStone.id;
+            rows1[destinationRow].columns[destinationCell].stone.answer = copyStone.answer;
+            rows1[destinationRow].columns[destinationCell].stone.question = copyStone.question;
+            rows1[destinationRow].columns[destinationCell].stone.h = copyStone.h;
+            rows1[destinationRow].columns[destinationCell].stone.fO = copyStone.fO
+            rows1[destinationRow].columns[destinationCell].stone.d = copyStone.d
 
             // Kopie des Pools ohne den kopierten Stein
             for (let i = 0; i < pool1.length; ++i) {
