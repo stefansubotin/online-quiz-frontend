@@ -67,6 +67,7 @@ class Spielfeld extends Component {
 
         console.log("Got clicked")
         console.log("zellenID " + zellenID + "zellenRow " + zellenRow + " cell" + cell)
+        //Setzt die Werte Horizontal, Diagonal und FrageOben auf die neue Ausrichtung
         if (!isNaN(zellenID)) {
             if (zellenID < 0) {
                 console.log("diagonales")
