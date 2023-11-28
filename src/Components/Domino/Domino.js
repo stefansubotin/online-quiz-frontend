@@ -503,7 +503,7 @@ class Domino extends Component {
      * Ändert Lokal und für alle Mitspieler 
      * den State.
      *
-     * @async
+     * 
      * @param {String} activePlayer
      * @param {Array} rows
      */
