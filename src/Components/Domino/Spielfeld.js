@@ -296,8 +296,8 @@ class Spielfeld extends Component {
                         </ul>
                     </>
                     : <>
-                        <li className={fOben ? "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary" : "list-group-item col-6"}>{fOben ? question : answer}</li>
-                        <li className={fOben ? "list-group-item col-6 " : "list-group-item col-6 bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
+                        <li className={fOben ? "list-group-item  bg-secondary-subtle text-emphasis-secondary" : "list-group-item "}>{fOben ? question : answer}</li>
+                        <li className={fOben ? "list-group-item  " : "list-group-item  bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
                     </>
                 }
             </ul>
