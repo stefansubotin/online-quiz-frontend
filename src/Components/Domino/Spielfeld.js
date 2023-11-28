@@ -282,8 +282,7 @@ class Spielfeld extends Component {
                 id={id}
                 draggable={this.state.activePlayer == this.state.user}
                 onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
-                onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
-            >
+                onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}>
                 {d ?
                     <>
                         <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
