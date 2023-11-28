@@ -283,21 +283,19 @@ class Spielfeld extends Component {
                 draggable={this.state.activePlayer == this.state.user}
                 onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}>
-                {d ?
-                    <>
-                        <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                            {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
-                        </ul>
-                        <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
-                            {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
-                            {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
-                        </ul>
-                    </>
-                    : <>
-                        <li className={fOben ? "list-group-item  bg-secondary-subtle text-emphasis-secondary" : "list-group-item "}>{fOben ? question : answer}</li>
-                        <li className={fOben ? "list-group-item  " : "list-group-item  bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
-                    </>
+                {d ? <>
+                    <ul id="-1" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                        {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                        {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                    </ul>
+                    <ul id="-2" className={h ? "list-group" : "list-group list-group-horizontal"}>
+                        {h ? this.getDiagonalStoneFiller(h, fOben, d) : <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li>}
+                        {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item col-6"}>{fOben ? answer : question}</li> : this.getDiagonalStoneFiller(h, fOben, d)}
+                    </ul>
+                </> : <>
+                    <li className={fOben ? "list-group-item  bg-secondary-subtle text-emphasis-secondary" : "list-group-item "}>{fOben ? question : answer}</li>
+                    <li className={fOben ? "list-group-item  " : "list-group-item  bg-secondary-subtle text-emphasis-secondary"}>{fOben ? answer : question}</li>
+                </>
                 }
             </ul>
         )
