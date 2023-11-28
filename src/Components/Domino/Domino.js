@@ -369,11 +369,11 @@ class Domino extends Component {
                             <>
                                 <ul id="-4" className="list-group list-group-horizontal">
                                     {h ? <li className={fOben ? "list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6"}>{fOben ? question : answer}</li> : <li className="list-group-item empty col-6">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
-                                    {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
+                                    {h ? <li className="list-group-item empty col-6">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "  list-group-item col-6 bg-secondary-subtle" : "  list-group-item col-6 "}>{fOben ? question : answer}</li>}
                                 </ul>
                                 <ul id="-3" className="list-group list-group-horizontal">
                                     {h ? <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li> : <li className={fOben ? "list-group-item " : " bg-secondary-subtle list-group-item"}>{fOben ? answer : question}</li>}
-                                    {h ? <li className={fOben ? "list-group-item col-6" : " bg-secondary-subtle list-group-item "}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
+                                    {h ? <li className={fOben ? "list-group-item" : " bg-secondary-subtle list-group-item "}>{fOben ? answer : question}</li> : <li className="list-group-item empty">{this.getDiagonalStoneFiller(h, fOben, d)} </li>}
                                 </ul>
                             </> :
                             <>
