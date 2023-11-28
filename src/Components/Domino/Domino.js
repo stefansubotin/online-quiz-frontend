@@ -24,9 +24,7 @@ class Domino extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            room: props.room,
             users: props.users,
-            user: props.user,
             data: props.data,
             activePlayer: "",
             pool: [],
@@ -50,7 +48,7 @@ class Domino extends Component {
             activePlayer: activePlayerNew,
             pool: poolNew,
             rows: rowsNew,
-            rowsState: 0,
+            rowsState: 2,
         };
         console.log("Constructor: ")
         console.log(this.state)
