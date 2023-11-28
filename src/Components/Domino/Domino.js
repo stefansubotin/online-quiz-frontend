@@ -215,7 +215,7 @@ class Domino extends Component {
         let laenge = this.state.rows.length
         let destination = e.currentTarget.id;
         let destinationRow = e.currentTarget.parentNode.id;
-        let destinationCell = (destination - (destinationRow * laenge));
+        let destinationCell = this.getDestinationCell(destination, destinationRow);
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
