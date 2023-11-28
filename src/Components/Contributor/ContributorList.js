@@ -29,14 +29,14 @@ class ContributorList extends Component {
         let list = this.filterList();
 
         let display = [];
-        let displayHead = (
+        let displayHead = [(
             <thead>
                 <tr>
                     <th>Collection</th>
                     <th>Key</th>
                     <th colSpan={3}>More Data</th>
                 </tr>
-            </thead>)
+            </thead>)]
         display.push(
             <tbody className="table-group-divider">
 
