@@ -23,7 +23,7 @@ class Lobby extends Component {
                 if (this.state.users.length <= 6) return false;
                 return true;
             case 'taboo':
-                if (this.state.users.length <= 10) return false;
+                if (this.state.users.length <= 10 && this.state.users.length > 1) return false;
                 return true;
             case 'domino':
                 if (this.state.users.length <= 4) return false;
@@ -249,7 +249,7 @@ class Lobby extends Component {
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(false)} disabled={this.getDisabled('wwmPlayerOther')}>Starte Wwm mit mir als Moderator</button><br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartWwm(true)} disabled={this.getDisabled('wwmPlayerMe')}>Starte Wwm mit mir als Spieler</button><br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStartTaboo(e)} disabled={this.getDisabled('taboo')}>Starte Taboo</button> */}
-                {this.getVariants()}<br/>
+                {this.getVariants()}<br />
                 <button type="button" style={{ margin: '10px' }} class="btn btn-secondary" onClick={(e) => this.onStart(e)} disabled={this.getDisabled(this.state.variant)}>Start Quiz</button>
             </div>
         );
@@ -257,4 +257,3 @@ class Lobby extends Component {
 }
 
 export default Lobby;
- 
