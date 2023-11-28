@@ -353,7 +353,7 @@ class Domino extends Component {
         let fOben = stone.fO
         let d = stone.d
 
-        //Acht Ausrichtungen des Steins
+        //Acht Ausrichtungen des Steins abhängig der drei Boolean Werte
 
         return (
             <ul
