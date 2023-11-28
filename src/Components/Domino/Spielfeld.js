@@ -168,10 +168,11 @@ class Spielfeld extends Component {
      * @param {MouseEvent} e
      */
     async handleDrop(e) {
-        // Daten über Stein und Parent vom Stein
+        // Daten über die Zelle 
         let destination = e.currentTarget.id;
         let destinationRow = e.currentTarget.parentNode.id;
         let destinationCell = getDestinationCell(destination, destinationRow)
+        // Daten über Stein und Parent vom Stein
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
         let originRow = e.dataTransfer.getData("grandparent")
