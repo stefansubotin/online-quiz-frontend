@@ -207,7 +207,7 @@ class Domino extends Component {
      * und löscht es aus seinem vorherigen Elternelement.
      * Aktualisiert den State und sendet das Update an alle.
      * 
-     * @async
+     * 
      *
      * @param {*} e
      */
