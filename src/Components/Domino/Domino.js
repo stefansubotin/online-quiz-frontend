@@ -168,7 +168,7 @@ class Domino extends Component {
         let ap = dat.activePlayer;
         if (this.state.activePlayer == "") {
             console.log("Aktive Spieler initiiert")
-            return this.state.users[0]
+            this.updaterows(this.state.users[0], this.state.rows)
 
 
         }
