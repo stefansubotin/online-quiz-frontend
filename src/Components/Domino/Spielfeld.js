@@ -171,7 +171,7 @@ class Spielfeld extends Component {
         // Daten über die Zelle 
         let destination = e.currentTarget.id;
         let destinationRow = e.currentTarget.parentNode.id;
-        let destinationCell = getDestinationCell(destination, destinationRow)
+        let destinationCell = this.getDestinationCell(destination, destinationRow)
         // Daten über Stein und Parent vom Stein
         let origin = e.dataTransfer.getData("id")
         let originParent = e.dataTransfer.getData("parent")
@@ -217,7 +217,7 @@ class Spielfeld extends Component {
         // Stein kommt aus dem Feld wenn Parent eine Zahl ist und Zelle ist leer
         else if ((!isNaN(originParent)) && rows1[destinationRow].columns[destinationCell].stone.id == "") {
 
-            originCell = getDestinationCell(originParent, originRow);
+            originCell = this.getDestinationCell(originParent, originRow);
             console.log("originParent + destinationCell + originRow")
             console.log(originParent + "+" + originCell + " + " + originRow)
 
