@@ -81,7 +81,7 @@ class Domino extends Component {
             fO = rows1[cellRow].columns[cell].stone.fO
             d = rows1[cellRow].columns[cell].stone.d
 
-            // Varianten wie der Stein liegt: F|A A/F A|F F/A
+            // Stein Ausrichtung abfangen und neu setzen
             if (!h && fO && !d) {
                 console.log("Von Zustand 1 nach 2")
                 h = false;
