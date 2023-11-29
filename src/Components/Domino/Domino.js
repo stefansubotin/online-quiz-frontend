@@ -358,7 +358,7 @@ class Domino extends Component {
 
         return (
             <ul
-                className={h ? "list-group list-group-horizontal" : "list-group list-group-flush"}
+                className="list-group list-group-flush"
                 id={id}
                 draggable onClick={this.state.user != this.state.activePlayer ? null : (e) => this.handleRotateStone(e)}
                 onDragStart={this.state.user != this.state.activePlayer ? null : (e) => this.handleDragStart(e)}
